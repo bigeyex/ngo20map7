@@ -1,16 +1,14 @@
 <?php
 function O($name='', $tablePrefix='',$connection='') {
-    static $_model  = array();
-    if($name === '')return new Model();
-    if(strpos($name,':')) {
-        list($class,$name)    =  explode(':',$name);
+    $class = ucwords($name).'Model';
+    import('Model/'.$name);
+    
+    if($name!='' && class_exists($class)){
+        $model = new $class($name);
     }else{
-        $class      =   'QnDModel';
+        $model = new QnDModel();
     }
-    $guid           =   $tablePrefix . $name . '_' . $class;
-    if (!isset($_model[$guid]))
-        $_model[$guid] = new $class($name,$tablePrefix,$connection);
-    return $_model[$guid];
+    return $model;
 }
 
 function OO($name){

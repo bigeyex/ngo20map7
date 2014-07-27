@@ -11,7 +11,7 @@ class IndexAction extends Action {
     		}
     	}
     	
-    	$ngo_count = D('user')->with('type', 'ngo')->with('is_checked', 1)->active_only()->count();
+    	$ngo_count = O('user')->with('type', 'ngo')->with('is_checked', 1)->active_only()->count();
     	
 
     	$this->assign('ngo_count', $ngo_count);
@@ -34,16 +34,16 @@ class IndexAction extends Action {
         };
         // build model based on type
         if($type == '公益活动'){
-            $base_model = D('event')->with('type', 'ngo')->attach('user');
+            $base_model = O('event')->with('type', 'ngo')->attach('user');
         }
         else if($type == '企业公益活动'){
-            $base_model = D('event')->with('type', 'csr')->attach('user');
+            $base_model = O('event')->with('type', 'csr')->attach('user');
         }
         else if($type == '对接案例'){
-            $base_model = D('event')->with('type', 'case')->attach('user');
+            $base_model = O('event')->with('type', 'case')->attach('user');
         }
         else{
-            $base_model = D('user')->with('type', 'ngo');
+            $base_model = O('user')->with('type', 'ngo');
         }
         
         if(!empty($province)){
