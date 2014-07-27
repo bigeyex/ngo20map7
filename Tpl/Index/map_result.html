@@ -5,11 +5,11 @@
     <li class="map-item" lng="{$item.longitude}" lat="{$item.latitude}" title="{$item.name}" link="{:U('Event/view')}/id/{$item.id}">
         <a class="item-photo" href="{:U('Event/view')}/id/{$item.id}">
             <div class="photo-wrapper"><img src="{:upimage($item['cover_img'])}" width="312"/></div>
-            <div class="photo-title">{$item.name|short=22}</div>
+            <div class="photo-title">{$item.name|short=12}</div>
         </a>
         <div class="item-org-info">
             <div class="org-logo"><img src="{:upimage($item['user']['image'])}" width="42"/></div>
-            <h4 class="org-name"><a href="{:U('User/view')}/id/{$item.user.id}">{$item.user.name|short=22}</a></h4>
+            <h4 class="org-name"><a href="{:U('User/view')}/id/{$item.user.id}">{$item.user.name|short=12}</a></h4>
             <h4 class="org-city">{$item.province}</h4>
         </div>
     </li>
@@ -21,7 +21,7 @@
         </a>
         <div class="item-org-info">
             <div class="org-logo"><img src="{:upimage($item['image'])}" width="42"/></div>
-            <h4 class="org-name"><a href="{:U('User/view')}/id/{$item.id}">{$item.name|short=22}</a></h4>
+            <h4 class="org-name"><a href="{:U('User/view')}/id/{$item.id}">{$item.name|short=12}</a></h4>
             <h4 class="org-city">{$item.province}</h4>
         </div>
     </li>
