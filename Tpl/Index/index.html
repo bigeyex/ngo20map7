@@ -1,0 +1,162 @@
+<extend name="layout:main"/>
+
+<block name="head">
+{:css('jquery.mCustomScrollbar')}
+</block>
+
+
+<block name="body">
+<div id="hero-region">
+    <div class="slideshow-wrapper">
+          <div class="slideshow">
+            <ul>
+                <li><a href="{:U('Index/map')}"><img src="__APP__/Public/img/photos/hero-image1.jpg"/></a></li>
+                <li><img src="__APP__/Public/img/photos/hero-image2.jpg"/></li>
+                <li><img src="__APP__/Public/img/photos/hero-image3.jpg"/></li>
+                <li><img src="__APP__/Public/img/photos/hero-image4.jpg"/></li>
+            </ul>
+          </div>
+          <div class="icon-slideshow-left"></div>
+          <div class="icon-slideshow-right"></div>
+    </div>
+    
+    <div id="hero-search-bar">
+        <h2>寻找草根公益的人与故事</h2>
+        <p class="sub-title">全国<span class="highlight" title="ngo count">{$ngo_count}</span>公益组织在此分享他们的点滴</p>
+        <form class="form-inline search-filter-form" method="get" action="{:U('Index/map')}">
+            <div class="control-group">
+                <input type="text" name="province" id="search-input-region" placeholder="找地区"/>
+                <i class="icon-dropdown" id="search-input-region-dropdown"></i>
+                <div id="search-input-region-results"></div>
+            </div>
+            <div class="control-group">
+                <input type="text" name="work_field" id="search-input-cause" placeholder="找领域"/>
+                <i class="icon-dropdown" id="search-input-cause-dropdown"></i>
+                <div id="search-input-cause-results"></div>
+            </div>
+            <div class="control-group">
+                <input type="text" name="type" id="search-input-type" placeholder="找机构或企业"/>
+                <i class="icon-dropdown" id="search-input-type-dropdown"></i>
+                <div id="search-input-type-results"></div>
+            </div>
+            <div class="control-group">
+                <input type="text" name="keyword" id="search-input-keyword" class="large" placeholder="搜热词（如：留守儿童）"/>
+                <i class="icon-dropdown" id="search-input-keyword-dropdown"></i>
+                <div id="search-input-keyword-results"></div>
+            </div>
+            <div class="control-group">
+                <input type="submit" class="search-btn" value="搜索"/>
+<!--                <a class="search-btn">搜索</a>-->
+            </div>
+        </form>
+    </div> <!-- hero-search-bar -->
+</div>
+
+<div class="row gray-bg">
+    <div class="container city-guide">
+        <h2>在身边的城市寻找公益</h2>
+        <p class="sub-title">我们在全国各大城市都有分站</p>
+        <div class="sub-container">
+            <div class="column">
+                <div class="city-block city-guangzhou">
+                    <a class="mask" href="javascript:void(0);">
+                        <h3>广州</h3>
+                        <p>有<span class="highlight">586</span>家组织</p>
+                    </a>
+                </div>
+                <div class="city-block city-beijing">
+                    <a class="mask" href="javascript:void(0);">
+                        <h3>北京</h3>
+                        <p>有<span class="highlight">946</span>家组织</p>
+                    </a>
+                </div>
+            </div>
+            <div class="column">
+                <div class="city-block city-anhui">
+                    <a class="mask" href="javascript:void(0);">
+                        <h3>安徽</h3>
+                        <p>有<span class="highlight">340</span>家组织</p>
+                    </a>
+                </div>
+                <div class="city-block city-hunan">
+                    <a class="mask" href="javascript:void(0);">
+                        <h3>湖南</h3>
+                        <p>有<span class="highlight">587</span>家组织</p>
+                    </a>
+                </div>
+            </div>
+            <div class="column">
+                <div class="register-block">
+                    <h3>现在注册地图</h3>
+                    <p>和<span class="highlight">2300</span>公益机构<br/>企业和志愿者做朋友</p>
+                    <a class="join-link" href="#">加入地图</a>
+                </div>
+            </div>
+        </div> <!-- sub-container -->
+        <div class="more-link">
+            <a href="#">查看更多城市</a>
+        </div>
+    </div>
+</div>
+
+<div class="row white-bg">
+    <div class="container brand-icons">
+        <h2>大家一起做公益</h2>
+        <p class="sub-title">每个人都可以找到自己的公益伴侣</p>
+        <div class="sub-container">
+            <div class="column column-ngo">
+                <div class="brand-icon brand-icon-ngo"></div>
+                <h3>公益机构</h3>
+                <p>看看企业资助方都在关心什么</p>
+            </div>
+            <div class="column column-csr">
+                <div class="brand-icon brand-icon-csr"></div>
+                <h3>企业</h3>
+                <p>寻找值得合作的公益机构</p>
+            </div>
+            <div class="column column-ind">
+                <div class="brand-icon brand-icon-ind"></div>
+                <h3>公益人</h3>
+                <p>了解公益知道去哪里帮忙</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row gray-bg">
+    <div class="container story-showcase">
+        <h2>每个公益机构都有一个故事</h2>
+        <p class="sub-title">聆听这片土地上发生的感动</p>
+        <div class="slideshow" id="story-showcase-slideshow">
+            <ul>
+            	<?php foreach($news as $piece): ?>
+                <li><a href="{$piece.url}" target="_blank">
+                    <div class="hover-text">
+                        <h3>{$piece.org_name}</h3>
+                        <p>{$piece.name}</p>
+                    </div>
+                    <img class="lazy" src="__APP__/Public/img/grey.png" data-original="__APP__/Public/Uploaded/{$piece.image}" width="313px"/>
+                </a></li>
+	            <?php endforeach; ?>
+            </ul>
+        </div>
+        <div class="slideshow-control">
+            <a class="left-arrow" href="javascript:void(0);"></a>
+            <a class="right-arrow" href="javascript:void(0);"></a>
+        </div>
+    </div>
+</div>
+</block>
+
+
+<block name="script-before">
+	
+{:js('jquery.jcarousel.min')}
+{:js('jquery.lazyload.min')}
+<script>
+	{:C('COMPLETION_SCRIPT')}
+</script>
+{:js('homepage')}
+</block>
+<block name="script-after">
+</block>

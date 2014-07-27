@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 8]>
+
+<html lang="zh-cn"
+      
+      xmlns:fb="http://ogp.me/ns/fb#"
+      class="ie">
+
+<![endif]-->
+
+<!--[if IE 8]>
+
+<html lang="zh-cn"
+      
+      xmlns:fb="http://ogp.me/ns/fb#"
+      class="ie ie8">
+
+<![endif]-->
+
+<!--[if IE 9]>
+
+  <html lang="zh-cn"
+      
+      xmlns:fb="http://ogp.me/ns/fb#"
+      class="ie ie9">
+
+<![endif]-->
+
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="zh-cn"
+      
+      xmlns:fb="http://ogp.me/ns/fb#">
+
+<!--<![endif]-->
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><block name="title"></block> 公益地图</title>
+        {:css('jquery-ui')}
+        {:css('bootstrap')}
+        {:css('homepage')}
+
+        
+    <block name="head">
+    </block>
+        {:css()}
+  </head>
+  
+<body>
+
+<div id="header" class="navbar navbar-top">
+  <div class="navbar-inner">
+    <div class="container container-full-width page-container page-container-responsive navbar-container">
+      <a href="/" class="brand NGO20">NGO20</a>
+      <ul class="nav hide-phone">
+        <li id="header-search">
+         <form action="/s" id="search-form">
+           <div id="search-bar">
+             <i class="icon icon-search-homepage"></i>
+             <input type="text" placeholder="输入你感兴趣的" autocomplete="off" name="location" id="header-location">
+           </div>
+         </form>
+        </li>
+      </ul>
+      <ul class="nav pull-right help-menu hide-phone" style="margin-left:0;">
+        
+        <li class="list-your-space hide-phone">
+          <a id="create-event-button" class="" href="#">发布活动</a>
+        </li>
+      </ul>
+      <ul class="nav pull-right logged-out">
+        <li id="sign_up"><a data-signup-modal="" href="#">注册</a></li>
+        <li id="login"><a data-login-modal="" href="#">登录</a></li>
+        <li id="login"><a data-login-modal="" href="#">中文/Eng<i class="icon-dropdown"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<block name="body"></block>
+<block name="footer">
+<div id="footer">
+    <p class="primary-links"><a href="http://www.ngo20.org/?page_id=2">关于我们</a> &nbsp;|&nbsp; <a href="http://www.ngo20.org/">项目首页</a> &nbsp;|&nbsp; <a href="mailto:info@ngo20.org">联系我们</a> &nbsp;|&nbsp; 6.0 beta (github) </p>
+    <p>&copy; 2012 公益2.0项目 · 地图中的内容采用 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a> 进行许可。</p>
+    <p>设计: 向帆 陈伯冰 万伟祥 &nbsp;·&nbsp; 开发: NGO20技术团队</p>
+    <p><a href="http://www.miibeian.gov.cn/">皖ICP备10014970号-2</a></p>
+</div>
+
+<div class="ui-front"></div>
+</block>
+<script>
+    var app_path="__APP__";
+</script>
+
+{:js('jquery-1.11.1.min')}
+{:js('jquery-ui.min')}
+<block name="script-before"></block>
+{:js()}
+<block name="script-after"></block>
+
+</body>
+</html>

@@ -1,0 +1,596 @@
+body{
+    background-color: #cecece;
+    color: #3d3d3d;
+}
+
+ul{
+    margin: 0;
+}
+
+li{
+    list-style: none;
+}
+
+.left-column{
+    float: left;
+    width: 642px;
+}
+
+.right-column{
+    float: left;
+    width: 300px;
+    margin-left: 17px;
+}
+
+.block, #org-location img, h2.header{
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+            border-radius: 2px;
+}
+
+.block{
+    background-color: white;
+    margin-bottom: 18px;
+}
+
+ul.ui-tabs-nav{
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+            border-radius: 2px;
+}
+
+#org-header{
+    position: relative;
+}
+
+#org-header h1{
+    font-size: 38px;
+    margin-top: 39px;
+}
+
+#org-header p.sub-title{
+    margin-top: 13px;
+    margin-bottom: 16px;
+}
+
+.share-buttons{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.share-button-sina, .share-button-qq{
+    display: block;
+    height: 20px;
+    text-indent: -9999px;
+    display: inline-block;
+}
+
+.share-button-sina{
+    background: url(../img/icons/weibo-share.png) no-repeat;
+    width: 83px;
+    margin-right: 8px;
+}
+
+.share-button-qq{
+    background: url(../img/icons/qq-share.png) no-repeat;
+    width: 75px;
+}
+
+
+#project-navigation{
+    position: relative;
+}
+
+#map-container{
+    width: 625px;
+    height: 324px;
+    background: url(../img/maploading.jpg) no-repeat;
+}
+
+#org-intro{
+    padding: 35px 30px;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.project-list-image{
+    float: right;
+    max-width: 120px;
+    max-height: 63px;
+    margin-top: 3px;
+}
+
+#org-projects{
+    padding: 23px 20px;
+}
+
+#org-projects li{
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom: 15px;
+}
+
+#org-projects h3{
+    font-size: 18px;
+    margin: 0 0 4px;
+    line-height: 20px;
+}
+
+#org-projects .text-content{
+    padding: 0 20px 0 10px;
+}
+
+#org-projects .text-content p{
+    font-size: 14px;
+    line-height: 23px;
+}
+
+#org-info{
+    padding-bottom: 90px;
+}
+
+#org-info h3{
+    font-size: 18px;
+    margin: 0;
+}
+
+#org-info .row{
+    border-bottom: 1px solid #cdcdcd;
+    margin-left: 13px;
+    margin-right: 13px;
+    padding-bottom: 16px;
+}
+
+#org-info .span-5{
+    width: 285px;
+    padding: 7px 5px;
+    margin-left: 0;
+}
+
+#org-info p{
+    font-size: 14px;
+    margin-bottom: 4px;
+    line-height: 16px;
+}
+
+
+
+/* right column */
+
+h2.header{
+    margin: 0;
+    font-size: 20px;
+    background-color: #efefef;
+    padding: 2px 14px 2px;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.zan-box{
+    padding: 18px 38px 15px;
+}
+
+.zan-box a:hover{
+    text-decoration: none;
+}
+
+.zan-icon{
+    width: 58px;
+    height: 44px;
+    background: url(../img/zan-heart.png) no-repeat;
+    display: block;
+    margin-left: 20px;
+    float: left;
+}
+
+.zan-text, .zan-subtext{
+    margin-left: 91px;
+}
+
+.zan-text{
+    font-size: 18px;
+    color: #3d3d3d;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+}
+
+.zan-subtext{
+    font-size: 14px;
+    color: #8b8d8d;
+    margin-bottom:  0;
+    letter-spacing: 2px;
+}
+
+.similar-orgs li{
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.similar-orgs img.avatar{
+    float: left;
+    margin: 6px 13px 0;
+    border: 1px solid #cdcdcd;
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+            border-radius: 2px;
+    height: 74px;
+    width: 74px;
+}
+
+.similar-orgs p.name{
+    color: #3d3d3d;
+    margin-left: 106px;
+    margin-bottom: 0;
+    height: 56px;
+    padding-top: 31px;
+}
+
+#footer{
+    border-top: none;
+    background-color: #ababab;
+    margin-top: 61px;
+}
+
+/** Stage container **/
+
+.connected-carousels .stage {
+    width: 620px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.connected-carousels .photo-credits {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+    opacity: .66;
+}
+
+.connected-carousels .photo-credits a {
+    color: #fff;
+}
+
+/** Navigation container **/
+
+.connected-carousels .navigation {
+    width: 260px;
+    margin: 20px auto;
+    position: relative;
+}
+
+/** Shared carousel styles **/
+
+.connected-carousels .carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.connected-carousels .carousel ul {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.connected-carousels .carousel li {
+    float: left;
+}
+
+.carousal-stage li{
+    
+    width:  628px;
+    overflow: hidden;
+}
+
+/** Stage carousel specific styles **/
+
+.connected-carousels .carousel-stage { 
+            
+}
+
+/** Navigation carousel specific styles **/
+
+.connected-carousels .carousel-navigation {
+    height: 47px;
+    width: 240px;
+    background: #fff;        
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.connected-carousels .carousel-navigation li {
+    cursor: pointer;
+    margin-left: 3px;
+}
+
+.connected-carousels .carousel-navigation li.active{
+    overflow: hidden;
+    border: 2px solid #319b02;
+    width: 72px;
+    height: 35px;
+}
+
+.connected-carousels .carousel-navigation li img {
+    display: block;
+    
+}
+
+.connected-carousels .carousel-navigation li.active img {
+    margin-top: -1px;
+    margin-left: 0px;
+    
+}
+
+/** Stage carousel controls **/
+
+/** Navigation carousel controls **/
+
+.connected-carousels .prev-navigation,
+.connected-carousels .next-navigation {
+    display: block;
+    position: absolute;
+    width: 34px;
+    height: 34px;
+}
+
+.connected-carousels .prev-navigation {
+    left: 6px;
+    top: 5px;
+    background: url(../img/icons/project-slideshow-left.png) no-repeat;
+}
+
+.connected-carousels .next-navigation {
+    right: 6px;
+    top: 5px;
+    background: url(../img/icons/project-slideshow-right.png) no-repeat;
+}
+
+.connected-carousels .prev-navigation.inactive,
+.connected-carousels .next-navigation.inactive {
+}
+
+.medals{
+    position: absolute;
+    right: 0;
+    bottom: 26px;
+}
+
+.medals li{
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.medals li a {
+    width: 22px;
+    height: 26px;
+    display: block;
+}
+
+
+.medal-1{
+    background: url(../img/icons/medals/medal1.png) no-repeat;
+}
+
+.medal-2{
+    background: url(../img/icons/medals/medal2.png) no-repeat;
+}
+
+.medal-3{
+    background: url(../img/icons/medals/medal3.png) no-repeat;
+}
+
+
+
+
+/* page: publish_event */
+.form-container{
+    width: 664px;
+    padding-right: 161px;
+}
+
+.publish-event h1{
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 32px;
+    margin-left: 161px;
+    margin-top: 50px;
+}
+
+.h1-subtitle{
+    text-align: center;
+    font-size: 16px;
+    color: #747474;
+    margin-left: 161px;
+    line-height: 29px;
+    letter-spacing: 1px;
+    padding-top: 5px;
+    padding-bottom: 29px;
+}
+
+.submit-button{
+    padding-top: 16px;
+    margin-left: 161px;
+    text-align: center;
+}
+
+.submit-button .button{
+    padding: 9px 24px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background-color: none;
+	border: solid 1px #e6b600;
+    color: #393c3d;
+    font-size: 16px;
+	background-image: -webkit-linear-gradient(bottom, #fed72f, #fde65c);
+	background-image: -moz-linear-gradient(bottom, #fed72f, #fde65c);
+	background-image: -o-linear-gradient(bottom, #fed72f, #fde65c);
+	background-image: linear-gradient(to top, #fed72f, #fde65c);
+}
+
+.publish-event input, .publish-event textarea, .select-pills{
+    padding: 10px;
+    border: 1px solid #a6a5a5;
+}
+
+.publish-event .control-label{
+    font-size: 20px;
+    width: 164px;
+    padding: 10px 0px 10px 0;
+    letter-spacing: 1px
+}
+
+.map-input input{
+    -webkit-border-radius: 4px 4px 0 0;
+       -moz-border-radius: 4px 4px 0 0;
+            border-radius: 4px 4px 0 0;
+}
+
+.map-input-box{
+    background: white;
+    border: 1px solid #a6a5a5;
+    border-top: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30) inset;
+    -webkit-border-radius: 0 0 4px 4px;
+       -moz-border-radius: 0 0 4px 4px;
+            border-radius: 0 0 4px 4px;
+}
+
+.time-input .input{
+    width: 269px;
+}
+
+.time-input .arrow-down{
+    display: block;
+    width: 15px;
+    height: 17px;
+    background: url(../img/icons/timespan-arrow.png) no-repeat;
+    margin: 3px 0px 8px 145px;
+}
+
+.time-input .after-text{
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+/* dropdown arrow */
+.control-group .controls, .control-group .group{
+    position: relative;
+}
+
+.controls .icon-dropdown{
+    position: absolute;
+    top: 13px;
+    right: -8px;
+    pointer-events: none 
+}
+
+.group .icon-dropdown{
+    top: 13px;
+    left: 263px;
+}
+
+
+
+
+/* jquery Plugin: pill select box */
+.select-pills{
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    height: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.select-pills ul{
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: #f0f0f0;
+	border: solid 1px rgba(6,0,1,.2);
+    padding: 13px 8px 0;
+    width: 484px;
+    z-index: 1;
+}
+
+.select-pills li{
+    display: inline-block;
+    min-width: 96px;
+    margin-bottom: 13px;
+    text-align: center;
+}
+
+.select-pills li a{
+    color: #000000;
+    font-size: 14px;
+    padding: 5px;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.select-pills a:hover{
+    text-decoration: none;
+}
+
+.select-pills a.selected{
+    background-color: #219a00;
+    color: white;
+}
+
+.datepicker{
+    background-color: #f0f0f0;
+	border: solid 1px rgba(6,0,1,.2);
+    box-shadow: none;
+    width: 281px;
+}
+
+.datepicker th{
+    font-weight: normal;
+}
+
+.datepicker th.dow{
+    border-bottom: 1px solid #cecece;
+}
+
+.datepicker .table-condensed td,.datepicker .table-condensed th{
+    padding: 1px 5px;
+}
+
+.datepicker .table-condensed th:first-child{
+    padding: 2px 5px;
+}
+
+.datepicker td b{
+    font-weight: normal;
+}
+
+.datepicker td.active:hover, .datepicker td.active:hover:hover, .datepicker td.active:focus, .datepicker td.active:hover:focus, .datepicker td.active:active, .datepicker td.active:hover:active, .datepicker td.active.active, .datepicker td.active:hover.active, .datepicker td.active.disabled, .datepicker td.active:hover.disabled, .datepicker td.active[disabled], .datepicker td.active:hover[disabled] {
+    background: none;
+}
+
+.datepicker td.active b{
+    background-color: #219a00;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+    padding: 2px 3px;
+}
+
+.datepicker th.prev, .datepicker th.prev:hover, .datepicker th.next{
+    text-indent: -9999px;
+    background: url(../img/icons/tiny-arrow-left.png) 10px 5px no-repeat;
+}
+
+ .datepicker th.next{
+         background: url(../img/icons/tiny-arrow-right.png) 20px 5px no-repeat;
+ }
+
+/*
+.datepicker th:hover{
+    background: url(../img/icons/tiny-arrow-left.png) 10px 5px no-repeat;
+}*/

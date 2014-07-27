@@ -1,0 +1,56 @@
+<extend name="layout:main"/>
+
+<block name="head">
+{:css('jquery.mCustomScrollbar')}
+{:css('org-home')}
+</block>
+
+
+<block name="body">
+
+
+<div class="right-fixed-column">
+    <div class="filter-search-bar form-inline">
+            <div class="control-group">
+                <input type="text" id="search-input-region" class="filter-input" placeholder="找地区"/>
+                <i class="icon-dropdown" id="search-input-region-dropdown"></i>
+                <div id="search-input-region-results"></div>
+            </div>
+            <div class="control-group">
+                <input type="text" id="search-input-cause" class="filter-input" placeholder="找领域"/>
+                <i class="icon-dropdown" id="search-input-cause-dropdown"></i>
+                <div id="search-input-cause-results"></div>
+            </div>
+            <div class="control-group">
+                <input type="text" id="search-input-type" class="filter-input" placeholder="找机构或企业"/>
+                <i class="icon-dropdown" id="search-input-type-dropdown"></i>
+                <div id="search-input-type-results"></div>
+            </div>
+            <div class="control-group search-keywords">
+                <input type="text" id="search-input-keyword" class="filter-input large" placeholder="搜热词（如：留守儿童）"/>
+                <div id="search-input-keyword-results"></div>
+            </div><!--
+         --><a class="commit-search-button" href="javascript:void(0);">搜索<i class="white-mag-glass"></i></a>
+    </div> <!-- filter-search-bar -->
+    <div class="result-panel">
+        {:R('Index/map_result', array($_GET))}
+    </div>
+</div>
+
+<div class="left-fluid-column"><div id="main-map-container" style="height: 100%"></div></div>
+
+</block>
+
+
+<block name="script-before">
+	
+{:js('jquery.jcarousel.min')}
+<script>
+	{:C('COMPLETION_SCRIPT')}
+</script>
+{:js('index-map')}
+</block>
+<block name="script-after">
+</block>
+<block name="footer">
+</block>

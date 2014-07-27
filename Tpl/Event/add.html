@@ -1,0 +1,88 @@
+<extend name="layout:main"/>
+
+<block name="head">
+{:css('datepicker')}
+{:css('org-home')}
+</block>
+
+
+<block name="body">
+
+
+<div class="container form-container publish-event">
+    <h1>发布你的活动</h1>
+    <p class="h1-subtitle">在这里，通过填写和发布你的活动内容，将会在你的个人页面或<br/>首页等页面看到你的活动，让更多人了解你的故事。</p>
+    <form class="form-horizontal ">
+        <div class="control-group">
+            <label class="control-label" for="inputName">活动名称</label>
+            <div class="controls">
+              <input type="text" id="inputName" class="input-large" placeholder="请在20字数内表述清楚">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputDesc">活动详情</label>
+            <div class="controls">
+              <textarea id="inputDesc" class="input-large" rows="5" placeholder="请用一段简短的话来描述您的活动"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPlace">活动地点</label>
+            <div class="controls map-input">
+              <input type="text" id="inputName" class="input-large map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标">
+              <input type="hidden" name="longitude" class="map-longitude">
+              <input type="hidden" name="latitude" class="map-latitude">
+              <input type="hidden" name="province" class="map-province">
+              <input type="hidden" name="city" class="map-city">
+              <div class="map-input-box" id="map-input-box" style="height: 217px; width: 500px"></div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPlace">活动领域</label>
+            <div class="controls">
+              <input type="text" id="inputName" class="input-large pill-select" data-options="医疗卫生健康,女性权利,儿童青少年,教育助学,艾滋病,灾害管理,文化艺术,环境保护,农村发展,城市社区建设,劳工权益,同性恋,政策倡导,信息网络,公益行业支持,社会企业,动物福利,老年人,民间研究机构,企业社会责任,残障人士,综合志愿服务,其它" placeholder="妇女儿童">
+              <i class="icon-dropdown"></i>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPlace">活动需求</label>
+            <div class="controls">
+              <input type="text" id="inputName" class="input-large pill-select" placeholder="资金" data-options="需要合作方,媒体需求,物资需求,资金需求,志愿者需求">
+              <i class="icon-dropdown"></i>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPlace">活动时间</label>
+            <div class="controls time-input">
+              <div class="group">
+                  <input type="text" id="inputName" class="input datepicker" data-date-format="yyyy年m月dd日"  placeholder="2014年6月22日">
+                  <i class="icon-dropdown"></i>
+                  <span class="after-text">（开始时间）</span>
+              </div>
+              <i class="arrow-down"></i>
+              <div class="group">
+                  <input type="text" id="inputName" class="input datepicker" data-date-format="yyyy年m月dd日" placeholder="2014年6月22日">
+                  <i class="icon-dropdown"></i>
+                  <span class="after-text">（结束时间）</span>
+              </div>
+            </div>
+        </div>
+        
+        <div class="submit-button">
+            <button class="button">发布</button>
+        </div>
+    </form>
+</div>
+
+
+</block>
+
+
+<block name="script-before">
+{:js('bootstrap-datepicker')}
+
+</block>
+<block name="script-after">
+{:js('-event-add')}
+</block>
+<block name="footer">
+</block>

@@ -1,0 +1,7 @@
+sftp-config.json
+/Public/Uploaded
+/Public/cache
+/Public/UploadedThumb
+/Runtime
+.DS_Store
+.DS_Store
