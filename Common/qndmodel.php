@@ -6,7 +6,7 @@ function O($name='', $tablePrefix='',$connection='') {
     if($name!='' && class_exists($class)){
         $model = new $class($name);
     }else{
-        $model = new QnDModel();
+        $model = new QnDModel($name);
     }
     return $model;
 }

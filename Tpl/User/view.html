@@ -32,10 +32,9 @@
                 <div id="tab-photos">
                     <div class="carousel carousel-stage">
                         <ul>
-                            <li><img src="img/photos/project-photo1.jpg" width="628"/></li>
-                            <li><img src="img/photos/project-photo1.jpg" width="628"/></li>
-                            <li><img src="img/photos/project-photo1.jpg" width="628"/></li>
-                            <li><img src="img/photos/project-photo1.jpg" width="628"/></li>
+                            <?php foreach ($event_media as $photo): ?>
+                                <li><a href="{:U('Event/view')}/id/{$photo.event_id}"><img src="{:upimage($photo['url'])}" width="628"/></a></li>
+                            <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
@@ -48,10 +47,9 @@
                 <a href="javascript:void(0);" class="next next-navigation"></a>
                 <div class="carousel carousel-navigation">
                     <ul>
-                        <li><img src="img/photos/project-thumb1.jpg"/></li>
-                        <li><img src="img/photos/project-thumb1.jpg"/></li>
-                        <li><img src="img/photos/project-thumb1.jpg"/></li>
-                        <li><img src="img/photos/project-thumb1.jpg"/></li>
+                        <?php foreach ($event_media as $photo): ?>
+                            <li><img src="{:upimage($photo['url'])}" width="74"/></li>
+                        <?php endforeach ?>
                     </ul>
                 </div>
             </div>
@@ -64,55 +62,45 @@
                     <li><a href="#org-info">机构资料</a></li>
                 </ul>
                 <div id="org-intro">
-                    北京首家合法动保组织。土华流浪动物救助站由李先生于2009年中旬创办。未创办前，李先生只是做简单的宠物狗寄养服务。在北京市颁布了“每户只能饲养一条宠物狗”和“宠物狗必须上牌”的管理条例后，街上的流浪狗骤然增多。刚开始，李先生只是把受伤的流浪狗带回去进行救治，等它们养好伤后，在网上发帖或者找朋友来领养它们，妥善安置。后来，由于捡回来的流浪狗数目越来越多，但领养的人却很少，于是便创办了救助站。
-<br/><br/>
-创办初期，因为没有人知道这个个人救助流浪动物的组织，李先生几乎一个人包揽了一切照顾流浪动物们的活：救治、打针、喂饭、搞卫生等等。经过了一段时间，陆续有热心人士知道了这个救助站。刚开始，他们会抱着怀疑的态度质疑李先生的动机，但到最后，还是会被李先生的爱心和真诚所感动，自发参加救助站的义务工作，义工人数开始增加
+                    {$user.intro|strip_tags|nl2br}
                 </div>
                 <div id="org-projects">
                     <ul>
+                        <?php foreach ($events as $event): ?>
                         <li>
-                            <img class="project-list-image" src="img/project-list-thumb.jpg"/>
-                            <div class="text-content">
-                                <h3>动物保护与教育</h3>
-                                <p>通过在动物保护教育基地开展动物保护的互动教育，生动形象的让民众理解动物权利，福利，从而改善动物的生存状况。</p>
+                            <div class="project-list-image">
+                                <a href="{:U('Event/view')}/id/{$event.id}">
+                                    <img src="{:upimage($event['cover_img'])}" width="120"/>
+                                </a>
                             </div>
-                        </li>
-                        <li>
-                            <img class="project-list-image" src="img/project-list-thumb.jpg"/>
                             <div class="text-content">
-                                <h3>动物保护与教育</h3>
-                                <p>通过在动物保护教育基地开展动物保护的互动教育，生动形象的让民众理解动物权利，福利，从而改善动物的生存状况。</p>
+                                <h3><a href="{:U('Event/view')}/id/{$event.id}">{$event.name}</a></h3>
+                                <p>{$event.intro|mb_substr=0,50}</p>
                             </div>
-                        </li>
-                        <li>
-                            <img class="project-list-image" src="img/project-list-thumb.jpg"/>
-                            <div class="text-content">
-                                <h3>动物保护与教育</h3>
-                                <p>通过在动物保护教育基地开展动物保护的互动教育，生动形象的让民众理解动物权利，福利，从而改善动物的生存状况。</p>
-                            </div>
-                        </li>
+                        </li> 
+                        <?php endforeach ?>
                     </ul>
                 </div> <!-- a tab -->
                 <div id="org-info">
                         <div class="row">
                             <div class="span-5">
                                 <h3>办公地址</h3>
-                                <p>北京市市辖区房山区琉璃河二街34号</p>
+                                <p>{$user.place}</p>
                             </div>
                             <div class="span-5">
                                 <h3>联系方式</h3>
-                                <p>韦春景 01089389139</p>	
-                                <p>shibokang@163.com </p>
+                                <p>{$user.contact_name} {$user.phone}</p>	
+                                <p>{$user.public_email}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="span-5">
                                 <h3>服务区域</h3>
-                                <p>脑瘫、自闭症、多动症，注意力障碍</p>
+                                <p>{$user.service_area}</p>
                             </div>
                             <div class="span-5">
                                 <h3>关注领域</h3>
-                                <p>妇女儿童,健康扶助,支持型NGO</p>	
+                                <p>{$user.work_field}</p>	
                             </div>
                         </div>
                 </div>
@@ -122,7 +110,7 @@
     <div class="right-column">
         <div class="block" id="org-location">
             <h2 class="header">机构地址</h2>
-            <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers=116.403874,39.914888&zoom=10&markerStyles=l,,0x2166c8"/>
+            <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers={$user.longitude},{$user.latitude}&zoom=10&markerStyles=l,,0x2166c8"/>
         </div>
         <div class="block zan-box">
             <a href="#">
@@ -134,30 +122,14 @@
         <div class="block similar-orgs">
             <h2 class="header">相似机构</h2>
             <ul>
-                <li>
-                    <a href="#">
-                        <img class="avatar" src="img/ngo-logo1.jpg"/>
-                        <p class="name">天津恩光动物救助中心</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img class="avatar" src="img/ngo-logo2.jpg"/>
-                        <p class="name">保定爱心志愿者联盟</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img class="avatar" src="img/ngo-logo3.jpg"/>
-                        <p class="name">茂县九顶山野生动植物之....</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img class="avatar" src="img/ngo-logo4.jpg"/>
-                        <p class="name">拒绝皮草 爱在石大</p>
-                    </a>
-                </li>
+                <?php foreach ($related_users as $r): ?>
+                    <li>
+                        <a href="{:U('User/view')}/id/{$r.id}">
+                            <img class="avatar" src="{:upimage($r['cover_img'])}"/>
+                            <p class="name">{$r.name}</p>
+                        </a>
+                    </li>
+                <?php endforeach ?>
             </ul>
         </div>
     </div>

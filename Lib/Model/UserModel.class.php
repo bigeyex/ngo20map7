@@ -17,6 +17,11 @@ class UserModel extends QnDModel{
     function active_only(){
         return $this->with('is_checked', 1)->with('enabled', 1);
     }
+
+    function get_event_media($user_id){
+        $sql = "select * from media where type='image' and event_id in (select id from event where user_id=".escape_sql($user_id).')';
+        return $this->query($sql);
+    }
     
     function recommend($user, $number=4){
         $fields = preg_split("/[\s,]+/", escape_sql($user['work_field'])); 

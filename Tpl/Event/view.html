@@ -1,0 +1,77 @@
+<extend name="layout:main"/>
+
+<block name="head">
+{:css('org-home')}
+</block>
+
+
+<block name="body">
+
+
+
+<div class="container master-container">
+    <div id="org-header">
+        <h1><a href="{:U('User/view')}/id/{$user.id}">{$user.name}</a></h1>
+        <p class="sub-title">{$user.aim}</p>
+        <ul class="medals">
+            <li><a class="medal-1" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
+            <li><a class="medal-2" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
+            <li><a class="medal-3" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
+        </ul>
+        <div class="share-buttons">
+            分享到： <a href="#" class="share-button-sina">新浪微博</a><a href="#" class="share-button-qq">QQ空间</a>
+        </div>
+    </div>
+    <div class="left-column">
+        <div class="block event-intro" id="">
+            <h3 class="event-title">{$event.name}</h3>
+            <p>{$event.intro|nl2br}</p>
+            <?php foreach ($media as $item): ?>
+                <?php if ($item['type']=='image'): ?>
+                    <img src="{:upimage($item['url'])}"/>
+                <?php elseif ($item['type']=='video'): ?>
+                    {$item.url2}
+                <?php endif ?>
+            <?php endforeach ?>
+        </div>
+    </div>
+    <div class="right-column">
+        <div class="block" id="org-location">
+            <h2 class="header">项目地址</h2>
+            <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers={$event.longitude},{$event.latitude}&zoom=10&markerStyles=l,,0x2166c8"/>
+        </div>
+        <div class="block zan-box">
+            <a href="#">
+                <i class="zan-icon"></i>
+                <p class="zan-text">点个赞</p>
+                <p class="zan-subtext">已被点赞237次</p>
+            </a>
+        </div>
+        <div class="block similar-orgs">
+            <h2 class="header">相似机构</h2>
+            <ul>
+                <?php foreach ($related_users as $r): ?>
+                    <li>
+                        <a href="{:U('User/view')}/id/{$r.id}">
+                            <img class="avatar" src="{:upimage($r['cover_img'])}"/>
+                            <p class="name">{$r.name}</p>
+                        </a>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</block>
+
+
+<block name="script-before">
+{:js('jquery.jcarousel.min')}
+{:js('jcarousel.connected-carousels')}
+</block>
+<block name="script-after">
+{:js('-user-home')}
+</block>
+<block name="footer">
+</block>

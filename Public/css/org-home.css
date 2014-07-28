@@ -11,6 +11,10 @@ li{
     list-style: none;
 }
 
+h1 a, h2 a, h3 a{
+    color: #3d3d3d;
+}
+
 .left-column{
     float: left;
     width: 642px;
@@ -51,6 +55,7 @@ ul.ui-tabs-nav{
 #org-header p.sub-title{
     margin-top: 13px;
     margin-bottom: 16px;
+    width: 700px;
 }
 
 .share-buttons{
@@ -99,6 +104,7 @@ ul.ui-tabs-nav{
     max-width: 120px;
     max-height: 63px;
     margin-top: 3px;
+    overflow: hidden;
 }
 
 #org-projects{
@@ -108,12 +114,17 @@ ul.ui-tabs-nav{
 #org-projects li{
     border-bottom: 1px solid #cdcdcd;
     margin-bottom: 15px;
+    height: 81px;
 }
 
 #org-projects h3{
     font-size: 18px;
     margin: 0 0 4px;
     line-height: 20px;
+}
+
+#org-projects h3 a{
+    color: #3d3d3d;
 }
 
 #org-projects .text-content{
@@ -278,9 +289,9 @@ h2.header{
     float: left;
 }
 
-.carousal-stage li{
-    
+.carousel-stage li{
     width:  628px;
+    height: 326px;
     overflow: hidden;
 }
 
@@ -303,6 +314,9 @@ h2.header{
 .connected-carousels .carousel-navigation li {
     cursor: pointer;
     margin-left: 3px;
+    width: 74px;
+    height: 39px;
+    overflow: hidden;
 }
 
 .connected-carousels .carousel-navigation li.active{
@@ -594,3 +608,7 @@ h2.header{
 .datepicker th:hover{
     background: url(../img/icons/tiny-arrow-left.png) 10px 5px no-repeat;
 }*/
+
+.event-intro{
+    padding: 10px 30px;
+}
