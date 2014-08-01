@@ -1,0 +1,17 @@
+form{
+    margin:0;
+}
+
+.pager-brief{
+    float: right;
+    color: #555;
+    padding-top: 11px;
+}
+
+#admin-actions{
+    margin: 10px 0;
+}
+
+.pagination{
+    margin: 10px 0;
+}

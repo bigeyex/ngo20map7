@@ -2,8 +2,47 @@
        loadBaiduMap();
        $('.pill-select').pillSelectBox();
        $('.datepicker').datepicker();
+
+       // jquery upload and crop
+       if($().fileupload!==undefined){
+          $('.fileupload').fileupload({
+              dataType: 'json',
+              done: function (e, data) {
+                  $('.crop-img,.preview-img').attr('src', app_path+'/Public/Uploaded/'+data.result.url);
+                  $.fancybox.open({
+                    href:"#crop-dialog",
+                    afterShow: function(){
+                      var showPreview = function(coords){
+                        var rx = 100 / coords.w;
+                        var ry = 100 / coords.h;
+                        $('.preview-img').css({
+                          width: Math.round(rx * $('.crop-img').width()) + 'px',
+                          height: Math.round(ry * $('.crop-img').height()) + 'px',
+                          marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+                          marginTop: '-' + Math.round(ry * coords.y) + 'px'
+                        });
+                      };
+                      var original_img = $('.crop-img');
+                      if(original_img.height()>400 && original_img.height()>original_img.width()){
+                        original_img.height(400);
+                      }
+                      else if(original_img.width()>500 && original_img.width()>original_img.height()){
+                        original_img.width(400);
+                      }
+                      
+                      $('.crop-img').Jcrop({
+                        aspectRatio: 1,
+                        onChange: showPreview,
+                        onSelect: showPreview,
+                      });
+                    }
+                  });
+                  
+                  $('input[name="image"]').val(data.result.url);
+              }
+          });
+       }
    });
-   
    function loadBaiduMap(){
        var script = document.createElement("script");
        script.src = "http://api.map.baidu.com/api?v=1.5&ak=1m5xok7fCAjkwvynKoxxEnb1&callback=onBaiduMapLoaded";

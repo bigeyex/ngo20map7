@@ -1,0 +1,314 @@
+
+#search-form {
+    margin: 7px 0 0;
+    position: relative;
+}
+
+.navbar .brand.NGO20 {
+    background-image: url(../img/ngo20-logo.png);
+    text-indent: -9999px;
+    width: 123px;
+    height: 46px;
+    padding: 0;
+    
+}
+
+#header-search {
+    padding-left: 27px;
+}
+
+.icon-search-homepage{
+  background: url(../img/search-icon.png) no-repeat;
+  height: 14px;
+  position: absolute;
+  width: 14px;
+  left: 8px;
+  top: 8px;
+}
+
+#create-event-button {
+    width: 132px;
+	
+    height: 33px;
+    padding: 0;
+    margin-bottom: 9px;
+    color: #393c3d;
+    font-size: 16px;
+    line-height: 33px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	background-color: #fff;
+	border: solid 1px #e6b600;
+	background-image: -webkit-linear-gradient(bottom, #fed72f, #fde65c);
+	background-image: -moz-linear-gradient(bottom, #fed72f, #fde65c);
+	background-image: -o-linear-gradient(bottom, #fed72f, #fde65c);
+	background-image: linear-gradient(to top, #fed72f, #fde65c);
+    box-shadow: none;
+    text-shadow: none;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.logged-out {
+    padding-top: 1px;
+}
+
+
+/* header login part */
+.login-box{
+  width: 275px;
+}
+
+.login-box input, .qq-signup, .weibo-signup, .login-button{
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.login-box input{
+  border: 1px solid #dce1e1;
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 6px;
+}
+
+.login-box input[type="password"]{
+  padding: 20px 10px;
+}
+
+.qq-signup, .weibo-signup{
+  padding: 10px 27px 10px 38px;
+  font-size: 16px;
+  position: relative;
+  text-align: center;
+}
+
+.qq-signup{
+  color: white;
+  background: #6aa9da;
+  border: 1px solid white;
+}
+
+.weibo-signup{
+  color: #ee7070;
+  border: 1px solid #ee7070;
+}
+
+.qq-signup i{
+  background: url(../img/qq-login.png) no-repeat;
+  position: absolute;
+  width: 24px;
+  height: 26px;
+  left: 17px;
+  top: 8px;
+}
+
+.weibo-signup i{
+  background: url(../img/weibo-login.png) no-repeat;
+  position: absolute;
+  width: 31px;
+  height: 26px;
+  left: 15px;
+  top: 5px;
+}
+
+.signup-or-seperator{
+  text-align: center;
+  margin: 7px 0 -5px;
+  padding: 0 10px;
+}
+
+.signup-or-seperator hr{
+  margin-top: -10px;
+}
+
+.signup-or{
+  color: #82888a;
+  background-color: white;
+  padding: 0 10px;
+}
+
+.remember-me-region label{
+  display: inline;
+}
+
+.forget-password{
+  float: right;
+  display: block;
+}
+
+.forget-password, .register-from-login, .box-links{
+  color: #f47373;
+}
+
+.forget-password:hover, .register-from-login:hover, .box-links:hover{
+  color: #f8a2a2;
+}
+
+.login-button{
+  display: block;
+  padding: 10px 0 10px 10px;
+  background: #f47373;
+  border-bottom: 1px solid #fa0008;
+  color: white;
+  text-align: center;
+  letter-spacing: 10px;
+  margin-top: 5px;
+}
+
+.login-button:hover{
+  background: #f8a2a2;
+  color: white;
+  text-decoration: none;
+}
+
+.login-seperator hr{
+  margin: 10px 0 6px;
+}
+
+.login-box p.sub-text{
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.mail-register-link{
+  padding: 5px 0 5px 10px;
+  position: relative;
+  display: block;
+  text-align: center;
+}
+
+.icon-mail{
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  background: url(../img/icons/mail.png) no-repeat;
+  left: 61px;
+}
+
+.subnav{
+  background: #565a5c;
+  padding: 9px 0;
+}
+
+.subnav ul{
+  margin: 0;
+}
+
+.subnav li{
+  display: inline-block;
+  list-style: none;
+  padding: 0 8px;
+}
+
+.subnav a{
+  color: #cacccd;
+  font-size: 16px;
+}
+
+.subnav .active a{
+  color: #f5f5f5;
+}
+
+.subnav a:hover{
+  text-decoration: none;
+  color: #b0b3b4;
+}
+
+.dropdown-menu li{
+  padding: 0;
+  display: block;
+}
+
+.dropdown-menu li a{
+  line-height: 25px;
+}
+
+.backend-container{
+  padding-top: 25px;
+  font-size: 16px;
+  color: #5b5a5c;
+}
+
+.backend-container a{
+  color: #ff675f;
+}
+
+.backend-container a:hover{
+  color: #ffaca7;
+}
+
+.btn a{
+  line-height: 28px;
+  font-weight: normal;
+}
+
+.backend-container .box, .admin-box{
+  background-color: white;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  border: 1px solid #efefef;
+  border-top-width: 0;
+  border-bottom-width: 2px;
+}
+
+.backend-container .box-header{
+  background: #d8d8d8;
+  padding: 15px 25px;
+  -webkit-border-radius: 2px 2px 0 0;
+  -moz-border-radius: 2px 2px 0 0;
+  border-radius: 2px 2px 0 0;
+  color: black;
+}
+
+.backend-container .box-content{
+  padding: 25px 15px 16px 35px;
+}
+
+.backend-container .user-avatar{
+  margin-bottom: 15px;
+}
+
+.backend-container .user-avatar-image{
+  float: left;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  margin: 13px 0 0 13px;
+}
+
+.backend-container .user-avatar-text{
+  margin-left: 90px;
+  height: 80px;
+}
+
+.backend-container .action-links{
+  margin-bottom: 25px;
+}
+
+.backend-container .action-links li{
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.user-avatar-text a{
+  color: #999999;
+  margin-right: 7px;
+}
+
+.user-avatar-text .user-name{
+  padding-top: 15px;
+}
+
+.user-avatar-text .user-avatar-links{
+  margin-top: 12px;
+}
+
+.admin-box{
+  margin-top: 10px;
+  padding: 10px;
+}

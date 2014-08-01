@@ -430,15 +430,24 @@ h2.header{
     text-align: center;
 }
 
-.submit-button .button{
+.button{
     padding: 9px 24px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	background-color: none;
-	border: solid 1px #e6b600;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: none;
     color: #393c3d;
     font-size: 16px;
+    display: inline-block;
+    border: solid 1px #a6a5a5;
+    background-image: -webkit-linear-gradient(bottom, #fefefe, #f5f5f5);
+    background-image: -moz-linear-gradient(bottom, #fefefe, #f5f5f5);
+    background-image: -o-linear-gradient(bottom, #fefefe, #f5f5f5);
+    background-image: linear-gradient(to top, #fefefe, #f5f5f5);
+}
+
+.submit-button .button{
+    border: solid 1px #e6b600;
 	background-image: -webkit-linear-gradient(bottom, #fed72f, #fde65c);
 	background-image: -moz-linear-gradient(bottom, #fed72f, #fde65c);
 	background-image: -o-linear-gradient(bottom, #fed72f, #fde65c);

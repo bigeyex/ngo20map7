@@ -39,7 +39,7 @@
         <div class="control-group">
             <label class="control-label" for="inputPlace">活动领域</label>
             <div class="controls">
-              <input type="text" id="inputName" class="input-large pill-select" data-options="医疗卫生健康,女性权利,儿童青少年,教育助学,艾滋病,灾害管理,文化艺术,环境保护,农村发展,城市社区建设,劳工权益,同性恋,政策倡导,信息网络,公益行业支持,社会企业,动物福利,老年人,民间研究机构,企业社会责任,残障人士,综合志愿服务,其它" placeholder="妇女儿童">
+              <input type="text" id="inputName" class="input-large pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
               <i class="icon-dropdown"></i>
             </div>
         </div>

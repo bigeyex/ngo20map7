@@ -21,6 +21,10 @@ function active_for($str){
     return 'active';
 }
 
+function active_if($condition){
+    return class_if('active', $condition);
+}
+
 function class_if($class, $condition){
 	if($condition){
 		return $class;
@@ -74,10 +78,13 @@ function js($str=null, $max_ie=20){
             foreach($js_list as $js){
                 $ret .= '<script type="text/javascript" src="'.__APP__.'/Public/js/'.$js.'.js"></script>';
             }
+            $js_list = array();
             return $ret;
         }
         else{
-            return '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js($js_list).'.js"></script>';
+            $result = '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js($js_list).'.js"></script>';
+            $js_list = array();
+            return $result;
         }
     }
     return '';
@@ -144,6 +151,7 @@ function css($str, $max_ie=20){
         else{
             return '<link href="'.__APP__.'/Public/cache/'.minimize_css($css_list).'.css" rel="stylesheet"/>';
         }
+        $css_list = array();
     }
     return '';
 }
@@ -304,6 +312,10 @@ function back(){
 function flash($content, $type='error'){
 	$_SESSION['flash']['type'] = $type;
 	$_SESSION['flash']['content'] = $content;
+}
+
+function admin_only(){
+    
 }
 
 ?>
