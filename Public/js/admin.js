@@ -55,3 +55,5 @@ function batch(item,action,type){
          return false;
     }
 }
+
+console.log('admin.loaded');

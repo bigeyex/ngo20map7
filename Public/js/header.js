@@ -16,10 +16,17 @@ $(function(){
 
 });
 
-/**********************
-*   class Dispatcher
-*   a global event dispatcher
-**********************/
+/*
+    Dispatcher module
+    by: wangyu (bigeyex@gmail.com)
+    dispatch global event
+    usage:
+        - fire an event:
+            dispatcher.dispatch('example.event.name', arg1, arg2...)
+        - subscribe an event:
+            dispatcher.subscribe('example.event.name', function(arg1, arg2...){});
+
+*/
 function Dispatcher(){
     this.eventList = {};
     var self = this;

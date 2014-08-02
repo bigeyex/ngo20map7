@@ -12,7 +12,7 @@
 
 
 <div class="container form-container publish-event">
-    <h1>创建新的公益机构</h1>
+    <h1>登记新的公益机构</h1>
     <p class="h1-subtitle">在公益地图上登记您的公益机构<br/>
       让企业、其他公益机构和公众了解您</p>
     <form class="form-horizontal ">
@@ -58,26 +58,19 @@
             <input type="hidden" name="image" value=""/>
             <div class="controls">
               <div class="image-preview">
-
+                <img src="" style="display:none;" width="150" id="imgpreview-image"/>
               </div>
               <span class="button fileinput-button">
-                  <i class="glyphicon glyphicon-plus"></i>
-                  <span>点击上传标志</span>
+                  <span id="imgupload-retext-image">点击上传标志</span>
                   <!-- The file input field used as target for the file upload widget -->
-                  <input class="fileupload" type="file" name="files" data-url="{:U('Util/upload')}">
-                  <div style="display:none;min-width:600px;min-height:400px;" id="crop-dialog">
-                    <div style="float: right;width:100px;height:100px;overflow:hidden;" class="crop-preview">
-                      <img class="preview-img"/>
-                    </div>
-                    <div class="crop-window" style="margin-right:120px;"><img style="" src="" class="crop-img"/></div>
-                    <button class="button crop-action" style="margin-top: 15px;">确认裁剪</button>
-                  </div>
+                  <input class="fileupload" type="file" name="files" re-text="重新上传标志"
+                      crop-width="150" crop-height="150" data-url="{:U('Util/upload')}" target-input="image"/>
               </span>
             </div>
         </div>
         
         <div class="submit-button">
-            <button class="button">发布</button>
+            <button class="button">创建机构</button>
         </div>
     </form>
 </div>
