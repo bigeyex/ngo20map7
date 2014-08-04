@@ -118,7 +118,7 @@ function FilterView(){
        $('.commit-search-button').click(function(){
            // when click the search button, 
            // search in the whole nation regardless of current viewport of the map.
-           this.restartViewport();
+           self.restartViewport();
            self.commitChange();
        });
         
@@ -134,6 +134,7 @@ function FilterView(){
     
     this.onselect = function(event, autoselect_item){
         $(this).val(autoselect_item.item.value);
+        self.on_text_change(event, autoselect_item);
         if($(this).attr('id')=='search-input-region'){
             self.restartViewport();
         }
@@ -166,7 +167,15 @@ function FilterView(){
         });
     }
     
-    
+    this.on_text_change = function(e, autoselect_item){
+        var dom = e.target;
+        if(autoselect_item || $(dom).val()){
+            $(dom).parent().addClass('has-text');
+        }
+        else{
+            $(dom).parent().removeClass('has-text');
+        }
+    }
     
     this.attach_autocomplete = function(id, source){
         var container_id = id+'-results';
@@ -196,15 +205,26 @@ function FilterView(){
             select: self.onselect,
             minLength: 0 
         });
-        $(id).focus(function(){
-            $(id).autocomplete("search", "");
+        $(id).keyup(self.on_text_change);
+        $(id+'-cross').click(function(){
+            $(id).val('');
+            $(id).parent().removeClass('has-text');
+            if(id=='#search-input-region'){
+                self.restartViewport();
+            }
+            self.commitChange();
         });
-        $(id).click(function(){
-            $(id).autocomplete("search", "");
-        });
-        $(id+'-dropdown').click(function(){
-            $(id).autocomplete("search", "");
-        });
+        if(!$(id).hasClass('no-dropdown')){
+            $(id).focus(function(){
+                $(id).autocomplete("search", "");
+            });
+            $(id).click(function(){
+                $(id).autocomplete("search", "");
+            });
+            $(id+'-dropdown').click(function(){
+                $(id).autocomplete("search", "");
+            });
+        }
 
     };
 }

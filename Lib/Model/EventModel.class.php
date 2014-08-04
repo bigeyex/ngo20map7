@@ -11,7 +11,7 @@ class EventModel extends QnDModel{
     }
     
     function province($key){
-        return $this->where(array('province'=>array('like', "$key%")));
+        return $this->where(array('province|city'=>array('like', "$key%")));
     }
     
     function active_only(){

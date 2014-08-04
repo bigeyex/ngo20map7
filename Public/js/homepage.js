@@ -1,5 +1,15 @@
 function attach_autocomplete(id, source){
         var container_id = id+'-results';
+        var on_text_change = function(e, autoselect_item){
+            var dom = e.target;
+            if(autoselect_item || $(dom).val()){
+                $(dom).parent().addClass('has-text');
+            }
+            else{
+                $(dom).parent().removeClass('has-text');
+            }
+        }
+
         $(id).autocomplete({
             source: function(request, response){
                 var req = request.term.toLowerCase();
@@ -26,17 +36,25 @@ function attach_autocomplete(id, source){
             close: function(){
                 // $(container_id+" > ul").mCustomScrollbar('destroy'); 
             },
+            select: on_text_change,
             minLength: 0 
         });
-        $(id).focus(function(){
-            $(id).autocomplete("search", "");
+        $(id).keyup(on_text_change);
+        $(id+'-cross').click(function(){
+            $(id).val('');
+            $(id).parent().removeClass('has-text');
         });
-        $(id).click(function(){
-            $(id).autocomplete("search", "");
-        });
-        $(id+'-dropdown').click(function(){
-            $(id).autocomplete("search", "");
-        });
+        if(!$(id).hasClass('no-dropdown')){
+            $(id).focus(function(){
+                $(id).autocomplete("search", "");
+            });
+            $(id).click(function(){
+                $(id).autocomplete("search", "");
+            });
+            $(id+'-dropdown').click(function(){
+                $(id).autocomplete("search", "");
+            });
+        }
         
     }
     
@@ -48,10 +66,10 @@ function attach_autocomplete(id, source){
         attach_autocomplete("#search-input-keyword", keyword_categories);
         
         // hero slideshow
-        $('#hero-region .slideshow').jcarousel({
+        var jcarousel_api = $('#hero-region .slideshow').jcarousel({
             wrap: 'circular'   
         }).jcarouselAutoscroll({
-            interval: 5000,
+            interval: 10000,
             target: '+=1',
             autostart: true
         });
@@ -61,6 +79,12 @@ function attach_autocomplete(id, source){
         $('.icon-slideshow-right').click(function(){
             $('#hero-region .slideshow').jcarousel('scroll', '+=1');
         });
+        $('.search-filter-form input').focus(function(){
+            jcarousel_api.jcarouselAutoscroll('stop');
+        }).blur(function(){
+            jcarousel_api.jcarouselAutoscroll('start');
+        });
+
         // resize hero slideshow according to the window width
         $(window).resize(function(){
             var width = $(window).width();

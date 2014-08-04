@@ -9,6 +9,14 @@ i.icon{
     cursor: pointer;
 }
 
+.icon-cross{
+    width: 12px;
+    height: 12px;
+    margin: 6px 4px 0 3px;
+    background: url(../img/icons/cancel.png) no-repeat;
+    cursor: pointer;
+}
+
 .icon-slideshow-left{
     background: url(../img/slideshow-left-arrow-1.png) no-repeat;
     width: 54px;
@@ -149,6 +157,21 @@ have a fixed width and height (but it's not required).
     position: absolute;
     right: 7px;
     top: 12px;
+}
+
+.control-group.has-text .icon-dropdown{
+    display: none;
+}
+
+.search-filter-form i.icon-cross{
+    position: absolute;
+    right: 5px;
+    top: 9px;
+    display: none;
+}
+
+.control-group.has-text .icon-cross{
+    display: block;
 }
 
 .search-filter-form input.search-btn{
@@ -564,6 +587,13 @@ html.full-screen, html.full-screen body{
     top: 11px;
 }
 
+.filter-search-bar i.icon-cross{
+    position: absolute;
+    right: 5px;
+    top: 9px;
+    display: none;
+}
+
 .filter-search-bar input{
     padding: 12px 10px;
     width: 118px;
@@ -629,6 +659,9 @@ html.full-screen, html.full-screen body{
     margin-right: 9px;
     margin-bottom: 10px;
     border: 1px solid #7c7c7c;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }
 
 .result-list li.active{
@@ -665,6 +698,10 @@ background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%); /*
 background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000',GradientType=0 ); /* IE6-9 */
 
+}
+
+.item-photo .photo-title.no-shadow{
+    background: none;
 }
 
 .item-org-info .org-logo{

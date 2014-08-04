@@ -12,7 +12,16 @@
 <div class="container master-container">
     <div id="org-header">
         <h1>{$user.name}</h1>
-        <p class="sub-title">{$user.aim}</p>
+        <p class="sub-title">
+            <?php if (mb_strlen($user['aim'])<20): ?>
+                {$user.aim}
+            <?php else: ?>
+                {$user.aim|mb_substr=0,20}
+                <a href="javascript:$('.aim-more-btn').hide();$('.aim-more').show();" class="aim-more-btn">...更多</a>
+                <span class="aim-more" style="display:none;">{$user.aim|mb_substr=20}</span>
+            <?php endif ?>
+            
+        </p>
         <ul class="medals">
             <li><a class="medal-1" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
             <li><a class="medal-2" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
@@ -77,7 +86,7 @@
                             </div>
                             <div class="text-content">
                                 <h3><a href="{:U('Event/view')}/id/{$event.id}">{$event.name}</a></h3>
-                                <p>{$event.intro|mb_substr=0,50}</p>
+                                <p>{$event.intro|strip_tags|mb_substr=0,50}</p>
                             </div>
                         </li> 
                         <?php endforeach ?>
