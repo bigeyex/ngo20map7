@@ -67,9 +67,12 @@ function attach_autocomplete(id, source){
         
         // hero slideshow
         var jcarousel_api = $('#hero-region .slideshow').jcarousel({
-            wrap: 'circular'   
+            wrap: 'circular',
+            animation: {
+                duration: 1500
+            }
         }).jcarouselAutoscroll({
-            interval: 10000,
+            interval: 6000,
             target: '+=1',
             autostart: true
         });

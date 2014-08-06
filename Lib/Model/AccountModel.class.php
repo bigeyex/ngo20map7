@@ -2,13 +2,17 @@
 
 class AccountModel extends Model{
 
-    public function login($email, $pwd, $mode='password'){
+    public function login($email, $pwd, $mode='password', $token=''){
         if(empty($pwd))return false;
         if($mode == 'password'){
             $result = $this->where(array('email' => $email, 'password' => md5($pwd)))->find();
         }
         else if($mode == 'api'){
             $result = $this->where(array('api_vendor' => $email, 'api_id' => $pwd))->find();
+            if(!$result){
+                // create an empty user
+                
+            }
         }
         if(!$result || empty($result)){
             return false;
@@ -21,12 +25,19 @@ class AccountModel extends Model{
             //fetch other user information
             $user_model = new UserModel();
             $user_data = $user_model->where(array('account_id'=>$result['id']))->find();
-            $user_data['local_maps'] = O('local_map')->with('admin_id', $user_data['id'])->select();
+            if($user_data){
+                $user_data['local_maps'] = O('local_map')->with('admin_id', $user_data['id'])->select();
+                $_SESSION['login_user'] = array_merge($user_data, $result);
+                $_SESSION['login_user']['id'] = $user_data['id'];
+                $_SESSION['login_user']['name'] = $user_data['name'];
+                $this->query("update user set login_count=login_count+1 where id=$user_id");
+            }
+            else{
+                $_SESSION['login_user'] = $result;
+            }
+            $_SESSION['login_user']['account_id'] = $result['id'];
 
-            $_SESSION['login_user'] = array_merge($user_data, $result);
-            $_SESSION['login_user']['id'] = $user_data['id'];
             $this->where(array('id'=>$result['id']))->data(array('last_login'=>date('Y-m-d h:i:s')))->save();
-            $this->query("update users set login_count=login_count+1 where id=$user_id");
             return true;
         }
     }

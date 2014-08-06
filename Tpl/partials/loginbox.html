@@ -1,22 +1,25 @@
 <div class="modal-container login-box">
-	<a href="#" class=" btn-block qq-signup"><i></i>使用QQ登录</a>
+	<a href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id={:C('QQ_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/qq_login" class=" btn-block qq-signup"><i></i>使用QQ登录</a>
 	<a href="#" class=" btn-block weibo-signup"><i></i>使用微博登录</a>
 	<div class="signup-or-seperator">
 		<span class="signup-or"> 或者 </span>
 		<hr/>
 	</div>
-	<div class="signup-email">
-		<input class="btn-block" placeholder="电子邮件"/>
-	</div>
-	<div class="signup-password">
-		<input class="btn-block" type="password" placeholder="密码"/>
-	</div>
-	<div class="remember-me-region">
-		<a href="#" class="forget-password">忘记密码?</a>
-		<input type="checkbox" class="icheck remember-me" id="remember-me-checkbox" value="1"/>
-		<label for="remember-me-checkbox">下次自动登录</label>
-	</div>
-	<a href="#" class="btn-block login-button">登录</a>
+	<form class="email-login-form">
+		<div class="signup-email">
+			<input class="btn-block" name="email" placeholder="电子邮件"/>
+		</div>
+		<div class="signup-password">
+			<input class="btn-block" type="password" name="password" placeholder="密码"/>
+		</div>
+		<div class="remember-me-region">
+			<a href="#" class="forget-password">忘记密码?</a>
+			<input type="checkbox" class="icheck remember-me" id="remember-me-checkbox" name="remember" value="1"/>
+			<label for="remember-me-checkbox">下次自动登录</label>
+		</div>
+	</form>
+	<a href="#" class="btn-block login-button" onclick="do_login()">登录</a>
+	<span style="color: red;display:none;" class="login-error-bar"></span>
 	<div class="login-seperator"><hr/></div>
 	还没有帐号？<a href="javascript:$('.register-link').click();" class="register-from-login">立即注册</a>
 </div>

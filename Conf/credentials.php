@@ -4,5 +4,7 @@ return array(
     'WECHAT_APPID' => '',
     'WECHAT_APPSECRET' => '',
 
+    'QQ_APPKEY' => '',
+    'QQ_APPSECRET' => '',
 );
 ?>

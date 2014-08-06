@@ -50,3 +50,16 @@ function Dispatcher(){
     };
 }
 window.dispatcher = new Dispatcher();
+
+/* login related functions */
+function do_login(){
+    // check it first
+    $.post(app_path+'/Account/login', $('.email-login-form').serializeArray(), function(result){
+        if(result == 'ok'){
+            window.location.href=app_path+"/Account/login_redirect";
+        }
+        else{
+            $('.login-error-bar').show().text(result);
+        }
+    });
+}

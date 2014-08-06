@@ -7,9 +7,6 @@ class AccountAction extends Action{
 		$this->display();
 	}
 
-
-
-	// actions
 	public function login(){
 		$account_model = new AccountModel();
 		if($account_model->login($_POST['email'], $_POST['password'])){
@@ -25,18 +22,26 @@ class AccountAction extends Action{
             }
             
             
-            if(user('is_admin')){
-                echo 'admin';
-            }
-            else{
-                echo 'ok';
-            }
+            echo 'ok';
         }
 		else{
 			//login failed
 			echo '用户名或密码不正确';
 		}
 	}
+
+    public function login_redirect(){
+        if(isset($_SESSION['next_mission'])){
+            $this->redirect($_SESSION['next_mission']);
+        }
+        $user_count = O('user')->with('account_id', user('id'))->count();
+        if($user_count == 0){
+            $this->redirect('User/add');    // if no organization created, redirect to create org page.
+        }
+        else{
+            $this->redirect('Account/dashboard');
+        }
+    }
 
 	public function logout(){
 		unset($_SESSION['login_user']);
@@ -80,7 +85,7 @@ class AccountAction extends Action{
             //check if new user
             $account_model = new AccountModel();
 
-            if($account_model->login('qq', $openid, 'api')){
+            if($account_model->login('qq', $openid, 'api', $openkey)){
                 $this->redirect('User/home');
             }
             else{

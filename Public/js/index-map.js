@@ -67,7 +67,7 @@ function MapView(){
             self.map.setViewport(points);
         }
         
-    }
+    };
     
     this.refreshMarkers = function(){
         self.map.clearOverlays();
@@ -84,10 +84,31 @@ function MapView(){
                     scrollTop: elem.offset().top-$('.result-list li').eq(0).offset().top
                 }, 500);
             });
+            item.mouseover(function(){
+                self.highlightMarker(marker, true);
+            }).mouseout(function(){
+                self.highlightMarker(marker, false);
+            });
             markers.push(marker);
         });
         return markers;
-    }
+    };
+
+    this.highlightMarker = function(marker, highlight){
+        var blueIcon = new BMap.Icon(app_path+"/Public/img/icons/blue-marker.png", new BMap.Size(26, 36), {    
+            offset: new BMap.Size(7, 18),    
+        });  
+        var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {    
+            offset: new BMap.Size(15, 18),    
+        });  
+        if(highlight){
+            marker.setIcon(redIcon);
+        }
+        else{
+            marker.setIcon(blueIcon);
+        }
+        marker.setTop(highlight);
+    }   
     
     this.addMarker = function(lng, lat, title){
         var point = new BMap.Point(lng, lat);

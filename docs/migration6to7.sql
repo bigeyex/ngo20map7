@@ -12,18 +12,19 @@ alter table ngo drop column api_vendor;
 alter table ngo drop column api_id;
 
 -- add columns
-alter table `account` add (
-    api_qq_id varchar(50) null,
-    api_qq_token varchar(50) null,
-    api_weibo_id varchar(50) null,
-    api_weibo_token varchar(50) null
-);
+-- alter table `account` add (
+--     api_qq_id varchar(50) null,
+--     api_qq_token varchar(50) null,
+--     api_weibo_id varchar(50) null,
+--     api_weibo_token varchar(50) null
+-- );
 ALTER TABLE `event` ADD COLUMN `account_id` int null;
+ALTER TABLE `account` ADD COLUMN `api_token` varchar(100) AFTER `api_id`
 
-update `account` set api_qq_id=api_id where api_vendor='qq';
-update `account` set api_weibo_id=api_id where api_vendor='weibo';
-alter table `account` drop column api_id;
-alter table `account` drop column api_vendor;
+-- update `account` set api_qq_id=api_id where api_vendor='qq';
+-- update `account` set api_weibo_id=api_id where api_vendor='weibo';
+-- alter table `account` drop column api_id;
+-- alter table `account` drop column api_vendor;
 
 ALTER TABLE `ngo20map7`.`event` CHANGE COLUMN `item_field` `work_field` varchar(100) DEFAULT NULL;
 ALTER TABLE `ngo20map7`.`ngo` CHANGE COLUMN `introduction` `intro` text DEFAULT NULL;
