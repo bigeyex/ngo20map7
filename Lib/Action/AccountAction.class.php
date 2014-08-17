@@ -30,9 +30,25 @@ class AccountAction extends Action{
 		}
 	}
 
+    public function email_register(){
+        $account_model = new AccountModel();
+        $id = $account_model->add_user($_POST);
+        if(is_numeric($id)){
+            echo 'ok';
+        }
+        else{
+            echo $id;
+        }
+    }
+
     public function login_redirect(){
         if(isset($_SESSION['next_mission'])){
-            $this->redirect($_SESSION['next_mission']);
+            $mission = $_SESSION['next_mission'];
+            unset($_SESSION['next_mission']);
+            $this->redirect($mission);
+        }
+        if(user('is_admin')){
+            $this->redirect('Admin/users');
         }
         $user_count = O('user')->with('account_id', user('id'))->count();
         if($user_count == 0){
@@ -86,10 +102,10 @@ class AccountAction extends Action{
             $account_model = new AccountModel();
 
             if($account_model->login('qq', $openid, 'api', $openkey)){
-                $this->redirect('User/home');
+                $this->login_redirect();
             }
             else{
-                $this->redirect('User/register');
+                die('登录错误');
             }
         }
     }
@@ -104,56 +120,52 @@ class AccountAction extends Action{
         $expires_in = '';
         $api_id = '';
 
-        $request_uri = "https://api.weibo.com/oauth2/access_token";
-        $post_params = array(
-                'client_id' => $client_id,
-                'client_secret' => $client_secret,
-                'redirect_uri' => $redirect_uri,
-                'grant_type' => 'authorization_code',
-                'code' => $code,
-            );
-        if($result = $this->http_post($request_uri, $post_params)){
+        $request_uri = "https://api.weibo.com/oauth2/access_token?client_id=$client_id&client_secret=$client_secret&grant_type=authorization_code&redirect_uri=$redirect_uri&code=$code";
+        $opts = array('http' =>
+                array(
+                        'method'  => 'POST',
+                        'header'  => "Content-Type: text/xml\r\n"                       
+                )
+        );
+        $context = stream_context_create($opts);
+        if($result = file_get_contents($request_uri,false,$context)){
             //parse param from weibo response
             $token = json_decode($result, true);
             $access_token = $token['access_token'];
             $expires_in = $token['expires_in'];
 
-            //get weibo id
-            $request_uri = "https://api.weibo.com/2/account/get_uid.json?access_token=$access_token";
-            if($result = file_get_contents($request_uri)){
-                $param = json_decode($result, true);
-                $api_id = $param['uid'];
+            $api_id = $token['uid'];
+            //save param to session
+            $api = array();
+            $api['api_vendor'] = 'weibo';
+            $api['api_id'] = $api_id;
+            $api['api_token'] = $access_token;
+            $_SESSION['api'] = $api;
 
-                //save param to session
-                $api = array();
-                $api['api_vendor'] = 'weibo';
-                $api['api_id'] = $api_id;
-                $api['api_token'] = $access_token;
-                $_SESSION['api'] = $api;
+            //check if new user
+            $account_model = new AccountModel();
 
-                //check if new user
-                $account_model = new AccountModel();
-
-                if($account_model->login('weibo', $api_id, 'api')){
-                    $this->redirect('User/home');
-                }
-                else{
-                    $this->redirect('User/register');
-                }
-            }   //get weibo id
-            else die('get weibo id failed');
+            if($account_model->login('weibo', $api_id, 'api', $access_token)){
+                $this->login_redirect();
+            }
+            else{
+                die('登录错误');
+            }
         }   //get access token
-        else die ('get access token failed');
+        else {die ('get access token failed');};
     }
 
-    private function http_post($request_uri, $data){
+    private function http_post($request_uri, $username, $password){
         $url = $request_uri;
         $ch = curl_init($url);
          
-        $body = http_build_query($data);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "client_id: $username",
+            "client_secret: $password"
+        ));
          
         $response = curl_exec($ch);
         curl_close($ch);

@@ -600,6 +600,7 @@ html.full-screen, html.full-screen body{
     height: 14px;
     font-size: 16px;
     border: 1px solid #dedede;
+    text-indent: -2px;
 }
 
 .commit-search-button{
@@ -657,7 +658,7 @@ html.full-screen, html.full-screen body{
 .result-list li{
     float: left;
     margin-right: 9px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     border: 1px solid #7c7c7c;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -672,7 +673,7 @@ html.full-screen, html.full-screen body{
 }
     
 .result-list .item-photo{
-    width: 312px;
+    width: 314px;
     height: 163px;
     overflow: hidden;
     position: relative;

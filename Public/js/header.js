@@ -46,6 +46,10 @@ function Dispatcher(){
             for(var i in eventList){
                 eventList[i].apply(this, args);
             }
+            return true;
+        }
+        else{
+            return false;
         }
     };
 }
@@ -56,10 +60,25 @@ function do_login(){
     // check it first
     $.post(app_path+'/Account/login', $('.email-login-form').serializeArray(), function(result){
         if(result == 'ok'){
-            window.location.href=app_path+"/Account/login_redirect";
+            if(!dispatcher.dispatch('login')){
+                window.location.href=app_path+"/Account/login_redirect";
+            }
         }
         else{
             $('.login-error-bar').show().text(result);
+        }
+    });
+}
+
+function do_register(){
+    $.post(app_path+'/Account/email_register', $('.email-register-form').serializeArray(), function(result){
+        if(result == 'ok'){
+            if(!dispatcher.dispatch('login')){
+                window.location.href=app_path+"/Account/login_redirect";
+            }
+        }
+        else{
+            $('.register-error-bar').show().text(result);
         }
     });
 }

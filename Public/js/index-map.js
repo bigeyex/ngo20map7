@@ -40,7 +40,7 @@ function MapView(){
         self.map.centerAndZoom(new BMap.Point(121.491, 31.233), 11);  
         self.map.addControl(new BMap.NavigationControl());
         self.refreshViewport();
-        self.map.addEventListener('moveend', function(){
+        var on_move_or_zoom_end = function(){
             var bounds = self.map.getBounds();
             var sw = bounds.getSouthWest();
             var ne = bounds.getNorthEast();
@@ -48,7 +48,9 @@ function MapView(){
                 dispatcher.dispatch('viewport.changed', sw.lng, ne.lng, sw.lat, ne.lat);
             }
             self.viewport_activated = true;
-        });
+        }
+        self.map.addEventListener('moveend', on_move_or_zoom_end);
+        self.map.addEventListener('zoomend', on_move_or_zoom_end);
         dispatcher.subscribe('filter.change.province', function(){
             self.viewport_activated = false;
         });
@@ -74,22 +76,26 @@ function MapView(){
         var markers = [];
         $('.map-item').each(function(){
             var item = $(this);
-            var marker = self.addMarker(item.attr('lng'), item.attr('lat'), item.attr('title'));
-            marker.domElement = this;
-            marker.addEventListener('mouseover', function(){
-                var elem = $(this.domElement);
-                $('.result-list li').removeClass('active');
-                elem.addClass('active');
-                $('.result-panel').animate({
-                    scrollTop: elem.offset().top-$('.result-list li').eq(0).offset().top
-                }, 500);
-            });
-            item.mouseover(function(){
-                self.highlightMarker(marker, true);
-            }).mouseout(function(){
-                self.highlightMarker(marker, false);
-            });
-            markers.push(marker);
+            lng_list = item.attr('lng').split(',');
+            lat_list = item.attr('lat').split(',');
+            for(var i=0;i<lng_list.length;i++){
+                var marker = self.addMarker(lng_list[i], lat_list[i], item.attr('title'));
+                marker.domElement = this;
+                marker.addEventListener('mouseover', function(){
+                    var elem = $(this.domElement);
+                    $('.result-list li').removeClass('active');
+                    elem.addClass('active');
+                    $('.result-panel').animate({
+                        scrollTop: elem.offset().top-$('.result-list li').eq(0).offset().top
+                    }, 500);
+                });
+                item.mouseover(function(){
+                    self.highlightMarker(marker, true);
+                }).mouseout(function(){
+                    self.highlightMarker(marker, false);
+                });
+                markers.push(marker);
+            }
         });
         return markers;
     };

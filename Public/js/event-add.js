@@ -1,12 +1,13 @@
    $(function(){
        loadBaiduMap();
        $('.pill-select').pillSelectBox();
-       $('.datepicker').datepicker();
+       $('.datepicker').datetimepicker({lang: 'ch'});
 
        // jquery upload and crop
        if($().fileupload!==undefined){
           $('.fileupload').uploadAndCrop();
        }
+       $('.add-event-form').validate();
    });
    function loadBaiduMap(){
        var script = document.createElement("script");
@@ -23,6 +24,8 @@
    
    // map control
    var map_control = {
+       markers: [],
+       marker: null,
        init: function(map){
            var self = this;
            var change_timer = null;
@@ -46,18 +49,26 @@
                    }, "北京市");
                }, 1000);
            });
+
+           $('.add-location-button').click(self.save_location);
        },
        geocode: function(address){
            
        },
        set_location: function(point, center, callback){
            var self = this;
-           self.map.clearOverlays();
-           var myIcon = new BMap.Icon(app_path+"/Public/img/icons/blue-marker.png", new BMap.Size(26, 36), {    
-                offset: new BMap.Size(7, 18),    
-            });         
-           var marker = new BMap.Marker(point, {icon: myIcon});
-           self.map.addOverlay(marker);
+           if(self.marker === null){
+             var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {    
+                offset: new BMap.Size(15, 18),    
+            });       
+             var marker = new BMap.Marker(point, {icon: redIcon});
+             self.map.addOverlay(marker);
+             marker.setTop(true);
+             self.marker = marker;
+           }
+           else{  // alread has a marker
+              self.marker.setPosition(point);
+           }
            $('.map-longitude').val(point.lng);
            $('.map-latitude').val(point.lat);
            if(center){
@@ -69,11 +80,49 @@
                  if (result){      
                      $('.map-province').val(result.addressComponents.province);
                      $('.map-city').val(result.addressComponents.city);
+                     $('.add-location-button').prop('disabled', false);
                     if(callback !== undefined){
                         callback(result.address);
                     }    
                  }      
            });
+       },
+       save_location: function(){
+          var self = this;
+          if($('.map-address').val() == ''){
+            return;
+          }
+          var item_dom = $('<div class="one-location">'+
+                  '<input type="hidden" name="lngs[]" value="'+$('.map-longitude').val()+'"/>'+
+                  '<input type="hidden" name="lats[]" value="'+$('.map-latitude').val()+'"/>'+
+                  '<input type="hidden" name="provinces[]" value="'+$('.map-province').val()+'"/>'+
+                  '<input type="hidden" name="cities[]" value="'+$('.map-city').val()+'"/>'+
+                  '<input type="hidden" name="places[]" value="'+$('.map-address').val()+'"/>'+
+                  $('.map-address').val()+' <a href="javascript:void(0);" class="delete-item">删除</a>'+
+                  '</div>');
+          $('.location-sets').append(item_dom);
+          (function(item_dom){  // create a scope to store current position data
+            var dom = item_dom;
+            var blueIcon = new BMap.Icon(app_path+"/Public/img/icons/blue-marker.png", new BMap.Size(26, 36), {    
+                offset: new BMap.Size(7, 18),    
+            });
+            var marker = new BMap.Marker(new BMap.Point($('.map-longitude').val(), $('.map-latitude').val()), {icon: blueIcon});
+            map_control.map.addOverlay(marker);
+            dom.find('.delete-item').click(function(){
+              map_control.map.removeOverlay(marker);
+              dom.remove();
+            });
+
+
+          })(item_dom);
+          
+          $('.add-location-button').prop('disabled', true);
+          $('.map-address').val('');
+          return false;
+       },
+
+       delete_location: function(e){
+          $(e.currentTarget).parent().remove();
        }
 
    };

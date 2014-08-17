@@ -6,5 +6,7 @@ return array(
 
     'QQ_APPKEY' => '',
     'QQ_APPSECRET' => '',
+    'WEIBO_APPKEY' => '',
+    'WEIBO_APPSECRET'=> '',
 );
 ?>

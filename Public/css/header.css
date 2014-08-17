@@ -31,7 +31,7 @@ form{
 }
 
 #create-event-button {
-    width: 132px;
+    width: 130px;
 	
     height: 33px;
     padding: 0;
@@ -234,6 +234,7 @@ form{
   padding-top: 25px;
   font-size: 16px;
   color: #5b5a5c;
+  margin-bottom: 30px;
 }
 
 .backend-container a{
@@ -267,6 +268,7 @@ form{
   -moz-border-radius: 2px 2px 0 0;
   border-radius: 2px 2px 0 0;
   color: black;
+  font-size: 18px;
 }
 
 .backend-container .box-content{
@@ -315,4 +317,18 @@ form{
 .admin-box{
   margin-top: 10px;
   padding: 10px;
+}
+
+.form-nav li{
+  list-style: none;
+  font-size: 20px;
+
+  margin-bottom: 20px;
+}
+.form-nav li a{
+    color: #82888a;
+}
+.form-nav li.active a{
+  font-weight: bold;
+  color: #565a5c;
 }

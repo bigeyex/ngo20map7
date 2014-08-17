@@ -11,7 +11,18 @@ class AccountModel extends Model{
             $result = $this->where(array('api_vendor' => $email, 'api_id' => $pwd))->find();
             if(!$result){
                 // create an empty user
-                
+                $result = array(
+                        'api_vendor' => $email,
+                        'api_id' => $pwd,
+                        'api_token' => $token
+                    );
+                $result['id'] = O('account')->add($result);
+                $_SESSION['login_user'] = $result;
+                return true;
+            }
+            else{
+                $result['api_token'] = $token;
+                $this->save($result);
             }
         }
         if(!$result || empty($result)){
@@ -43,8 +54,21 @@ class AccountModel extends Model{
     }
 
     public function add_user($post){
+        if(!isset($post['email'])){
+            return "电子邮件必填";
+        }
+        else if(!isset($post['name'])){
+            return '姓名必填';
+        }
+        else if(!isset($post['password'])){
+            return '密码必填';
+        }
         $post['password'] = md5($post['password']);
-        $id = $this->add($post);
+        $id = $this->add(array(
+                'name' => $post['name'],
+                'password' => $post['password'],
+                'email' => $post['email']
+            ));
         $this->login($post['email'], $post['password']);
         return $id;
     }

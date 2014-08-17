@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="left-column">
-        <?php if (!empty($event_media) || !empty($events)): ?>
+        <?php if (!empty($events)): ?>
         <div class="block connected-carousels">
             <div class="tabs">
                 <ul>
@@ -42,8 +42,8 @@
                 <div id="tab-photos">
                     <div class="carousel carousel-stage">
                         <ul>
-                            <?php foreach ($event_media as $photo): ?>
-                                <li><a href="{:U('Event/view')}/id/{$photo.event_id}"><img src="{:upimage($photo['url'])}" width="628"/></a></li>
+                            <?php foreach ($events as $event): ?>
+                                <li><a href="{:U('Event/view')}/id/{$event.id}"><img src="{:upimage($event['cover_img'])}" width="628"/></a></li>
                             <?php endforeach ?>
                         </ul>
                     </div>
@@ -57,8 +57,8 @@
                 <a href="javascript:void(0);" class="next next-navigation"></a>
                 <div class="carousel carousel-navigation">
                     <ul>
-                        <?php foreach ($event_media as $photo): ?>
-                            <li><img src="{:upimage($photo['url'])}" width="74"/></li>
+                        <?php foreach ($events as $event): ?>
+                            <li><img src="{:upimage($event['cover_img'])}" width="74"/></li>
                         <?php endforeach ?>
                     </ul>
                 </div>

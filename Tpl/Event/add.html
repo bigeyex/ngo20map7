@@ -1,7 +1,7 @@
 <extend name="layout:main"/>
 
 <block name="head">
-{:css('datepicker')}
+{:css('jquery.datetimepicker')}
 {:css('org-home')}
 </block>
 
@@ -12,23 +12,27 @@
 <div class="container form-container publish-event">
     <h1>发布活动或项目</h1>
     <p class="h1-subtitle">精彩的内容，可能入选NGO2.0首页推荐案例</p>
-    <form class="form-horizontal ">
+    <form class="form-horizontal add-event-form">
         <div class="control-group">
             <label class="control-label" for="inputName">活动名称</label>
             <div class="controls">
-              <input type="text" id="inputName" class="input-large" placeholder="请在20字数内表述清楚">
+              <input type="text" id="inputName" class="input-large" placeholder="请在20字数内表述清楚" required>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputDesc">活动详情</label>
             <div class="controls">
-              <textarea id="inputDesc" class="input-large" rows="5" placeholder="请用一段简短的话来描述您的活动"></textarea>
+              <textarea id="inputDesc" class="input-large" rows="5" placeholder="请用一段简短的话来描述您的活动" required></textarea>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputPlace">活动地点</label>
             <div class="controls map-input">
-              <input type="text" id="inputName" class="input-large map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标">
+              <div class="location-sets">
+              </div>
+              <div style="position: relative">
+                <input type="text" id="inputName" class="input-large map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标,之后按“添加”"><button class="add-location-button" href="javascript:void(0);" disabled>添加</button>
+              </div>
               <input type="hidden" name="longitude" class="map-longitude">
               <input type="hidden" name="latitude" class="map-latitude">
               <input type="hidden" name="province" class="map-province">
@@ -78,8 +82,9 @@
 
 
 <block name="script-before">
-{:js('bootstrap-datepicker')}
-
+{:js('jquery.datetimepicker')}
+{:js('jquery.validate')}
+{:js('messages_zh')}
 </block>
 <block name="script-after">
 {:js('-event-add')}

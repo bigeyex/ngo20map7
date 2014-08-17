@@ -402,6 +402,7 @@ h2.header{
 .form-container{
     width: 664px;
     padding-right: 161px;
+    min-height: 600px;
 }
 
 .publish-event h1{
@@ -467,9 +468,29 @@ h2.header{
 }
 
 .map-input input{
+    -webkit-border-radius: 4px 0 0 0;
+       -moz-border-radius: 4px 0 0 0;
+            border-radius: 4px 0 0 0;
+    width: 420px;
+}
+
+.map-input-user input{
     -webkit-border-radius: 4px 4px 0 0;
        -moz-border-radius: 4px 4px 0 0;
             border-radius: 4px 4px 0 0;
+}
+
+
+.add-location-button{
+    position: absolute;
+    top: 0px;
+    right: -18px;
+    width: 61px;
+    height: 42px;
+    background: white;
+    border: 1px solid #a6a5a5;
+    background-image: linear-gradient(to top, #fed72f, #fde65c);
+    border-radius: 0 4px 0 0;
 }
 
 .map-input-box{
@@ -620,4 +641,13 @@ h2.header{
 
 .event-intro{
     padding: 10px 30px;
+}
+
+.one-location{
+    font-size: 17px;
+    line-height: 40px;
+}
+
+label.error{
+    color: red;
 }

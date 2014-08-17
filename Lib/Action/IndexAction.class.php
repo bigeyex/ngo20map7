@@ -33,6 +33,7 @@ class IndexAction extends Action {
             $work_field = $args['work_field'];
         };
         // build model based on type
+        $is_user = false;
         if($type == '公益活动'){
             $base_model = O('event')->with('type', 'ngo')->attach('user');
         }
@@ -44,6 +45,11 @@ class IndexAction extends Action {
         }
         else{
             $base_model = O('user')->with('type', 'ngo');
+            $is_user = true;
+        }
+
+        if(!$is_user){
+            $base_model = $base_model->join('event_location on event.id=event_location.event_id');
         }
         
         if(!empty($province)){
@@ -65,8 +71,20 @@ class IndexAction extends Action {
         // do the search
         $count = $base_model->count();
         $result = $base_model->order('cover_img desc')->limit(10)->select();
+        // process result: merge same items, concate lng and lat
+        $result_map = array();
+        foreach($result as $res){
+            if(isset($result_map[$res['id']])){
+                // if already in map, concat lon, lat
+                $result_map[$res['id']]['longitude'] .= ','.$res['longitude'];
+                $result_map[$res['id']]['latitude'] .= ','.$res['latitude'];
+            }
+            else{
+                $result_map[$res['id']] = $res;
+            }
+        }
         $this->assign('count', $count);
-        $this->assign('result', $result);
+        $this->assign('result', $result_map);
         $this->display('Index:map_result');
         
     }
