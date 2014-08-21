@@ -18,5 +18,11 @@ class EventModel extends QnDModel{
         return $this->with('is_checked', 1)->with('enabled', 1);
     }
 
+    function updateMediaUserId($user_id){
+        $user_id = intval($user_id);
+        $account_id = intval(user('account_id'));
+        $this->query("update media set user_id=$user_id where event_id in (select id from event where account_id=$account_id)");
+    }
+
 
 }

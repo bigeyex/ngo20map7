@@ -545,9 +545,10 @@ h2.header{
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    height: 20px;
+    height: 24px;
     background-color: white;
     cursor: pointer;
+    padding: 8px 10px;
 }
 
 .select-pills ul{
@@ -584,6 +585,27 @@ h2.header{
 .select-pills a.selected{
     background-color: #219a00;
     color: white;
+}
+
+.pill-select-pills{
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 3px;
+    /* display: inline-block; */
+    list-style: none;
+    line-height: 16px;
+    background: white;
+    /* vertical-align: top; */
+    float: left;
+    display: list-item;
+    position: relative;
+}
+
+.trigger-box-text{
+    display: block;
+    position: relative;
+    height: 27px;
 }
 
 .datepicker{
@@ -650,4 +672,76 @@ h2.header{
 
 label.error{
     color: red;
+}
+
+
+/* add photo button in event/add */
+.add-photo-button, .image-showcase, .uploaded-image-slide{
+    display: inline-block;
+}
+.add-photo-button{
+    width: 120px;
+    height: 65px;
+    border: 2px dashed #555;
+}
+.image-showcase{
+    float: left;
+    margin: 0 5px;
+}
+
+.uploaded-image-slide{
+    display: inline-block;
+    padding: 4px;
+    background-color: #fff;
+    line-height: 0;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+    margin-bottom: 5px;
+    position: relative;
+    margin-right: 5px;
+}
+
+.uploaded-image-slide:hover{
+    background-color: #4ae;
+    -webkit-transition: background-color 0;
+    -moz-transition: background-color 0;
+    -o-transition: background-color 0;
+    transition: background-color 0;
+}
+
+.upload-photos-icon{
+    font-size: 24px;
+    text-align: center;
+    display: block;
+    padding-top: 10px;
+}
+
+.upload-photos-text{
+    top: 10px;
+
+    text-align: center;
+    display: block;
+    padding-top: 4px;
+}
+
+.remove-image-icon{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #555;
+    font-size: 20px;
+}
+
+.crop-action{
+    margin-top: 15px;
+    position: absolute;
+    top: 0;
+    left: 514px;
 }

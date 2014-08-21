@@ -1,4 +1,4 @@
-<p class="result-count">共{$count}个相关公益数据</p>
+<p class="result-count">共{$grand_total}条记录 · 视野中{$count}条 · {$page}/{$total_page}页</p>
 <ul class="result-list">
     <?php foreach($result as $item): ?>
     <?php if(isset($item['user_id'])): ?>
@@ -28,3 +28,4 @@
     <?php endif ?>
     <?php endforeach; ?>
 </ul>
+<div class="pager">{$pager_html}</div>

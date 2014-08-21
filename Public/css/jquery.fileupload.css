@@ -3,17 +3,19 @@
   position: relative;
   overflow: hidden;
 }
-.fileinput-button input {
+.fileinput-button input.fileupload {
   position: absolute;
-  top: -8px;
   right: 0;
   margin: 0;
   opacity: 0;
   -ms-filter: 'alpha(opacity=0)';
   font-size: 200px;
-  direction: ltr;
+  /* direction: ltr; */
   cursor: pointer;
-  height: 38px;
+  height: 100%;
+  padding: 0;
+  width: 100%;
+  top: 0;
 }
 
 /* Fixes for IE < 8 */

@@ -23,7 +23,7 @@ class IndexAction extends Action {
         $this->display();
     }
     
-    public function map_result($province=null, $keyword=null, $type=null, $work_field=null, $minlon=null, $maxlon=null, $minlat=null, $maxlat=null){
+    public function map_result($province=null, $keyword=null, $type=null, $work_field=null, $minlon=null, $maxlon=null, $minlat=null, $maxlat=null, $page=1){
         // unpack arguments
         if(is_array($province)){
             $args = $province;
@@ -47,10 +47,6 @@ class IndexAction extends Action {
             $base_model = O('user')->with('type', 'ngo');
             $is_user = true;
         }
-
-        if(!$is_user){
-            $base_model = $base_model->join('event_location on event.id=event_location.event_id');
-        }
         
         if(!empty($province)){
             $base_model = $base_model->province($province);
@@ -61,6 +57,7 @@ class IndexAction extends Action {
         if(!empty($work_field)){
             $base_model = $base_model->with('work_field', array('like', "%$work_field%"));
         }
+        $grand_total = $base_model->count();
         if(!empty($minlon)){
             $base_model = $base_model->with('longitude', 
                                          array(array('gt', floatval($minlon)), array('lt', floatval($maxlon))))
@@ -70,21 +67,40 @@ class IndexAction extends Action {
         
         // do the search
         $count = $base_model->count();
-        $result = $base_model->order('cover_img desc')->limit(10)->select();
+        if(!$is_user){
+            $base_model = $base_model->join('event_location on event.id=event_location.event_id');
+            $count_with_multipal_locations = $base_model->count();
+        }
+        else{
+            $count_with_multipal_locations = $count;
+        }
+        import("@.Classes.BNBPage");
+        $pager = OO('BNBPage')->build($count_with_multipal_locations, C('LIST_RECORD_PER_PAGE'), $page);
+
+        $result = $base_model->order('cover_img desc')->limit($pager->firstRow, $pager->rowsPerPage)->select();
         // process result: merge same items, concate lng and lat
         $result_map = array();
-        foreach($result as $res){
-            if(isset($result_map[$res['id']])){
-                // if already in map, concat lon, lat
-                $result_map[$res['id']]['longitude'] .= ','.$res['longitude'];
-                $result_map[$res['id']]['latitude'] .= ','.$res['latitude'];
-            }
-            else{
-                $result_map[$res['id']] = $res;
+        if(!is_user){
+            foreach($result as $res){
+                if(isset($result_map[$res['id']])){
+                    // if already in map, concat lon, lat
+                    $result_map[$res['id']]['longitude'] .= ','.$res['longitude'];
+                    $result_map[$res['id']]['latitude'] .= ','.$res['latitude'];
+                }
+                else{
+                    $result_map[$res['id']] = $res;
+                }
             }
         }
-        $this->assign('count', $count);
+        else{
+            $result_map = $result;
+        }
+        $this->assign('count', $count_with_multipal_locations);
+        $this->assign('page', $page);
+        $this->assign('total_page', $pager->totalPages);
+        $this->assign('grand_total', $grand_total);
         $this->assign('result', $result_map);
+        $this->assign('pager_html', $pager->show());
         $this->display('Index:map_result');
         
     }

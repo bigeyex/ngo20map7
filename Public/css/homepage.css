@@ -1,13 +1,4 @@
-i.icon{
-    display: block;
-}
-.icon-dropdown{
-    width: 11px;
-    height: 6px;
-    margin: 6px 4px 0 3px;
-    background: url(../img/triangle-down.png) no-repeat;
-    cursor: pointer;
-}
+
 
 .icon-cross{
     width: 12px;
@@ -46,7 +37,7 @@ i.icon{
 }
 
 #hero-region{
-    z-index: 1;
+    /* z-index: 1; */
     position: relative;
 }
 

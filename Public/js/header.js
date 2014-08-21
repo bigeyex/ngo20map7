@@ -82,3 +82,9 @@ function do_register(){
         }
     });
 }
+
+function signup_keydown(e){
+    if(e.keyCode == 13){
+        $('.login-button').click();
+    } 
+}

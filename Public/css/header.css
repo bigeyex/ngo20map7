@@ -332,3 +332,72 @@ form{
   font-weight: bold;
   color: #565a5c;
 }
+
+i.icon{
+    display: block;
+}
+.icon-dropdown{
+    width: 11px;
+    height: 6px;
+    margin: 6px 4px 0 3px;
+    background: url(../img/triangle-down.png) no-repeat;
+    cursor: pointer;
+}
+
+.logged-in-stab{
+  padding: 0 5px 0 30px;
+  position: relative;
+}
+
+.logged-in-stab .icon-dropdown{
+  position: absolute;
+  top: 12px;
+  right: 0;
+}
+
+.logged-in-stab .account-avatar{
+  width: 28px;
+  height: 28px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+  background: url(../img/user-avatar-default-sm.png);
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  border: 1px solid #ccc;
+}
+
+.pager{
+  margin-left: -10px;
+}
+
+.pager span{
+  float: left;
+  padding: 3px 10px;
+  margin-left: 10px;
+  line-height: 23px;
+  text-decoration: none;
+  border: 1px solid #dce0e0;
+  border-radius: 2px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pager-prev, .pager-next{
+  width: 15px;
+}
+
+.pager span.active{
+  color: #565a5c;
+  background-color: #edefed;
+  cursor: default;
+}
+
+.pager .pager-gap{
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  box-shadow: 0 0 0 #000;
+  cursor: default;
+}

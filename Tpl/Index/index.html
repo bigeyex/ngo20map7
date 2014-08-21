@@ -92,7 +92,9 @@
                 <div class="register-block">
                     <h3>现在注册地图</h3>
                     <p>和<span class="highlight">2300</span>公益机构<br/>企业和志愿者做朋友</p>
-                    <a class="join-link" href="#">加入地图</a>
+                    <?php if(!user()): ?>
+                    <a class="join-link" href="javascript:$('.register-link').click();">加入地图</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div> <!-- sub-container -->
@@ -162,4 +164,53 @@
 {:js('homepage')}
 </block>
 <block name="script-after">
+<?php if(receive_tourist('Index/index')): ?>
+    {:css('-bootstrap-tour.min')}
+    {:js('-bootstrap-tour')}
+    <script>
+        $(function(){
+            // Instance the tour
+            var tour = new Tour({
+              storage: false,
+              steps: [
+              {
+                title: "欢迎使用NGO2.0个公益地图",
+                content: "在这个地图里，您能找到身边有哪些公益活动，有哪些公益机构，企业是怎么做公益的，以及公益机构和企业如何合作。",
+                orphan: true,
+                backdrop: true
+              },
+              {
+                element: ".search-filter-form",
+                title: "在地图上搜索",
+                content: "在这个地方，您可以按照不同省份和城市、活动领域（比如教育助学、环境保护等）等搜索内容。",
+                placement: "top"
+              },
+              {
+                element: ".search-btn",
+                title: "开始搜索！",
+                content: "完毕之后，点击这里查看公益资料。您也可以什么都不输入，直接点击这个按钮随便看看。"
+              },
+              {
+                element: ".register-link",
+                title: "登记公益机构",
+                content: "如果您的公益机构还没在地图上登记，可以在这里注册，让企业和其他机构找到您！",
+                placement: "bottom"
+              },
+              {
+                element: ".list-your-space",
+                title: "发布活动/项目",
+                content: "如果要发布公益活动或项目的话，请点击这里",
+                placement: "left"
+              }
+            ]});
+
+            // Initialize the tour
+            tour.init();
+
+            // Start the tour
+            tour.start();
+        })
+    </script>
+    
+<?php endif; ?>
 </block>

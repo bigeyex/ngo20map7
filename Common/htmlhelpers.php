@@ -1,4 +1,19 @@
 <?php
+function receive_tourist($tour_id){
+    if(APP_DEBUG){
+        return true;
+    }
+
+    if(isset($_SESSION['tour_'.$tour_id]) || isset($_COOKIE['tour_'.$tour_id])){
+        return false;
+    }
+    else{
+        $_SESSION['tour_'.$tour_id] = 1;
+        setcookie('tour_'.$tour_id,1,time() + (86400 * 60)); // 86400 = 1 day
+        return true;
+    }
+}
+
 function active_for($str){
     $condition_groups = explode('/', $str);
     for($i=0;$i<floor(count($condition_groups)/2);$i++){

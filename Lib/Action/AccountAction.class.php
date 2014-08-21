@@ -1,6 +1,6 @@
 <?php
 
-class AccountAction extends Action{
+class AccountAction extends BaseAction{
 
 	// views
 	function dashboard(){
@@ -30,7 +30,12 @@ class AccountAction extends Action{
 		}
 	}
 
+
     public function email_register(){
+        if($_POST['password'] != $_POST['password_again']){
+            echo '两次输入密码不一致!';
+            return;
+        }
         $account_model = new AccountModel();
         $id = $account_model->add_user($_POST);
         if(is_numeric($id)){

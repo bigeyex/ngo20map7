@@ -2,9 +2,10 @@
 
 <block name="head">
 {:css('jquery.datetimepicker')}
-{:css('org-home')}
+{:css('font-awesome.min')}
 {:css('jquery.fileupload')}
 {:css('jquery.Jcrop')}
+{:css('org-home')}
 </block>
 
 
@@ -16,6 +17,7 @@
     <p class="h1-subtitle">在公益地图上登记您的公益机构<br/>
       让企业、其他公益机构和公众了解您</p>
     <form class="form-horizontal" method="post" action="{:U('User/insert')}">
+        <input type="hidden" name="type" value="ngo"/>
         <div class="control-group">
             <label class="control-label" for="inputName">机构名称</label>
             <div class="controls">
@@ -48,15 +50,15 @@
               </div>
           </div>
           <div class="control-group">
-              <label class="control-label" for="inputPlace">服务领域</label>
+              <label class="control-label" for="inputField">服务领域</label>
               <div class="controls">
-                <input type="text" id="inputName" name="work_field" class="input-large pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
+                <input type="text" id="inputField" name="work_field" class="input-large pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
                 <i class="icon-dropdown"></i>
               </div>
           </div>
           
           <div class="control-group">
-              <label class="control-label" for="inputPlace">机构标志</label>
+              <label class="control-label">机构标志</label>
               <input type="hidden" name="image" value=""/>
               <div class="controls">
                 <div class="image-preview">
@@ -65,9 +67,26 @@
                 <span class="button fileinput-button">
                     <span id="imgupload-retext-image">点击上传标志</span>
                     <!-- The file input field used as target for the file upload widget -->
-                    <input class="fileupload" type="file" name="files" re-text="重新上传标志"
+                    <input class="fileupload upload-logo" type="file" name="files" re-text="重新上传标志"
                         crop-width="150" crop-height="150" data-url="{:U('Util/upload')}" target-input="image"/>
                 </span>
+              </div>
+          </div>
+
+          <div class="control-group">
+              <label class="control-label">机构风采</label>
+              <div class="controls">
+                <div class="image-showcase">
+
+
+                </div>
+                <div class="add-photo-button fileinput-button">
+                    <i class="upload-photos-icon fa fa-upload"></i>
+                    <span id="imgupload-retext-show" class="upload-photos-text">点击上传照片</span>
+                    <!-- The file input field used as target for the file upload widget -->
+                    <input class="fileupload upload-show" type="file" name="files" re-text="继续上传照片"
+                        crop-width="628" crop-height="326" data-url="{:U('Util/upload')}" target-input="show"/>
+                </div>
               </div>
           </div>
           
@@ -84,13 +103,13 @@
 
 <block name="script-before">
 {:js('jquery.datetimepicker')}
+{:js('jquery.pillselectbox')}
 {:js('jquery.validate')}
 {:js('messages_zh')}
 {:js('jquery.Jcrop')}
 </block>
 <block name="script-after">
 {:js('-jquery.fileupload')}
-{:js('-event-add')}
 {:js('-user-add')}
 <script>
 

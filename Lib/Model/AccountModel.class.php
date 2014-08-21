@@ -40,12 +40,14 @@ class AccountModel extends Model{
                 $user_data['local_maps'] = O('local_map')->with('admin_id', $user_data['id'])->select();
                 $_SESSION['login_user'] = array_merge($user_data, $result);
                 $_SESSION['login_user']['id'] = $user_data['id'];
+                $_SESSION['login_user']['user_id'] = $user_data['id'];
                 $_SESSION['login_user']['name'] = $user_data['name'];
                 $this->query("update user set login_count=login_count+1 where id=$user_id");
             }
             else{
                 $_SESSION['login_user'] = $result;
             }
+            $_SESSION['login_user']['password'] = '******';
             $_SESSION['login_user']['account_id'] = $result['id'];
 
             $this->where(array('id'=>$result['id']))->data(array('last_login'=>date('Y-m-d h:i:s')))->save();
@@ -63,10 +65,13 @@ class AccountModel extends Model{
         else if(!isset($post['password'])){
             return '密码必填';
         }
-        $post['password'] = md5($post['password']);
+        $account_count = $this->where(array('email'=>$post['email']))->count();
+        if($account_count > 1){
+            return '该电子邮件已经被注册，请换一个电子邮件或者直接登录';
+        }
         $id = $this->add(array(
                 'name' => $post['name'],
-                'password' => $post['password'],
+                'password' => md5($post['password']),
                 'email' => $post['email']
             ));
         $this->login($post['email'], $post['password']);

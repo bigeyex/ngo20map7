@@ -2,7 +2,12 @@
 
 <block name="head">
 {:css('jquery.datetimepicker')}
+{:css('font-awesome.min')}
+{:css('lightbox')}
+{:css('jquery.fileupload')}
+{:css('jquery.Jcrop')}
 {:css('org-home')}
+
 </block>
 
 
@@ -10,28 +15,28 @@
 
 
 <div class="container form-container publish-event">
-    <h1>发布活动或项目</h1>
+    <h1>发布活动/项目</h1>
     <p class="h1-subtitle">精彩的内容，可能入选NGO2.0首页推荐案例</p>
     <form class="form-horizontal add-event-form">
         <div class="control-group">
-            <label class="control-label" for="inputName">活动名称</label>
+            <label class="control-label" for="inputName">活动/项目名称</label>
             <div class="controls">
-              <input type="text" id="inputName" class="input-large" placeholder="请在20字数内表述清楚" required>
+              <input type="text" id="inputName" name="name" class="input-large" placeholder="请在20字数内表述清楚" required>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputDesc">活动详情</label>
+            <label class="control-label" for="inputDesc">活动/项目详情</label>
             <div class="controls">
-              <textarea id="inputDesc" class="input-large" rows="5" placeholder="请用一段简短的话来描述您的活动" required></textarea>
+              <textarea id="inputDesc" name="intro" class="input-large" rows="5" placeholder="请用一段简短的话来描述您的活动" required></textarea>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputPlace">活动地点</label>
+            <label class="control-label" for="inputPlace">活动/项目地点</label>
             <div class="controls map-input">
               <div class="location-sets">
               </div>
               <div style="position: relative">
-                <input type="text" id="inputName" class="input-large map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标,之后按“添加”"><button class="add-location-button" href="javascript:void(0);" disabled>添加</button>
+                <input type="text" id="inputName" name="place" class="input-large map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标,之后按“添加”"><button class="add-location-button" href="javascript:void(0);" disabled>添加</button>
               </div>
               <input type="hidden" name="longitude" class="map-longitude">
               <input type="hidden" name="latitude" class="map-latitude">
@@ -41,32 +46,49 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputPlace">活动领域</label>
+            <label class="control-label" for="inputField">活动/项目领域</label>
             <div class="controls">
-              <input type="text" id="inputName" class="input-large pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
+              <input type="text" id="inputField" name="work_field" class="input-large pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
               <i class="icon-dropdown"></i>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputPlace">活动需求</label>
+            <label class="control-label" for="inputReq">活动/项目需求</label>
             <div class="controls">
-              <input type="text" id="inputName" class="input-large pill-select" placeholder="资金" data-options="需要合作方,媒体需求,物资需求,资金需求,志愿者需求">
+              <input type="text" id="inputReq" name="res_tags" class="input-large pill-select" placeholder="资金" data-options="需要合作方,媒体需求,物资需求,资金需求,志愿者需求">
               <i class="icon-dropdown"></i>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputPlace">活动时间</label>
+            <label class="control-label">活动/项目时间</label>
             <div class="controls time-input">
               <div class="group">
-                  <input type="text" id="inputName" class="input datepicker" data-date-format="yyyy年m月dd日"  placeholder="2014年6月22日">
+                  <input type="text" id="inputStartTime" name="begin_time" class="input datepicker" data-date-format="yyyy年m月dd日"  placeholder="2014年6月22日">
                   <i class="icon-dropdown"></i>
                   <span class="after-text">（开始时间）</span>
               </div>
               <i class="arrow-down"></i>
               <div class="group">
-                  <input type="text" id="inputName" class="input datepicker" data-date-format="yyyy年m月dd日" placeholder="2014年6月22日">
+                  <input type="text" id="inputEndTime" name="end_time" class="input datepicker" data-date-format="yyyy年m月dd日" placeholder="2014年6月22日">
                   <i class="icon-dropdown"></i>
                   <span class="after-text">（结束时间）</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputPlace">活动/项目照片</label>
+            <div class="controls">
+              <div class="image-showcase">
+
+
+              </div>
+              <div class="add-photo-button fileinput-button">
+                  <i class="upload-photos-icon fa fa-upload"></i>
+                  <span id="imgupload-retext-image" class="upload-photos-text">点击上传照片</span>
+                  <!-- The file input field used as target for the file upload widget -->
+                  <input class="fileupload" type="file" name="files" re-text="继续上传照片"
+                      crop-width="628" crop-height="326" data-url="{:U('Util/upload')}" target-input="image"/>
               </div>
             </div>
         </div>
@@ -82,8 +104,12 @@
 
 
 <block name="script-before">
+{:js('jquery.pillselectbox')}
 {:js('jquery.datetimepicker')}
+{:js('jquery.fileupload')}
+{:js('jquery.Jcrop')}
 {:js('jquery.validate')}
+{:js('lightbox')}
 {:js('messages_zh')}
 </block>
 <block name="script-after">

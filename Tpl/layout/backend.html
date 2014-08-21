@@ -70,8 +70,12 @@
         </li>
       </ul>
       <ul class="nav pull-right logged-out">
+        <?php if (!user()): ?>
         <li><a class="fancybox.ajax fancybox register-link" href="__APP__/Account/partial_register_box">注册</a></li>
         <li><a class="fancybox.ajax fancybox login-link" href="__APP__/Account/partial_login_box">登录</a></li>
+        <?php else: ?>
+        <include file="layout:_login_stab"/>
+        <?php endif ?>
         <li><a data-login-modal="" href="#">中文/Eng<i class="icon-dropdown"></i></a></li>
       </ul>
     </div>
@@ -83,8 +87,12 @@
     <ul>
       <li class="active"><a href="#">工作台</a></li>
       <li><a href="#">站内信</a></li>
-      <li><a href="#">我的机构</a></li>
-      <li><a href="#">我的活动</a></li>
+      <li><a href="#">活动管理</a></li>
+      <?php if(user('user_id')): ?>
+      <li class="update-org-info-link"><a href="{:U('User/edit')}">更新机构信息</a></li>
+      <?php else: ?>
+      <li><a href="{:U('User/add')}">登记公益机构</a></li>
+      <?php endif; ?>
       <li><a href="#">账户设置</a></li>
       <li>
         <div class="dropdown">

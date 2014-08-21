@@ -7,7 +7,7 @@
 .controls .icon-dropdown{
     position: absolute;
     top: 13px;
-    right: -8px;
+    left: 440px;
     pointer-events: none 
 }
 
@@ -17,7 +17,31 @@
 }
 
 
+.time-input .input{
+    width: 269px;
+}
 
+.time-input .arrow-down{
+    display: block;
+    width: 15px;
+    height: 17px;
+    background: url(../img/icons/timespan-arrow.png) no-repeat;
+    margin: 3px 0px 8px 145px;
+}
+
+.add-location-button{
+    border: solid 1px #e6b600;
+    background-image: -webkit-linear-gradient(bottom, #fed72f, #fde65c);
+    background-image: -moz-linear-gradient(bottom, #fed72f, #fde65c);
+    background-image: -o-linear-gradient(bottom, #fed72f, #fde65c);
+    background-image: linear-gradient(to top, #fed72f, #fde65c);
+    height: 41px;
+    width: 46px;
+}
+
+input.map-address-plus{
+    width: 400px;
+}
 
 /* jquery Plugin: pill select box */
 
@@ -153,4 +177,108 @@
     background-image: -moz-linear-gradient(bottom, #fed72f, #fde65c);
     background-image: -o-linear-gradient(bottom, #fed72f, #fde65c);
     background-image: linear-gradient(to top, #fed72f, #fde65c);
+}
+
+
+.pill-select-pills{
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 3px;
+    /* display: inline-block; */
+    list-style: none;
+    line-height: 16px;
+    background: white;
+    /* vertical-align: top; */
+    float: left;
+    display: list-item;
+    position: relative;
+}
+
+.trigger-box-text{
+    display: block;
+    position: relative;
+    height: 27px;
+}
+
+.box-header .subtitle{
+    color: #666;
+    font-size: 16px;
+}
+
+
+/* add photo button in event/add */
+.add-photo-button, .image-showcase, .uploaded-image-slide{
+    display: inline-block;
+}
+.add-photo-button{
+    width: 120px;
+    height: 65px;
+    border: 2px dashed #555;
+}
+.image-showcase{
+    float: left;
+    margin: 0 5px;
+}
+
+.uploaded-image-slide{
+    display: inline-block;
+    padding: 4px;
+    background-color: #fff;
+    line-height: 0;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+    margin-bottom: 5px;
+    position: relative;
+    margin-right: 5px;
+}
+
+.uploaded-image-slide:hover{
+    background-color: #4ae;
+    -webkit-transition: background-color 0;
+    -moz-transition: background-color 0;
+    -o-transition: background-color 0;
+    transition: background-color 0;
+}
+
+.upload-photos-icon{
+    font-size: 24px;
+    text-align: center;
+    display: block;
+    padding-top: 10px;
+}
+
+.upload-photos-text{
+    top: 10px;
+
+    text-align: center;
+    display: block;
+    padding-top: 4px;
+}
+
+.remove-image-icon{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #555;
+    font-size: 20px;
+}
+
+.crop-action{
+    margin-top: 15px;
+    position: absolute;
+    top: 80px;
+    right: 35px;
+}
+
+.edit-checkmark{
+    width: 20px;
+    color: #74c6c6;
 }

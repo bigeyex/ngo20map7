@@ -1,13 +1,53 @@
    $(function(){
-       loadBaiduMap();
+       if($('#map-input-box').length >= 1){
+         loadBaiduMap();
+       }
        $('.pill-select').pillSelectBox();
        $('.datepicker').datetimepicker({lang: 'ch'});
+       $('select').each(function(){$(this).val($(this).attr('value'))});
 
        // jquery upload and crop
        if($().fileupload!==undefined){
-          $('.fileupload').uploadAndCrop();
+          $('.fileupload').uploadAndCrop(function(url){
+            $('.image-showcase').append('<a class="uploaded-image-slide" href="'+app_path+'/Public/Uploaded/'+url+'" data-lightbox="image-1" ><img src="'+app_path+'/Public/Uploaded/th628x326_'+url+'" width="119"/><input type="hidden" name="images[]" value="'+url+'"/><i class="fa fa-times remove-image-icon" ></i></a>');
+            dispatcher.dispatch('image.uploaded', url)
+          });
        }
-       $('.add-event-form').validate();
+
+       if($.fn.validate !== undefined){
+         var log_in_subscribed = false;
+         $('.add-event-form').validate({
+          submitHandler: function(form){
+            $.post(app_path+'/Event/insert', $('.add-event-form').serializeArray(), function(result){
+                if(result == 'ok'){
+                    if($('.logged-in-stab').length >= 1){
+                      window.location.href = app_path+'/Event/edit';
+                    }
+                    else{ // if user is not logged in, ask him/her to login in first
+                      if(!log_in_subscribed){
+                        dispatcher.subscribe('login', function(){
+                          window.location.href = app_path+'/Event/edit';
+                        });
+                      }
+                      log_in_subscribed = true;
+
+                      $('.login-link').click();
+                    }
+                } // if result is correct
+                else{
+                    alert(result);
+                }
+            });
+          }
+         });
+       }
+
+       $('.image-showcase').on('click', '.remove-image-icon', function(e){
+          dispatcher.dispatch('image.deleted', $(this).parent().find('input').val());
+          $(this).parent().remove();
+          e.stopPropagation();
+          e.preventDefault();
+       })
    });
    function loadBaiduMap(){
        var script = document.createElement("script");
@@ -252,52 +292,3 @@
   }( jQuery ));
 
 
- // the jquery plugin for generating select box
- (function( $ ) {
-
-      $.fn.pillSelectBox = function() {
-          this.each(function(){
-              var hidden_select = $(this);
-              var selectOptions = hidden_select.attr('data-options').split(',');
-              var pills = $.map(selectOptions, function(a){
-                              return '<li><a href="javascript:void(0)">'+a+'</a></li>';
-                          }).join('');
-              var trigger_box = $('<div><span class="trigger-box-text"></span></div>');
-              var dropdown_menu = $('<ul>'+pills+'</ul>');
-
-              dropdown_menu.appendTo(trigger_box);
-              trigger_box.insertAfter(hidden_select).attr('class', hidden_select.attr('class')).addClass('select-pills');
-
-              hidden_select.hide();
-              dropdown_menu.hide();
-              dropdown_menu.css('position', 'absolute');
-              dropdown_menu.css('left',0);
-              dropdown_menu.css('top',trigger_box.outerHeight());
-
-              // events
-              trigger_box.click(function(e){
-                  dropdown_menu.toggle();
-                  e.stopPropagation();
-              });
-              dropdown_menu.click(function(e){
-                  e.stopPropagation();
-              });
-              dropdown_menu.find('a').click(function(){
-                  $(this).toggleClass('selected');
-                  var selected_items = dropdown_menu.find('a.selected').map(function(){
-                      return $(this).text();
-                  });
-                  selected_items = $.makeArray(selected_items);
-                  hidden_select.val(selected_items.join(','));
-                  trigger_box.find('.trigger-box-text').text(selected_items.join(', '));
-              });
-              $(document).click(function(){
-                  dropdown_menu.hide();
-              });
-          });
-          
-          return this;
-
-      };
-
-  }( jQuery ));

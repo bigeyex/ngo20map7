@@ -85,9 +85,14 @@ function MapView(){
                     var elem = $(this.domElement);
                     $('.result-list li').removeClass('active');
                     elem.addClass('active');
-                    $('.result-panel').animate({
-                        scrollTop: elem.offset().top-$('.result-list li').eq(0).offset().top
-                    }, 500);
+                    this.hoverTimeout = setTimeout(function(){
+                        $('.result-panel').animate({
+                            scrollTop: elem.offset().top-$('.result-list li').eq(0).offset().top
+                        }, 500);
+                    }, 200);
+                });
+                marker.addEventListener('mouseout', function(){
+                    clearTimeout(this.hoverTimeout);
                 });
                 item.mouseover(function(){
                     self.highlightMarker(marker, true);
@@ -135,6 +140,7 @@ mapView = new MapView();
 function FilterView(){
     var self = this;
     this.minlon=this.minlat=this.maxlon=this.maxlat=null;
+    this.page = 1;
     this.refreshTimeout = null;
     this.init = function(){
        self.attach_autocomplete("#search-input-type", type_categories);
@@ -147,6 +153,29 @@ function FilterView(){
            // search in the whole nation regardless of current viewport of the map.
            self.restartViewport();
            self.commitChange();
+       });
+
+       $('.result-panel').on('click', '.pager span', function(e){
+            var dom = $(this);
+            var page;
+
+            if(dom.hasClass('pager-prev')){
+                page=self.page-1;
+            }
+            else if(dom.hasClass('pager-next')){
+                page=self.page+1;
+            }
+            else if(dom.hasClass('pager-number')){
+                page=dom.text();
+            }
+            else{
+                return;
+            }
+            if( page == self.page ){
+                return;
+            }
+            self.page = parseInt(page);
+            self.reload();
        });
         
        dispatcher.subscribe('viewport.changed', function(minlon, maxlon, minlat, maxlat){
@@ -170,6 +199,7 @@ function FilterView(){
     
     this.commitChange = function(){
         dispatcher.dispatch('filter.changed');
+        this.page = 1;
         this.reload();
     };
     
@@ -188,9 +218,11 @@ function FilterView(){
             maxlon: self.maxlon,
             minlat: self.minlat,
             maxlat: self.maxlat,
+            page: self.page
         };
         $('.result-panel').load(app_path+'/Index/map_result?'+$.param(params), function(){
             dispatcher.dispatch('result.refreshed');
+            $('.result-panel').scrollTop(0);
         });
     }
     

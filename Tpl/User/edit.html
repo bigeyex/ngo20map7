@@ -1,7 +1,9 @@
 <extend name="layout:backend"/>
 
 <block name="head">
-{:css('datepicker')}
+{:css('jquery.datetimepicker')}
+{:css('font-awesome.min')}
+{:css('lightbox')}
 {:css('jquery.fileupload')}
 {:css('jquery.Jcrop')}
 {:css('user-edit')}
@@ -14,65 +16,72 @@
         <div class="row">
             <div class="span3">
                 <ul class="form-nav">
-                    <li class="active"><a href="#">基本资料</a></li>
-                    <li><a href="#">联系方式</a></li>
-                    <li><a href="#">信息披露</a></li>
-                    <li><a href="#">机构协作者</a></li>
+                    <li class="{:active_if($p==1)}"><a href="{:U('User/edit')}/id/{$user.id}/p/1"><i class="edit-checkmark fa fa-check" style="width:20px;"></i> 基本资料</a></li>
+                    <li class="{:active_if($p==2)}"><a href="{:U('User/edit')}/id/{$user.id}/p/2"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_PHOTOS])}" style="width:20px;"></i> 机构风采</a></li>
+                    <li class="{:active_if($p==3)}"><a href="{:U('User/edit')}/id/{$user.id}/p/3"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_CONTACT_INFO])}" style="width:20px;"></i> 联系方式</a></li>
+                    <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/4"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_MORE_INFO])}" style="width:20px;"></i> 信息披露</a></li>
+                    <li class="preview-org-page"><a href="{:U('User/view')}/id/{$user.id}" target="_blank"><i class="fa fa-eye" style="width:20px;"></i> 查看机构页面</a></li>
                 </ul>
             </div>
             <div class="span9">
                 <div class="box nav-tab" tab-id="basic-info">
-                    <form class="form-horizontal">
-                    <div class="box-header">
-                        基本信息
-                    </div>
-                    <div class="box-content">
+                    
+                    <form class="form-horizontal" action="{:U('User/save')}" method="post">
+                      <input type="hidden" name="id" value="{$user.id}" id="hidden_user_id"/>
+
+                      <?php if($p == PAGE_BASIC_INFO): ?>
+                      <!-- basic info section -->
+
+                      <div class="box-header">
+                          基本信息
+                      </div>
+                      <div class="box-content">
                     <div class="control-group">
                         <label class="control-label" for="inputName">机构名称</label>
                         <div class="controls">
-                          <input type="text" id="inputName" name="name" class="span6" placeholder="填写公益机构全称">
+                          <input type="text" id="inputName" name="name" value="{$user.name}" class="span6" placeholder="填写公益机构全称">
                         </div>
                     </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputDesc">机构简介</label>
+                          <label class="control-label" for="inputIntro">机构简介</label>
                           <div class="controls">
-                            <textarea id="inputDesc" name="intro" class="span6" rows="5" placeholder="请用一段简短的话来描述您的机构"></textarea>
+                            <textarea id="inputIntro" name="intro" class="span6" rows="5" placeholder="请用一段简短的话来描述您的机构">{$user.intro}</textarea>
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputDesc">机构使命</label>
+                          <label class="control-label" for="inputAim">机构使命</label>
                           <div class="controls">
-                            <input type="text" id="inputName" name="aim" class="span6" placeholder="请用一句话来描述机构的使命">
+                            <input type="text" id="inputAim" value="{$user.aim}" name="aim" class="span6" placeholder="请用一句话来描述机构的使命">
                           </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputPlace">办公地点</label>
                           <div class="controls map-input">
-                            <input type="text" id="inputName" name="place" class="span6 map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标">
-                            <input type="hidden" name="longitude" class="map-longitude">
-                            <input type="hidden" name="latitude" class="map-latitude">
-                            <input type="hidden" name="province" class="map-province">
-                            <input type="hidden" name="city" class="map-city">
+                            <input type="text" id="inputPlace" name="place" value="{$user.place}" class="span6 map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标">
+                            <input type="hidden" name="longitude" value="{$user.longitude}" class="map-longitude">
+                            <input type="hidden" name="latitude" value="{$user.latitude}" class="map-latitude">
+                            <input type="hidden" name="province" value="{$user.province}" class="map-province">
+                            <input type="hidden" name="city" value="{$user.city}" class="map-city">
                             <div class="map-input-box" id="map-input-box" style="height: 217px; width: 464px"></div>
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputPlace">服务领域</label>
+                          <label class="control-label" for="inputField">服务领域</label>
                           <div class="controls">
-                            <input type="text" id="inputName" name="work_field" class="span6 pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
+                            <input type="text" id="inputField" name="work_field" class="span6 pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童" value="{$user.work_field}">
                             <i class="icon-dropdown"></i>
                           </div>
                       </div>
                       
                       <div class="control-group">
-                          <label class="control-label" for="inputPlace">机构标志</label>
-                          <input type="hidden" name="image" value=""/>
+                          <label class="control-label" for="inputLogo">机构标志</label>
+                          <input type="hidden" name="image" value="{$user.image}"/>
                           <div class="controls">
                             <div class="image-preview">
-                              <img src="" style="display:none;" width="150" id="imgpreview-image"/>
+                              <img src="__APP__/Public/Uploaded/th150x150_{$user.image}" width="150" id="imgpreview-image"/>
                             </div>
                             <span class="fileinput-button">
-                                <button id="imgupload-retext-image" class="btn">点击上传标志</button>
+                                <button id="imgupload-retext-image" class="btn">点击更换标志</button>
                                 <!-- The file input field used as target for the file upload widget -->
                                 <input class="fileupload" type="file" name="files" re-text="重新上传标志"
                                     crop-width="150" crop-height="150" data-url="{:U('Util/upload')}" target-input="image"/>
@@ -82,7 +91,181 @@
                       <div class="submit-button controls">
                           <button class="button">保存</button>
                       </div>
-                </div> <!-- box-content -->
+                      </div> <!-- box-content -->
+
+                      <?php elseif($p==PAGE_PHOTOS): ?>
+
+                      <div class="box-header">
+                          活动/项目照片 <span class="subtitle">({$user.name})</span>
+                      </div>
+                      <div class="box-content" style="min-height:400px;">
+                      <div class="">
+                        <div class="image-showcase">
+                          <?php foreach($images as $image): ?>
+                            <a class="uploaded-image-slide" href="/ngo20map7/Public/Uploaded/{$image.url}" data-lightbox="image-1">
+                                <img src="/ngo20map7/Public/Uploaded/th628x326_{$image.url}" width="119">
+                                <input type="hidden" name="images[]" value="{$image.url}">
+                                <i class="fa fa-times remove-image-icon"></i>
+                            </a>
+                          <?php endforeach; ?>
+                        </div>
+                        <div class="add-photo-button fileinput-button">
+                            <i class="upload-photos-icon fa fa-upload"></i>
+                            <span id="imgupload-retext-image" class="upload-photos-text">上传新照片</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input class="fileupload" type="file" name="files" re-text="上传新照片" crop-width="628" crop-height="326" data-url="/ngo20map7/Util/upload" target-input="image">
+                        </div>
+                      </div>
+
+                      <?php elseif($p==PAGE_CONTACT_INFO): ?>
+
+                      <div class="box-header">
+                          联系方式 <span class="subtitle">({$user.name})</span>
+                      </div>
+                      <div class="box-content org-contact-info-section">
+                      <div class="control-group">
+                          <label class="control-label" for="inputContact">联系人</label>
+                          <div class="controls">
+                            <input type="text" id="inputContact" name="contact_name" class="span6" value="{$user.contact_name}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputPhone">机构电话</label>
+                          <div class="controls">
+                            <input type="text" id="inputPhone" name="phone" class="span6" value="{$user.phone}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputMail">机构邮箱</label>
+                          <div class="controls">
+                            <input type="text" id="inputMail" name="public_email" class="span6" value="{$user.public_email}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputWebsite">机构网站</label>
+                          <div class="controls">
+                            <input type="text" id="inputWebsite" name="website" class="span6" value="{$user.website}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputFax">机构传真</label>
+                          <div class="controls">
+                            <input type="text" id="inputFax" name="fax" class="span6" value="{$user.fax}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputWeibo">机构微博</label>
+                          <div class="controls">
+                            <select name="weibo_provider" class="input-small" value="{$user.weibo_provider}">
+                              <option value="新浪微博">新浪微博</option>
+                              <option value="腾讯微博">腾讯微博</option>
+                              <option value="搜狐微博">搜狐微博</option>
+                            </select>
+                            @<input type="text" id="inputWeibo" name="weibo" class="" value="{$user.weibo}">
+                          </div>
+                      </div>
+                      <div class="submit-button controls">
+                          <button class="button">保存</button>
+                      </div>
+                      </div> <!-- box-content -->
+
+                      <?php elseif($p==PAGE_MORE_INFO): ?>
+
+                      <div class="box-header">
+                          信息披露 <span class="subtitle">({$user.name})</span>
+                      </div>
+                      <div class="box-content">
+                      <div class="control-group">
+                          <label class="control-label" for="inputServiceArea">服务区域</label>
+                          <div class="controls">
+                            <input type="text" id="inputServiceArea" name="service_area" class="span6" value="{$user.service_area}" placeholder="本机构在哪些地区开展业务？">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label">成立时间</label>
+                          <div class="controls">
+                              <select name="register_year" class="input-medium" value="{$user.register_year}">
+                                  <option>请选择年份</option>
+                                  <?php for($i=0;$i<50;$i++): ?>
+                                    <?php $year = date('Y')-$i; ?>
+                                    <option value="{$year}">{$year} 年</option>
+                                  <?php endfor; ?>
+                              </select>
+                              <select name="register_month" class="input-small" value="{$user.register_month}">
+                                  <option>月份</option>
+                                  <?php for($i=1;$i<=12;$i++): ?>
+                                    <option value="{$i}">{$i} 月</option>
+                                  <?php endfor; ?>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label">注册类型</label>
+                          <div class="controls">
+                            <select name="register_type" title="注册类型" value="{$user.register_type}">
+                                <option value="">——请选择——</option>
+                                <option value="尚未注册">尚未注册</option>
+                                <option value="机构挂靠">机构挂靠</option>
+                                <option value="社团注册">社团注册</option>
+                                <option value="民非注册">民非注册</option>
+                                <option value="工商注册">工商注册</option>
+                                <option value="境外注册">境外注册</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label">注册时间</label>
+                          <div class="controls">
+                              <select name="documented_year" class="input-medium" value="{$user.documented_year}">
+                                  <option>请选择年份</option>
+                                  <?php for($i=0;$i<50;$i++): ?>
+                                    <?php $year = date('Y')-$i; ?>
+                                    <option value="{$year}">{$year} 年</option>
+                                  <?php endfor; ?>
+                              </select>
+                              <select name="documented_month" class="input-small" value="{$user.documented_month}">
+                                  <option>月份</option>
+                                  <?php for($i=1;$i<=12;$i++): ?>
+                                    <option value="{$i}">{$i} 月</option>
+                                  <?php endfor; ?>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputFulltime">全职人数</label>
+                          <div class="controls">
+                            <input type="text" id="inputFulltime" name="staff_fulltime" class="span6" value="{$user.staff_fulltime}" placeholder="">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputParttime">兼职人数</label>
+                          <div class="controls">
+                            <input type="text" id="inputParttime" name="staff_parttime" class="span6" value="{$user.staff_parttime}" placeholder="">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputVolunteer">核心志愿者数</label>
+                          <div class="controls">
+                            <input type="text" id="inputVolunteer" name="staff_volunteer" class="span6" value="{$user.staff_volunteer}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputFinancialLink">财务披露链接</label>
+                          <div class="controls">
+                            <input type="text" id="inputFinancialLink" name="financial_link" class="span6" value="{$user.financial_link}" placeholder="如果可以在网上看到机构的财务披露，请将链接贴在这里">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputFundSource">资金来源</label>
+                          <div class="controls">
+                            <textarea id="inputFundSource" name="fund_source" class="span6" rows="5">{$user.fund_source}</textarea>
+                          </div>
+                      </div>
+                      <div class="submit-button controls">
+                          <button class="button">保存</button>
+                      </div>
+                      </div> <!-- box-content -->
+                      <?php endif; ?> 
                 </form>
 
             </div> <!-- box -->
@@ -94,11 +277,80 @@
 
 
 <block name="script-before">
-    {:js('bootstrap-datepicker')}
+    {:js('jquery.pillselectbox')}
+    {:js('jquery.datetimepicker')}
+    {:js('jquery.fileupload')}
     {:js('jquery.Jcrop')}
+    {:js('lightbox')}
 </block>
 <block name="script-after">
+  {:js('-event-add')}
+  <script>
+  $(function(){
+    dispatcher.subscribe('image.uploaded', function(url){
+      $.post(app_path+'/User/addUserPhoto', {
+        url: url,
+        user_id: $('#hidden_user_id').val()
+      });
+    });
+    dispatcher.subscribe('image.deleted', function(url){
+      $.post(app_path+'/User/deleteUserPhoto', {
+        url: url,
+        user_id: $('#hidden_user_id').val()
+      });
+    });
+  });
+  </script>
+
+  <?php if(receive_tourist('User/edit')): ?>
+    {:css('-bootstrap-tour.min')}
+    {:js('-bootstrap-tour')}
+    <script>
+        $(function(){
+            // Instance the tour
+            var tour = new Tour({
+              storage: false,
+              steps: [
+              {
+                title: "感谢！",
+                content: "您的机构已经在公益地图上成功登记。现在您可以继续完善下面的信息。",
+                orphan: true,
+                backdrop: true
+              },
+              {
+                element: ".form-nav",
+                title: "完善不同板块的信息",
+                content: "您可以点击这边的链接，去不同板块完善机构信息。已经基本完成的板块会有对勾✓提示",
+                placement: "right",
+                backdrop: true
+              },
+              {
+                element: ".preview-org-page",
+                title: "预览机构页面",
+                content: "你可以点击这里看看机构的页面在访客眼里是什么样子。欣赏一下自己的劳动成果吧。",
+                placement: "right"
+              },
+              {
+                element: ".update-org-info-link",
+                title: "随时补充机构信息",
+                content: "你也可以以后在登录后点击这里补充信息，或者随时更新信息。",
+                placement: "bottom"
+              },
+              {
+                element: ".org-contact-info-section",
+                title: "现在开始填写",
+                content: "现在开始填写机构的联系资料吧，让企业和其他机构方便地找到您。",
+                placement: "top"
+              }
+            ]});
+
+            // Initialize the tour
+            tour.init();
+
+            // Start the tour
+            tour.start();
+        })
+    </script>
     
-    {:js('-jquery.fileupload')}
-    {:js('-event-add')}
+  <?php endif; ?>
 </block>

@@ -1,69 +1,216 @@
 <extend name="layout:backend"/>
 
 <block name="head">
-
+{:css('jquery.datetimepicker')}
+{:css('font-awesome.min')}
+{:css('lightbox')}
+{:css('jquery.fileupload')}
+{:css('jquery.Jcrop')}
+{:css('user-edit')}
 </block>
 
 
 <block name="body">
 
-
     <div class="container backend-container">
         <div class="row">
             <div class="span3">
-                <div class="box">
-                    <ul class="left-nav">
-                        <li><a href="#">基本信息</a></li>
-                        <li><a href="#">具体信息</a></li>
-                        <li><a href="#">活动照片</a></li>
-                    </ul>
-                </div>
+                <ul class="form-nav">
+                    <li class="{:active_if($p==1)}"><a href="{:U('Event/edit')}/id/{$event.id}/p/1"><i class="fa fa-info-circle" style="width:20px;"></i> 基本资料</a></li>
+                    <li class="{:active_if($p==2)}"><a href="{:U('Event/edit')}/id/{$event.id}/p/2"><i class="fa fa-image" style="width:20px;"></i> 活动/项目照片</a></li>
+                    <li class="{:active_if($p==3)}"><a href="{:U('Event/edit')}/id/{$event.id}/p/3"><i class="fa fa-user" style="width:20px;"></i> 联系方式</a></li>
+                    <li><a href="{:U('Event/view')}/id/{$event.id}" target="_blank"><i class="fa fa-eye" style="width:20px;"></i> 查看活动页面</a></li>
+                </ul>
             </div>
-            <div class="span8">
-                <div class="box">
-                    <div class="box-header">
-                        系统通知
-                    </div>
-                    <div class="box-content">
-                        <p class="item">
-                            您的机构联系资料还没有完成，<a href="#">现在去完成</a>。
-                        </p>
-                        <p class="item">
-                            您有三个月没有发布新活动了，<a href="#">现在发布新活动。</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="box-header">
-                        站内信
-                    </div>
-                    <div class="box-content">
-                        <p class="item">
-                            还没有站内信
-                        </p>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="box-header">
-                        动态
-                    </div>
-                    <div class="box-content">
-                        <p class="item">
-                            成都守望家园文化交流中心加入了公益地图，<a href="#">去看一看</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <div class="span9">
+                <div class="box nav-tab" tab-id="basic-info">
+                    
+                    <form class="form-horizontal" action="{:U('Event/save')}" method="post">
+                      <input type="hidden" name="id" value="{$event.id}" id="hidden_event_id"/>
+                      <?php if($p == 1): ?>
+                      <div class="box-header">
+                          基本信息
+                      </div>
+                      <div class="box-content">
+                      <div class="control-group">
+                          <label class="control-label" for="inputName">活动/项目名称</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="name" class="span6" placeholder="请在20字数内表述清楚" value="{$event.name}" required>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputDesc">活动/项目详情</label>
+                          <div class="controls">
+                            <textarea id="inputDesc" name="intro" class="span6" rows="5" placeholder="请用一段简短的话来描述您的活动" required>{$event.intro}</textarea>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputPlace">活动/项目地点</label>
+                          <div class="controls map-input">
+                            <div class="location-sets">
+                              <?php foreach ($locations as $location): ?>
+                              <div class="one-location">
+                                <input type="hidden" name="lngs[]" value="{$location.longitude}"/>
+                                <input type="hidden" name="lats[]" value="{$location.latitude}"/>
+                                <input type="hidden" name="provinces[]" value="{$location.province}"/>
+                                <input type="hidden" name="cities[]" value="{$location.city}"/>
+                                <input type="hidden" name="places[]" value="{$location.place}">
+                                {$location.place}
+                                <a href="javascript:void(0);" class="delete-item">删除</a>
+                              </div> 
+                              <?php endforeach ?>
+                            </div>
+                            <div style="position: relative">
+                              <input type="text" id="inputName" name="place" class="span6 map-address map-address-plus" placeholder="请填入具体的活动地址或在地图上点击鼠标,之后按“添加”"><button class="add-location-button" href="javascript:void(0);" disabled>添加</button>
+                            </div>
+                            <input type="hidden" name="longitude" class="map-longitude">
+                            <input type="hidden" name="latitude" class="map-latitude">
+                            <input type="hidden" name="province" class="map-province">
+                            <input type="hidden" name="city" class="map-city">
+                            <div class="map-input-box" id="map-input-box" style="height: 217px; width: 468px"></div>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputPlace">活动/项目领域</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="work_field" class="span6 pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童" value="{$event.work_field}">
+                            <i class="icon-dropdown"></i>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputPlace">活动/项目需求</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="res_tags" class="span6 pill-select" placeholder="资金" data-options="需要合作方,媒体需求,物资需求,资金需求,志愿者需求" value="{$event.res_tags}">
+                            <i class="icon-dropdown"></i>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputPlace">活动/项目时间</label>
+                          <div class="controls time-input">
+                            <div class="group">
+                                <input type="text" id="inputName" name="begin_time" class="input datepicker" data-date-format="yyyy年m月dd日"  placeholder="2014年6月22日" value="{$event.begin_time}">
+                                <i class="icon-dropdown"></i>
+                                <span class="after-text">（开始时间）</span>
+                            </div>
+                            <i class="arrow-down"></i>
+                            <div class="group">
+                                <input type="text" id="inputEndName" name="end_time" class="input datepicker" data-date-format="yyyy年m月dd日" placeholder="2014年6月22日" value="{$event.end_time}">
+                                <i class="icon-dropdown"></i>
+                                <span class="after-text">（结束时间）</span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="submit-button controls">
+                          <button class="button">保存</button>
+                      </div>
+                      </div> <!-- box-content -->
+                      <?php elseif($p==2): ?>
+                      <div class="box-header">
+                          活动/项目照片 <span class="subtitle">({$event.name})</span>
+                      </div>
+                      <div class="box-content" style="min-height:400px;">
+                      <div class="">
+                        <div class="image-showcase">
+                          <?php foreach($images as $image): ?>
+                            <a class="uploaded-image-slide" href="/ngo20map7/Public/Uploaded/{$image.url}" data-lightbox="image-1">
+                                <img src="/ngo20map7/Public/Uploaded/th628x326_{$image.url}" width="119">
+                                <input type="hidden" name="images[]" value="{$image.url}">
+                                <i class="fa fa-times remove-image-icon"></i>
+                            </a>
+                          <?php endforeach; ?>
+                        </div>
+                        <div class="add-photo-button fileinput-button">
+                            <i class="upload-photos-icon fa fa-upload"></i>
+                            <span id="imgupload-retext-image" class="upload-photos-text">上传新照片</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input class="fileupload" type="file" name="files" re-text="上传新照片" crop-width="628" crop-height="326" data-url="/ngo20map7/Util/upload" target-input="image">
+                        </div>
+                      </div>
+                      <?php elseif($p==3): ?>
+                      <div class="box-header">
+                          联系方式 <span class="subtitle">({$event.name})</span>
+                      </div>
+                      <div class="box-content">
+                      <div class="control-group">
+                          <label class="control-label" for="inputName">联系人</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="contact_name" class="span6" value="{$event.contact_name}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputName">联系电话</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="contact_phone" class="span6" value="{$event.contact_phone}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputName">电子邮箱</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="contact_email" class="span6" value="{$event.contact_email}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputName">联系QQ</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="contact_qq" class="span6" value="{$event.contact_qq}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputName">相关网址</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="url" class="span6" value="{$event.url}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputDesc">相关机构</label>
+                          <div class="controls">
+                            <textarea id="inputDesc" name="host" class="span6" rows="5" placeholder="有哪些机构参与了这个活动/项目？">{$event.host}</textarea>
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputDesc">需求描述</label>
+                          <div class="controls">
+                            <textarea id="inputDesc" name="req_description" class="span6" rows="5" placeholder="这个活动有什么需要帮助的、具体的需求？">{$event.req_description}</textarea>
+                          </div>
+                      </div>
+                      <div class="submit-button controls">
+                          <button class="button">保存</button>
+                      </div>
+                      </div> <!-- box-content -->
+                      <?php endif; ?> 
+                </form>
+
+            </div> <!-- box -->
+
         </div>
     </div>
 
-
-</block> <!-- block body -->
+</block>
 
 
 <block name="script-before">
+    {:js('jquery.pillselectbox')}
+    {:js('jquery.datetimepicker')}
+    {:js('jquery.fileupload')}
+    {:js('jquery.Jcrop')}
+    {:js('lightbox')}
 </block>
 <block name="script-after">
-</block>
-<block name="footer">
+  {:js('-event-add')}
+  <script>
+  $(function(){
+    dispatcher.subscribe('image.uploaded', function(url){
+      $.post(app_path+'/Event/addEventPhoto', {
+        url: url,
+        event_id: $('#hidden_event_id').val()
+      });
+    });
+    dispatcher.subscribe('image.deleted', function(url){
+      $.post(app_path+'/Event/deleteEventPhoto', {
+        url: url,
+        event_id: $('#hidden_event_id').val()
+      });
+    });
+  });
+  </script>
 </block>

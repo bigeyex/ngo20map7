@@ -38,6 +38,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><block name="title"></block> 公益地图</title>
         {:css('jquery-ui')}
+        {:css('font-awesome.min')}
         {:css('jquery.fancybox')}
         {:css('bootstrap')}
         {:css('header')}
@@ -72,8 +73,13 @@
         </li>
       </ul>
       <ul class="nav pull-right logged-out">
+        <?php if (!user()): ?>
         <li><a class="fancybox.ajax fancybox register-link" href="__APP__/Account/partial_register_box">注册</a></li>
         <li><a class="fancybox.ajax fancybox login-link" href="__APP__/Account/partial_login_box">登录</a></li>
+        <?php else: ?>
+        <include file="layout:_login_stab"/>
+        <?php endif ?>
+        
         <li><a data-login-modal="" href="#">中文/Eng<i class="icon-dropdown"></i></a></li>
       </ul>
     </div>
@@ -97,6 +103,7 @@
 
 {:js('jquery-1.11.1.min')}
 {:js('jquery-ui.min')}
+{:js('bootstrap.min')}
 {:js('jquery.fancybox')}
 {:js('header')}
 <block name="script-before"></block>

@@ -1186,6 +1186,7 @@ select {
   width: 220px;
   background-color: #ffffff;
   border: 1px solid #d9d9d9;
+  height: 38px;
 }
 
 select[multiple],
@@ -1944,7 +1945,7 @@ legend + .control-group {
   width: 105px;
   padding-top: 9px;
   text-align: right;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .form-horizontal .controls {
