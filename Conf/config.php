@@ -8,6 +8,7 @@ return array(
     'LOAD_EXT_CONFIG' => 'db,content,credentials',
     'VAR_PAGE' => 'p',
     'MD5_SALT' => 'flwei^e417',
+    'TMPL_STRIP_SPACE' => false,
     
     'ADMIN_ROW_LIST' => 20,
     'PAGE_ROLLPAGE' => 10,
@@ -15,8 +16,6 @@ return array(
     'RECORD_PER_POST_WIDGET' => 5,
     'VAR_PAGE' => 'p',
     
-    // app debug
-    'APP_DEBUG' => true,
     
 );
 ?>
