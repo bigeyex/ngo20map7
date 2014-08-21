@@ -7,9 +7,9 @@ alter table `events` rename to `event`;
 alter table accounts rename to account;
 
 -- drop columns
-alter table ngo drop column `password`;
-alter table ngo drop column api_vendor;
-alter table ngo drop column api_id;
+alter table user drop column `password`;
+alter table user drop column api_vendor;
+alter table user drop column api_id;
 
 -- add columns
 -- alter table `account` add (
@@ -28,7 +28,7 @@ ALTER TABLE `account` ADD COLUMN `api_token` varchar(100) AFTER `api_id`
 -- alter table `account` drop column api_vendor;
 
 ALTER TABLE `event` CHANGE COLUMN `item_field` `work_field` varchar(100) DEFAULT NULL;
-ALTER TABLE `ngo` CHANGE COLUMN `introduction` `intro` text DEFAULT NULL;
+ALTER TABLE `user` CHANGE COLUMN `introduction` `intro` text DEFAULT NULL;
 ALTER TABLE `event` CHANGE COLUMN `description` `intro` text DEFAULT NULL;
 ALTER TABLE `ngo20map7`.`user` CHANGE COLUMN `longitude` `longitude` double(20,6) DEFAULT NULL, CHANGE COLUMN `latitude` `latitude` double(20,6) DEFAULT NULL;
 

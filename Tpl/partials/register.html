@@ -1,6 +1,6 @@
 <div class="modal-container login-box">
-	<a href="#" class=" btn-block qq-signup"><i></i>使用QQ注册</a>
-	<a href="#" class=" btn-block weibo-signup"><i></i>使用微博注册</a>
+	<a href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id={:C('QQ_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/qq_login" class=" btn-block qq-signup"><i></i>使用QQ注册</a>
+	<a href="https://api.weibo.com/oauth2/authorize?client_id={:C('WEIBO_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/weibo_login" class=" btn-block weibo-signup"><i></i>使用微博注册</a>
 	<div class="signup-or-seperator">
 		<span class="signup-or"> 或者 </span>
 		<hr/>
