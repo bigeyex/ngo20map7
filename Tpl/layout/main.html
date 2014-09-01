@@ -37,12 +37,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><block name="title"></block> 公益地图</title>
+    <block name="css-framework">
         {:css('jquery-ui')}
         {:css('font-awesome.min')}
         {:css('jquery.fancybox')}
         {:css('bootstrap')}
         {:css('header')}
         {:css('homepage')}
+    </block>
 
         
     <block name="head">
@@ -73,12 +75,14 @@
         </li>
       </ul>
       <ul class="nav pull-right logged-out">
+        <li><a data-login-modal="" href="{:U('Index/list_index')}">名录<i class="icon-dropdown"></i></a></li>
         <?php if (!user()): ?>
         <li><a class="fancybox.ajax fancybox register-link" href="__APP__/Account/partial_register_box">注册</a></li>
         <li><a class="fancybox.ajax fancybox login-link" href="__APP__/Account/partial_login_box">登录</a></li>
         <?php else: ?>
         <include file="layout:_login_stab"/>
         <?php endif ?>
+
         
         <li><a data-login-modal="" href="#">中文/Eng<i class="icon-dropdown"></i></a></li>
       </ul>
@@ -110,6 +114,18 @@
 {:js()}
 {:js('-jquery.placeholder', 9)}
 <block name="script-after"></block>
+<?php if(isset($_SESSION['flash']) || isset($with_notification)): ?>
+{:js('-toastr.min')}
+{:css('-toastr.min')}
+<?php endif; ?>
+<?php if(isset($_SESSION['flash'])): ?>
+  <script>
+  $(function(){
+    toastr.{$_SESSION.flash.type}('{$_SESSION.flash.content}');
+  });
+  </script>
+  <?php unset($_SESSION['flash']); ?>
+<?php endif; ?>
 {:js()}
 </body>
 </html>

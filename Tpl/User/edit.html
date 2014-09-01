@@ -20,7 +20,11 @@
                     <li class="{:active_if($p==2)}"><a href="{:U('User/edit')}/id/{$user.id}/p/2"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_PHOTOS])}" style="width:20px;"></i> 机构风采</a></li>
                     <li class="{:active_if($p==3)}"><a href="{:U('User/edit')}/id/{$user.id}/p/3"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_CONTACT_INFO])}" style="width:20px;"></i> 联系方式</a></li>
                     <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/4"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_MORE_INFO])}" style="width:20px;"></i> 信息披露</a></li>
+                    <?php if (user('is_admin')): ?>
+                      <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/5"><i class="edit-checkmark fa " style="width:20px;"></i>  修改密码</a></li>
+                    <?php endif ?>
                     <li class="preview-org-page"><a href="{:U('User/view')}/id/{$user.id}" target="_blank"><i class="fa fa-eye" style="width:20px;"></i> 查看机构页面</a></li>
+                    
                 </ul>
             </div>
             <div class="span9">
@@ -106,6 +110,7 @@
                                 <img src="/ngo20map7/Public/Uploaded/th628x326_{$image.url}" width="119">
                                 <input type="hidden" name="images[]" value="{$image.url}">
                                 <i class="fa fa-times remove-image-icon"></i>
+                                <i class="fa fa-home cover-image-icon {:active_if($image['url']==$user['cover_img'])}" onclick="setCoverImg(event, '{$image.url}')"></i>
                             </a>
                           <?php endforeach; ?>
                         </div>
@@ -265,6 +270,29 @@
                           <button class="button">保存</button>
                       </div>
                       </div> <!-- box-content -->
+
+                      <?php elseif($p==PAGE_USER_PASSWORD): ?>
+
+                      <div class="box-header">
+                          修改登录凭据 <span class="subtitle">({$user.name})</span>
+                      </div>
+                      <div class="box-content org-contact-info-section">
+                      <div class="control-group">
+                          <label class="control-label" for="inputContact">登录电子邮箱</label>
+                          <div class="controls">
+                            <input type="email" id="inputContact" name="email" class="span6" value="{$user.email}">
+                          </div>
+                      </div>
+                      <div class="control-group">
+                          <label class="control-label" for="inputPhone">登录密码</label>
+                          <div class="controls">
+                            <input type="password" id="inputPhone" name="password" class="span6" >
+                          </div>
+                      </div>
+                      <div class="submit-button controls">
+                          <button class="button">保存</button>
+                      </div>
+                      </div> <!-- box-content -->
                       <?php endif; ?> 
                 </form>
 
@@ -286,6 +314,19 @@
 <block name="script-after">
   {:js('-event-add')}
   <script>
+  function setCoverImg(e, url){
+    var user_id = $('#hidden_user_id').val();
+    var dom = e.currentTarget;
+    $.post(app_path+'/User/setCoverPhoto', {user_id: user_id, url: url}, function(result){
+      if(result == 'ok'){
+        $('.cover-image-icon').removeClass('active');
+        $(dom).addClass('active');
+        toastr.success('成功设置封面图片');
+      }
+    });
+    e.stopPropagation();
+    e.preventDefault();
+  }
   $(function(){
     dispatcher.subscribe('image.uploaded', function(url){
       $.post(app_path+'/User/addUserPhoto', {

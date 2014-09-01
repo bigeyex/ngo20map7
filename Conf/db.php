@@ -6,5 +6,6 @@ return array(
     'DB_PWD' => '',
     'DB_PORT' => '3306',
     'DB_PREFIX' => '',
+    'SEARCH_API_PATH' => '',
 );
 ?>

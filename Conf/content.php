@@ -11,7 +11,8 @@ return array(
     var keyword_categories = [{q:'留守儿童',p:'liushouertong'},{q:'义工',p:'yigong'},{q:'农民工',p:'nongmingong'},{q:'捐书',p:'juanshu'},{q:'助学',p:'zhuxue'},{q:'乡村教育',p:'xiangcunjiaoyu'},{q:'电脑教室',p:'diannaojiaoshi'},{q:'希望小学',p:'xiwangxiaoxue'},{q:'爱心图书室',p:'aixintushushi'},{q:'爱心书包',p:'aixinshubao'},{q:'夏令营',p:'xialingying'},{q:'结对',p:'jiedui'},{q:'残疾',p:'canji'},{q:'艾滋',p:'aizi'},{q:'心理健康',p:'xinlijiankang'},{q:'环保',p:'huanbao'},{q:'植树',p:'zhishu'},{q:'低碳',p:'ditan'},{q:'志愿者',p:'zhiyuanzhe'},{q:'孤儿',p:'guer'},{q:'社区服务',p:'shequfuwu'},{q:'老人',p:'laoren'},{q:'自闭症',p:'zibizheng'},{q:'妇女',p:'funv'},{q:'企业社会责任',p:'qiyeshehuizeren'},{q:'智障',p:'zhizhang'},{q:'地震',p:'dizhen'},{q:'白血病',p:'baixuebing'},{q:'捐衣',p:'juanyi'},{q:'聋哑',p:'longya'},{q:'白内障',p:'baineizhang'}];
 EOS
 ,
-
+    'EVENT_RESOURCES' => array('资金','物品','场地','技术','志愿者','媒体','能力建设','咨询','法律支持','技术培训','免费广告位','多媒体设备','交通设施'),
+    'EVENT_NEEDS' => array('需要合作方','媒体需求','物资需求','资金需求','志愿者需求'),
     'EVENT_TYPE' => array(
                         'requirement' => array('需要合作方','媒体需求','物资需求','资金需求','志愿者需求'),
                         'resource' => array('资金','物品','场地','技术','志愿者','媒体','能力建设','咨询','法律支持','技术培训','免费广告位','多媒体设备','交通设施'),

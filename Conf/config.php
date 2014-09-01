@@ -1,5 +1,6 @@
 <?php
 return array(
+    'APP_NAME' => 'ngo20map',
 	'SESSION_AUTO_START'=>true,
     'URL_MODEL' => 2,
     'URL_HTML_SUFFIX'=>'',

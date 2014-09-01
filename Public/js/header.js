@@ -16,6 +16,17 @@ $(function(){
 
 });
 
+function pre_delete(e){
+    var dom = $(e.currentTarget);
+    dom.next().show();
+    dom.hide();
+    setTimeout(function(){
+        if(dom){
+            dom.show();
+            dom.next().hide();
+        }
+    }, 2000);
+}
 /*
     Dispatcher module
     by: wangyu (bigeyex@gmail.com)

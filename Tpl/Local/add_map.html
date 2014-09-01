@@ -1,6 +1,8 @@
 <extend name="layout:backend"/>
 
 <block name="body">
+<div class="container">
+<div class="box admin-box">
 <div class="row">
 	<div class="span10">
 		<form class="form-horizontal" action="{:U('Local/'.$action)}" method="POST">
@@ -8,7 +10,11 @@
 			<input type="hidden" name="id" value="{$local_map.id}"/>
 			<?php endif; ?>
 			<fieldset>
-				<legend>{:L('新建二级地图页面')}</legend>
+                <?php if(isset($local_map['id'])): ?>
+                    <legend>{:L('编辑二级地图信息')}</legend>
+                <?php else: ?>
+				    <legend>{:L('新建二级地图')}</legend>
+                <?php endif; ?>
 				<div class="control-group">
 					<label class="control-label" for="input01">{:L('标题')}</label>
 					<div class="controls">
@@ -41,15 +47,27 @@
 					<button type="submit" class="btn btn-primary">
 						{:L('保存二级地图')}
 					</button>
-					<button class="btn"><a href="{:U('News/index')}">{:L('取消')}</a></button>
+					<button class="btn"><a href="{:U('Local/manage')}">{:L('取消')}</a></button>
 				</div>
 			</fieldset>
 		</form>
 	</div>
 </div>
-{:css('select2')}
-{:js('select2')}
-{:js('select2_locale_zh-CN')}
+</div>  <!-- box -->
+</div> <!-- container -->
+
+
+</block>
+
+
+<block name="script-before">
+</block>
+
+
+<block name="script-after">
+    {:css('-select2')}
+    {:js('-select2')}
+    {:js('-select2_locale_zh-CN')}
 <script type="text/javascript">
 $('#upload-avatar-button').click(function(){
         init_cropper(438, 438, function(img){
@@ -60,9 +78,9 @@ $('#upload-avatar-button').click(function(){
     });   
 
 $('#related-org').select2({
-	minimumInputLength: 2,
-	placeholder: "请输入公益组织名称",
-	ajax: {
+    minimumInputLength: 2,
+    placeholder: "请输入公益组织名称",
+    ajax: {
                 url: app_path+"/User/ajax_suggest",
                 dataType: 'json',
                 data: function (term, page) {

@@ -77,11 +77,21 @@ class EventAction extends BaseAction{
         $this->display();
     }
 
+    function manage(){
+        $events = O('event')->with('account_id', user('account_id'))->select();
+
+        $this->assign('events', $events);
+        $this->display();
+    }
+
     // @ajaxaction
     function insert(){
         $event = O('event');
         $event->create();
         $event->create_time = date('Y-m-d H:i:s');
+        if(!isset($_POST['type'])){
+            $_POST['type'] = 'ngo';
+        }
         if(!user()){
             $_SESSION['next_mission'] = 'Event/edit';
             $event->account_id = 0;
@@ -125,12 +135,20 @@ class EventAction extends BaseAction{
                     'type' => 'image'
                 ));
             }
-
+            flash('公益活动添加成功', 'success');
             echo 'ok';
         }   
         else{
             echo '对不起，系统出错，请联系info@ngo20.org';
         }
+    }
+
+    function delete($id){
+        $this->userMayEditEvent($id);
+        O('event')->with('id', $id)->delete();
+
+        flash('活动已被删除', 'success');
+        $this->redirect('Event/manage');
     }
 
     function save(){
@@ -160,18 +178,23 @@ class EventAction extends BaseAction{
                 ));
             }
         }
-
+        
+        flash('活动信息已保存', 'success');
         $this->back();
     }
 
     function addEventPhoto(){
         $this->userMayEditEvent($_POST['event_id']);
-        O('media')->add(array(
-            'url' => $_POST['url'],
-            'event_id' => $_POST['event_id'],
-            'type' => 'image'
-        ));
-        echo 'ok';
+        $event = O('event')->find($_POST['event_id']);
+        if($event){
+            O('media')->add(array(
+                'url' => $_POST['url'],
+                'event_id' => $_POST['event_id'],
+                'type' => 'image',
+                'user_id' => $event['id']
+            ));
+            echo 'ok';
+        }
     }
 
     function deleteEventPhoto(){

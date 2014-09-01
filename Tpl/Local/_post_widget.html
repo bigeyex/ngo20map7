@@ -1,7 +1,7 @@
 <div class="span4 widget-block">
     <h3 class="widget-title" style="color:#f15a24">{$module_info.name}</h3>
     <div class="widget-action">
-        <div class="btn btn-small"><a href="{:U('Local/post_add')}/local_id/{$local_id}/content_id/{$module_info.id}">投稿</a></div>
+        <a href="{:U('Local/post_add')}/local_id/{$local_id}/content_id/{$module_info.id}">投稿</a>
     </div>
     <div class="widget-content">
         <?php if(empty($posts)): ?>

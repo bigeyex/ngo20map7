@@ -275,14 +275,29 @@ class Image {
             else
                 $thumbImg = imagecreate($maxWidth, $maxHeight);
 
+             //png和gif的透明处理 by luofei614
+            if('png'==$type){
+                imagealphablending($thumbImg, false);//取消默认的混色模式（为解决阴影为绿色的问题）
+                imagesavealpha($thumbImg,true);//设定保存完整的 alpha 通道信息（为解决阴影为绿色的问题）    
+            }elseif('gif'==$type){
+                $trnprt_indx = imagecolortransparent($srcImg);
+                 if ($trnprt_indx >= 0) {
+                        //its transparent
+                       $trnprt_color = imagecolorsforindex($srcImg , $trnprt_indx);
+                       $trnprt_indx = imagecolorallocate($thumbImg, $trnprt_color['red'], $trnprt_color['green'], $trnprt_color['blue']);
+                       imagefill($thumbImg, 0, 0, $trnprt_indx);
+                       imagecolortransparent($thumbImg, $trnprt_indx);
+              }
+            }
+
             // 复制图片
             if (function_exists("ImageCopyResampled"))
                 imagecopyresampled($thumbImg, $srcImg, 0, 0, $srcX, $srcY, $maxWidth, $maxHeight, $cutWidth, $cutHeight);
             else
                 imagecopyresized($thumbImg, $srcImg, 0, 0, $srcX, $srcY, $maxWidth, $maxHeight, $cutWidth, $cutHeight);
             if ('gif' == $type || 'png' == $type) {
-                //imagealphablending($thumbImg, false);//取消默认的混色模式
-                //imagesavealpha($thumbImg,true);//设定保存完整的 alpha 通道信息
+                imagealphablending($thumbImg, false);//取消默认的混色模式
+                imagesavealpha($thumbImg,true);//设定保存完整的 alpha 通道信息
                 $background_color = imagecolorallocate($thumbImg, 0, 255, 0);  //  指派一个绿色
                 imagecolortransparent($thumbImg, $background_color);  //  设置为透明色，若注释掉该行则输出绿色的图
             }

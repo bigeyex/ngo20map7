@@ -11,13 +11,19 @@
 
 <div class="container master-container">
     <div id="org-header">
-        <h1><a href="{:U('User/view')}/id/{$user.id}">{$user.name}</a></h1>
+        <?php if(!$user['is_admin']): ?>
+        <h1> 
+            <a href="{:U('User/view')}/id/{$user.id}">{$user.name}</a>
+        </h1>
         <p class="sub-title">{$user.aim}</p>
         <ul class="medals">
             <li><a class="medal-1" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
             <li><a class="medal-2" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
             <li><a class="medal-3" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
         </ul>
+        <?php else: ?>
+        <p class="sub-title">公益活动</p>
+        <?php endif; ?>
         <div class="share-buttons">
             分享到： <a href="#" class="share-button-sina">新浪微博</a><a href="#" class="share-button-qq">QQ空间</a>
         </div>

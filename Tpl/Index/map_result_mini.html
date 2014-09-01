@@ -1,0 +1,15 @@
+<ul>
+    <?php foreach($result as $item): ?>
+        <li class="map-item" lng="{$item.longitude}" lat="{$item.latitude}" title="{$item.name}" link="{:U('User/view')}/id/{$item.id}">     <a href="{:U('User/view')}/id/{$item.id}">{$item.name|short=12}</a>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+<span class="ngo-count-display"><span class="ngo-count">{$grand_total}</span>家机构 · 视野中{$count}家 · {$page}/{$total_page}页</span>
+<a class="shaded-button mark-ngo-button" href="{:U('User/add')}">注册地图</a>
+<?php if($page>1): ?>
+<a class="shaded-button prev-page-mini">上页</a>
+<?php endif; ?>
+<?php if($page<$total_page): ?>
+<a class="shaded-button next-page-mini">下页</a>
+<?php endif; ?>

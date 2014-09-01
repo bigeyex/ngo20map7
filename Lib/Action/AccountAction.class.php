@@ -75,6 +75,32 @@ class AccountAction extends BaseAction{
         $this->redirect('Index/index');
 	}
 
+    public function change_password(){
+        if($_POST['new_password'] != $_POST['new_password_again']){
+            flash('密码修改失败：两次输入的密码不一致');
+            $this->redirect('Account/settings');
+            return;
+        }
+        if(empty(user('account_id'))){
+            flash('登录用户才可以修改密码');
+            $this->redirect('Account/settings');
+            return;
+        }
+
+        $account_count = O('Account')->with('id', user('account_id'))->with('password', md5($_POST['old_password']))->count();
+        if($account_count <= 0){
+            flash('旧密码输入不正确');
+            $this->redirect('Account/settings');
+            return;
+        }
+
+        O('Account')->with('id', user('account_id'))->save(array(
+                'password' => md5($_POST['new_password'])
+            ));
+        flash('成功修改密码', 'success');
+        $this->redirect('Account/settings');
+    }
+
 	public function qq_login(){
         $code = $_GET['code'];
         $openid = $_GET['openid'];

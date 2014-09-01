@@ -66,10 +66,11 @@
       <ul class="nav pull-right help-menu hide-phone" style="margin-left:0;">
         
         <li class="list-your-space hide-phone">
-          <a id="create-event-button" class="" href="{:U('Event/add')}">发布活动</a>
+          <a id="create-event-button" class="" href="{:U('Event/add')}">发布活动/项目</a>
         </li>
       </ul>
       <ul class="nav pull-right logged-out">
+        <li><a data-login-modal="" href="{:U('Index/list_index')}">名录<i class="icon-dropdown"></i></a></li>
         <?php if (!user()): ?>
         <li><a class="fancybox.ajax fancybox register-link" href="__APP__/Account/partial_register_box">注册</a></li>
         <li><a class="fancybox.ajax fancybox login-link" href="__APP__/Account/partial_login_box">登录</a></li>
@@ -85,22 +86,29 @@
 <div class="subnav">
   <div class="container">
     <ul>
-      <li class="active"><a href="#">工作台</a></li>
-      <li><a href="#">站内信</a></li>
-      <li><a href="#">活动管理</a></li>
+      <li class="{:active_for('Dashboard/index')}"><a href="{:U('Dashboard/index')}">工作台</a></li>
+      <!-- <li><a href="#">站内信</a></li> -->
+      <li class="{:active_for('Event/manage')}"><a href="{:U('Event/manage')}">活动/项目管理</a></li>
       <?php if(user('user_id')): ?>
-      <li class="update-org-info-link"><a href="{:U('User/edit')}">更新机构信息</a></li>
+      <li class="update-org-info-link {:active_for('User/edit')}"><a href="{:U('User/edit')}">更新机构信息</a></li>
+        <?php if(user('local_map')): ?>
+          <?php foreach(user('local_map') as $local_map): ?>
+              <li><a href="{:U('Local/index')}/name/{$local_map.identifier}">{$local_map.name}</a></li>
+              <li><a href="{:U('Index/list_index')}/type/ngo/model/users/province/{$local_map.province}">审核{$local_map.province}</a></li>
+          <?php endforeach; ?>
+        <?php endif; ?>
       <?php else: ?>
-      <li><a href="{:U('User/add')}">登记公益机构</a></li>
+      <li class="create-new-org-link {:active_for('User/add')}"><a href="{:U('User/add')}">登记公益机构</a></li>
       <?php endif; ?>
-      <li><a href="#">账户设置</a></li>
+      <li class="{:active_for('Account/settings')}"><a href="{:U('Account/settings')}">修改密码</a></li>
       <li>
         <div class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">管理员工具</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a tabindex="-1" href="{:U('Admin/users')}">公益机构管理</a></li>
             <li><a tabindex="-1" href="{:U('Admin/events')}">活动管理</a></li>
-            <li><a tabindex="-1" href="#">勋章管理</a></li>
+            <li><a tabindex="-1" href="{:U('Local/manage')}">二级地图管理</a></li>
+            <li><a tabindex="-1" href="{:U('Medal/index')}">勋章管理</a></li>
           </ul>
         </div>
       </li>
@@ -129,6 +137,18 @@ $(function(){
 })
 </script>
 <block name="script-after"></block>
+<?php if(isset($_SESSION['flash']) || isset($with_notification)): ?>
+{:js('-toastr.min')}
+{:css('-toastr.min')}
+<?php endif; ?>
+<?php if(isset($_SESSION['flash'])): ?>
+  <script>
+  $(function(){
+    toastr.{$_SESSION.flash.type}('{$_SESSION.flash.content}');
+  });
+  </script>
+  <?php unset($_SESSION['flash']); ?>
+<?php endif; ?>
 {:js()}
 </body>
 </html>

@@ -1,107 +1,117 @@
-<include file="Public:header"/>
+<extend name="layout:backend"/>
 
-<div id="main-container">
+<block name="head">
+    {:css('local-inner')}
+</block>
+
+<block name="body">
+<div class="container backend-container bs-container">
     <input type="hidden" id="local-id" value="{$local_map.id}"/>
     <div class="row">
-        <div class="span2">
+        <div class="span3">
             {:R('Local/_content_sidebar', array($_GET['local_id']))}
         </div>
         <div class="span9">
-            <h1><a href="{:U('Local/index')}/name/{$local_map.identifier}">{$local_map.name}</a> - 板块设定</h1>
-            <div id="post-content">
-            <div class="page-show">
-                {$page_bar}
+            <div class="box">
+                <div class="box-header">
+                    <a href="{:U('Local/index')}/name/{$local_map.identifier}">{$local_map.name}</a> - 板块设定
+                </div>
+                <div class="box-content">
+                    <div id="post-content">
+                        <div class="page-show">
+                            {$page_bar}
+                        </div>
+                        <table class="table table-hover syllabus-table">
+                        <tr>
+                            <th width="20"></th>
+                            <th width="350">名称</th>
+                            <th width="100">类型</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>区域机构地图</td>
+                            <td>地图</td>
+                            <td>
+                                <a href="{:U('Local/embed_map')}/local_id/{$local_map.id}" class="btn btn-mini">嵌入</a>
+                            </td>
+                        </tr>
+                        <tbody id="real-modules">
+                        <?php foreach($modules as $module): ?>
+                            <tr class="local-module" module-id="{$module.id}">
+                                <td><i class="icon-move move-handler"></i></td>
+                                <td class="module-name">{$module.name}</td>
+                                <td class="module-type" type-val="{$module.type}">{$module_types[$module['type']]}</td>
+                                <td>
+            <!--                        <a href="{:U('Local/iframe_link')}/module_id/{$module.id}" class="btn-edit btn btn-mini">嵌入</a>-->
+                                    <a href="javascript:void(0);" onclick="edit_module(event)" class="btn-edit btn btn-mini">编辑</a>
+                                    <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" onclick="pre_delete(event)">删除</a>
+                                    <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" style="display:none;" onclick="delete_module(event)">确认删除</a>
+                                    
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                        <tr> <!-- create new item link  -->
+                            <td></td>
+                            <td><a href="javascript:void(0);" onclick="add_module()">+新建板块</a></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </table>
+                        <div class="page-show">
+                            {$page_bar}
+                        </div>
+                        </div>
+                </div>
+                
+                  
             </div>
-            <table class="table table-hover syllabus-table">
-            <tr>
-                <th width="20"></th>
-                <th width="350">名称</th>
-                <th width="100">类型</th>
-                <th></th>
-            </tr>
-            <tr>
+        </div>
+
+
+    <!-- templates  -->
+
+        <div style="display:none;">
+            <table>
+            <tr class="tmpl-module-edit local-module" module-id="0">
+                
                 <td></td>
-                <td>区域机构地图</td>
-                <td>地图</td>
+                <td><input type="text" placeholder="板块名称" class="module-name"/></td>
+                <td width="100">
+                    <select class="module-type" style="width:100px;">
+                        <?php foreach($module_types as $module_type=>$module_type_name): ?>
+                            <option value="{$module_type}">{$module_type_name}</option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
                 <td>
-                    <a href="{:U('Local/embed_map')}/local_id/{$local_map.id}" class="btn btn-mini">嵌入</a>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-mini" onclick="add_module_action(event)">保存</a>
+                    <a href="javascript:void(0);" class=" btn btn-mini" onclick="cancel_action(event)">取消</a>
                 </td>
             </tr>
-            <tbody id="real-modules">
-            <?php foreach($modules as $module): ?>
-                <tr class="local-module" module-id="{$module.id}">
-                    <td><i class="icon-move move-handler"></i></td>
-                    <td class="module-name">{$module.name}</td>
-                    <td class="module-type" type-val="{$module.type}">{$module_types[$module['type']]}</td>
-                    <td>
-<!--                        <a href="{:U('Local/iframe_link')}/module_id/{$module.id}" class="btn-edit btn btn-mini">嵌入</a>-->
-                        <a href="javascript:void(0);" onclick="edit_module(event)" class="btn-edit btn btn-mini">编辑</a>
-                        <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" onclick="pre_delete(event)">删除</a>
-                        <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" style="display:none;" onclick="delete_module(event)">确认删除</a>
-                        
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-            <tr> <!-- create new item link  -->
-                <td></td>
-                <td><a href="javascript:void(0);" onclick="add_module()">+新建板块</a></td>
-                <td></td>
-                <td></td>
+
+            <tr class="tmpl-module local-module" module-id="0">
+                <td><i class="icon-move move-handler"></i></td>
+                <td class="module-name"></td>
+                <td class="module-type" type-val=""></td>
+                <td>
+                    <a href="" class="btn-edit btn btn-mini iframe-link">嵌入</a>
+                    <a href="javascript:void(0);" class="btn-edit btn btn-mini" onclick="edit_module(event)">编辑</a>
+                    <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" onclick="pre_delete(event)">删除</a>
+                    <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" style="display:none;" onclick="delete_module(event)">确认删除</a>
+                </td>
             </tr>
             </table>
-            <div class="page-show">
-                {$page_bar}
-            </div>
-            </div>
-              
         </div>
     </div>
-    {:css('local-inner')}
-    {:css('bootstrap')}
-    {:css('todc-bootstrap')}
-    {:js('local-manage')}
-    {:js('jquery-ui.sortable')}
-
-    
+</div> <!-- main-container -->
+</block>
 
 
-<!-- templates  -->
-
-<div style="display:none;">
-<table>
-<tr class="tmpl-module-edit local-module" module-id="0">
-    
-    <td></td>
-    <td><input type="text" placeholder="板块名称" class="module-name"/></td>
-    <td width="100">
-        <select class="module-type" style="width:100px;">
-            <?php foreach($module_types as $module_type=>$module_type_name): ?>
-                <option value="{$module_type}">{$module_type_name}</option>
-            <?php endforeach; ?>
-        </select>
-    </td>
-    <td>
-        <a href="javascript:void(0);" class="btn btn-primary btn-mini" onclick="add_module_action(event)">保存</a>
-        <a href="javascript:void(0);" class=" btn btn-mini" onclick="cancel_action(event)">取消</a>
-    </td>
-</tr>
-
-<tr class="tmpl-module local-module" module-id="0">
-    <td><i class="icon-move move-handler"></i></td>
-    <td class="module-name"></td>
-    <td class="module-type" type-val=""></td>
-    <td>
-        <a href="" class="btn-edit btn btn-mini iframe-link">嵌入</a>
-        <a href="javascript:void(0);" class="btn-edit btn btn-mini" onclick="edit_module(event)">编辑</a>
-        <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" onclick="pre_delete(event)">删除</a>
-        <a href="javascript:void(0);" class="btn-delete btn btn-mini btn-danger" style="display:none;" onclick="delete_module(event)">确认删除</a>
-    </td>
-</tr>
-</table>
-</div>
-
-
+<block name="script-after">
+    {:js('-jquery-ui.sortable')}
+    {:js('-local-manage')}
 <script>
        $( "#real-modules" ).sortable({
             handle: '.move-handler',
@@ -145,18 +155,6 @@
             editor_tr.find('.module-type').val(module_type);
             
             tr.replaceWith(editor_tr);
-       }
-
-       function pre_delete(e){
-            var dom = $(e.currentTarget);
-            dom.next().show();
-            dom.hide();
-            setTimeout(function(){
-                if(dom){
-                    dom.show();
-                    dom.next().hide();
-                }
-            }, 2000);
        }
 
        function delete_module(e){
@@ -248,6 +246,6 @@
        
    </script>  
 <!-- end of templates`  -->
-</div> <!-- main-container -->
 
-<include file="Public:footer"/>
+
+</block>

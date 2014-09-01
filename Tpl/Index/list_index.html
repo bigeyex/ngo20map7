@@ -1,0 +1,194 @@
+<extend name="layout:main"/>
+
+<block name="css-framework">
+    {:css('jquery-ui')}
+    {:css('font-awesome.min')}
+    {:css('jquery.fancybox')}
+    {:css('bootplus')}
+    {:css('header')}
+    {:css('homepage')}
+</block>
+
+<block name="head">
+{:css('jquery.mCustomScrollbar')}
+</block>
+
+
+<block name="body">
+
+<div class="container">
+    <div class="box admin-box">
+
+        <div class="form-inline">
+            <div class="btn-group">
+                <a class="btn {:active_if($type=='ngo')}" href="{:url_replace('type', 'ngo')}">
+                    公益机构</a>
+                <a class="btn {:active_if($type=='event')} " href="{:url_replace('type', 'event')}">
+                    公益项目/活动</a>
+                <a class="btn {:active_if($type=='csr')} " href="{:url_replace('type', 'csr')}">
+                    企业公益活动</a>
+                <a class="btn  {:active_if($type=='case')}" href="{:url_replace('type', 'case')}">
+                    对接案例</a>
+            </div>
+            <select id="work-fields" class="input-medium input-fields">
+                <option value="0">全部项目领域</option>
+                <?php foreach(C('ORG_FIELDS') as $val): ?>
+                    <option val="{$val}">{$val}</option>
+                <?php endforeach; ?>
+            </select>
+            <span style="position:relative;" class="{:class_if('has-text', !empty($_GET['province']))}">
+                <input class="input-medium input-province" id="input-province" type="text" value="{$_GET.province}" placeholder="省份、城市、区县">
+                <i class="icon-cross list-icon-cross" id="input-province-cross"></i>
+            </span>
+            <span style="position:relative;" class="{:class_if('has-text', !empty($_GET['keyword']))}">
+                <input class="input-medium input-keyword" id="input-keyword" type="text" value="{$_GET.keyword}" placeholder="关键词搜索">
+                <i class="icon-cross list-icon-cross" id="input-keyword-cross"></i>
+            </span>
+            <a class="btn btn-primary input-search">搜索</a>
+            
+        </div>
+
+        <?php if ($type=='ngo'): ?>
+            <div class="medal-filters">
+                <?php foreach ($medals as $medal): ?>
+                    <a class="medal-stab" style="background:url(/ngo20map6/Public/img/medals/ngo20-training.png) no-repeat;" data-toggle="tooltip" data-placement="bottom" title="" href="{:url_replace('medal', $medal['id'])}" data-original-title="{$medal.description}">{$medal.name}</a>
+                <?php endforeach ?>
+                
+            </div>
+            
+        <?php endif; ?>
+
+        <div class="pager">{$pager_html}</div>
+        <?php if ($type=='ngo' && !empty($_GET['medal'])): ?>
+                <a href="{:url_replace('medal', '')}" class="medal-stab">现在只显示获得 {$current_medal.name} 的机构,点击显示其他机构</a>
+            <?php endif; ?>
+        <table class="table table-hover syllabus-table">
+            <thead>
+                <th>名称</th>
+                
+                <?php if ($type=='ngo'): ?>
+                    <th>地点</th>
+                    <th>勋章</th>
+                <?php endif; ?>
+            </thead>
+            <tbody>
+                <?php foreach ($result as $row): ?>
+                    <tr>
+                        <?php if ($type=='ngo'): ?>
+                            <td>
+                                <a href="{:U('User/view')}/id/{$row.id}">{$row.name}</a>
+                            </td>
+                            <td>
+                                {$row.province}
+                            </td>
+                            <td>
+                            <?php foreach ($medals as $medal): ?>
+                                <?php if (in_result_set($medal['id'], $row['medalmap'], 'medal_id')): ?>
+                                    <img class="medal-icon" src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="32" data-toggle="tooltip" title="" data-original-title="{$medal.name}"/>
+                                <?php endif ?>
+                            <?php endforeach ?>
+                            </td>
+                        <?php else: ?>
+                            <td>
+                                <a href="{:U('Event/view')}/id/{$row.id}">{$row.name}</a>
+                            </td>
+                        <?php endif ?>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+
+        <div class="pager">{$pager_html}</div>
+        
+
+    </div>
+</div>
+
+</block>
+
+
+<block name="script-before">
+    <script>
+        {:C('COMPLETION_SCRIPT')}
+    </script>
+</block>
+<block name="script-after">
+<script>
+    $(function(){
+        // attach_autocomplete("#search-input-type", type_categories);
+        // attach_autocomplete("#search-input-cause", cause_categories);
+        $('#work-fields').val("{$_GET.work_field}")
+        attach_autocomplete("#input-province", region_categories);
+        attach_autocomplete("#input-keyword", keyword_categories);
+        $('.medal-icon, .medal-stab').tooltip();
+        $('.input-search').click(function(){
+            var current_uri = window.location.href;
+            var change_parts = function(key, val){
+                if(current_uri.match(key+'=')){
+                    current_uri = current_uri.replace(new RegExp(key+'=[^&]*'), key+'='+val);
+                }
+                else{
+                    if(current_uri.match(/\\?/)){
+                        current_uri = current_uri + '&'+key+'='+val;
+                    }
+                    else{
+                        current_uri = current_uri + '?'+key+'='+val;
+                    }
+                }
+            }
+            change_parts('work_field', $('.input-fields').val());
+            change_parts('keyword', $('.input-keyword').val());
+            change_parts('province', $('.input-province').val());
+            window.location.href = current_uri;
+        });
+    });
+
+    function attach_autocomplete(id, source){
+        var on_text_change = function(e, autoselect_item){
+            var dom = e.target;
+            if(autoselect_item || $(dom).val()){
+                $(dom).parent().addClass('has-text');
+            }
+            else{
+                $(dom).parent().removeClass('has-text');
+            }
+        }
+
+        $(id).autocomplete({
+            source: function(request, response){
+                var req = request.term.toLowerCase();
+                result = [];
+                for(var i in source){
+                    var o = source[i];
+                    if(req=='' || o.q.indexOf(req)!=-1 || o.p.indexOf(req)!=-1){
+                        result.push(o.q);
+                    }
+                }
+                response(result);
+            },
+            select: on_text_change,
+            minLength: 0 
+        });
+        $(id).keyup(on_text_change);
+        $(id+'-cross').click(function(){
+            $(id).val('');
+            $(id).parent().removeClass('has-text');
+        });
+        if(!$(id).hasClass('no-dropdown')){
+            $(id).focus(function(){
+                $(id).autocomplete("search", "");
+            });
+            $(id).click(function(){
+                $(id).autocomplete("search", "");
+            });
+            $(id+'-dropdown').click(function(){
+                $(id).autocomplete("search", "");
+            });
+        }
+        
+    }// attach autocomplete
+
+    
+</script>
+
+</block>

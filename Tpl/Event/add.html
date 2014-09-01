@@ -15,9 +15,21 @@
 
 
 <div class="container form-container publish-event">
-    <h1>发布活动/项目</h1>
+    <?php if (isset($_GET['type'])): ?>
+      <?php if ($_GET['type']=='csr'): ?>
+          <h1>发布企业公益活动</h1>
+      <?php elseif($_GET['type']=='case'): ?>
+          <h1>发布对接案例</h1>
+      <?php endif ?>
+    <?php else: ?>
+      <h1>发布活动/项目</h1>
+    <?php endif ?>
+    
     <p class="h1-subtitle">精彩的内容，可能入选NGO2.0首页推荐案例</p>
     <form class="form-horizontal add-event-form">
+        <?php if (isset($_GET['type'])): ?>
+          <input type="hidden" name="type" value="{$_GET.type}"/>
+        <?php endif ?>
         <div class="control-group">
             <label class="control-label" for="inputName">活动/项目名称</label>
             <div class="controls">
@@ -52,13 +64,23 @@
               <i class="icon-dropdown"></i>
             </div>
         </div>
+        <?php if (isset($_GET['type']) && $_GET['type']=='csr'): ?>
         <div class="control-group">
-            <label class="control-label" for="inputReq">活动/项目需求</label>
+            <label class="control-label" for="inputReq">活动/项目资源</label>
             <div class="controls">
-              <input type="text" id="inputReq" name="res_tags" class="input-large pill-select" placeholder="资金" data-options="需要合作方,媒体需求,物资需求,资金需求,志愿者需求">
+              <input type="text" id="inputReq" name="res_tags" class="input-large pill-select" placeholder="资金" data-options="{:implode(',', C('EVENT_RESOURCES'))}">
               <i class="icon-dropdown"></i>
             </div>
         </div>
+        <?php else: ?>
+        <div class="control-group">
+            <label class="control-label" for="inputReq">活动/项目需求</label>
+            <div class="controls">
+              <input type="text" id="inputReq" name="res_tags" class="input-large pill-select" placeholder="资金" data-options="{:implode(',', C('EVENT_NEEDS'))}">
+              <i class="icon-dropdown"></i>
+            </div>
+        </div>
+        <?php endif ?>
         <div class="control-group">
             <label class="control-label">活动/项目时间</label>
             <div class="controls time-input">

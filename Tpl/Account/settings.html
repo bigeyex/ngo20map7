@@ -1,0 +1,65 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+{:css('jquery.datetimepicker')}
+{:css('font-awesome.min')}
+{:css('lightbox')}
+{:css('jquery.fileupload')}
+{:css('jquery.Jcrop')}
+{:css('user-edit')}
+</block>
+
+
+<block name="body">
+
+    <div class="container backend-container">
+        <div class="row">
+            <div class="span3">
+                <ul class="form-nav">
+                    <li class="active"><a href="{:U('Account/settings')}">修改密码</a></li>
+                </ul>
+            </div>
+            <div class="span9">
+                <div class="box nav-tab" tab-id="basic-info">
+                    
+                    <form class="form-horizontal" action="{:U('Account/change_password')}" method="post">
+                      <div class="box-header">
+                          修改密码
+                      </div>
+                      <div class="box-content">
+                        <div class="control-group">
+                            <label class="control-label" for="inputOldPwd">旧密码</label>
+                            <div class="controls">
+                              <input type="password" id="inputOldPwd" name="old_password" class="span6" placeholder="请输入现在登录用的密码" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputNewPwd">新密码</label>
+                            <div class="controls">
+                              <input type="password" id="inputNewPwd" name="new_password" class="span6" placeholder="请输入想要改成的新密码" required>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputCfmNew">确认新密码</label>
+                            <div class="controls">
+                              <input type="password" id="inputCfmNew" name="new_password_again" class="span6" placeholder="请再次输入新密码" required>
+                            </div>
+                        </div>
+                        <div class="submit-button controls">
+                            <button class="button">修改密码</button>
+                        </div>
+                      </div> <!-- box-content -->
+                </form>
+
+            </div> <!-- box -->
+
+        </div>
+    </div>
+
+</block>
+
+
+<block name="script-before">
+</block>
+<block name="script-after">
+</block>

@@ -269,6 +269,22 @@ input.map-address-plus{
     top: 5px;
     color: #555;
     font-size: 20px;
+    color: white;
+    background: rgba(0,0,0,0.5);
+}
+
+.cover-image-icon{
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    color: #555;
+    font-size: 20px;
+    color: white;
+    background: rgba(0,0,0,0.5);
+}
+
+.cover-image-icon.active{
+    color: #74c6c6;
 }
 
 .crop-action{

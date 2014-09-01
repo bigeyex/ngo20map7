@@ -118,7 +118,7 @@ class AdminAction extends Action{
         $this->display();
     }
 
-        public function check_unique(){
+    public function check_unique(){
         $user=M('User');
         $user->create();
         $email = $_GET['email'];

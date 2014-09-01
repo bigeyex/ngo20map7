@@ -90,7 +90,6 @@ ul.ui-tabs-nav{
 #map-container{
     width: 625px;
     height: 324px;
-    background: url(../img/maploading.jpg) no-repeat;
 }
 
 #org-intro{
@@ -744,4 +743,63 @@ label.error{
     position: absolute;
     top: 0;
     left: 514px;
+}
+
+
+/* info-window */
+/* info-window */
+.info-window{
+    z-index: 1;
+}
+
+.info-window-box{
+    width: 323px;
+    height: 115px;
+    padding: 12px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #1d61c0;
+    color: white;
+    position: absolute;
+    top: 0px;
+}
+
+.info-title a{
+    font-size: 18px;
+    color: white;
+}
+
+.info-desc{
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 5px;
+}
+
+.info-image{
+    height: 63px;
+    width: 120px;
+    overflow: hidden;
+    float: right;
+    margin-top: 10px;
+}
+
+.info-window-triangle{
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 12px solid #1d61c0;
+    position: absolute;
+    top: 139px;
+    left: 165px;
+}
+
+.info-window-close-button{
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
 }

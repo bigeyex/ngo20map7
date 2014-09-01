@@ -111,7 +111,11 @@
 <block name="script-after">
 {:js('-jquery.fileupload')}
 {:js('-user-add')}
-<script>
-
-</script>
+<?php if(!user()): ?>
+  <script>
+    $(function(){
+      $('.register-link').click();
+    });
+  </script>
+<?php endif; ?>
 </block>

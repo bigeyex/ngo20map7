@@ -204,6 +204,7 @@ class LocalAction extends Action{
         $this->assign('module', $module);
         $this->assign('posts', $posts);
         $this->assign('page_bar', $page_bar);
+        $this->assign('has_right_to_admin', $this->has_right_to_admin());
         $this->display();
     }
     
@@ -375,6 +376,7 @@ class LocalAction extends Action{
         $this->assign('modules', $modules);
         $this->assign('content_id', $content_id);
         $this->assign('local_map', $local_map);
+        $this->assign('has_right_to_admin', $this->has_right_to_admin());
         $this->display('_content_sidebar');
     }
     

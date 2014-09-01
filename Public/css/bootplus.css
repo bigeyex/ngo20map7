@@ -816,7 +816,8 @@ h4 small {
 ul,
 ol {
   padding: 0;
-  margin: 15px 0px 10px 25px;
+  /*margin: 15px 0px 10px 25px;*/
+  margin: 0;
 }
 
 ul ul,
@@ -3606,6 +3607,14 @@ input[type="submit"].btn.btn-mini {
   outline: 0;
 }
 
+.form-inline input, .form-inline input[type="text"], .form-inline select{
+  padding: 0 5px;
+}
+
+.form-inline select{
+  height: 31px;
+}
+
 .btn-group > .btn + .dropdown-toggle {
   *padding-top: 5px;
   padding-right: 8px;
@@ -4695,7 +4704,9 @@ input[type="submit"].btn.btn-mini {
 }
 
 .pagination {
-  margin: 20px 0;
+  /*margin: 20px 0;*/
+  margin-left: 10px;
+  text-align: left;
 }
 
 .pagination ul {
@@ -4842,10 +4853,17 @@ input[type="submit"].btn.btn-mini {
 }
 
 .pager {
-  margin: 20px 0;
+  /*margin: 20px 0;*/
   text-align: center;
   list-style: none;
   *zoom: 1;
+  position: relative;
+}
+
+.pager-brief{
+  position: absolute;
+  right:0;
+  color: #999;
 }
 
 .pager:before,
@@ -4869,9 +4887,9 @@ input[type="submit"].btn.btn-mini {
   padding: 5px 14px;
   background-color: #fff;
   border: 1px solid #ddd;
-  -webkit-border-radius: 15px;
+/*  -webkit-border-radius: 15px;
      -moz-border-radius: 15px;
-          border-radius: 15px;
+          border-radius: 15px;*/
 }
 
 .pager li > a:hover,
@@ -5061,6 +5079,8 @@ input[type="submit"].btn.btn-mini {
   text-align: center;
   text-decoration: none;
   background-color: #000000;
+  font-size: 14px;
+  font-weight: normal;
   -webkit-border-radius: 2px;
      -moz-border-radius: 2px;
           border-radius: 2px;

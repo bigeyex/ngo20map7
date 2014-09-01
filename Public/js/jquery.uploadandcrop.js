@@ -15,23 +15,18 @@
 
  */
  (function( $ ) {
-      $.fn.uploadAndCrop.defaults = {
-          cropWidth: 150,
-          cropHeight: 150,
-          callback: null  // the callback funciton after upload. @param: url
-      };
-  
-      $.fn.uploadAndCrop = function( options ) {
-          var opts = $.extend( {}, $.fn.uploadAndCrop.defaults, options );
+      $.fn.uploadAndCrop = function(callback) {
           if($.fn.uploadAndCrop.fancyDom === undefined){
-            $('body').append('<div style="display:none;min-width:600px;min-height:400px;" id="crop-dialog"><div style="float: right;width:100px;height:100px;overflow:hidden;" class="crop-preview"><img class="preview-img"/></div><div class="crop-window" style="margin-right:160px;"><img style="" src="" class="crop-img"/></div><button class="button crop-action" style="margin-top: 15px;">确认裁剪</button></div>');
+            $('body').append('<div style="display:none;min-width:600px;min-height:400px;" id="crop-dialog"><div style="float: right;width:100px;height:100px;margin-top:50px;overflow:hidden;" class="crop-preview"><img class="preview-img"/></div><div class="crop-window" style="margin-right:160px;"><img style="" src="" class="crop-img"/></div><button class="button crop-action" style="margin-top: 0px;">确认裁剪</button></div>');
 
             $.fn.uploadAndCrop.fancyDom = true;
           }
           var jcropAPI;
           this.each(function(){
-            var cropWidth = opts.cropWidth,
-                cropHeight = opts.cropHeight,
+            var cropWidth = $(this).attr('crop-width'),
+                cropHeight = $(this).attr('crop-height'),
+                targetInput = $(this).attr('target-input'),
+                reText = $(this).attr('re-text'),
                 previewWidth = cropWidth,
                 previewHeight = cropHeight;
 
@@ -102,10 +97,12 @@
                             resizeH: cropHeight
                           });
                           $.get(app_path+'/Util/cropResize/?'+param, function(result){
+                            $('input[name="'+targetInput+'"]').val(data.result.url);
+                            $('#imgpreview-'+targetInput).attr('src', app_path+'/Public/Uploaded/'+result).show();
                             $.fancybox.close();
                             $('#imgupload-retext-'+targetInput).text(reText);
-                            if(opts.callback!==undefined){
-                              opts.callback(data.result.url);
+                            if(callback!==undefined){
+                              callback(data.result.url);
                             }
                           });
                         }
@@ -123,7 +120,5 @@
           
           return this;
 
-      };  // definition
+      };
   }( jQuery ));
-
-

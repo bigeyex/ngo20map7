@@ -1,6 +1,6 @@
 <?php
 
-class AccountModel extends Model{
+class AccountModel extends QnDModel{
 
     public function login($email, $pwd, $mode='password', $token=''){
         if(empty($pwd))return false;
@@ -46,6 +46,7 @@ class AccountModel extends Model{
             }
             else{
                 $_SESSION['login_user'] = $result;
+                $_SESSION['login_user']['id'] = 0;
             }
             $_SESSION['login_user']['password'] = '******';
             $_SESSION['login_user']['account_id'] = $result['id'];

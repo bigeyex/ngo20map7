@@ -237,13 +237,20 @@ form{
   margin-bottom: 30px;
 }
 
-.backend-container a{
-  color: #ff675f;
+.bs-container input[type="text"]{
+  min-height: 16px;
+  padding: 5px 10px 4px;
 }
 
-.backend-container a:hover{
+
+.backend-container-nbs a{
+  /* /* color: #ff675f; */ */
+}
+
+.backend-container-nbs a:hover{
   color: #ffaca7;
 }
+
 
 .btn a{
   line-height: 28px;
@@ -271,8 +278,12 @@ form{
   font-size: 18px;
 }
 
+.box-header a{
+  color: black;
+}
+
 .backend-container .box-content{
-  padding: 25px 15px 16px 35px;
+  padding: 25px 25px 16px 25px;
 }
 
 .backend-container .user-avatar{
@@ -294,6 +305,7 @@ form{
 
 .backend-container .action-links{
   margin-bottom: 25px;
+  margin-left: 25px;
 }
 
 .backend-container .action-links li{
@@ -333,6 +345,11 @@ form{
   color: #565a5c;
 }
 
+.form-nav li.seperator{
+  border-bottom: 1px solid #ccd;
+  width: 120px;
+}
+
 i.icon{
     display: block;
 }
@@ -370,6 +387,7 @@ i.icon{
 
 .pager{
   margin-left: -10px;
+  margin-top: 10px;
 }
 
 .pager span{
@@ -400,4 +418,8 @@ i.icon{
   background: transparent;
   box-shadow: 0 0 0 #000;
   cursor: default;
+}
+
+a.act{
+  color: #ff675f;
 }

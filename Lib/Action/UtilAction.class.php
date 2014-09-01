@@ -4,10 +4,33 @@ class UtilAction extends Action{
 
     function upload(){
         // $image = OO('Uploader')->imageOnly()->thumb('150x150')->thumb('628x326')->upload();
-        $image = OO('Uploader')->imageOnly()->upload();
+        if(isset($_GET['w'])){
+            $image = OO('Uploader')->imageOnly()->thumb(intval($_GET['w']).'x'.intval($_GET['h']))->upload();
+        }
+        else{
+            $image = OO('Uploader')->imageOnly()->upload();
+        }
         
         if(!$image->error()){
             echo json_encode(array('url'=>$image->url()));
+        }
+        else{
+            echo json_encode(array('error'=>$image->error()));
+        }
+    }
+
+    function bm_upload(){
+        // $image = OO('Uploader')->imageOnly()->thumb('150x150')->thumb('628x326')->upload();
+        $image = OO('Uploader')->imageOnly()->upload();
+        
+        if(!$image->error()){
+            $type = $_REQUEST['type'];
+            $editorId=$_GET['editorid'];
+            if($type == "ajax"){
+                echo __APP__ . '/Public/Uploaded/' . $image->url();
+            }else{
+                echo "<script>parent.UM.getEditor('". $editorId ."').getWidgetCallback('image')('" .$_SERVER['SERVER_NAME']. __APP__ . '/Public/Uploaded/' . $image->url() . "','" . 'SUCCESS' . "')</script>";
+            }
         }
         else{
             echo json_encode(array('error'=>$image->error()));
@@ -46,8 +69,8 @@ class UtilAction extends Action{
             else
                 imagecopyresized($thumbImg, $srcImg, 0, 0, $x, $y, $resizeW, $resizeH, $w, $h);
             if ('gif' == $type || 'png' == $type) {
-                //imagealphablending($thumbImg, false);//取消默认的混色模式
-                //imagesavealpha($thumbImg,true);//设定保存完整的 alpha 通道信息
+                imagealphablending($thumbImg, false);//取消默认的混色模式
+                imagesavealpha($thumbImg,true);//设定保存完整的 alpha 通道信息
                 $background_color = imagecolorallocate($thumbImg, 0, 255, 0);  //  指派一个绿色
                 imagecolortransparent($thumbImg, $background_color);  //  设置为透明色，若注释掉该行则输出绿色的图
             }

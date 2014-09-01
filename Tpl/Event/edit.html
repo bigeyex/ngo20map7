@@ -77,6 +77,15 @@
                             <i class="icon-dropdown"></i>
                           </div>
                       </div>
+                      <?php if ($event['type'] == 'csr'): ?>
+                      <div class="control-group">
+                          <label class="control-label" for="inputPlace">活动/项目资源</label>
+                          <div class="controls">
+                            <input type="text" id="inputName" name="res_tags" class="span6 pill-select" placeholder="资金" data-options="{:implode(',', C('EVENT_RESOURCES'))}" value="{$event.res_tags}">
+                            <i class="icon-dropdown"></i>
+                          </div>
+                      </div>
+                      <?php else: ?>
                       <div class="control-group">
                           <label class="control-label" for="inputPlace">活动/项目需求</label>
                           <div class="controls">
@@ -84,6 +93,7 @@
                             <i class="icon-dropdown"></i>
                           </div>
                       </div>
+                      <?php endif ?>
                       <div class="control-group">
                           <label class="control-label" for="inputPlace">活动/项目时间</label>
                           <div class="controls time-input">
@@ -130,7 +140,7 @@
                       <div class="box-header">
                           联系方式 <span class="subtitle">({$event.name})</span>
                       </div>
-                      <div class="box-content">
+                      <div class="box-content contact-info-section">
                       <div class="control-group">
                           <label class="control-label" for="inputName">联系人</label>
                           <div class="controls">
@@ -213,4 +223,56 @@
     });
   });
   </script>
+
+   <?php if(receive_tourist('User/edit')): ?>
+    {:css('-bootstrap-tour.min')}
+    {:js('-bootstrap-tour')}
+    <script>
+        $(function(){
+            // Instance the tour
+            var tour = new Tour({
+              storage: false,
+              steps: [
+              {
+                title: "感谢！",
+                content: '您已经成功添加公益信息活动。在<span style="color:red;">管理员审核</span>之后，大家就能看到您的公益活动。现在您可以继续补充联系信息。',
+                orphan: true,
+                backdrop: true
+              },
+              {
+                element: ".form-nav",
+                title: "完善不同板块的信息",
+                content: "您也可以随时点击这里修改您的基本资料，或者上传新的图片。",
+                placement: "right",
+                backdrop: true
+              },
+              {
+                element: ".preview-org-page",
+                title: "预览机构页面",
+                content: "你可以点击这里看看活动/项目的页面在访客眼里是什么样子。欣赏一下自己的劳动成果吧。",
+                placement: "right"
+              },
+              {
+                element: ".create-new-org-link",
+                title: "登记公益机构!",
+                content: "最后，别忘了在这里登记您的公益机构。审核通过的机构不仅可以在地图上展示，之后发布的活动/项目也可以无需审核直接显示。",
+                placement: "bottom"
+              },
+              {
+                element: ".contact-info-section",
+                title: "现在开始填写",
+                content: "现在开始填写活动/项目的联系资料吧，让企业和其他机构方便地找到您。",
+                placement: "top"
+              }
+            ]});
+
+            // Initialize the tour
+            tour.init();
+
+            // Start the tour
+            tour.start();
+        })
+    </script>
+    
+  <?php endif; ?>
 </block>

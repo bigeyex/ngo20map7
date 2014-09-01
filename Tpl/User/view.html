@@ -37,7 +37,7 @@
             <div class="tabs">
                 <ul>
                     <li><a href="#tab-photos">活动照片</a></li>
-                    <li><a href="#tab-map">活动地图</a></li>
+                    <li><a href="#tab-map" class="tab-map">活动地图</a></li>
                 </ul>
                 <div id="tab-photos">
                     <div class="carousel carousel-stage">
@@ -58,7 +58,7 @@
                 <div class="carousel carousel-navigation">
                     <ul>
                         <?php foreach ($events as $event): ?>
-                            <li><img src="{:upimage($event['cover_img'])}" width="74"/></li>
+                            <li class="event-switch" title="{$event.name|mb_substr=0,12}" event-id="{$event.id}" intro="{$event.intro|strip_tags|mb_substr=0,50}" image="{$event.cover_img}" lngs="{$event.lngs}" lats="{$event.lats}"><img src="{:upimage($event['cover_img'])}" width="74"/></li>
                         <?php endforeach ?>
                     </ul>
                 </div>
@@ -150,11 +150,16 @@
 
 
 <block name="script-before">
+    <script>
+        var home_lng="{$user.longitude}";
+        var home_lat="{$user.latitude}";
+    </script>
 {:js('jquery.jcarousel.min')}
 {:js('jcarousel.connected-carousels')}
 </block>
 <block name="script-after">
 {:js('-user-home')}
+{:js('-CurveLine.min')}
 </block>
 <block name="footer">
 </block>

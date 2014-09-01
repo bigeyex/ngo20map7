@@ -1,0 +1,102 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+	{:css('jquery.fileupload')}
+    {:css('admin')}
+</block>
+
+<block name="body">
+<div class="container">
+<div class="box admin-box">
+
+    <div class="row">
+		<div class="span10">
+			<form class="form-horizontal" action="{:U('Medal/'.$action)}" method="POST">
+				<?php if($action == "save"): ?>
+				<input type="hidden" name="id" value="{$medal.id}"/>
+				<?php endif; ?>
+				<fieldset>
+					<?php if($action == "save"): ?>
+					<legend>{:L('修改勋章')}: {$medal.name}</legend>
+					<?php else: ?>
+					<legend>{:L('新建勋章')}</legend>
+					<?php endif; ?>
+					<div class="control-group">
+						<label class="control-label" for="input01">{:L('名称')}</label>
+						<div class="controls">
+							<input type="text" name="name" class="input-large" id="input01" value="{$medal.name}">
+							<p class="help-block"></p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="textarea">勋章描述</label>
+						<div class="controls">
+							<textarea class="input-xlarge" name="description" id="textarea" rows="3">{$medal.description}</textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="input02">{:L('排序权重')}</label>
+						<div class="controls">
+							<input type="text" name="score" class="input-large" id="input02" value="{$medal.score}">
+							<p class="help-block">{:L('排序权重越高，勋章的排序越靠前')}</p>
+						</div>
+					</div>
+					<div class="control-group">
+                          <label class="control-label" for="inputLogo">勋章图案</label>
+                          <input type="hidden" name="image" class="medal-image" value="{$medal.image}"/>
+                          <div class="controls">
+                            <div class="image-preview">
+                            	<?php if (!empty($medal['image'])): ?>
+                            		<img src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="32" id="imgpreview-image"/>
+                            	<?php else: ?>
+                            		<img src="" width="32" id="imgpreview-image"/>
+                            	<?php endif ?>
+                              
+                            </div>
+                            <span class="fileinput-button">
+                                <button id="imgupload-retext-image" class="btn">点击更换标志</button>
+                                <!-- The file input field used as target for the file upload widget -->
+                                <input class="fileupload upload-logo" type="file" name="files" re-text="重新上传标志"
+                                    crop-width="32" crop-height="32" data-url="{:U('Util/upload')}/w/32/h/32/" target-input="image"/>
+                            </span>
+                          </div>
+                      </div>
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">
+							{:L('保存勋章')}
+						</button>
+						<button class="btn"><a href="{:U('Medal/index')}">{:L('取消')}</a></button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+    
+
+</div> <!-- box -->
+</div>
+
+</block>
+
+
+<block name="script-before">
+    {:js('admin')}
+    {:js('jquery.fancybox')}
+    {:js('jquery.fileupload')}
+</block>
+<block name="script-after">
+	<script type="text/javascript">
+	$('.upload-logo').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+        	$('.medal-image').val(data.result.url);
+        	$('#imgpreview-image').attr('src', app_path+'/Public/Uploaded/th32x32_'+data.result.url);
+        }
+    });
+	</script>
+</block>
+<block name="footer">
+</block>
+
+
+

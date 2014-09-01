@@ -1,3 +1,66 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+    <?php
+        if(!isset($target)) $target = 'post_insert';
+    ?>
+    {:css('local-inner')}
+</block>
+
+<block name="body">
+<div class="container backend-container bs-container">
+    <input type="hidden" id="local-id" value="{$local_map.id}"/>
+    <div class="row">
+        <div class="span3">
+            {:R('Local/_content_sidebar', array($_GET['local_id']))}
+        </div>
+        <div class="span9">
+            <div class="box">
+                <div class="box-header">
+                    {$post.name}
+                </div>
+                <div class="box-content">
+                    <div id="post-content">
+                        <div id="post-content">
+                        {$post.content}
+                        </div>
+                    </div>
+                </div><!-- box-content -->
+            </div> <!-- box -->
+        </div>
+    </div>
+</div> <!-- main-container -->
+</block>
+
+
+<block name="script-after">
+    {:js('-local-manage')}
+    <link rel="stylesheet" href="__APP__/Public/um/themes/default/css/umeditor.css" type="text/css">
+
+    <script type="text/javascript" charset="utf-8" src="__APP__/Public/um/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__APP__/Public/um/umeditor.min.js"></script>
+    <script type="text/javascript" src="__APP__/Public/um/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+    var ue = UM.getEditor('editor', {
+            imagePath:"http://",
+            lang:/^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
+            langPath:UMEDITOR_CONFIG.UMEDITOR_HOME_URL + "lang/",
+            focus: true
+        });
+    </script>
+
+
+</block>
+
+
+
+
+
+
+=====================
+
+
 <include file="Public:header"/>
 
 <div id="main-container">

@@ -1,4 +1,45 @@
 <?php
+// replace a part of the url request.
+// eg. for current url as 
+// http://localhost/show?a=1&b=2
+// url_replace('a', 3) returns:
+// http://localhost/show?a=3&b=2
+function url_replace($key, $value){
+    $schema = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+    $current_uri = $schema .$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    if(preg_match("/$key=/", $current_uri)){
+        // if it is already defined - change it
+        $new_uri = preg_replace("/$key=[^&]*/", "$key=$value", $current_uri);
+    }
+    else{
+        if(preg_match("/\?/", $current_uri)){
+            $new_uri = $current_uri . "&$key=$value";
+        }
+        else{
+            $new_uri = $current_uri . "?$key=$value";
+        }
+    }
+    return $new_uri;
+}
+
+function request_var($key){
+    if(isset($_GET[$key])){
+        return $_GET[$key];
+    }
+    else{
+        return null;
+    }
+}
+
+function in_result_set($needle, $heystack, $search_by='id'){
+    foreach($heystack as $row){
+        if($row[$search_by] == $needle){
+            return true;
+        }
+    }
+    return false;
+}
+
 function receive_tourist($tour_id){
     if(APP_DEBUG){
         return true;
@@ -76,7 +117,7 @@ function js($str=null, $max_ie=20){
 	static $js_list = array();
 	if($str !== null && get_ie_version()<$max_ie){
         if(substr($str, 0, 1)==='-'){
-            if(C('APP_DEBUG')){
+            if(APP_DEBUG){
                 return '<script type="text/javascript" src="'.__APP__.'/Public/js/'.substr($str, 1).'.js"></script>';
             }
             else{
@@ -88,7 +129,7 @@ function js($str=null, $max_ie=20){
         }
     }
     else{    // render js files
-        if(C('APP_DEBUG')){
+        if(APP_DEBUG){
             $ret = '';
             foreach($js_list as $js){
                 $ret .= '<script type="text/javascript" src="'.__APP__.'/Public/js/'.$js.'.js"></script>';
@@ -156,7 +197,7 @@ function css($str, $max_ie=20){
         }
     }
     else{    // render js files
-        if(C('APP_DEBUG')){
+        if(APP_DEBUG){
             $ret = '';
             foreach($css_list as $css){
                 $ret .= '<link href="'.__APP__.'/Public/css/'.$css.'.css" rel="stylesheet"/>';
