@@ -10,6 +10,7 @@
     <?php endforeach; ?>
     <?php if($has_right_to_admin): ?>
         <li class="seperator"></li>
+        <li class="{:active_if(ACTION_NAME=='org_list')}"><a href="{:U('Local/org_list')}/local_id/{$local_map.id}"><i class="icon-chevron-right"></i>机构审核</a></li>
         <li class="{:active_if(ACTION_NAME=='module_edit')}"><a href="{:U('Local/module_edit')}/local_id/{$local_map.id}"><i class="icon-chevron-right"></i>板块设置</a></li>
     <?php endif; ?>
 </ul>

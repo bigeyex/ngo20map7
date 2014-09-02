@@ -95,16 +95,17 @@
                         <else/>
                             <a href="{:U('User/edit')}/id/{$vo.id}" target="_blank" class="btn btn-mini">{:L('编辑')}</a>&nbsp;
                             <?php if($vo['is_checked']): ?>
-                            <a href="{:U('Admin/uncheck')}/id/{$vo.id}" class="fast-confirm btn btn-mini btn-warning" ques="{:L('确实要将该用户审核通过吗？')}">{:L('屏蔽')}</a>
+                            <a href="{:U('Admin/batch')}/ids/{$vo.id}/action/lock/type/users" class="fast-confirm btn btn-mini btn-warning" ques="{:L('确实要将该用户审核通过吗？')}">{:L('屏蔽')}</a>
                             <?php else: ?>
-                            <a href="{:U('Admin/check')}/id/{$vo.id}" class="btn btn-mini btn-success" ques="{:L('确实要将该用户审核通过吗？')}">{:L('审核')}</a>&nbsp;
+                            <a href="{:U('Admin/batch')}/ids/{$vo.id}/action/check/type/users" class="btn btn-mini btn-success" ques="{:L('确实要将该用户审核通过吗？')}">{:L('审核')}</a>&nbsp;
                             <?php endif; ?>
                             <?php if($vo['is_vip']): ?>
                             <a href="{:U('Admin/setvip')}/status/0/id/{$vo.id}" class="btn btn-mini">{:L('取消加V')}</a>
                             <?php else: ?>
                             <a href="{:U('Admin/setvip')}/status/1/id/{$vo.id}" class="btn btn-mini">{:L('加V')}</a>&nbsp;
                             <?php endif; ?>
-                            <a href="{:U('Admin/deleteUser')}/id/{$vo.id}" class="fast-confirm btn btn-mini btn-danger" ques="{:L('确实要永久删除该用户吗？')}">{:L('删除')}</a>
+                            <a href="javascript:void(0)" onclick="pre_delete(event)" class="fast-confirm btn btn-mini btn-danger" ques="{:L('确实要永久删除该用户吗？')}">{:L('删除')}</a>
+                            <a href="{:U('Admin/deleteUser')}/id/{$vo.id}" style="display:none;" class=" fast-confirm btn btn-mini btn-danger" ques="{:L('确实要永久删除该用户吗？')}">{:L('确认删除')}</a>
                         </eq>
                     </td>
                 </tr>

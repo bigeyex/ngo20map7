@@ -98,6 +98,9 @@ class UserAction extends BaseAction{
         $this->needLoggedIn();
         $user_model = O('user');
         $user_model->create();
+        if(!user('is_admin')){
+            $user_model->is_admin = 0;
+        }
         $user_model->create_time = date('Y-m-d H:i:s');
         $user_model->account_id = user('account_id');
 
@@ -157,7 +160,14 @@ class UserAction extends BaseAction{
         else{
             $user = O('user');
             $user->create();
+            if(!user('is_admin')){
+                $user->is_admin = 0;
+            }
             $user->save();
+            $user = O('user')->find($_POST['id']);
+            if($user['is_checked']){
+                OO('XSearch')->index('user', $_POST['id'], $user['name'], $user['intro']);
+            }
         }
 
         flash('机构信息已更新', 'success');

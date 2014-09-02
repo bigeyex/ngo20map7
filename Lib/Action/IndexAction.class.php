@@ -82,10 +82,23 @@ class IndexAction extends Action {
         $this->display();
     }
 
-    public function search($q){
-        $results = OO('XSearch')->search($q);
-        print_r($results);die();
-    }
+    public function mini_search($q){
+        $results = OO('XSearch')->search($q,5);
+        for($i=0;$i<count($results);$i++){
+            if(substr($results[$i]['pid'], 0, 5)=='event'){
+                $results[$i]['url'] = U('Event/view').'/id/'.substr($results[$i]['pid'], 6);
+            }
+            else if(substr($results[$i]['pid'], 0, 4)=='user'){
+                $results[$i]['url'] = U('User/view').'/id/'.substr($results[$i]['pid'], 5);
+            }
+            else if(substr($results[$i]['pid'], 0, 5)=='local'){
+                $results[$i]['url'] = U('Local/post_view').'/id/'.substr($results[$i]['pid'], 6);
+            }
+        }
+
+        $this->assign('results', $results);
+        $this->display();
+    }   
     
     public function map(){
         $this->display();

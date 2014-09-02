@@ -1,0 +1,79 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+</block>
+
+<block name="body">
+<div class="container backend-container bs-container">
+    <input type="hidden" id="local-id" value="{$local_map.id}"/>
+    <div class="row">
+        <div class="span2">
+            {:R('Local/_content_sidebar', array($_GET['local_id']))}
+        </div>
+        <div class="span10">
+            <div class="box">
+                <div class="box-header">
+                    审核公益机构和企业
+                </div>
+                <div class="box-content">
+                    <div class="form-inline">
+                        <div class="btn-group">
+                            <a class="btn {:active_if($_GET['mode'] == 'all')}" href="{:U('Local/org_list')}/mode/all/local_id/{$_GET.local_id}">
+                                {:L('全部')}</a>
+                            <a class="btn {:active_if($_GET['mode'] == 'audit')}" href="{:U('Local/org_list')}/mode/audit/local_id/{$_GET.local_id}">
+                                {:L('待审核')}</a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn" href="{:U('Local/org_export')}/local_id/{$_GET.local_id}">
+                                {:L('导出')}</a>
+                        </div>
+                        <form id="admin-search-form" class="form-search btn-group" action="{:U('Admin/events')}" method="get">
+                            <input class="input-xs" type="text" name="q" value="{$q}"/>
+                            <input class="btn" type="submit" value="{:L('筛选')}"/>
+                            <a href="{:U('Admin/events')}/q/all">{:L('清除条件')}</a>
+                        </form>
+                    </div>
+                    <div id="post-content" style="margin-top: 15px;">
+                        <div class="page-show">
+                            {$page_bar}
+                        </div>
+                        <table class="table table-hover syllabus-table">
+                            <tr>
+                                <th width="350">名称</th>
+                                <th width="100">联系人</th>
+                                <th width="100">联系电话</th>
+                                <th width="70"></th>
+                            </tr>
+                            <?php foreach ($users as $user): ?>
+                                <tr>
+                                    <td>{$user.name}</td>
+                                    <td>{$user.contact_name}</td>
+                                    <td>{$user.phone}</td>
+                                    <td>
+                                        <?php if ($user['is_checked']): ?>
+                                            <a href="{:U('Admin/batch')}/ids/{$user.id}/action/lock/type/users" class="action-revoke btn btn-mini btn-warning">{:L("撤下")}</a>
+                                        <?php else: ?>
+                                            <a href="{:U('Admin/batch')}/ids/{$user.id}/action/check/type/users" class="action-approve btn btn-mini btn-success">{:L("审核")}</a>
+                                            <a href="javascript:void(0);" onclick="pre_delete(event)" class="action-delete btn btn-mini btn-danger">{:L("删除")}</a>
+                                            <a href="{:U('Admin/deleteUser')}/id/{$user.id}" style="display:none;" class="action-delete btn btn-mini btn-danger">{:L("确认删除")}</a>
+                                        <?php endif ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </table>
+                        <div class="page-show">
+                            {$page_bar}
+                        </div>
+                        </div>
+                </div>
+                
+                  
+            </div>
+        </div>
+    </div>
+</div> <!-- main-container -->
+</block>
+
+
+<block name="script-after">
+</block>

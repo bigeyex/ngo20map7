@@ -1,0 +1,11 @@
+<?php if (empty($results)): ?>
+    <span class="search-sub-text">没有找到相关公益信息</span>
+<?php else: ?>
+    <ul>
+        <?php foreach ($results as $result): ?>
+            <li>
+                <a href="{$result.url}">{$result.subject}</a>
+                <p>{$result.message|strip_tags|mb_substr=0,50}</p>
+        <?php endforeach ?>
+    </ul>
+<?php endif ?>

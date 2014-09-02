@@ -1,21 +1,29 @@
 <?php
 
 class XSearch{
-    function index($prefix, $id, $subject, $content, $date){
+    function index($prefix, $id, $subject, $content, $date=null){
         if(file_exists(C('SEARCH_API_PATH'))){
             require_once C('SEARCH_API_PATH');
-            $xs = new XS(C('APP_NAME'));
-            $xsIndex = $xs->index;
-            $data = array(
-                'pid'=> "$prefix_$id",
-                'subject' => $subject,
-                'content' => $content,
-                'chrono' => date($date),
-                );
-            $doc = new XSDocument;
-            $doc->setFields($data);
-            
-            $xsIndex->update($doc);
+            try{
+                $xs = new XS(C('APP_NAME'));
+                $xsIndex = $xs->index;
+                if($date===null){
+                    $date = time();
+                }
+                $data = array(
+                    'pid'=> "$prefix_$id",
+                    'subject' => $subject,
+                    'content' => $content,
+                    'chrono' => strtotime($date),
+                    );
+                $doc = new XSDocument;
+                $doc->setFields($data);
+                
+                $xsIndex->update($doc);
+            }
+            catch(XSException $e){
+
+            }
         }
     }
 
@@ -25,6 +33,31 @@ class XSearch{
             $xs = new XS(C('APP_NAME'));
             $xsSearch = $xs->search;
             $docs = $xsSearch->setQuery($key)->setLimit($limit, $pass)->search();
+            $result = array();
+            foreach($docs as $doc){
+                $data = array(
+                    'pid' => $doc->pid,
+                    'subject' => $xsSearch->highlight($doc->subject),
+                    'message' => $xsSearch->highlight($doc->message),
+                    'date' => date("Y-m-d", $doc->chrono)
+                    );
+                $result[] = $data;
+            }
+            return $result;
+        }
+    }
+
+    function delete($prefix, $key){
+        if(file_exists(C('SEARCH_API_PATH'))){
+            try{
+                require_once C('SEARCH_API_PATH');
+                $xs = new XS(C('APP_NAME'));
+                $xsIndex = $xs->index;
+                $xsIndex->del("$prefix_$id");
+            }
+            catch(XSException $e){
+
+            }
         }
     }
 

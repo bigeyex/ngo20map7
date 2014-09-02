@@ -5,11 +5,12 @@
 </block>
 
 <block name="body">
-
+<input type="hidden" id="hidden-local-id" value="{$local_map.id}"/>
 <div class="container">
     <h1 id="local_title">{$local_map.name} <span>{$admin_user.name}</span>
         <?php if($is_local_admin): ?>
         <a href="{:U('Local/module_edit')}/local_id/{$local_map.id}">板块设置</a>
+        <a href="javascript:void(0);" class="save-map-center">保存地图视野</a>
         <?php endif; ?>
         </h1>
     <div id="map-zone">
@@ -60,6 +61,11 @@
 </block>
 
 <block name="script-before">
+    <script>
+        var default_map_lng = "{$default_map_center.lng}";
+        var default_map_lat = "{$default_map_center.lat}";
+        var default_map_zoom = "{$default_map_center.zoom}";
+    </script>
     {:js('local-map')}
     
 </block>

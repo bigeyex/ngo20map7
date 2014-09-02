@@ -58,7 +58,10 @@
          <form action="/s" id="search-form">
            <div id="search-bar">
              <i class="icon icon-search-homepage"></i>
-             <input type="text" placeholder="输入你感兴趣的" autocomplete="off" name="location" id="header-location">
+             <input type="text" placeholder="输入你感兴趣的" autocomplete="off" name="location" id="header-search-input">
+             <div id="header-search-result">
+                <span class="search-sub-text">输入关键词开始搜索</span>
+             </div>
            </div>
          </form>
         </li>
@@ -101,7 +104,8 @@
       <li class="create-new-org-link {:active_for('User/add')}"><a href="{:U('User/add')}">登记公益机构</a></li>
       <?php endif; ?>
       <li class="{:active_for('Account/settings')}"><a href="{:U('Account/settings')}">修改密码</a></li>
-      <li>
+      <?php if (user('is_admin')): ?>
+        <li>
         <div class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">管理员工具</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -112,6 +116,7 @@
           </ul>
         </div>
       </li>
+      <?php endif ?>
     </ul>
   </div>
 </div>

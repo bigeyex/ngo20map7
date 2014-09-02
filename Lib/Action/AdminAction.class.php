@@ -9,42 +9,19 @@
  *
  * @author 王全斌
  */
-class AdminAction extends Action{
-
-    public function addUser(){
-        $this->display();
-    }
+class AdminAction extends BaseAction{
 
     //彻底从数据库删除用户数据
     public function deleteUser(){
+        $this->userMayEditUser($_GET['id']);
         $user_model = M('User');
         $del = $user_model->where(array('id'=>$_GET['id']))->delete();
 
         $this->redirect('users', array("hold_page"=>1));
     }
 
-    public function check(){
-        $user_model = M('User');
-        $user_model->create();
-        $del = $user_model->where(array('id'=>$_GET['id']));
-        $del->is_checked = 1;
-        $del -> save();
-
-        $this->redirect('users', array("hold_page"=>1));
-    }
-
-    public function uncheck(){
-        $user_model = M('User');
-        $user_model->create();
-        $del = $user_model->where(array('id'=>$_GET['id']));
-        $del->is_checked = 0;
-        $del -> save();
-
-        $this->redirect('users', array("hold_page"=>1));
-    }
-
     public function change_type(){
-        admin_only();
+        $this->userMayEditUser($_GET['id']);
         $user_model = M('User');
         $user_model->create();
         $del = $user_model->where(array('id'=>$_GET['id']));
@@ -55,6 +32,7 @@ class AdminAction extends Action{
     }
 
     public function setvip(){
+        $this->userMayEditUser($_GET['id']);
         $user_model = M('User');
         if($_GET['status']){
             $status = 1;
@@ -65,57 +43,6 @@ class AdminAction extends Action{
 
         $user_model->where(array('id'=>$_GET['id']))->data(array('is_vip'=>$status))->save();
         $this->redirect('users', array("hold_page"=>1));
-    }
-
-    public function checkAll(){
-        $user = M('User');
-
-        $ids=split(",",$_GET['ids']);
-        $user->where(array('id'=>array('in',$ids)))->save(array('is_checked'=>1));
-        setflash('ok','',L('所选用户已审核成功'));
-        $this->redirect('users');
-    }
-
-    public function insert(){
-        $user=M('User');
-        $user->create();
-
-        //以下为头像上传代码
-        import('ORG.Net.UploadFile');
-        import('ORG.Util.Image');
-        $upload = new UploadFile();
-        $upload->maxSize = 3145728;
-        $upload->savePath = './Public/Uploadedthumb/';
-        $upload->thumb = true;
-        $upload->thumbPath = './Public/UploadedAvatar/';
-        $upload->thumbPrefix="thumbs_,thumbm_,thumb_";
-        $upload->thumbMaxWidth = "50,150,200";
-        $upload->thumbMaxHeight = "50,150,200";
-        $upload->saveRule = 'uniqid';
-        if(!$upload->upload()){
-            $info = $upload->getUploadFileInfo();
-        }
-//      $user->id = $_SESSION['login_user']['id'];
-        $user->image = $info[0]["savename"];
-//        $user_model->save();
-//        setflash('ok','成功修改用户头像','成功修改用户头像');
-//        $_SESSION['login_user']['photo'] = $info[0]["savename"];
-//        $this->redirect('newUser');
-
-        $user->work_field = implode(' ',$_POST['work_field']);
-        $user->password = md5($user->password);
-
-        $user->add();
-        setflash('ok','',L('用户已成功创建！'));
-        $this->redirect('user');//写好User/home后定位到该目标
-    }
-
-    public function editUser(){
-        $id = $_GET['id'];
-        $user_model = M('User');
-        $user_data = $user_model->find($id);
-        $this->assign('edit', $user_data);
-        $this->display();
     }
 
     public function check_unique(){
@@ -131,47 +58,8 @@ class AdminAction extends Action{
         }
     }
     
-    public function commitedit(){
-
-        $user=M('User');
-        $user->create();
-
-        //以下为头像上传代码
-        import('ORG.Net.UploadFile');
-        import('ORG.Util.Image');
-        $upload = new UploadFile();
-        $upload->maxSize = 3145728;
-        $upload->savePath = './Public/Uploadedthumb/';
-        $upload->thumb = true;
-        $upload->thumbPath = './Public/UploadedAvatar/';
-        $upload->thumbPrefix="thumbs_,thumbm_,thumb_";
-        $upload->thumbMaxWidth = "50,150,200";
-        $upload->thumbMaxHeight = "50,150,200";
-        $upload->saveRule = 'uniqid';
-        if(!$upload->upload()){
-            $info = $upload->getUploadFileInfo();
-        }
-//        $user->id = $_POST['id'];//$_GET['id'];
-        $user->image = $info[0]["savename"];
-//        setflash('ok','成功修改用户头像','成功修改用户头像');
-//        $_SESSION['login_user']['image'] = $info[0]["savename"];
-//        $this->redirect('newUser');
-
-        $user->work_field = implode(' ',$_POST['work_field']);
-        if($_POST['editpassword']!='@@@@@@')
-        $user->password = md5($_POST['password']);
-
-        $user->save();
-        setflash('ok','',L('用户信息已成功修改！'));
-        $this->redirect('user');
-    }
-
-    public function newEvent(){
-        $this->display('Event/new');
-    }
-
     public function events(){
-        admin_only();
+        $this->needToBeAdmin();
         $event_model = D('Event');
         
         //从session中读取搜索条件
@@ -247,7 +135,7 @@ class AdminAction extends Action{
     }
     
     public function users(){
-        admin_only();
+        $this->needToBeAdmin();
         $user_model = M('User');
         
         //从session中读取搜索条件
@@ -313,7 +201,6 @@ class AdminAction extends Action{
 
     //事件管理函数
     public function batch(){
-        
         if($_GET['type'] == 'users'){
             $model = M('User');
             $model_word = '用户';
@@ -323,45 +210,92 @@ class AdminAction extends Action{
             $model_word = '事件';
         }
         $ids=explode(",",$_GET['ids']);
+        foreach($ids as $id){
+            if($_GET['type'] == 'users'){
+                $this->userMayEditUser($id);
+            }
+            else{
+                $this->userMayEditEvent($id);
+            }
+        }
         $action=$_GET['action'];
         $type=$_GET['type'];    //ATTENTION: this 'type' indicates where to redirect. Only use 'events' or 'users'
 
         if($action=='lock'){
             $data['is_checked']='0';
             $model->where(array('id'=>array('in',$ids)))->save($data);
-            flash(L("您已成功屏蔽所选$model_word"), 'ok');
+            // if it is a user, lock all the events
+            if($_GET['type'] == 'users'){
+                O('event')->where(array('user_id'=>array('in',$ids)))->save($data);
+            }
+            flash(L("您已成功屏蔽所选$model_word"), 'success');
         }
         else if($action=='check'){
             $data['is_checked']='1';
             $model->where(array('id'=>array('in',$ids)))->save($data);
-            flash("您已成功审核所选$model_word", 'ok');
+            // if it is a user, unlock all the events
+            if($_GET['type'] == 'users'){
+                O('event')->where(array('user_id'=>array('in',$ids)))->save($data);
+            }
+            flash("您已成功审核所选$model_word", 'success');
         }
         else if($action=='recovery'){
             $data['enabled']='1';
             $model->where(array('id'=>array('in',$ids)))->save($data);
-            flash(L("您已成功恢复所选$model_word"), 'ok');
+            flash(L("您已成功恢复所选$model_word"), 'success');
         }
         else if($action=='del'){
             $data['enabled']='0';
             $model->where(array('id'=>array('in',$ids)))->save($data);
-            flash(L("您已成功删除所选$model_word"), 'ok');
+            flash(L("您已成功删除所选$model_word"), 'success');
         }
         else if($action=='erase'){
             $model->where(array('id'=>array('in',$ids)))->delete();
-            flash(L("您已彻底删除所选$model_word"), 'ok');
+            flash(L("您已彻底删除所选$model_word"), 'success');
         }
         else if($action=='add_v'){
             $data['is_vip']='1';
             $model->where(array('id'=>array('in',$ids)))->save($data);
-            flash(L("您已成功加V所选$model_word"), 'ok');
+            flash(L("您已成功加V所选$model_word"), 'success');
         }
         else if($action=='del_v'){
             $data['is_vip']='0';
             $model->where(array('id'=>array('in',$ids)))->save($data);
-            flash(L("您已成功取消加V所选$model_word"), 'ok');
+            flash(L("您已成功取消加V所选$model_word"), 'success');
         }
 
-        $this->redirect($_GET['type']);
+        //update search index
+        if($action == 'check' || $action == 'recovery'){
+            $items = $model->where(array('id'=>array('in',$ids)))->select();
+            if($_GET['type'] == 'users'){
+                $type = 'user';
+            }
+            else{
+                $type = 'event';
+            }
+            foreach($items as $item){
+                OO('XSearch')->index($type, $item['id'], $item['name'], $item['intro']);
+            }
+        }
+        else if($action == 'lock' || $action == 'del'){
+            if($_GET['type'] == 'users'){
+                $type = 'user';
+            }
+            else{
+                $type = 'event';
+            }
+            foreach($ids as $id){
+                OO('XSearch')->delete($type, $id);
+            }
+        }
+
+        if(!empty($_GET['ajax'])){
+            echo 'ok';
+        }
+        else{
+            // $this->redirect($_GET['type']);
+            $this->back();
+        }
     }
 
     public function send_check_emails($user_id){

@@ -6,6 +6,6 @@ return array(
     'DB_PWD' => '',
     'DB_PORT' => '3306',
     'DB_PREFIX' => '',
-    'SEARCH_API_PATH' => '',
+    'SEARCH_API_PATH' => '/Users/wangyu/xunsearch/sdk/php/lib/XS.php',
 );
 ?>

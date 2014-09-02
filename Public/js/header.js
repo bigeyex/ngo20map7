@@ -13,6 +13,37 @@ $(function(){
 		}
 	});
 	
+    $('#header-search-input').focus(function(){
+        $('#header-search-result').show();
+    }).blur(function(){
+        $('#header-search-result').hide();
+    });
+    $('#header-search-result').on('mousedown', 'li',function(e){
+        window.location.href = $(this).find('a').attr('href');
+    });
+    $('#header-search-result').on('mousedown', 'ul',function(e){
+        console.log(this);
+    });
+
+    var search_timer = null;
+    $('#header-search-input').keyup(function(){
+        if(search_timer !== null){
+            clearTimeout(search_timer);
+            search_timer = null;
+        }
+        search_timer = setTimeout(function(){
+            var input_value = $('#header-search-input').val();
+            if(input_value != ''){
+                $('#header-search-result').empty().append('<span class="search-sub-text">搜索中...</span>');
+                $('#header-search-result').load(app_path+'/Index/mini_search/q/'+input_value);
+            }
+            else{
+                $('#header-search-result').empty().append('<span class="search-sub-text">输入关键词开始搜索</span>');
+            }
+            
+        }, 500);
+        
+    });
 
 });
 

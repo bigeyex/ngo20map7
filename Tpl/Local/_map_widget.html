@@ -6,6 +6,7 @@
 
 <body>
     <div id="map-zone">
+        <input type="hidden" id="local-province" value="{$local_map.province}"/>
         <div id="map-panel">
             <label id="field-select-box">
                 <select id="set-field">
@@ -26,8 +27,12 @@
         app_path='__APP__';
     </script>	
     
+    <script>
+        var default_map_lng = "{$default_map_center.lng}";
+        var default_map_lat = "{$default_map_center.lat}";
+        var default_map_zoom = "{$default_map_center.zoom}";
+    </script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
     {:js('jquery-1.11.1.min')}
     {:js('local-map')}
     {:js()}

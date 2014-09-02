@@ -117,7 +117,11 @@
     $(function(){
         // attach_autocomplete("#search-input-type", type_categories);
         // attach_autocomplete("#search-input-cause", cause_categories);
-        $('#work-fields').val("{$_GET.work_field}")
+        var work_field = "{$_GET.work_field}";
+        if(work_field){
+            $('#work-fields').val(work_field);
+        }
+        
         attach_autocomplete("#input-province", region_categories);
         attach_autocomplete("#input-keyword", keyword_categories);
         $('.medal-icon, .medal-stab').tooltip();

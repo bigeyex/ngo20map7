@@ -1,50 +1,77 @@
-<include file="Public:header"/>
-<div id="main-container">
+<extend name="layout:backend"/>
 
+<block name="head">
+    <?php
+        if(!isset($target)) $target = 'post_insert';
+    ?>
+    {:css('local-inner')}
+</block>
+
+<block name="body">
+<div class="container backend-container bs-container">
+    <input type="hidden" id="local-id" value="{$local_map.id}"/>
     <div class="row">
         <div class="span2">
             {:R('Local/_content_sidebar', array($local_id))}
         </div>
-        <div class="span9">
-              <fieldset>
-                <legend>嵌入地图</legend>
-                <div class="control-group">
-                    <label>宽度</label>
-                    <input type="text" id="widget-width" value="700"/>
+        <div class="span10">
+            <div class="box">
+                <div class="box-header">
+                    嵌入地图
                 </div>
-                <div class="control-group">
-                    <label>高度</label>
-                    <input type="text" id="widget-height" value="300"/>
-                </div>
-                <div class="control-group">
-                <a href="javascript:void(0);" class="btn btn-primary" onclick="generate_embed_code();">生成嵌入代码</a>
-                </div>
-                <div class="control-group">
-                <label>嵌入代码（请复制到其他网站上）</label>
-                <textarea cols="100" rows="7" id="embed-code"><iframe src="{$pre_path}/Local/map_widget/local_id/{$local_id}" width="700" height="300"></iframe></textarea>
-                </div>
-                <label>预览</label>
-                <div id="widget-preview">
-                    <iframe src="{$pre_path}/Local/map_widget/local_id/{$local_id}" width="700" height="300"></iframe>
-                    
-                </div>
-              </fieldset>
+                <div class="box-content">
+                    <fieldset>
+                        <legend>嵌入地图</legend>
+                        <div class="control-group">
+                            <label>宽度</label>
+                            <input type="text" id="widget-width" value="700"/>
+                        </div>
+                        <div class="control-group">
+                            <label>高度</label>
+                            <input type="text" id="widget-height" value="300"/>
+                        </div>
+                        <div class="control-group">
+                        <a href="javascript:void(0);" class="btn btn-primary" onclick="generate_embed_code();">生成嵌入代码</a>
+                        </div>
+                        <div class="control-group">
+                        <label>嵌入代码（请复制到其他网站上）</label>
+                        <textarea cols="100" rows="7" id="embed-code"><iframe src="{$pre_path}/Local/map_widget/local_id/{$local_id}" width="700" height="300"></iframe></textarea>
+                        </div>
+                        <label>预览</label>
+                        <div id="widget-preview">
+                            <iframe src="{$pre_path}/Local/map_widget/local_id/{$local_id}" width="700" height="300"></iframe>
+                            
+                        </div>
+                      </fieldset>
+                </div><!-- box-content -->
+            </div> <!-- box -->
         </div>
     </div>
-    {:css('local-inner')}
-    {:css('bootstrap')}
-    {:css('todc-bootstrap')}
-    
+</div> <!-- main-container -->
+</block>
+
+
+<block name="script-after">
     <script type="text/javascript">
+        var center_lng='', center_lat='', center_zoom='';
         function generate_embed_code(){
             var width = $('#widget-width').val();
             var height = $('#widget-height').val();
-            var new_code = '<iframe src="{$pre_path}/Local/map_widget/local_id/{$local_id}" width="'+width+'" height="'+height+'"></iframe>'
+            var new_code = '<iframe src="{$pre_path}/Local/map_widget?local_id={$local_id}&center_lng='+center_lng+
+                            '&center_lat='+center_lat+'&center_zoom='+center_zoom+'" width="'+width+'" height="'+height+'"></iframe>'
             
             $('#embed-code').text(new_code);
-            $('#widget-preview').html(new_code);
+            // $('#widget-preview').html(new_code);
         }
-    </script>	
-</div> <!-- main-container -->
 
-<include file="Public:footer"/>
+        function set_map_center(lng, lat, zoom){
+            center_lng = lng;
+            center_lat = lat;
+            center_zoom = zoom;
+            generate_embed_code();
+        }
+    </script>   
+</block>
+
+
+

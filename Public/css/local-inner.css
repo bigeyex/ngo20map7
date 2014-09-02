@@ -82,3 +82,7 @@ input.error{
 #admin-search-form{
   margin-bottom: 10px;
 }
+
+#widget-preview iframe{
+  border: none;
+}

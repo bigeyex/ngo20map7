@@ -8,8 +8,18 @@ class LocalAction extends Action{
         $local_map = $local_map_model->where(array(
             'identifier' => $name,
         ))->find();
+        $default_map_center = array('lng'=>'', 'lat'=>'', 'zoom'=>'');
+        $config = json_decode($local_map['config'], true);
+        if(isset($config['map_center'])){
+            $map_center_config = explode(',', $config['map_center']);
+            $default_map_center['lng'] = $map_center_config[0];
+            $default_map_center['lat'] = $map_center_config[1];
+            $default_map_center['zoom'] = $map_center_config[2];
+        }
+        $this->assign('default_map_center', $default_map_center);
         $modules = M('LocalModules')->where(array('local_id'=>$local_map['id']))->order('sortkey')->select();
         $admin_user = $user_model->find($local_map['admin_id']);
+        $this->assign('with_notification', true);
         $this->assign('local_map', $local_map);
         $this->assign('modules', $modules);
         $this->assign('admin_user', $admin_user);
@@ -32,6 +42,55 @@ class LocalAction extends Action{
         $this->assign('local_result', $local_map_result);
         $this->assign('page', $page_bar);
         $this->display();
+    }
+
+    public function org_list($local_id, $mode='all'){
+        $this->need_right_to_admin($local_id);
+        $local = O('local_map')->find($local_id);
+        $province = $local['province'];
+        $user_model = O('user')->province($province);
+        if($mode == 'audit'){
+            $user_model = $user_model->with('is_checked', 0)->with('type','neq','ind');
+        }
+
+        import("@.Classes.TBPage");
+        $listRows = C('ADMIN_ROW_LIST');
+        $count = $user_model->count();
+        $Page = new TBPage($count,$listRows);
+        $users = $user_model->limit($Page->firstRow.','.$listRows)->order('create_time desc')->select();
+        $page_bar = $Page->show();
+    
+        $this->assign('page_bar', $page_bar);
+        $this->assign('users', $users);
+        $this->display();
+    }
+
+    public function org_export($local_id){
+        $this->need_right_to_admin($local_id);
+        $local = O('local_map')->find($local_id);
+        $province = $local['province'];
+        $result = O('user')->province($province)->order('create_time desc')->select();
+        
+        $fields = array(
+            'name' => '名称',
+            'contact_name' => '联系人',
+            'public_email' => '电子邮箱',
+            'phone' => '联系电话',
+            'website' => '网站',
+            'city' => '所在城市',
+            'county' => '所在乡镇',
+            'place' => '地址',
+            'aim' => '机构使命',
+            'introduction' => '简介',
+            'work_field' => '服务领域',
+            'register_type' => '注册类型',
+            'register_year' => '注册年份',
+            'staff_fulltime' => '全职人数',
+            'staff_parttime' => '兼职人数',
+            'staff_volunteer' => '志愿者人数',
+            'financial_link' => '财务报告链接',
+        );
+        OO('ExcelExport')->output_excel($fields, $result);
     }
     
     public function add_map(){
@@ -92,6 +151,15 @@ class LocalAction extends Action{
         $this->assign('pre_path', $pre_path);
         $this->assign('local_id', $local_id);
         $this->display();
+    }
+
+    public function save_map_center(){
+        $this->need_right_to_admin($_POST['local_id']);
+        $local = O('local_map')->find($_POST['local_id']);
+        $config = json_decode($local['config'], true);
+        $config['map_center'] = $_POST['center'];
+        O('local_map')->with('id', $_POST['local_id'])->save(array('config'=>json_encode($config)));
+        echo 'ok';
     }
     
     // post content
@@ -161,11 +229,11 @@ class LocalAction extends Action{
         $this->redirect('post_view', array('local_id'=>$_POST['local_id'], 'content_id'=>$_POST['key'], 'post_id'=>$post_id));
     }
     
-    function post_view($local_id, $post_id){
+    function post_view($post_id){
         $local_content_model = new LocalContentModel();
         $post = $local_content_model->find($post_id);
         
-        $this->assign('local_id', $local_id);
+        $this->assign('local_id', $post['local_id']);
         $this->assign('post', $post);
         $this->display();
     }
@@ -300,7 +368,18 @@ class LocalAction extends Action{
     
     public function map_widget($local_id){
         $local_map = O('local_map')->find($local_id);
-
+        $default_map_center = array('lng'=>'', 'lat'=>'', 'zoom'=>'');
+        $config = json_decode($local_map['config'], true);
+        if(!empty($_GET['center_lng'])){
+            $default_map_center = array('lng'=>$_GET['center_lng'], 'lat'=>$_GET['center_lat'], 'zoom'=>$_GET['center_zoom']);
+        }
+        else if(isset($config['map_center'])){
+            $map_center_config = explode(',', $config['map_center']);
+            $default_map_center['lng'] = $map_center_config[0];
+            $default_map_center['lat'] = $map_center_config[1];
+            $default_map_center['zoom'] = $map_center_config[2];
+        }
+        $this->assign('default_map_center', $default_map_center);
         $this->assign('local_map', $local_map);
         $this->display('_map_widget');
     }

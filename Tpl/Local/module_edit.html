@@ -8,10 +8,10 @@
 <div class="container backend-container bs-container">
     <input type="hidden" id="local-id" value="{$local_map.id}"/>
     <div class="row">
-        <div class="span3">
+        <div class="span2">
             {:R('Local/_content_sidebar', array($_GET['local_id']))}
         </div>
-        <div class="span9">
+        <div class="span10">
             <div class="box">
                 <div class="box-header">
                     <a href="{:U('Local/index')}/name/{$local_map.identifier}">{$local_map.name}</a> - 板块设定

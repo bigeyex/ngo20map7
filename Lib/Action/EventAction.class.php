@@ -102,9 +102,16 @@ class EventAction extends BaseAction{
         if(!empty($_POST['images'])){   // pick the first image as cover image
             $event->cover_img = $_POST['images'][0];
         }
+        if(user('is_checked') || user('is_admin')){
+            $event->is_checked = 1;
+        }
         $new_id = $event->add();
 
         if($new_id){
+            //add index
+            if(user('is_checked') || user('is_admin')){
+                OO('XSearch')->index('event', $new_id, $_POST['name'], $_POST['intro']);
+            }
             //add locations
             $_SESSION['recent_event_id'] = $new_id;
             $location_model = O('event_location');
@@ -177,6 +184,11 @@ class EventAction extends BaseAction{
                         'event_id' => $_POST['id'],
                 ));
             }
+        }
+
+        $event = O('event')->find($_POST['id']);
+        if($event['is_checked']){
+            OO('XSearch')->index('event', $_POST['id'], $event['name'], $event['intro']);
         }
         
         flash('活动信息已保存', 'success');

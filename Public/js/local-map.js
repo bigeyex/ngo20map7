@@ -33,6 +33,8 @@ $(function(){
     // init all modules
     mapView.init();
     filterView.init();
+
+
 });
 
 
@@ -53,10 +55,18 @@ function MapView(){
     
     this.onload = function(){
         self.map = new BMap.Map('allmap');  
+        
         self.map.centerAndZoom(new BMap.Point(121.491, 31.233), 11);  
         self.map.addControl(new BMap.NavigationControl());
         self.refreshViewport();
+        if(typeof default_map_lng!=='undefined' && default_map_lng != ''){
+            self.map.centerAndZoom(new BMap.Point(default_map_lng, default_map_lat), default_map_zoom);  
+        }
         var on_move_or_zoom_end = function(){
+            if(typeof window.parent.set_map_center !== 'undefined'){
+                var c = self.map.getCenter();
+                window.parent.set_map_center(c.lng, c.lat, self.map.getZoom());
+            }
             var bounds = self.map.getBounds();
             var sw = bounds.getSouthWest();
             var ne = bounds.getNorthEast();
@@ -72,6 +82,17 @@ function MapView(){
         });
         dispatcher.subscribe('result.refreshed', function(){
             self.refreshViewport();
+        });
+        $('.save-map-center').click(function(){
+            var cp = self.map.getCenter();
+            var zoom = self.map.getZoom();
+            var center = [cp.lng, cp.lat, zoom].join(',');
+
+            $.post(app_path+'/Local/save_map_center',{local_id:$('#hidden-local-id').val(), center:center }, function(result){
+                if(result=='ok'){
+                    toastr.success('成功保存地图中心点和缩放级别');
+                }
+            });
         });
     };
     

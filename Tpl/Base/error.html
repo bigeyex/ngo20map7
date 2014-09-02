@@ -1,11 +1,33 @@
 <extend name="layout:main"/>
 
 <block name="head">
+    <style>
+        .left-column{
+            margin: 100px 150px 200px 20px;
+            float: left;
+        }
+        .right-column{
+            margin: 100px 0;
+        }
+        .right-column h3{
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+    </style>
 </block>
 
 
 <block name="body">
-    出错了:{$message}
+    <div class="container">
+        <div class="left-column">
+            <img src="__APP__/Public/img/broken-pin.png"/>
+        </div>
+        <div class="right-column">
+            <h3>呜呜呜，出错了</h3>
+            <p>{$message}</p>
+            <p>如有问题，请联系管理员<a href="mailto:info@ngo20.org">info@ngo20.org</a></p>
+        </div>
+    </div>
 </block>
 
 
