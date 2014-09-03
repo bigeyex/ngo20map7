@@ -51,7 +51,7 @@
         <?php if ($type=='ngo'): ?>
             <div class="medal-filters">
                 <?php foreach ($medals as $medal): ?>
-                    <a class="medal-stab" style="background:url(/ngo20map6/Public/img/medals/ngo20-training.png) no-repeat;" data-toggle="tooltip" data-placement="bottom" title="" href="{:url_replace('medal', $medal['id'])}" data-original-title="{$medal.description}">{$medal.name}</a>
+                    <a class="medal-stab" style="background:url(__APP__/Public/Uploaded/th32x32_{$medal.image}) no-repeat;" data-toggle="tooltip" data-placement="bottom" title="" href="{:url_replace('medal', $medal['id'])}" data-original-title="{$medal.description}">{$medal.name}</a>
                 <?php endforeach ?>
                 
             </div>
