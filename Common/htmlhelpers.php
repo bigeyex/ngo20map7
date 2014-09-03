@@ -125,7 +125,13 @@ function js($str=null, $max_ie=20){
             }
         }
         else{
-            $js_list[] = $str;
+            // $js_list[] = $str;
+            if(APP_DEBUG){
+                return '<script type="text/javascript" src="'.__APP__.'/Public/js/'.$str.'.js"></script>';
+            }
+            else{
+                return '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js(array($str)).'.js"></script>';
+            }
         }
     }
     else{    // render js files
@@ -193,7 +199,8 @@ function css($str, $max_ie=20){
             return '<link href="'.__APP__.'/Public/css/'.substr($str, 1).'.css" rel="stylesheet"/>';
         }
         else{
-            $css_list[] = $str;
+            // $css_list[] = $str;
+            return '<link href="'.__APP__.'/Public/css/'.$str.'.css" rel="stylesheet"/>';
         }
     }
     else{    // render js files
