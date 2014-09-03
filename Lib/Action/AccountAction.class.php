@@ -81,7 +81,7 @@ class AccountAction extends BaseAction{
             $this->redirect('Account/settings');
             return;
         }
-        if(empty(user('account_id'))){
+        if(!(user('account_id'))){
             flash('登录用户才可以修改密码');
             $this->redirect('Account/settings');
             return;
