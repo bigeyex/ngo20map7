@@ -17,7 +17,7 @@
  (function( $ ) {
       $.fn.uploadAndCrop = function(callback) {
           if($.fn.uploadAndCrop.fancyDom === undefined){
-            $('body').append('<div style="display:none;min-width:600px;min-height:400px;" id="crop-dialog"><div style="float: right;width:100px;height:100px;margin-top:50px;overflow:hidden;" class="crop-preview"><img class="preview-img"/></div><div class="crop-window" style="margin-right:160px;"><img style="" src="" class="crop-img"/></div><button class="button crop-action" style="margin-top: 0px;">确认裁剪</button></div>');
+            $('body').append('<div style="display:none;min-width:600px;min-height:400px;" id="crop-dialog"><div style="float: right;width:100px;height:100px;overflow:hidden;margin-top:50px;" class="crop-preview"><img class="preview-img"/></div><div class="crop-window" style="margin-right:160px;"><img style="" src="" class="crop-img"/></div><button class="button crop-action">确认裁剪</button></div>');
 
             $.fn.uploadAndCrop.fancyDom = true;
           }
@@ -36,6 +36,9 @@
             }
             $(this).fileupload({
                 dataType: 'json',
+                start: function(e, data){
+                  $.fancybox('<p>上传中...</p>');
+                },
                 done: function (e, data) {
                     $('.crop-img,.preview-img').attr('src', app_path+'/Public/Uploaded/'+data.result.url);
                     $.fancybox.open({

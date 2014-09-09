@@ -739,10 +739,10 @@ label.error{
 }
 
 .crop-action{
-    margin-top: 15px;
+    /* margin-top: 15px; */
     position: absolute;
     top: 0;
-    left: 514px;
+    right: 0;
 }
 
 

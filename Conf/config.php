@@ -16,7 +16,8 @@ return array(
     'LIST_RECORD_PER_PAGE' => 20,
     'RECORD_PER_POST_WIDGET' => 5,
     'VAR_PAGE' => 'p',
-    
+    'LOG_RECORD' => true,
+    'LOG_LEVEL' => 'EMERG,ALERT,CRIT,ERR,INFO,SQL',
     
 );
 ?>

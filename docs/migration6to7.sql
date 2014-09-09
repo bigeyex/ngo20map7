@@ -61,5 +61,5 @@ CREATE TABLE `event_location` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-insert into event_location (longitude, latitude, province, city, place, event_id)  (select longitude, latitude, province, city, place, id from `event`)
-    ALTER TABLE `ngo20map7`.`event` DROP COLUMN `longitude`, DROP COLUMN `latitude`, DROP COLUMN `province`, DROP COLUMN `city`, DROP COLUMN `county`, DROP COLUMN `place`;
+insert into event_location (longitude, latitude, province, city, place, event_id)  (select longitude, latitude, province, city, place, id from `event`);
+ALTER TABLE `ngo20map7`.`event` DROP COLUMN `longitude`, DROP COLUMN `latitude`, DROP COLUMN `province`, DROP COLUMN `city`, DROP COLUMN `county`, DROP COLUMN `place`;

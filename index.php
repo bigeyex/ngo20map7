@@ -4,6 +4,6 @@ if (!function_exists('json_encode')) {
 	require_once 'jsonwrapper_inner.php';
 } 
 
-define('APP_DEBUG', true);
+define('APP_DEBUG', false);
 
 require './ThinkPHP/ThinkPHP.php';

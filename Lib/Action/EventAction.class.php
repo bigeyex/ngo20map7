@@ -78,7 +78,12 @@ class EventAction extends BaseAction{
     }
 
     function manage(){
-        $events = O('event')->with('account_id', user('account_id'))->select();
+        if(!user('account_id')){
+            $events = array();
+        }
+        else{
+            $events = O('event')->with('account_id', user('account_id'))->select();
+        }
 
         $this->assign('events', $events);
         $this->display();
