@@ -103,6 +103,9 @@
       <?php else: ?>
       <li class="create-new-org-link {:active_for('User/add')}"><a href="{:U('User/add')}">登记公益机构</a></li>
       <?php endif; ?>
+      <?php foreach (O('LocalMap')->byUserId(user('id')) as $localMap): ?>
+        <li class="{:active_for('Local/*')}"><a href="{:U('Local/index')}/name/{$localMap.identifier}">{$localMap.name}</a></li>
+      <?php endforeach ?>
       <li class="{:active_for('Account/settings')}"><a href="{:U('Account/settings')}">修改密码</a></li>
       <?php if (user('is_admin')): ?>
         <li>

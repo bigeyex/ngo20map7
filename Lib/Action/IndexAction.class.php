@@ -45,6 +45,7 @@ class IndexAction extends Action {
             $base_model = O('user')->with('type', 'ngo');
             $is_user = true;
         }
+        $base_model = $base_model->active_only();
 
         if(!empty($province)){
             $base_model = $base_model->province($province);

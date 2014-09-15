@@ -11,7 +11,7 @@ class XSearch{
                     $date = time();
                 }
                 $data = array(
-                    'pid'=> "$prefix_$id",
+                    'pid'=> $prefix.'_'.$id,
                     'subject' => $subject,
                     'content' => $content,
                     'chrono' => strtotime($date),
@@ -53,7 +53,7 @@ class XSearch{
                 require_once C('SEARCH_API_PATH');
                 $xs = new XS(C('APP_NAME'));
                 $xsIndex = $xs->index;
-                $xsIndex->del("$prefix_$id");
+                $xsIndex->del($prefix.'_'.$id);
             }
             catch(XSException $e){
 

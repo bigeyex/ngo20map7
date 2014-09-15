@@ -16,6 +16,10 @@
       <li><a tabindex="-1" href="{:U('Event/add')}/type/case">发布对接案例</a></li>
     <?php else: ?>
       <li><a tabindex="-1" href="{:U('Event/manage')}">活动管理</a></li>
+      <?php foreach (O('LocalMap')->byUserId(user('id')) as $localMap): ?>
+        <li><a tabindex="-1" href="{:U('Local/index')}/name/{$localMap.identifier}">{$localMap.name}</a></li>
+        <li><a tabindex="-1" href="{:U('Local/module_edit')}/local_id/{$localMap.id}">管理{$localMap.name}</a></li>
+      <?php endforeach ?>
     <?php endif ?>
     
     <li role="presentation" class="divider"></li>
