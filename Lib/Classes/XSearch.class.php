@@ -13,8 +13,8 @@ class XSearch{
                 $data = array(
                     'pid'=> $prefix.'_'.$id,
                     'subject' => $subject,
-                    'content' => $content,
-                    'chrono' => strtotime($date),
+                    'message' => $content,
+                    'date' => strtotime($date),
                     );
                 $doc = new XSDocument;
                 $doc->setFields($data);

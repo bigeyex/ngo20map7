@@ -1,7 +1,7 @@
 <?php
 use NGO20Map\Local;
 
-class LocalAction extends Action{
+class LocalAction extends BaseAction{
     function index($name=0){
         $local_map_model = new LocalMapModel();
         $user_model = new UserModel();
@@ -210,6 +210,10 @@ class LocalAction extends Action{
             $is_checked = 1;
         }
         else{
+            if($_POST['verify'] != $_SESSION['verify']){
+                flash('验证码输入不正确', 'error');
+                $this->back();
+            }
             $is_checked = 0;
         }
         $post_id = $local_content_model->add(array(
@@ -223,7 +227,7 @@ class LocalAction extends Action{
             'users_id' => user('id'),
         ));
         if(!$is_checked){
-            flash('投稿文章在审核之后会出现在列表中');
+            flash('投稿文章在审核之后会出现在列表中', 'warning');
         }
         
         $this->redirect('post_view', array('local_id'=>$_POST['local_id'], 'content_id'=>$_POST['key'], 'post_id'=>$post_id));

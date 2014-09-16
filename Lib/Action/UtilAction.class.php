@@ -2,6 +2,13 @@
 
 class UtilAction extends Action{
 
+    public function captcha(){
+        import('ORG.Util.ValidateCode');
+        $_vc = new ValidateCode();      //实例化一个对象
+        $_vc->doimg();
+        $_SESSION['verify'] =strtolower($_vc->getCode());//验证码保存到SESSION中
+    }
+
     function upload(){
         // $image = OO('Uploader')->imageOnly()->thumb('150x150')->thumb('628x326')->upload();
         if(isset($_GET['w'])){
