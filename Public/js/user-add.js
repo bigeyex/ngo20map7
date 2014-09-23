@@ -1,5 +1,7 @@
    $(function(){
-       loadBaiduMap();
+       if($('#map-input-box').length >= 1){
+         loadBaiduMap();
+       }
        $('.pill-select').pillSelectBox();
        $('.datepicker').datetimepicker({lang: 'ch'});
        $('select').each(function(){$(this).val($(this).attr('value'))});
@@ -16,16 +18,21 @@
           });
        }
 
-       $('.upload-logo').fileupload({
-        dataType: 'json',
-        done: function(e, data){
-          $('#imgpreview-image').attr('src', app_path+'/Public/Uploaded/'+data.result.url);
-          $('#hidden-input-image').val(data.result.url);
-          $('#imgpreview-image').show();
-        }
-       });
+       if(typeof $.fn.fileupload !== 'undefined'){
+         $('.upload-logo').fileupload({
+          dataType: 'json',
+          url:app_path+'/Util/upload/w/150/h/150/',
+          done: function(e, data){
+            $('#imgpreview-image').attr('src', app_path+'/Public/Uploaded/'+data.result.url);
+            $('#hidden-input-image').val(data.result.url);
+            $('#imgpreview-image').show();
+          }
+         });
+       }
 
-       $('.add-event-form').validate();
+       if($.fn.validate !== undefined){
+         $('.add-event-form').validate();
+       }
    });
    function loadBaiduMap(){
        var script = document.createElement("script");
