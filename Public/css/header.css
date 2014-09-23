@@ -466,3 +466,7 @@ a.act{
 .page-show{
   position: relative;
 }
+
+.add-photo-button{
+  cursor: pointer;
+}

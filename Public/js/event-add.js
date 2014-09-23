@@ -7,11 +7,14 @@
        $('select').each(function(){$(this).val($(this).attr('value'))});
 
        // jquery upload and crop
-       if($().fileupload!==undefined){
-          $('.fileupload').uploadAndCrop(function(url){
-            $('.image-showcase').append('<a class="uploaded-image-slide" href="'+app_path+'/Public/Uploaded/'+url+'" data-lightbox="image-1" ><img src="'+app_path+'/Public/Uploaded/th628x326_'+url+'" width="119"/><input type="hidden" name="images[]" value="'+url+'"/><i class="fa fa-times remove-image-icon" ></i></a>');
-            dispatcher.dispatch('image.uploaded', url)
-          });
+       if(typeof FlashUploader !== 'undefined'){
+          FlashUploader.init();
+          $('.fileinput-button').click(function(){
+            FlashUploader.open(function(url){
+              $('.image-showcase').append('<a class="uploaded-image-slide" href="'+app_path+'/Public/Uploaded/'+url+'" data-lightbox="image-1" ><img src="'+app_path+'/Public/Uploaded/th628x326_'+url+'" width="119"/><input type="hidden" name="images[]" value="'+url+'"/><i class="fa fa-times remove-image-icon" ></i></a>');
+              dispatcher.dispatch('image.uploaded', url);
+            });
+         });
        }
 
        if($.fn.validate !== undefined){

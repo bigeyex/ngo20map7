@@ -59,16 +59,16 @@
           
           <div class="control-group">
               <label class="control-label">机构标志</label>
-              <input type="hidden" name="image" value=""/>
+              <input type="hidden" name="image" id="hidden-input-image" value=""/>
               <div class="controls">
                 <div class="image-preview">
                   <img src="" style="display:none;" width="150" id="imgpreview-image"/>
                 </div>
-                <span class="button fileinput-button">
+                <span class="button fileinput-button upload-logo-button">
                     <span id="imgupload-retext-image">点击上传标志</span>
                     <!-- The file input field used as target for the file upload widget -->
                     <input class="fileupload upload-logo" type="file" name="files" re-text="重新上传标志"
-                        crop-width="150" crop-height="150" data-url="{:U('Util/upload')}" target-input="image"/>
+                        crop-width="150" crop-height="150" data-url="{:U('Util/upload')}/w/150/h/150/" target-input="image"/>
                 </span>
               </div>
           </div>
@@ -80,12 +80,10 @@
 
 
                 </div>
-                <div class="add-photo-button fileinput-button">
+                <div class="add-photo-button fileinput-button upload-photo-button">
                     <i class="upload-photos-icon fa fa-upload"></i>
                     <span id="imgupload-retext-show" class="upload-photos-text">点击上传照片</span>
                     <!-- The file input field used as target for the file upload widget -->
-                    <input class="fileupload upload-show" type="file" name="files" re-text="继续上传照片"
-                        crop-width="628" crop-height="326" data-url="{:U('Util/upload')}" target-input="show"/>
                 </div>
               </div>
           </div>
@@ -106,11 +104,12 @@
 {:js('jquery.pillselectbox')}
 {:js('jquery.validate')}
 {:js('messages_zh')}
-{:js('jquery.Jcrop')}
-{:js('jquery.uploadandcrop')}
+{:js('swfobject')}
+{:js('jquery.fileupload')}
+{:js('fullAvatarEditor')}
+{:js('flash-cropper')}
 </block>
 <block name="script-after">
-{:js('-jquery.fileupload')}
 {:js('-user-add')}
 <?php if(!user()): ?>
   <script>
