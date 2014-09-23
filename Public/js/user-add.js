@@ -5,14 +5,26 @@
        $('select').each(function(){$(this).val($(this).attr('value'))});
 
        // jquery upload and crop
-       if($.fn.fileupload!==undefined){
-          $('.upload-logo').uploadAndCrop();
-
-          $('.upload-show').uploadAndCrop(function(url){
-            $('.image-showcase').append('<a class="uploaded-image-slide" href="'+app_path+'/Public/Uploaded/'+url+'" data-lightbox="image-1" ><img src="'+app_path+'/Public/Uploaded/th628x326_'+url+'" width="119"/><input type="hidden" name="images[]" value="'+url+'"/><i class="fa fa-times remove-image-icon" ></i></a>');
-            dispatcher.dispatch('image.uploaded', url)
+       if(typeof FlashUploader !== 'undefined'){
+          FlashUploader.init();
+          
+          $('.upload-photo-button').click(function(){
+            FlashUploader.open(function(url){
+              $('.image-showcase').append('<a class="uploaded-image-slide" href="'+app_path+'/Public/Uploaded/'+url+'" data-lightbox="image-1" ><img src="'+app_path+'/Public/Uploaded/th628x326_'+url+'" width="119"/><input type="hidden" name="images[]" value="'+url+'"/><i class="fa fa-times remove-image-icon" ></i></a>');
+              dispatcher.dispatch('image.uploaded', url);
+            });
           });
        }
+
+       $('.upload-logo').fileupload({
+        dataType: 'json',
+        done: function(e, data){
+          $('#imgpreview-image').attr('src', app_path+'/Public/Uploaded/'+data.result.url);
+          $('#hidden-input-image').val(data.result.url);
+          $('#imgpreview-image').show();
+        }
+       });
+
        $('.add-event-form').validate();
    });
    function loadBaiduMap(){

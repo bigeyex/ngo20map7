@@ -133,7 +133,6 @@
                             <i class="upload-photos-icon fa fa-upload"></i>
                             <span id="imgupload-retext-image" class="upload-photos-text">上传新照片</span>
                             <!-- The file input field used as target for the file upload widget -->
-                            <input class="fileupload" type="file" name="files" re-text="上传新照片" crop-width="628" crop-height="326" data-url="/ngo20map7/Util/upload" target-input="image">
                         </div>
                       </div>
                       <?php elseif($p==3): ?>
@@ -201,9 +200,9 @@
 <block name="script-before">
     {:js('jquery.pillselectbox')}
     {:js('jquery.datetimepicker')}
-    {:js('jquery.fileupload')}
-    {:js('jquery.Jcrop')}
-    {:js('jquery.uploadandcrop')}
+    {:js('swfobject')}
+    {:js('fullAvatarEditor')}
+    {:js('flash-cropper')}
     {:js('lightbox')}
 </block>
 <block name="script-after">
