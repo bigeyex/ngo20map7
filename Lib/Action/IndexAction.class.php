@@ -139,26 +139,21 @@ class IndexAction extends Action {
         if(!empty($work_field)){
             $base_model = $base_model->with('work_field', array('like', "%$work_field%"));
         }
-        $grand_total = $base_model->count();
-        // do the search
-        $count = $base_model->count();
         if(!$is_user){
             $base_model = $base_model->join('event_location on event.id=event_location.event_id');
-            if(!empty($minlon)){
-            $base_model = $base_model->with('longitude', 
-                                         array(array('gt', floatval($minlon)), array('lt', floatval($maxlon))))
-                                     ->with('latitude', 
-                                         array(array('gt', floatval($minlat)), array('lt', floatval($maxlat))));
-            }
         }
-        else{
-            if(!empty($minlon)){
-            $base_model = $base_model->with('longitude', 
-                                         array(array('gt', floatval($minlon)), array('lt', floatval($maxlon))))
-                                     ->with('latitude', 
-                                         array(array('gt', floatval($minlat)), array('lt', floatval($maxlat))));
-            }
+        $grand_total = $base_model->count();
+        // do the search
+        // $count = $base_model->count();
+        
+            
+        if(!empty($minlon)){
+        $base_model = $base_model->with('longitude', 
+                                     array(array('gt', floatval($minlon)), array('lt', floatval($maxlon))))
+                                 ->with('latitude', 
+                                     array(array('gt', floatval($minlat)), array('lt', floatval($maxlat))));
         }
+        
         $count_with_multipal_locations = $base_model->count();
         import("@.Classes.BNBPage");
         $results_per_page = C('LIST_RECORD_PER_PAGE');

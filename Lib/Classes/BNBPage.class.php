@@ -25,7 +25,7 @@ class BNBPage{
     public function build($count, $listRows=20, $page=1){
         $this->rowsPerPage = $listRows;
         $this->count = $count;
-        $totalPages = floor($count / $listRows);
+        $totalPages = ceil($count / $listRows);
         $this->totalPages = $totalPages;
         if($page > $totalPages) $page = $totalPages;
         if($page < 1) $page = 1;
