@@ -63,3 +63,10 @@ CREATE TABLE `event_location` (
 
 insert into event_location (longitude, latitude, province, city, place, event_id)  (select longitude, latitude, province, city, place, id from `event`);
 ALTER TABLE `ngo20map7`.`event` DROP COLUMN `longitude`, DROP COLUMN `latitude`, DROP COLUMN `province`, DROP COLUMN `city`, DROP COLUMN `county`, DROP COLUMN `place`;
+
+
+--- finally: manage ids and tokens of weibo / qq seperately.
+
+ALTER TABLE `account` ADD COLUMN `api_weibo_id` varchar(100) NOT NULL AFTER `login_count`, ADD COLUMN `api_weibo_token` varchar(100) NOT NULL AFTER `api_weibo_id`, ADD COLUMN `api_qq_id` varchar(100) NOT NULL AFTER `api_weibo_token`, ADD COLUMN `api_qq_token` varchar(100) NOT NULL AFTER `api_qq_id`;
+update `account` set api_qq_id=api_id where api_vendor = 'qq';
+update `account` set api_weibo_id=api_id where api_vendor = 'weibo';

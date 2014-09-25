@@ -76,7 +76,7 @@ class AccountAction extends BaseAction{
 	}
 
     public function change_password(){
-        if($_POST['new_password'] != $_POST['new_password_again']){
+        if(empty(user('api_weibo_id')) && empty(user('api_qq_id')) && $_POST['new_password'] != $_POST['new_password_again']){
             flash('密码修改失败：两次输入的密码不一致');
             $this->redirect('Account/settings');
             return;
@@ -132,7 +132,15 @@ class AccountAction extends BaseAction{
             //check if new user
             $account_model = new AccountModel();
 
-            if($account_model->login('qq', $openid, 'api', $openkey)){
+            if(user() && isset($_GET['assoc'])){
+                if(empty(user('account_id'))){
+                    die('用户登录信息错误');
+                }
+                O('Account')->with('id', user('account_id'))
+                    ->save(array('api_qq_id'=>$openid, 'api_qq_token'=>$openkey));
+                $this->redirect('Account/settings');
+            }
+            else if($account_model->login('qq', $openid, 'api', $openkey)){
                 $this->login_redirect();
             }
             else{
@@ -176,7 +184,15 @@ class AccountAction extends BaseAction{
             //check if new user
             $account_model = new AccountModel();
 
-            if($account_model->login('weibo', $api_id, 'api', $access_token)){
+            if(user() && isset($_GET['assoc'])){
+                if(empty(user('account_id'))){
+                    die('用户登录信息错误');
+                }
+                O('Account')->with('id', user('account_id'))
+                    ->save(array('api_weibo_id'=>$api_id, 'api_weibo_token'=>$access_token));
+                $this->redirect('Account/settings');
+            }
+            else if($account_model->login('weibo', $api_id, 'api', $access_token)){
                 $this->login_redirect();
             }
             else{

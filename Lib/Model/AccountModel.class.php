@@ -8,20 +8,20 @@ class AccountModel extends QnDModel{
             $result = $this->where(array('email' => $email, 'password' => md5($pwd)))->find();
         }
         else if($mode == 'api'){
-            $result = $this->where(array('api_vendor' => $email, 'api_id' => $pwd))->find();
+            $api_type = $email;
+            $result = $this->where(array('api_'.$api_type.'_id' => $pwd))->find();
             if(!$result){
                 // create an empty user
                 $result = array(
-                        'api_vendor' => $email,
-                        'api_id' => $pwd,
-                        'api_token' => $token
+                        'api_'.$api_type.'_id' => $pwd,
+                        'api_'.$api_type.'_token' => $token
                     );
                 $result['id'] = O('account')->add($result);
                 $_SESSION['login_user'] = $result;
                 return true;
             }
             else{
-                $result['api_token'] = $token;
+                $result['api_'.$api_type.'_token'] = $token;
                 $this->save($result);
             }
         }
