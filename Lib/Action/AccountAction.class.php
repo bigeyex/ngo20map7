@@ -141,6 +141,8 @@ class AccountAction extends BaseAction{
                 }
                 O('Account')->with('id', user('account_id'))
                     ->save(array('api_qq_id'=>$openid, 'api_qq_token'=>$openkey));
+                user('api_qq_id',$openid);
+                user('api_qq_token', $openkey);
                 $this->redirect('Account/settings');
             }
             else if($account_model->login('qq', $openid, 'api', $openkey)){
@@ -194,6 +196,8 @@ class AccountAction extends BaseAction{
                 }
                 O('Account')->with('id', user('account_id'))
                     ->save(array('api_weibo_id'=>$api_id, 'api_weibo_token'=>$access_token));
+                user('api_weibo_id',$api_id);
+                user('api_weibo_token', $access_token);
                 $this->redirect('Account/settings');
             }
             else if($account_model->login('weibo', $api_id, 'api', $access_token)){

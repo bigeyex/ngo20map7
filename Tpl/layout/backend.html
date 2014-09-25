@@ -107,7 +107,7 @@
       <?php foreach (O('LocalMap')->byUserId(user('id')) as $localMap): ?>
         <li class="{:active_for('Local/*')}"><a href="{:U('Local/index')}/name/{$localMap.identifier}">{$localMap.name}</a></li>
       <?php endforeach ?>
-      <li class="{:active_for('Account/settings')}"><a href="{:U('Account/settings')}">修改密码</a></li>
+      <li class="{:active_for('Account/settings')}"><a href="{:U('Account/settings')}">账户设置</a></li>
       <?php if (user('is_admin')): ?>
         <li>
         <div class="dropdown">
