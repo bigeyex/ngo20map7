@@ -27,7 +27,7 @@
                           修改密码
                       </div>
                       <div class="box-content">
-                        <?php if (empty(user('api_weibo_id')) && empty(user('api_qq_id'))): ?>
+                        <?php if ((user('api_weibo_id')) && (user('api_qq_id'))): ?>
                             <div class="control-group">
                                 <label class="control-label" for="inputOldPwd">旧密码</label>
                                 <div class="controls">
@@ -63,7 +63,7 @@
                         <div class="control-group">
                             <label class="control-label"> </label>
                             <div class="controls" style="width: 275px;">
-                                <?php if (empty(user('api_qq_id'))): ?>
+                                <?php if ((user('api_qq_id'))): ?>
                                     <p>
                                         <a href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id=&amp;response_type=code&amp;redirect_uri=http://localhost/ngo20map7/Account/qq_login/assoc/true" class=" btn-block qq-signup"><i></i>关联QQ账号</a>
                                     </p>
@@ -72,7 +72,7 @@
                                         <a href="#" class=" btn-block qq-signup"><i></i>已关联QQ账号</a>
                                     </p>
                                 <?php endif ?>
-                                <?php if (empty(user('api_weibo_id'))): ?>
+                                <?php if ((user('api_weibo_id'))): ?>
                                     <p>
                                         <a href="https://api.weibo.com/oauth2/authorize?client_id=&amp;response_type=code&amp;redirect_uri=http://localhost/ngo20map7/Account/weibo_login/assoc/true" class=" btn-block weibo-signup"><i></i>关联微博账号</a>
                                     </p>
