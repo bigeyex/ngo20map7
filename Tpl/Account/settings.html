@@ -27,11 +27,18 @@
                           修改密码
                       </div>
                       <div class="box-content">
-                        <?php if ((user('api_weibo_id')) && (user('api_qq_id'))): ?>
+                        <?php if ((user('password'))): ?>
                             <div class="control-group">
                                 <label class="control-label" for="inputOldPwd">旧密码</label>
                                 <div class="controls">
                                   <input type="password" id="inputOldPwd" name="old_password" class="span6" placeholder="请输入现在登录用的密码" required>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <div class="control-group">
+                                <label class="control-label" for="inputOldPwd">登录用邮箱</label>
+                                <div class="controls">
+                                  <input type="text" id="inputOldPwd" name="email" class="span6" placeholder="请输入登录用的电子邮件地址" required>
                                 </div>
                             </div>
                         <?php endif ?>

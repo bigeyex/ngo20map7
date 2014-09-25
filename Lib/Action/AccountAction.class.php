@@ -96,9 +96,11 @@ class AccountAction extends BaseAction{
             return;
         }
 
-        O('Account')->with('id', user('account_id'))->save(array(
-                'password' => md5($_POST['new_password'])
-            ));
+        $data = array('password' => md5($_POST['new_password']));
+        if(isset($_POST['email'])){
+            $data['email'] = $_POST['email'];
+        }
+        O('Account')->with('id', user('account_id'))->save($data);
         flash('成功修改密码', 'success');
         $this->redirect('Account/settings');
     }

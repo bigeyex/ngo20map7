@@ -48,7 +48,13 @@ class AccountModel extends QnDModel{
                 $_SESSION['login_user'] = $result;
                 $_SESSION['login_user']['id'] = 0;
             }
-            $_SESSION['login_user']['password'] = '******';
+            // if password is blank, leave it as blank.
+            if($_SESSION['login_user']['password'] != 'd41d8cd98f00b204e9800998ecf8427e'){
+                $_SESSION['login_user']['password'] = '******';
+            }
+            else{
+                $_SESSION['login_user']['password'] = '';
+            }
             $_SESSION['login_user']['account_id'] = $result['id'];
 
             $this->where(array('id'=>$result['id']))->data(array('last_login'=>date('Y-m-d h:i:s')))->save();
