@@ -135,7 +135,8 @@ class AccountAction extends BaseAction{
             $account_model = new AccountModel();
 
             if(user() && isset($_GET['assoc'])){
-                if(empty(user('account_id'))){
+                $account_id = user('account_id');
+                if(empty($account_id)){
                     die('用户登录信息错误');
                 }
                 O('Account')->with('id', user('account_id'))
@@ -187,7 +188,8 @@ class AccountAction extends BaseAction{
             $account_model = new AccountModel();
 
             if(user() && isset($_GET['assoc'])){
-                if(empty(user('account_id'))){
+                $account_id = user('account_id');
+                if(empty($account_id)){
                     die('用户登录信息错误');
                 }
                 O('Account')->with('id', user('account_id'))
