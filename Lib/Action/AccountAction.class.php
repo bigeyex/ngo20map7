@@ -76,7 +76,9 @@ class AccountAction extends BaseAction{
 	}
 
     public function change_password(){
-        if(empty(user('api_weibo_id')) && empty(user('api_qq_id')) && $_POST['new_password'] != $_POST['new_password_again']){
+        $api_weibo_id = user('api_weibo_id');
+        $api_qq_id = user('api_qq_id');
+        if(empty($api_weibo_id) && empty($api_qq_id) && $_POST['new_password'] != $_POST['new_password_again']){
             flash('密码修改失败：两次输入的密码不一致');
             $this->redirect('Account/settings');
             return;
