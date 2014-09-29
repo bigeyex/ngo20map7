@@ -13,6 +13,9 @@
     <div id="org-header">
         <h1>{$user.name}</h1>
         <p class="sub-title">
+            <?php if ($user['type']=='csr'): ?>
+                [企业]
+            <?php endif ?>
             <?php if (mb_strlen($user['aim'])<20): ?>
                 {$user.aim}
             <?php else: ?>
@@ -23,12 +26,17 @@
             
         </p>
         <ul class="medals">
-            <li><a class="medal-1" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
-            <li><a class="medal-2" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
-            <li><a class="medal-3" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
+            <?php foreach ($medals as $medal): ?>
+                <?php if (in_array($medal['id'], $medal_list)): ?>
+                    <li><a class="user-medal" href="__APP__/Index/list_index?medal={$medal.id}">
+                        <img class="" src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="26" height="26" data-toggle="tooltip" title="{$medal.name}" data-original-title="{$medal.name}"/>
+                    </a></li>
+                <?php endif ?>
+            <?php endforeach ?>
         </ul>
         <div class="share-buttons">
-            分享到： <a href="#" class="share-button-sina">新浪微博</a><a href="#" class="share-button-qq">QQ空间</a>
+            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
         </div>
     </div>
     <div class="left-column">
@@ -71,6 +79,7 @@
                     <li><a href="#org-intro">机构简介</a></li>
                     <li><a href="#org-projects">机构活动</a></li>
                     <li><a href="#org-info">机构资料</a></li>
+                    <li><a href="#org-photos">机构风采</a></li>
                 </ul>
                 <div id="org-intro">
                     {$user.intro|strip_tags|nl2br}
@@ -85,7 +94,7 @@
                                 </a>
                             </div>
                             <div class="text-content">
-                                <h3><a href="{:U('Event/view')}/id/{$event.id}">{$event.name}</a></h3>
+                                <h3><a href="{:U('Event/view')}/id/{$event.id}">{$event.name|mb_substr=0,20}</a></h3>
                                 <p>{$event.intro|strip_tags|mb_substr=0,50}</p>
                             </div>
                         </li> 
@@ -100,8 +109,35 @@
                             </div>
                             <div class="span-5">
                                 <h3>联系方式</h3>
-                                <p>{$user.contact_name} {$user.phone}</p>	
-                                <p>{$user.public_email}</p>
+                                <p>{$user.contact_name} 
+                                    <?php if (user()): ?>
+                                        {$user.phone}
+                                    <?php else: ?>
+                                        (登录后查看电话)
+                                    <?php endif ?>
+                                </p>	
+                                <p>
+                                    <?php if (user()): ?>
+                                        {$user.public_email}
+                                    <?php else: ?>
+                                        (登录后查看电子邮箱)        
+                                    <?php endif ?>
+                                </p>
+                                <?php if (!empty($user['website'])): ?>
+                                    <p>
+                                        <a href="{$user.website|addhttp}">访问机构网站</a>
+                                    </p>
+                                <?php endif ?>
+                                <?php if (!empty($user['fax'])): ?>
+                                    <p>
+                                        传真：{$user.fax}
+                                    </p>
+                                <?php endif ?>
+                                <?php if (!empty($user['weibo'])): ?>
+                                    <p>
+                                        微博：{$user.weibo}
+                                    </p>
+                                <?php endif ?>
                             </div>
                         </div>
                         <div class="row">
@@ -114,6 +150,50 @@
                                 <p>{$user.work_field}</p>	
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="span-5">
+                                <h3>机构规模</h3>
+                                <?php if (!empty($user['register_year'])): ?>
+                                    <p>
+                                        <span>成立时间: </span>
+                                        {$user.register_year}年{$user.register_month}月
+                                    </p>
+                                <?php endif ?>
+                                <?php if (!empty($user['staff_fulltime'])): ?>
+                                    <p>
+                                        <span>全职人数: </span>{$user.staff_fulltime} <br/>
+                                        <span>兼职人数: </span>{$user.staff_parttime} <br/>
+                                        <span>志愿者人数: </span>{$user.staff_volunteer} <br/>
+                                    </p>
+                                <?php endif ?>
+                            </div>
+                            <div class="span-5">
+                                <h3>注册情况</h3>
+                                <?php if (!empty($user['register_type'])): ?>
+                                    <p>
+                                        {$user.register_type}<br/>
+                                        <span>注册时间: </span>{$user.documented_year}年{$user.documented_month}月
+                                    </p>   
+                                <?php endif ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span-5">
+                                <h3>财务披露情况</h3>
+                                <?php if (!empty($user['financial_link'])): ?>
+                                <p><a href="{$user.financial_link|addhttp}">跳转到财务披露页面</a></p>
+                                <?php endif; ?>
+                            </div>
+                            <div class="span-5">
+                                <h3>资金来源</h3>
+                                <p>{$user.fund_source}</p>   
+                            </div>
+                        </div>
+                </div> <!-- tab:org-info -->
+                <div id="org-photos">
+                    <?php foreach ($user_photos as $photo): ?>
+                        <img src="__APP__/Public/Uploaded/th628x326_{$photo.url}" width="628"/>
+                    <?php endforeach ?>
                 </div>
             </div> <!-- tabs -->
         </div> <!-- block -->
@@ -124,10 +204,10 @@
             <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers={$user.longitude},{$user.latitude}&zoom=10&markerStyles=l,,0x2166c8"/>
         </div>
         <div class="block zan-box">
-            <a href="#">
+            <a href="javascript:void(0);" class="user-zan-link">
                 <i class="zan-icon"></i>
                 <p class="zan-text">点个赞</p>
-                <p class="zan-subtext">已被点赞237次</p>
+                <p class="zan-subtext">已被点赞<span class="like-count">{$user.like_count}</span>次</p>
             </a>
         </div>
         <div class="block similar-orgs">
@@ -151,6 +231,7 @@
 
 <block name="script-before">
     <script>
+        var user_id = "{$user.id}";
         var home_lng="{$user.longitude}";
         var home_lat="{$user.latitude}";
     </script>

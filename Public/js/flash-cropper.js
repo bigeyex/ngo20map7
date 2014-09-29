@@ -24,6 +24,10 @@ var FlashUploader = {
                 id: 'swf',
                 upload_url: app_path+'/Util/flashUpload',
                 src_upload: 0,
+                src_size: '8MB',
+                avatar_intro: '最终会生成以下尺寸的图片，请检查是否清晰',
+                avatar_sizes_desc: halfSizes.join('|'),
+                browse_tip: '仅支持JPG、JPEG、GIF、PNG格式的图片文件\n文件不能大于8MB',
                 avatar_sizes: halfSizes.join('|'),
                 avatar_field_names: avatarSizes.join('|'),
                 avatar_scale: 2

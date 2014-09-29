@@ -70,3 +70,5 @@ ALTER TABLE `ngo20map7`.`event` DROP COLUMN `longitude`, DROP COLUMN `latitude`,
 ALTER TABLE `account` ADD COLUMN `api_weibo_id` varchar(100) NOT NULL AFTER `login_count`, ADD COLUMN `api_weibo_token` varchar(100) NOT NULL AFTER `api_weibo_id`, ADD COLUMN `api_qq_id` varchar(100) NOT NULL AFTER `api_weibo_token`, ADD COLUMN `api_qq_token` varchar(100) NOT NULL AFTER `api_qq_id`;
 update `account` set api_qq_id=api_id where api_vendor = 'qq';
 update `account` set api_weibo_id=api_id where api_vendor = 'weibo';
+ALTER TABLE `event` ADD COLUMN `like_count` int NOT NULL DEFAULT '0';
+ALTER TABLE `user` ADD COLUMN `like_count` int NOT NULL DEFAULT '0';

@@ -10,6 +10,36 @@ $(function(){
             }
         }
     });
+
+   $('.user-zan-link').click(function(){
+    $.get(app_path+'/User/ajaxLike/id/'+user_id, function(result){
+        if(result == 'ok'){
+            toastr.success('感谢您为机构点赞');
+            var like_count = $('.like-count').text();
+            like_count = parseInt(like_count)+1;
+            $('.like-count').text(like_count);
+        }
+        else{
+            toastr.warning('您已经点过赞了');
+        }
+    });
+   });
+
+   $('.event-zan-link').click(function(){
+    $.get(app_path+'/Event/ajaxLike/id/'+event_id, function(result){
+        if(result == 'ok'){
+            toastr.success('感谢您为项目点赞');
+            var like_count = $('.like-count').text();
+            like_count = parseInt(like_count)+1;
+            $('.like-count').text(like_count);
+        }
+        else{
+            toastr.warning('您已经点过赞了');
+        }
+    });
+   });
+
+
    loadBaiduMap();
 });
 

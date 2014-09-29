@@ -117,7 +117,7 @@
 {:js()}
 {:js('-jquery.placeholder', 9)}
 <block name="script-after"></block>
-<?php if(isset($_SESSION['flash']) || isset($with_notification)): ?>
+<?php if(true || isset($_SESSION['flash']) || isset($with_notification)): ?>
 {:js('-toastr.min')}
 {:css('-toastr.min')}
 <?php endif; ?>

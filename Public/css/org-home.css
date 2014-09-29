@@ -376,7 +376,7 @@ h2.header{
 }
 
 .medals li a {
-    width: 22px;
+    width: 26px;
     height: 26px;
     display: block;
 }
@@ -802,4 +802,8 @@ label.error{
     right: 10px;
     top: 10px;
     cursor: pointer;
+}
+.details-table th{
+    text-align: right;
+    padding: 2px 10px 2px 0;
 }

@@ -22,6 +22,11 @@
          $('.upload-logo').fileupload({
           dataType: 'json',
           url:app_path+'/Util/upload/w/150/h/150/',
+          add: function(e, data){
+            $('#imgpreview-image').attr('src', app_path+'/Public/img/loading.gif');
+            $('#imgpreview-image').show();
+            data.submit();
+          },
           done: function(e, data){
             $('#imgpreview-image').attr('src', app_path+'/Public/Uploaded/'+data.result.url);
             $('#hidden-input-image').val(data.result.url);

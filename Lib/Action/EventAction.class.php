@@ -21,6 +21,15 @@ class EventAction extends BaseAction{
         }
         $baidu_static_img_markers = implode('|', $location_pairs);
 
+        $medals = O('medal')->order('score desc')->select();
+        $user_medal = O('medalmap')->with('user_id', $event['user_id'])->select();
+        $medal_arr = array();
+        foreach($user_medal as $map){
+            $medal_arr[] = $map['medal_id'];
+        }
+        $this->assign('medals', $medals);
+        $this->assign('medal_list', $medal_arr);
+
         $this->assign('user', $user);
         $this->assign('event', $event);
         $this->assign('baidu_static_img_markers', $baidu_static_img_markers);
@@ -199,6 +208,20 @@ class EventAction extends BaseAction{
         flash('活动信息已保存', 'success');
         $this->back();
     }
+
+    function ajaxLike($id){
+        $record = 'EVENTLIKE_' . $id;
+        if(!isset($_SESSION[$record]) && !isset($_COOKIE[$record])){
+            $_SESSION[$record] = true;
+            setcookie($record, 1);
+            O('event')->with('id', $id)->setInc('like_count');
+            echo 'ok';
+        }
+        else{
+            echo '已经点过赞了';
+        }
+    }
+
 
     function addEventPhoto(){
         $this->userMayEditEvent($_POST['event_id']);

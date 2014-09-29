@@ -15,23 +15,120 @@
         <h1> 
             <a href="{:U('User/view')}/id/{$user.id}">{$user.name}</a>
         </h1>
-        <p class="sub-title">{$user.aim}</p>
+        <p class="sub-title">
+            <?php if (mb_strlen($user['aim'])<20): ?>
+                {$user.aim}
+            <?php else: ?>
+                {$user.aim|mb_substr=0,20}
+                <a href="javascript:$('.aim-more-btn').hide();$('.aim-more').show();" class="aim-more-btn">...更多</a>
+                <span class="aim-more" style="display:none;">{$user.aim|mb_substr=20}</span>
+            <?php endif ?>
+        </p>
         <ul class="medals">
-            <li><a class="medal-1" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
-            <li><a class="medal-2" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
-            <li><a class="medal-3" data-toggle="tooltip" data-original-title="参加过ngo20的互联网研习班" href="#"></a></li>
+            <?php foreach ($medals as $medal): ?>
+                <?php if (in_array($medal['id'], $medal_list)): ?>
+                    <li><a class="" href="__APP__/Index/list_index?medal={$medal.id}">
+                        <img class="" src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="26" height="26" data-toggle="tooltip" title="{$medal.name}" title="" data-original-title="{$medal.name}"/>
+                    </a></li>
+                <?php endif ?>
+            <?php endforeach ?>
         </ul>
         <?php else: ?>
-        <p class="sub-title">公益活动</p>
+            <?php if ($event['type']=='ngo'): ?>
+                <p class="sub-title">公益活动</p>
+            <?php elseif($event['type']=='case'): ?>
+                <p class="sub-title">公益机构-企业对接案例</p>
+            <?php else: ?>
+                <p class="sub-title">企业公益活动</p>
+            <?php endif ?>
         <?php endif; ?>
         <div class="share-buttons">
-            分享到： <a href="#" class="share-button-sina">新浪微博</a><a href="#" class="share-button-qq">QQ空间</a>
+            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
         </div>
     </div>
     <div class="left-column">
         <div class="block event-intro" id="">
             <h3 class="event-title">{$event.name}</h3>
-            <p>{$event.intro|nl2br}</p>
+            <p>{$event.intro|strip_tags='<br><p>'|nl2br}</p>
+            <table class="details-table">
+                <?php if (!empty($event['host'])): ?>
+                    <tr>
+                        <th width='120'>相关机构</th>
+                        <td>{$event.host}</td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['work_field'])): ?>
+                    <tr>
+                        <th width='120'>活动/项目领域</th>
+                        <td>{$event.work_field}</td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['res_tags'])): ?>
+                    <tr>
+                        <?php if ($event['type']=='csr'): ?>
+                          <th width='120'>活动/项目资源</th>
+                        <?php else: ?>
+                          <th width='120'>活动/项目需求</th>  
+                        <?php endif ?>
+                        <td>{$event.res_tags}</td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['begin_time'])): ?>
+                    <tr>
+                        <th width='120'>起止时间</th>
+                        <td>{$event.begin_time} - {$event.end_time}</td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_name'])): ?>
+                    <tr>
+                        <th width='120'>联系人</th>
+                        <td>{$event.contact_name}</td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_phone'])): ?>
+                    <tr>
+                        <th width='120'>联系电话</th>
+                        <td>
+                            <?php if (user()): ?>
+                            {$event.contact_phone}
+                            <?php else: ?>
+                            登录后可见
+                            <?php endif ?>
+                        </td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_email'])): ?>
+                    <tr>
+                        <th width='120'>电子邮箱</th>
+                        <td>
+                            <?php if (user()): ?>
+                            {$event.contact_email}
+                            <?php else: ?>
+                            登录后可见
+                            <?php endif ?>
+                        </td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_qq'])): ?>
+                    <tr>
+                        <th width='120'>联系QQ</th>
+                        <td>{$event.contact_qq}</td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['url'])): ?>
+                    <tr>
+                        <th width='120'>相关网址</th>
+                        <td>{$event.url}</td>
+                    </tr>
+                <?php endif ?>
+                <?php if (!empty($event['req_description'])): ?>
+                    <tr>
+                        <th width='120'>需求描述</th>
+                        <td>{$event.req_description}</td>
+                    </tr>
+                <?php endif ?>
+            </table>
             <?php foreach ($media as $item): ?>
                 <?php if ($item['type']=='image'): ?>
                     <img src="{:upimage($item['url'])}"/>
@@ -47,10 +144,10 @@
             <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers={$baidu_static_img_markers}&zoom=10&markerStyles=l,,0x2166c8"/>
         </div>
         <div class="block zan-box">
-            <a href="#">
+            <a href="javascript:void(0);" class="event-zan-link">
                 <i class="zan-icon"></i>
                 <p class="zan-text">点个赞</p>
-                <p class="zan-subtext">已被点赞237次</p>
+                <p class="zan-subtext">已被点赞<span class="like-count">{$event.like_count}</span>次</p>
             </a>
         </div>
         <div class="block similar-orgs">
@@ -77,6 +174,9 @@
 {:js('jcarousel.connected-carousels')}
 </block>
 <block name="script-after">
+    <script>
+        var event_id = "{$event.id}";
+    </script>
 {:js('-user-home')}
 </block>
 <block name="footer">

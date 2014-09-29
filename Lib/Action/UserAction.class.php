@@ -7,6 +7,9 @@ define('PAGE_USER_PASSWORD',5);
 
 class UserAction extends BaseAction{
     function view($id){
+        if(!$id){
+            $this->redirectWithError('我不知道你看的是哪个机构啊');
+        }
         $user = O('user')->find($id);
         $events = O('event')->with('user_id', $id)->fetch('event_location')->select();
         // concate and attach longitude and latitude
@@ -21,6 +24,19 @@ class UserAction extends BaseAction{
             $events[$i]['lats'] = implode(',', $lats);
         }
         $related_users = O('user')->recommend($user);
+
+        $medals = O('medal')->order('score desc')->select();
+        $user_medal = O('medalmap')->with('user_id', $id)->select();
+        $medal_arr = array();
+        foreach($user_medal as $map){
+            $medal_arr[] = $map['medal_id'];
+        }
+        $this->assign('medals', $medals);
+        $this->assign('medal_list', $medal_arr);
+
+        $photos = O('media')->with('event_id', 0)->with('type', 'image')->with('user_id', $id)->select();
+        $this->assign('user_photos', $photos);
+
         $this->assign('user', $user);
         $this->assign('events', $events);
         $this->assign('related_users', $related_users);
@@ -211,6 +227,19 @@ class UserAction extends BaseAction{
         $this->userMayEditUser($_POST['user_id']);
         O('user')->with('id', $_POST['user_id'])->save(array('cover_img'=>$_POST['url']));
         echo 'ok';
+    }
+
+    function ajaxLike($id){
+        $record = 'USERLIKE_' . $id;
+        if(!isset($_SESSION[$record]) && !isset($_COOKIE[$record])){
+            $_SESSION[$record] = true;
+            setcookie($record, 1);
+            O('user')->with('id', $id)->setInc('like_count');
+            echo 'ok';
+        }
+        else{
+            echo '已经点过赞了';
+        }
     }
 
 
