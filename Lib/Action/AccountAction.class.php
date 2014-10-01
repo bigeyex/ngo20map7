@@ -64,6 +64,83 @@ class AccountAction extends BaseAction{
         }
     }
 
+    public function forgot_password(){
+        $this->display();
+    }
+
+    public function forgot_password_action(){
+        if(empty($_POST['email'])){
+            $this->redirectWithError('电子邮件地址不能为空！');
+        }
+        $account = O('Account')->where(array('email' => $_POST['email']))->find();
+        if(empty($account)){
+            flash(L('输入的电子邮件地址不匹配'));
+            $this->back();
+        }
+        if($account['name'] != $_POST['name']){
+            $users = O('user')->with('account_id', $account['id'])->select();
+            $flag = false;
+            foreach($users as $user){
+                if($user['name'] == $_POST['name']){
+                    $flag = true;
+                    break;
+                }
+            }
+            if(!$flag){
+                flash('输入的机构名称和电子邮件地址不匹配');
+                $this->back();
+            }
+
+        }
+        
+        $user_id = $account['id'];
+        $expDate = date('Y-m-d H:i:s',strtotime("+3 Day",time()));
+        $key = md5($account['id'] . rand(0,10000) .$expDate . $salt);
+        $issue_count = O('forget_password')->where(array('user_id'=>$user_id, 'expire_date'=>array('lt', 'now()')))->count();
+        if($issue_count > 0){
+            flash(L('已经发送过找回密码邮件'));
+            $this->back();
+        }
+        O('forget_password')->data(array(
+            'user_id' => $user_id,
+            'link' => $key,
+            'expire_date' => $expDate
+        ))->add();
+
+        $passwordLink = 'http://' . $_SERVER['HTTP_HOST'] . __APP__ . "/Account/reset_password/key/$key";
+        $mailer = OO('Mailer')->to($account['email'])->withSubject('公益地图找回密码')
+                        ->formatContent(C('forget_password_email_tmpl'), array('link' => $passwordLink));
+        if($mailer->send()){
+            flash('找回密码邮件已发送，请注意查收', 'success');
+        }
+        else{
+            flash('找回密码邮件发送失败');
+        }
+
+        $this->redirect('Index/index');
+    }
+
+    function reset_password(){
+        $issue_count = O('forget_password')->where(array('link' => $_GET['key'], 'expire_date'=>array('gt', date('Y-m-d H:i:s'))))->count();
+        if($issue_count <= 0){
+            flash(L('找回密码链接不正确，请访问完整链接地址'));
+            $this->redirect('Index/index');
+        }
+        $this->display();
+    }
+    
+    function reset_password_action(){
+        $issue = O('forget_password')->where(array('link' => $_POST['key'], 'expire_date'=>array('gt', date('Y-m-d H:i:s'))))->find();
+        if(!$issue){
+            $this->redirectWithError('密码重置链接不正确');
+        }
+        $new_password = $_POST['password'];
+        O('account')->where(array('id'=>$issue['user_id']))->data(array('password'=>md5($new_password)))->save();
+        O('forget_password')->where(array('id'=>$issue['id']))->delete();
+        flash(L('密码修改成功'), 'success');
+        $this->redirect('Index/index');
+    }
+
 	public function logout(){
 		unset($_SESSION['login_user']);
         unset($_SESSION['last_page']);

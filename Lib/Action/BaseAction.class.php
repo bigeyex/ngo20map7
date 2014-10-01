@@ -72,6 +72,18 @@ class BaseAction extends Action{
         redirect($_SERVER["HTTP_REFERER"]);
     }
 
+    protected function setTitle($title){
+        $this->assign('page_title', $title);
+    }
+
+    protected function setKeywords($keywords){
+        $this->assign('page_keywords', $keywords);
+    }
+
+    protected function setDescription($desc){
+        $this->assign('page_description', $desc);
+    }
+
     public function error($message='无法找到页面'){
         $this->assign('message', $message);
         $this->display();

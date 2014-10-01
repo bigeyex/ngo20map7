@@ -21,6 +21,15 @@ class Mailer{
         return $this;
     }
 
+    function formatContent($content, $format){
+        foreach($format as $k => $v){
+            $content = str_replace('{{'.$k.'}}', $v, $content);
+        }
+        $this->content = $content;
+
+        return $this;
+    }
+
     function send(){
         if(class_exists('Redis')){
             $redis = new Redis();

@@ -6,7 +6,7 @@ return array(
     'URL_HTML_SUFFIX'=>'',
     
     "LOAD_EXT_FILE"=>"htmlhelpers,auth,qndmodel",
-    'LOAD_EXT_CONFIG' => 'db,content,credentials',
+    'LOAD_EXT_CONFIG' => 'db,content,credentials,mail_templates',
     'VAR_PAGE' => 'p',
     'MD5_SALT' => 'flwei^e417',
     'TMPL_STRIP_SPACE' => false,
