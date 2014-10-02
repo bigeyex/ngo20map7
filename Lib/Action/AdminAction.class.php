@@ -233,6 +233,16 @@ class AdminAction extends BaseAction{
         else if($action=='check'){
             $data['is_checked']='1';
             $model->where(array('id'=>array('in',$ids)))->save($data);
+            // 对审核通过的用户发送电子邮件
+            if($_GET['type'] == 'users'){
+                $users = O('User')->where(array('id'=>array('in',$ids)))->select();
+                // 取得所有的账户id，再从账户表取得注册时填写的电子邮件
+                $account_ids = extract_field($users, 'account_id');
+                $accounts = O('Account')->where(array('id'=>array('in',$account_ids)))->select();
+                foreach($accounts as $account){
+                    OO('Mailer')->to($account['email'])->withSubject('公益机构审核通过!')->withContent(C('pass_check_email_tmpl'))->send();
+                }
+            }
             // if it is a user, unlock all the events
             if($_GET['type'] == 'users'){
                 O('event')->where(array('user_id'=>array('in',$ids)))->save($data);
