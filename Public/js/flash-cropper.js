@@ -14,6 +14,9 @@ var FlashUploader = {
             var halfSizes = [];
             var avatarSizes = [];
             for(var i in sizes){
+                if(isNaN(i)){
+                    return;
+                }
                 var coords = sizes[i].split('x');
                 var halfX = parseInt(coords[0]/2);
                 var halfY = parseInt(coords[1]/2);
