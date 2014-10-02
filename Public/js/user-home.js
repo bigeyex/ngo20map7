@@ -151,7 +151,7 @@ function onBaiduMapLoaded(){
         var point = new BMap.Point(p.lng, p.lat);
         point_collection.push(point);
         var myIcon = new BMap.Icon(app_path+"/Public/img/icons/blue-marker.png", new BMap.Size(26, 36), {    
-            offset: new BMap.Size(7, 18),    
+            offset: new BMap.Size(7, 18)  
         });      
         var marker = new BMap.Marker(point, {icon: myIcon,title: p.event_info.name});
         marker.event_info = p.event_info;
