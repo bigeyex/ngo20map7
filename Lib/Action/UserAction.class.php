@@ -119,6 +119,7 @@ class UserAction extends BaseAction{
         }
         $user_model->create_time = date('Y-m-d H:i:s');
         $user_model->account_id = user('account_id');
+        $user_model->email = user('email');
 
         $new_id = $user_model->add();
         if(!$new_id){
