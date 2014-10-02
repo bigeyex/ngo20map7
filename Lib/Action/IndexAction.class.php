@@ -15,6 +15,14 @@ class IndexAction extends Action {
         $ngo_event_count = O('event')->with('type', 'ngo')->active_only()->count();
         $csr_count = O('event')->with('type', 'csr')->active_only()->count();
         $case_count = O('event')->with('type', 'case')->active_only()->count();
+        $ngo_province_count = O()->query("select province, count(*) cnt from user where is_checked=1 and enabled=1 and type='ngo' group by province");
+        $province_count = array();
+        foreach($ngo_province_count as $rec){
+            if(!empty($rec['province'])){
+                $province_count[$rec['province']] = $rec['cnt'];
+            }
+        }
+        $this->assign('province_count', $province_count);
         $total_count = array(
                 'ngo' => $ngo_count,
                 'event' => $ngo_event_count,
