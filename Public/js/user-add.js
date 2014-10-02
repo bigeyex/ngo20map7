@@ -89,7 +89,7 @@
            var self = this;
            if(self.marker === null){
              var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {    
-                offset: new BMap.Size(15, 18),    
+                offset: new BMap.Size(15, 18)
             });       
              var marker = new BMap.Marker(point, {icon: redIcon});
              self.map.addOverlay(marker);
