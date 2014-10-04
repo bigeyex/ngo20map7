@@ -21,7 +21,7 @@
     </div>
     
     <div id="hero-search-bar">
-        <h2>相识公益机构 发掘企业慈善</h2>
+        <h2>相识公益机构 发掘企业公民</h2>
         <p class="sub-title">全国<span class="highlight total-count" title="NGO{$total_count.ngo}家, 公益活动{$total_count.event}, CSR信息{$total_count.csr}, 对接案例{$total_count.case}" data-toggle="tooltip">{$total_count.ngo}</span>公益组织在此分享他们的点滴</p>
         <form class="form-inline search-filter-form" method="get" action="{:U('Index/map')}">
             <div class="control-group">
@@ -91,7 +91,7 @@
             <div class="column">
                 <div class="register-block">
                     <h3>现在注册地图</h3>
-                    <p>和<span class="highlight">2300</span>公益机构<br/>企业和志愿者做朋友</p>
+                    <p>和<span class="highlight">{$account_count}</span>公益机构<br/>企业和志愿者做朋友</p>
                     <?php if(!user()): ?>
                     <a class="join-link" href="javascript:$('.register-link').click();">加入地图</a>
                     <?php endif; ?>
