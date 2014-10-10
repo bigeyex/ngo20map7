@@ -67,6 +67,7 @@ class XSearch{
             $xs = new XS(C('APP_NAME'));
             $xsSearch = $xs->search;
             $docs = $xsSearch->setQuery($key)->count();
+            return $docs;
         }
     }
 }

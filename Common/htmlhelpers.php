@@ -191,7 +191,7 @@ function get_ie_version(){
 }
 
 // insert css file
-function css($str, $max_ie=20){
+function css($str=null, $max_ie=20){
 
 	static $css_list = array();
 	if($str !== null && get_ie_version()<$max_ie){

@@ -66,10 +66,10 @@ var _hmt = _hmt || [];
       <a href="{:U('Index/index')}" class="brand NGO20">NGO20</a>
       <ul class="nav hide-phone">
         <li id="header-search">
-         <form action="/s" id="search-form">
+         <form action="{:U('Search/result')}" id="search-form">
            <div id="search-bar">
              <i class="icon icon-search-homepage"></i>
-             <input type="text" placeholder="输入你感兴趣的" autocomplete="off" name="location" id="header-search-input">
+             <input type="text" placeholder="输入你感兴趣的" autocomplete="off" name="q" id="header-search-input">
              <div id="header-search-result">
                 <span class="search-sub-text">输入关键词开始搜索</span>
              </div>

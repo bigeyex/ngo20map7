@@ -1,0 +1,75 @@
+<extend name="layout:main"/>
+
+<block name="css-framework">
+    {:css('jquery-ui')}
+    {:css('font-awesome.min')}
+    {:css('jquery.fancybox')}
+    {:css('bootplus')}
+    {:css('header')}
+    {:css('homepage')}
+</block>
+
+<block name="head">
+    <style type="text/css">
+        .search-result-table{
+            margin-top: 10px;
+        }
+
+        .search-result-table p{
+            font-size: 12px;
+            margin: 5px 0 0;
+        }
+
+    </style>
+</block>
+
+
+<block name="body">
+
+<div class="container">
+    <div class="box admin-box">
+
+        <div class="form-inline">
+            <form action="{:U('Search/result')}">
+                <span style="position:relative;" class="">
+                    <input class="input-xxlarge input-keyword" name="q" type="text" value="{$_GET.q}" placeholder="综合搜索">
+                </span>
+                <input type="submit" class="btn btn-primary input-search" value="搜索"/>
+            </form>
+        </div>
+
+        <div class="pager">{$pager_html}</div>
+        <table class="table table-hover syllabus-table search-result-table">
+            <tbody>
+                <?php foreach ($results as $result): ?>
+                    <tr>
+                        <td>
+                            <a href="{$result.url}">{$result.subject}</a>
+                            <p>{$result.message|strip_tags|mb_substr=0,50}</p>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+
+        <div class="pager">{$pager_html}</div>
+        
+
+    </div>
+</div>
+
+</block>
+
+
+<block name="script-before">
+    <script>
+        {:C('COMPLETION_SCRIPT')}
+    </script>
+</block>
+<block name="script-after">
+<script>
+  
+    
+</script>
+
+</block>

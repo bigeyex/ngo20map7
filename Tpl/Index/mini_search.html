@@ -6,6 +6,7 @@
             <li>
                 <a href="{$result.url}">{$result.subject}</a>
                 <p>{$result.message|strip_tags|mb_substr=0,50}</p>
+            </li>
         <?php endforeach ?>
     </ul>
 <?php endif ?>
