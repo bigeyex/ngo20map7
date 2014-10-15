@@ -1,0 +1,34 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+    {:css('volunteer-base')}
+</block>
+
+
+<block name="body">
+<div class="container">
+    <div class="box admin-box">
+        <h1 class="text-center">设置组织结构图</h1>
+        <p class="subtext text-center" style="margin-bottom: 20px;">
+            根据机构的情况添加部门。组织结构图之后还可以随时修改。
+        </p>
+        <include file="_org_editor"/>
+        <div class="text-center" style="margin-top: 20px;margin-bottom: 40px;">
+            <a href="" class="btn btn-primary text-center">下一步</a>
+        </div>
+        
+
+    </div> <!-- box -->
+</div>
+
+</block>
+
+
+<block name="script-before">
+    {:js('admin')}
+</block>
+<block name="script-after">
+
+</block>
+<block name="footer">
+</block>

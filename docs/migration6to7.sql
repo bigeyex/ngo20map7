@@ -16,7 +16,7 @@ ALTER TABLE `account` ADD COLUMN `api_token` varchar(100) AFTER `api_id`
 ALTER TABLE `event` CHANGE COLUMN `item_field` `work_field` varchar(100) DEFAULT NULL;
 ALTER TABLE `user` CHANGE COLUMN `introduction` `intro` text DEFAULT NULL;
 ALTER TABLE `event` CHANGE COLUMN `description` `intro` text DEFAULT NULL;
-ALTER TABLE `ngo20map7`.`user` CHANGE COLUMN `longitude` `longitude` double(20,6) DEFAULT NULL, CHANGE COLUMN `latitude` `latitude` double(20,6) DEFAULT NULL;
+ALTER TABLE `user` CHANGE COLUMN `longitude` `longitude` double(20,6) DEFAULT NULL, CHANGE COLUMN `latitude` `latitude` double(20,6) DEFAULT NULL;
 
 update `event` set type='csr' where type='ind';
 alter table `event` add cover_img varchar(255) null;
@@ -45,7 +45,7 @@ CREATE TABLE `event_location` (
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 insert into event_location (longitude, latitude, province, city, place, event_id)  (select longitude, latitude, province, city, place, id from `event`);
-ALTER TABLE `ngo20map7`.`event` DROP COLUMN `longitude`, DROP COLUMN `latitude`, DROP COLUMN `province`, DROP COLUMN `city`, DROP COLUMN `county`, DROP COLUMN `place`;
+ALTER TABLE `event` DROP COLUMN `longitude`, DROP COLUMN `latitude`, DROP COLUMN `province`, DROP COLUMN `city`, DROP COLUMN `county`, DROP COLUMN `place`;
 
 
 ALTER TABLE `account` ADD COLUMN `api_weibo_id` varchar(100) NOT NULL AFTER `login_count`, ADD COLUMN `api_weibo_token` varchar(100) NOT NULL AFTER `api_weibo_id`, ADD COLUMN `api_qq_id` varchar(100) NOT NULL AFTER `api_weibo_token`, ADD COLUMN `api_qq_token` varchar(100) NOT NULL AFTER `api_qq_id`;

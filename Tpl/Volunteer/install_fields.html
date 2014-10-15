@@ -1,0 +1,35 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+    {:css('admin')}
+</block>
+
+
+<block name="body">
+<div class="container">
+    <div class="box admin-box">
+        <h1 class="text-center">设置志愿者登记表</h1>
+        <p class="subtext text-center" style="margin-bottom: 20px;">
+            确定志愿者登记表上的信息字段。<br/>
+            一些信息是系统固定的，不能更改。
+        </p>
+        <include file="_manage_fields"/>
+        <div class="text-center" style="margin-top: 20px;margin-bottom: 40px;">
+            <a href="" class="btn btn-primary text-center">下一步</a>
+        </div>
+        
+
+    </div> <!-- box -->
+</div>
+
+</block>
+
+
+<block name="script-before">
+    {:js('admin')}
+</block>
+<block name="script-after">
+
+</block>
+<block name="footer">
+</block>
