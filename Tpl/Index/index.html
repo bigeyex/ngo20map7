@@ -21,8 +21,8 @@
     </div>
     
     <div id="hero-search-bar">
-        <h2>相识公益机构 发掘企业公民</h2>
-        <p class="sub-title">全国<span class="highlight total-count" title="NGO{$total_count.ngo}家, 公益活动{$total_count.event}, CSR信息{$total_count.csr}, 对接案例{$total_count.case}" data-toggle="tooltip">{$total_count.ngo}</span>公益组织在此分享他们的点滴</p>
+        <h2>结识公益机构 发掘企业公民</h2>
+        <p class="sub-title">全国<span class="highlight total-count" title="NGO{$total_count.ngo}家, 公益活动{$total_count.event}条, CSR信息{$total_count.csr}条, 对接案例{$total_count.case}条" data-toggle="tooltip">{$total_count.ngo}</span>家公益机构在此分享他们的点滴</p>
         <form class="form-inline search-filter-form" method="get" action="{:U('Index/map')}">
             <div class="control-group">
                 <input type="text" name="province" id="search-input-region" class="no-dropdown" placeholder="找省份或城市"/>
@@ -58,19 +58,19 @@
 <div class="row gray-bg">
     <div class="container city-guide">
         <h2>在身边的城市寻找公益</h2>
-        <p class="sub-title">我们在全国各大城市都有分站</p>
+        <p class="sub-title">在不同的城市中寻找公益机构</p>
         <div class="sub-container">
             <div class="column">
                 <div class="city-block city-guangzhou">
                     <a class="mask" href="{:U('Index/map')}/province/广东">
                         <h3>广州</h3>
-                        <p>有<span class="highlight">{$province_count.广东省}</span>家组织</p>
+                        <p>有<span class="highlight">{$province_count.广东省}</span>家机构</p>
                     </a>
                 </div>
                 <div class="city-block city-beijing">
                     <a class="mask" href="{:U('Index/map')}/province/北京">
                         <h3>北京</h3>
-                        <p>有<span class="highlight">{$province_count.北京市}</span>家组织</p>
+                        <p>有<span class="highlight">{$province_count.北京市}</span>家机构</p>
                     </a>
                 </div>
             </div>
@@ -78,22 +78,25 @@
                 <div class="city-block city-anhui">
                     <a class="mask" href="{:U('Index/map')}/province/安徽">
                         <h3>安徽</h3>
-                        <p>有<span class="highlight">{$province_count.安徽省}</span>家组织</p>
+                        <p>有<span class="highlight">{$province_count.安徽省}</span>家机构</p>
                     </a>
                 </div>
                 <div class="city-block city-hunan">
                     <a class="mask" href="{:U('Index/map')}/province/湖南">
                         <h3>湖南</h3>
-                        <p>有<span class="highlight">{$province_count.湖南省}</span>家组织</p>
+                        <p>有<span class="highlight">{$province_count.湖南省}</span>家机构</p>
                     </a>
                 </div>
             </div>
             <div class="column">
                 <div class="register-block">
                     <h3>现在注册地图</h3>
-                    <p>和<span class="highlight">{$total_count.ngo}</span>公益机构<br/></p>
+                    <p>
+                        和<span class="highlight">{$total_count.ngo}</span>家公益机构<br/>
+                        做朋友
+                    </p>
                     <?php if(!user()): ?>
-                    <a class="join-link" href="javascript:$('.register-link').click();">加入地图</a>
+                    <a class="join-link" href="javascript:void(0);" onclick="$('.register-link').click();">加入地图</a>
                     <?php endif; ?>
                 </div>
             </div>
