@@ -101,9 +101,12 @@ class EventAction extends BaseAction{
     // @ajaxaction
     function insert(){
         $event = O('event');
+        if(empty($_POST['type'])){
+            $_POST['type'] = 'ngo';
+        }
         $event->create();
         $event->create_time = date('Y-m-d H:i:s');
-        if(!isset($_POST['type'])){
+        if(empty($_POST['type'])){
             $_POST['type'] = 'ngo';
         }
         if(!user()){
