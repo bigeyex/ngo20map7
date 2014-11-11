@@ -92,7 +92,7 @@ have a fixed width and height (but it's not required).
 }
 
 #hero-search-bar h2, #hero-search-bar p.sub-title{
-    font-family: "Microsoft YaHei";
+    /*font-family: "Microsoft YaHei";*/
 	font-size: 40px;
 	color: #fff;
     letter-spacing: 2px;
@@ -118,6 +118,7 @@ have a fixed width and height (but it's not required).
 	background-color: rgba(23,23,23,.6);
 	border: solid 1px rgba(13,13,13,.8);
     margin-top: 10px;
+    max-width: 794px;
 }
 
 .search-filter-form input{

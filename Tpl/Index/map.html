@@ -51,7 +51,12 @@
 <script>
 	{:C('COMPLETION_SCRIPT')}
 </script>
-{:js('index-map')}
+<?php if (LANG_SET == 'zh-cn'): ?>
+    {:js('index-map')}
+<?php else: ?>
+    {:js('index-map-google')}
+<?php endif; ?>
+
 </block>
 <block name="script-after">
 </block>

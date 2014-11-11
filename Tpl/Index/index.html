@@ -21,35 +21,34 @@
     </div>
     
     <div id="hero-search-bar">
-        <h2>结识公益机构 发掘企业公民</h2>
-        <p class="sub-title">全国<span class="highlight total-count" title="NGO{$total_count.ngo}家, 公益活动{$total_count.event}条, CSR信息{$total_count.csr}条, 对接案例{$total_count.case}条" data-toggle="tooltip">{$total_count.ngo}</span>家公益机构在此分享他们的点滴</p>
+        <h2>{:L('HOME_SLOGAN')}.</h2>
+        <p class="sub-title">{:LS('HOME_USER_COUNT', array($total_count['ngo'], $total_count['event'], $total_count['csr'], $total_count['case'], $total_count['ngo']))}</p>
         <form class="form-inline search-filter-form" method="get" action="{:U('Index/map')}">
             <div class="control-group">
-                <input type="text" name="province" id="search-input-region" class="no-dropdown" placeholder="找省份或城市"/>
+                <input type="text" name="province" id="search-input-region" class="no-dropdown" placeholder="{:L('HOME_FIND_PROVINCE_CITY')}"/>
                 <i class="icon-cross" id="search-input-region-cross"></i>
                 <div id="search-input-region-results"></div>
             </div> 
             <div class="control-group">
-                <input type="text" name="work_field" id="search-input-cause" placeholder="找领域"/>
+                <input type="text" name="work_field" id="search-input-cause" placeholder="{:L('HOME_FIND_CAUSE_AREA')}"/>
                 <i class="icon-dropdown" id="search-input-cause-dropdown"></i>
                 <i class="icon-cross" id="search-input-cause-cross"></i>
                 <div id="search-input-cause-results"></div>
             </div> 
             <div class="control-group">
-                <input type="text" name="type" id="search-input-type" placeholder="找机构或企业"/>
+                <input type="text" name="type" id="search-input-type" placeholder="{:L('HOME_FIND_INFO_TYPE')}"/>
                 <i class="icon-dropdown" id="search-input-type-dropdown"></i>
                 <i class="icon-cross" id="search-input-type-cross"></i>
                 <div id="search-input-type-results"></div>
             </div> 
             <div class="control-group">
-                <input type="text" name="keyword" id="search-input-keyword" class="large" placeholder="搜热词（如：留守儿童）"/>
+                <input type="text" name="keyword" id="search-input-keyword" class="large" placeholder="{:L('HOME_FIND_KEYWORD')}"/>
                 <i class="icon-dropdown" id="search-input-keyword-dropdown"></i>
                 <i class="icon-cross" id="search-input-keyword-cross"></i>
                 <div id="search-input-keyword-results"></div>
             </div> 
             <div class="control-group">
-                <input type="submit" class="search-btn" value="搜索"/>
-<!--                <a class="search-btn">搜索</a>-->
+                <input type="submit" class="search-btn" value="{:L('HOME_SEARCH_BUTTON')}"/>
             </div>
         </form>
     </div> <!-- hero-search-bar -->
@@ -57,20 +56,20 @@
 
 <div class="row gray-bg">
     <div class="container city-guide">
-        <h2>在身边的城市寻找公益</h2>
-        <p class="sub-title">在不同的城市中寻找公益机构</p>
+        <h2>{:L('HOME_FIND_NGOS_IN_CITIES')}</h2>
+        <p class="sub-title">{:L('HOME_FIND_NGOS_IN_CITIES_DESC')}</p>
         <div class="sub-container">
             <div class="column">
                 <div class="city-block city-guangzhou">
                     <a class="mask" href="{:U('Index/map')}/province/广东">
-                        <h3>广州</h3>
-                        <p>有<span class="highlight">{$province_count.广东省}</span>家机构</p>
+                        <h3>{:L('CITY_GUANGZHOU')}</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['广东省']))}</p>
                     </a>
                 </div>
                 <div class="city-block city-beijing">
                     <a class="mask" href="{:U('Index/map')}/province/北京">
                         <h3>北京</h3>
-                        <p>有<span class="highlight">{$province_count.北京市}</span>家机构</p>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['北京市']))}</p>
                     </a>
                 </div>
             </div>
@@ -78,19 +77,19 @@
                 <div class="city-block city-anhui">
                     <a class="mask" href="{:U('Index/map')}/province/安徽">
                         <h3>安徽</h3>
-                        <p>有<span class="highlight">{$province_count.安徽省}</span>家机构</p>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['安徽省']))}</p>
                     </a>
                 </div>
                 <div class="city-block city-hunan">
                     <a class="mask" href="{:U('Index/map')}/province/湖南">
                         <h3>湖南</h3>
-                        <p>有<span class="highlight">{$province_count.湖南省}</span>家机构</p>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['湖南省']))}</p>
                     </a>
                 </div>
             </div>
             <div class="column">
                 <div class="register-block">
-                    <h3>现在注册地图</h3>
+                    <h3>{:L('NOW_REGISTER')}</h3>
                     <p>
                         和<span class="highlight">{$total_count.ngo}</span>家公益机构<br/>
                         做朋友

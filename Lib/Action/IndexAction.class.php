@@ -1,6 +1,6 @@
 <?php
 
-class IndexAction extends Action {
+class IndexAction extends BaseAction {
     public function index(){
     	// $news = O('news')->limit(20)->select();
     	for($i=0;$i<count($news);$i++){
@@ -65,6 +65,9 @@ class IndexAction extends Action {
         if(!empty($work_field)){
             $base_model = $base_model->with('work_field', array('like', "%$work_field%"));
         }
+        if(!$is_user){
+            $base_model = $base_model->join('event_location on event.id=event_location.event_id');
+        }
         if($type=='ngo' && !empty($medal)){
             $base_model = $base_model->with('_string', 'id in (select user_id from medalmap where medal_id='.intval($medal).')');
         }
@@ -80,7 +83,13 @@ class IndexAction extends Action {
             }
         }
         else{
-            $result = $base_model->order('id desc')->limit($pager->firstRow, $listRows)->select();
+            if($is_user){
+                $base_model = $base_model->order('user.id desc');
+            }
+            else{
+                $base_model = $base_model->order('event.id desc');
+            }
+            $result = $base_model->limit($pager->firstRow, $listRows)->select();
         }
         $this->assign('count', $count_with_multipal_locations);
         $this->assign('page', $page);
