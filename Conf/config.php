@@ -4,6 +4,15 @@ return array(
 	'SESSION_AUTO_START'=>true,
     'URL_MODEL' => 2,
     'URL_HTML_SUFFIX'=>'',
+
+    // i18n configuations
+    'LANG_SWITCH_ON' => true,   
+    'VAR_LANGUAGE'     => 'l',
+    'LANG_LIST' => 'zh-cn,en',
+    'DEFAULT_LANG' => 'zh-cn',
+    'DEFAULT_LANG_NAME' => '中文',
+    'SECONDARY_LANG' => 'en',
+    'SECONDARY_LANG_NAME' => 'English',
     
     "LOAD_EXT_FILE"=>"htmlhelpers,auth,qndmodel",
     'LOAD_EXT_CONFIG' => 'db,content,credentials,mail_templates',
