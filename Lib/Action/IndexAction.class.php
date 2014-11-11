@@ -66,7 +66,7 @@ class IndexAction extends BaseAction {
             $base_model = $base_model->with('work_field', array('like', "%$work_field%"));
         }
         if(!$is_user){
-            $base_model = $base_model->join('event_location on event.id=event_location.event_id');
+            $base_model = $base_model->join('event_location on event.id=event_location.event_id')->field('distinct event.id, event.name');
         }
         if($type=='ngo' && !empty($medal)){
             $base_model = $base_model->with('_string', 'id in (select user_id from medalmap where medal_id='.intval($medal).')');
