@@ -1,7 +1,7 @@
 <p class="result-count">共{$grand_total}条记录 · 视野中{$count}条 · {$page}/{$total_page}页</p>
 <ul class="result-list">
     <?php foreach($result as $item): ?>
-    <?php if(isset($item['user_id'])): ?>
+    <?php if(!$is_user): ?>
     <li class="map-item" lng="{$item.longitude}" lat="{$item.latitude}" title="{$item.name}" link="{:U('Event/view')}/id/{$item.id}">
         <a class="item-photo" href="{:U('Event/view')}/id/{$item.id}">
             <div class="photo-wrapper"><img src="{:upimage($item['cover_img'])}" width="312"/></div>

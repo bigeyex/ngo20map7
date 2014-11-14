@@ -203,6 +203,7 @@ class IndexAction extends BaseAction {
         $this->assign('total_page', $pager->totalPages);
         $this->assign('grand_total', $grand_total);
         $this->assign('result', $result_map);
+        $this->assign('is_user', $is_user);
         $this->assign('pager_html', $pager->show());
         if($mini){
             $this->display('Index:map_result_mini');
