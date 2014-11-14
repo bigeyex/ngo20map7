@@ -76,7 +76,7 @@
                     <tr>
                         <?php if ($type=='ngo'): ?>
                             <td>
-                                <a href="{:U('User/view')}/id/{$row.id}">{$row.name}</a>
+                                <a href="{:U('User/view')}/id/{$row.id}" target="_blank">{$row.name}</a>
                             </td>
                             <td>
                                 {$row.province}
@@ -90,7 +90,7 @@
                             </td>
                         <?php else: ?>
                             <td>
-                                <a href="{:U('Event/view')}/id/{$row.id}">{$row.name}</a>
+                                <a href="{:U('Event/view')}/id/{$row.id}" target="_blank">{$row.name}</a>
                             </td>
                         <?php endif ?>
                     </tr>
