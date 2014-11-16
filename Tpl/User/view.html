@@ -110,18 +110,10 @@
                             <div class="span-5">
                                 <h3>联系方式</h3>
                                 <p>{$user.contact_name} 
-                                    <?php if (user()): ?>
-                                        {$user.phone}
-                                    <?php else: ?>
-                                        (登录后查看电话)
-                                    <?php endif ?>
+                                    {$user.phone}
                                 </p>	
                                 <p>
-                                    <?php if (user()): ?>
-                                        {$user.public_email}
-                                    <?php else: ?>
-                                        (登录后查看电子邮箱)        
-                                    <?php endif ?>
+                                    {$user.public_email}      
                                 </p>
                                 <?php if (!empty($user['website'])): ?>
                                     <p>

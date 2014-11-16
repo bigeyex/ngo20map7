@@ -90,11 +90,7 @@
                     <tr>
                         <th width='120'>联系电话</th>
                         <td>
-                            <?php if (user()): ?>
                             {$event.contact_phone}
-                            <?php else: ?>
-                            登录后可见
-                            <?php endif ?>
                         </td>
                     </tr>
                 <?php endif ?>
@@ -102,11 +98,7 @@
                     <tr>
                         <th width='120'>电子邮箱</th>
                         <td>
-                            <?php if (user()): ?>
                             {$event.contact_email}
-                            <?php else: ?>
-                            登录后可见
-                            <?php endif ?>
                         </td>
                     </tr>
                 <?php endif ?>
