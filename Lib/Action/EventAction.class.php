@@ -29,6 +29,7 @@ class EventAction extends BaseAction{
         }
         $this->assign('medals', $medals);
         $this->assign('medal_list', $medal_arr);
+        $this->assign('media', $media);
 
         $this->assign('user', $user);
         $this->assign('event', $event);

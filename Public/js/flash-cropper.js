@@ -4,7 +4,7 @@ var FlashUploader = {
     init: function(sizes){
         var self = this;
         if(typeof sizes === 'undefined'){
-            sizes = ['628x326'];
+            sizes = ['628x326', '1280x500'];
         }
         if(this._flashObject === null){
             $('body').append('<div id="swf_div" style="display:none;">'+

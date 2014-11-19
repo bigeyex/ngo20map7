@@ -323,6 +323,14 @@ class AdminAction extends BaseAction{
         mail($user['email'], $subject, $mail_content, $headers);
     }
 
+    public function cover_pictures(){
+        $this->needToBeAdmin();
+        $this->display();
+    }
+
+    public function set_as_cover($media_id){
+        
+    }
 
 }
 ?>

@@ -2,6 +2,7 @@
 
 <block name="head">
 {:css('org-home')}
+{:css('lightbox')}
 </block>
 
 
@@ -121,9 +122,13 @@
                     </tr>
                 <?php endif ?>
             </table>
+            <h4>活动图片</h4>
             <?php foreach ($media as $item): ?>
                 <?php if ($item['type']=='image'): ?>
-                    <img src="{:upimage($item['url'])}"/>
+                    <a class="uploaded-image-slide" href="/ngo20map7/Public/Uploaded/{$item.url}" data-lightbox="image-1">
+                        <img src="/ngo20map7/Public/Uploaded/th628x326_{$item.url}" width="119">
+                        <i class="fa fa-times remove-image-icon"></i>
+                    </a>
                 <?php elseif ($item['type']=='video'): ?>
                     {$item.url2}
                 <?php endif ?>
@@ -164,6 +169,7 @@
 <block name="script-before">
 {:js('jquery.jcarousel.min')}
 {:js('jcarousel.connected-carousels')}
+{:js('lightbox')}
 </block>
 <block name="script-after">
     <script>

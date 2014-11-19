@@ -24,5 +24,15 @@ class EventModel extends QnDModel{
         $this->query("update media set user_id=$user_id where event_id in (select id from event where account_id=$account_id)");
     }
 
+    function findAPhoto($event_id){
+        $photo = O('Media')->with('event_id', $event_id)->find();
+        if($photo){
+            return __APP__.'/Public/Uploaded/th628x326_'.$photo['url'];
+        }
+        else{
+            return __APP__.'/Public/img/no-image-placeholder.png';
+        }
+    }
+
 
 }

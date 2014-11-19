@@ -134,13 +134,13 @@ class IndexAction extends BaseAction {
         };
         // build model based on type
         $is_user = false;
-        if($type == '公益活动'){
+        if($type == '公益活动' || $type == 'events'){
             $base_model = O('event')->with('type', 'ngo')->attach('user');
         }
-        else if($type == '企业公益活动'){
+        else if($type == '企业公益活动' || $type == 'csr'){
             $base_model = O('event')->with('type', 'csr')->attach('user');
         }
-        else if($type == '对接案例'){
+        else if($type == '对接案例' || $type == 'case'){
             $base_model = O('event')->with('type', 'case')->attach('user');
         }
         else{

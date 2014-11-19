@@ -14,6 +14,8 @@ return array(
     // homepage
     'HOME_SLOGAN' => 'Discover NGOs and Corporate Social Responsibilities',
     'HOME_USER_COUNT' => 'There are <span class="highlight total-count" title="%sNGOs, %sNGO Activities, %s CSR news, %s Case studies" data-toggle="tooltip">%s</span> NGOs in this website',
+    'HOME_CSR_COUNT' => '共有%s条企业社会责任信息',
+
     // homepage search box
     'HOME_FIND_PROVINCE_CITY' => 'Location',
     'HOME_FIND_CAUSE_AREA' => 'Area of focus',

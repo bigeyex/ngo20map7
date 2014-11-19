@@ -14,6 +14,7 @@ return array(
     // homepage
     'HOME_SLOGAN' => '结识公益机构 发掘企业公民',
     'HOME_USER_COUNT' => '全国<span class="highlight total-count" title="NGO%s家, 公益活动%s条, CSR信息%s条, 对接案例%s条" data-toggle="tooltip">%s</span>家公益机构在此分享他们的点滴',
+    'HOME_CSR_COUNT' => '共有%s条企业社会责任信息',
     // homepage search box
     'HOME_FIND_PROVINCE_CITY' => '找省份或城市',
     'HOME_FIND_CAUSE_AREA' => '找领域',

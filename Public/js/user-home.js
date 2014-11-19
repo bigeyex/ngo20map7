@@ -39,8 +39,9 @@ $(function(){
     });
    });
 
-
-   loadBaiduMap();
+   if($('#map-container').length > 0){
+       loadBaiduMap();
+    }
 });
 
 

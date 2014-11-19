@@ -51,7 +51,7 @@
                     <div class="carousel carousel-stage">
                         <ul>
                             <?php foreach ($events as $event): ?>
-                                <li><a href="{:U('Event/view')}/id/{$event.id}"><img src="{:upimage($event['cover_img'])}" width="628"/></a></li>
+                                <li><a href="{:U('Event/view')}/id/{$event.id}"><img src="{:O('Event')->findAPhoto($event['id'])}" width="628"/></a></li>
                             <?php endforeach ?>
                         </ul>
                     </div>
@@ -66,7 +66,7 @@
                 <div class="carousel carousel-navigation">
                     <ul>
                         <?php foreach ($events as $event): ?>
-                            <li class="event-switch" title="{$event.name|mb_substr=0,12}" event-id="{$event.id}" intro="{$event.intro|strip_tags|mb_substr=0,50}" image="{$event.cover_img}" lngs="{$event.lngs}" lats="{$event.lats}"><img src="{:upimage($event['cover_img'])}" width="74"/></li>
+                            <li class="event-switch" title="{$event.name|mb_substr=0,12}" event-id="{$event.id}" intro="{$event.intro|strip_tags|mb_substr=0,50}" image="{$event.cover_img}" lngs="{$event.lngs}" lats="{$event.lats}"><img src="{:O('Event')->findAPhoto($event['id'])}" width="74"/></li>
                         <?php endforeach ?>
                     </ul>
                 </div>
@@ -90,7 +90,7 @@
                         <li>
                             <div class="project-list-image">
                                 <a href="{:U('Event/view')}/id/{$event.id}">
-                                    <img src="{:upimage($event['cover_img'])}" width="120"/>
+                                    <img src="{:O('Event')->findAPhoto($event['id'])}" width="120"/>
                                 </a>
                             </div>
                             <div class="text-content">
