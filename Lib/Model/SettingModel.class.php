@@ -1,7 +1,7 @@
 <?php
 
 
-class Setting{
+class SettingModel {
 
     public function write($k, $v){
         $count = M('Settings')->where(array('k'=>$k))->count();
@@ -15,7 +15,7 @@ class Setting{
 
     public function read($k){
         $record = M('Settings')->where(array('k'=>$k))->find();
-        return $record;
+        return $record['v'];
     }
 
     public function write_json($k, $v){
@@ -23,7 +23,7 @@ class Setting{
     }
 
     public function read_json($k){
-        return json_decode($this->read($k));
+        return json_decode($this->read($k), true);
     }
 
 }

@@ -125,8 +125,8 @@
             <h4>活动图片</h4>
             <?php foreach ($media as $item): ?>
                 <?php if ($item['type']=='image'): ?>
-                    <a class="uploaded-image-slide" href="/ngo20map7/Public/Uploaded/{$item.url}" data-lightbox="image-1">
-                        <img src="/ngo20map7/Public/Uploaded/th628x326_{$item.url}" width="119">
+                    <a class="uploaded-image-slide" href="/Public/Uploaded/{$item.url}" data-lightbox="image-1">
+                        <img src="/Public/Uploaded/th628x326_{$item.url}" width="119">
                         <i class="fa fa-times remove-image-icon"></i>
                     </a>
                 <?php elseif ($item['type']=='video'): ?>

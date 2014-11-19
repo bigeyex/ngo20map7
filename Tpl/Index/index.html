@@ -11,9 +11,19 @@
           <div class="slideshow">
             <ul>
                 <li><a href="{:U('Index/map')}"><img src="__APP__/Public/img/photos/hero-image1.jpg"/></a></li>
-                <li><img src="__APP__/Public/img/photos/hero-image5.jpg"/></li>
-                <li><img src="__APP__/Public/img/photos/hero-image3.jpg"/></li>
-                <li><img src="__APP__/Public/img/photos/hero-image4.jpg"/></li>
+                <?php if (!empty($hero_images)): ?>
+                    <?php for($i=1;$i<=4;$i++): ?>
+                        <?php if (!empty($hero_images['id'.$i])): ?>
+                            <li><a href="{:U('Event/view')}/id/<?php echo $hero_images['id'.$i]; ?>" target="_blank"><img src="<?php echo $hero_images['url'.$i]; ?>"/></a></li>
+                        <?php else: ?>
+                            <li><img src="<?php echo $hero_images['url'.$i]; ?>"/></li>
+                        <?php endif ?>
+                    <?php endfor; ?>
+                <?php else: ?>
+                    <li><img src="__APP__/Public/img/photos/hero-image2.jpg"/></li>
+                    <li><img src="__APP__/Public/img/photos/hero-image3.jpg"/></li>
+                    <li><img src="__APP__/Public/img/photos/hero-image4.jpg"/></li>
+                <?php endif; ?>
             </ul>
           </div>
           <div class="icon-slideshow-left"></div>

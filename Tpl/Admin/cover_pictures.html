@@ -9,7 +9,57 @@
 <div class="container">
 <div class="box admin-box">
 
-  
+  <form action="{:U('Admin/set_as_cover')}" method="post">
+        <div class="control-group">
+              <label class="control-label" for="inputName">图片1地址</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="url1" class="span6" placeholder="" value="{$hero_images.url1}" required>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputName">图片1活动id (如果写0则不关联到活动)</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="id1" class="span1" placeholder="" value="{$hero_images.id1}" required>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputName">图片2地址</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="url2" class="span6" placeholder="" value="{$hero_images.url2}" required>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputName">图片2活动id</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="id2" class="span1" placeholder="" value="{$hero_images.id2}" required>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputName">图片3地址</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="url3" class="span6" placeholder="" value="{$hero_images.url3}" required>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputName">图片3活动id</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="id3" class="span1" placeholder="" value="{$hero_images.id3}" required>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputName">图片4地址</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="url4" class="span6" placeholder="" value="{$hero_images.url4}" required>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputName">图片4活动id</label>
+              <div class="controls">
+                <input type="text" id="inputName" name="id4" class="span1" placeholder="" value="{$hero_images.id4}" required>
+              </div>
+          </div>
+          <input type="submit" value="保存"/>
+  </form>
 
 </div> <!-- box -->
 </div>

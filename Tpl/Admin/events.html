@@ -78,7 +78,7 @@
             <tr>
                 <td><input type="checkbox" value="{$vo.id}" name="key"></td>
                 <td><a class="{:class_if('uncheck', !$vo['is_checked'])}" target="_blank" href="{:U('Event/view')}/id/{$vo.id}">{$vo.name}</a></td>
-                <td><a target="_blank" href="{:U('User/home')}/id/{$vo.user_id}">{$vo.creator_name}</a></td>
+                <td><a target="_blank" href="{:U('User/view')}/id/{$vo.user_id}">{$vo.creator_name}</a></td>
                 <td>
                     <php>if(!empty($vo['create_time'])){ echo date('Y-m-d', strtotime($vo['create_time'])); }</php>
                 </td>

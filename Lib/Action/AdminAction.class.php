@@ -111,10 +111,12 @@ class AdminAction extends BaseAction{
         //fetch user name for each event
         $user_ids = array();
         foreach($event_result as $e){
-            $user_ids[$e['user_id']] = 1;
+            if(!empty($e['user_id'])){
+                $user_ids[$e['user_id']] = 1;
+            }
         }
         $user_model = new UserModel();
-        $related_users = $user_model->query("select id,name from users where id in (".implode(',', array_keys($user_ids)).")");
+        $related_users = $user_model->query("select id,name from user where id in (".implode(',', array_keys($user_ids)).")");
         foreach($related_users as $r){
             $user_ids[$r['id']] = $r['name'];
         }
@@ -325,11 +327,15 @@ class AdminAction extends BaseAction{
 
     public function cover_pictures(){
         $this->needToBeAdmin();
+        $hero_images = D('Setting')->read_json('hero_images');
+        $this->assign('hero_images', $hero_images);
         $this->display();
     }
 
-    public function set_as_cover($media_id){
-        
+    public function set_as_cover(){
+        O('Setting')->write_json('hero_images', $_POST);
+
+        $this->redirect('Admin/cover_pictures');
     }
 
 }

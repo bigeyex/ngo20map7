@@ -53,3 +53,6 @@ update `account` set api_qq_id=api_id where api_vendor = 'qq';
 update `account` set api_weibo_id=api_id where api_vendor = 'weibo';
 ALTER TABLE `event` ADD COLUMN `like_count` int NOT NULL DEFAULT '0';
 ALTER TABLE `user` ADD COLUMN `like_count` int NOT NULL DEFAULT '0';
+
+
+ALTER TABLE `ngo20map7`.`settings` CHANGE COLUMN `v` `v` text DEFAULT NULL;
