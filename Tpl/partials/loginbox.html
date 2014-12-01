@@ -1,25 +1,25 @@
 <div class="modal-container login-box">
-	<a href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id={:C('QQ_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/qq_login" class=" btn-block qq-signup"><i></i>使用QQ登录</a>
-	<a href="https://api.weibo.com/oauth2/authorize?client_id={:C('WEIBO_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/weibo_login" class=" btn-block weibo-signup"><i></i>使用微博登录</a>
+	<a href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id={:C('QQ_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/qq_login" class=" btn-block qq-signup"><i></i>{:L('使用QQ登录')}</a>
+	<a href="https://api.weibo.com/oauth2/authorize?client_id={:C('WEIBO_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/weibo_login" class=" btn-block weibo-signup"><i></i>{:L('使用微博登录')}</a>
 	<div class="signup-or-seperator">
-		<span class="signup-or"> 或者 </span>
+		<span class="signup-or"> {:L('或者')} </span>
 		<hr/>
 	</div>
 	<form class="email-login-form">
 		<div class="signup-email">
-			<input class="btn-block" name="email" placeholder="电子邮件"/>
+			<input class="btn-block" name="email" placeholder="{:L('电子邮件')}"/>
 		</div>
 		<div class="signup-password">
-			<input class="btn-block" type="password" name="password" onkeydown="signup_keydown(event)" placeholder="密码"/>
+			<input class="btn-block" type="password" name="password" onkeydown="signup_keydown(event)" placeholder="{:L('密码')}"/>
 		</div>
 		<div class="remember-me-region">
-			<a href="{:U('Account/forget_password')}" class="forget-password">忘记密码?</a>
+			<a href="{:U('Account/forget_password')}" class="forget-password">{:L('忘记密码?')}</a>
 			<input type="checkbox" class="icheck remember-me" id="remember-me-checkbox" name="remember" value="1"/>
-			<label for="remember-me-checkbox">下次自动登录</label>
+			<label for="remember-me-checkbox">{:L('下次自动登录')}</label>
 		</div>
 	</form>
-	<a href="#" class="btn-block login-button" onclick="do_login()">登录</a>
+	<a href="#" class="btn-block login-button" onclick="do_login()">{:L('登录')}</a>
 	<span style="color: red;display:none;" class="login-error-bar"></span>
 	<div class="login-seperator"><hr/></div>
-	还没有帐号？<a href="javascript:$('.register-link').click();" class="register-from-login">立即注册</a>
+	{:L('还没有帐号？')}<a href="javascript:$('.register-link').click();" class="register-from-login">{:L('立即注册')}</a>
 </div>

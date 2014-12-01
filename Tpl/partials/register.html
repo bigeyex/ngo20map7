@@ -1,35 +1,35 @@
 <div class="modal-container login-box">
-	<a href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id={:C('QQ_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/qq_login" class=" btn-block qq-signup"><i></i>使用QQ注册</a>
-	<a href="https://api.weibo.com/oauth2/authorize?client_id={:C('WEIBO_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/weibo_login" class=" btn-block weibo-signup"><i></i>使用微博注册</a>
+	<a href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id={:C('QQ_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/qq_login" class=" btn-block qq-signup"><i></i>{:L('使用QQ注册')}</a>
+	<a href="https://api.weibo.com/oauth2/authorize?client_id={:C('WEIBO_APPKEY')}&response_type=code&redirect_uri=http://{$_SERVER.HTTP_HOST}__APP__/Account/weibo_login" class=" btn-block weibo-signup"><i></i>{:L('使用微博注册')}</a>
 	<div class="signup-or-seperator">
-		<span class="signup-or"> 或者 </span>
+		<span class="signup-or"> {:L('或者')} </span>
 		<hr/>
 	</div>
 	<a href="#" class="box-links mail-register-link" onclick="$('.register-with-email').show();$(this).hide()">
 		<i class="icon icon-mail"></i>
-		使用电子邮件注册
+		{:L('使用电子邮件注册')}
 	</a>
 	<div class="register-with-email" style="display:none;">
 		<form class="email-register-form">
 			<div class="signup-email">
-				<input class="btn-block" name="email" placeholder="电子邮件"/>
+				<input class="btn-block" name="email" placeholder="{:L('电子邮件')}"/>
 			</div>
 			<div class="signup-name">
-				<input class="btn-block" name="name" placeholder="姓名"/>
+				<input class="btn-block" name="name" placeholder="{:L('姓名')}"/>
 			</div>
 			<div class="signup-password">
-				<input class="btn-block" name="password" type="password" placeholder="密码"/>
+				<input class="btn-block" name="password" type="password" placeholder="{:L('密码')}"/>
 			</div>
 			<div class="signup-password">
-				<input class="btn-block" name="password_again" type="password" placeholder="再次输入密码"/>
+				<input class="btn-block" name="password_again" type="password" placeholder="{:L('再次输入密码')}"/>
 			</div>
-			<a href="#" class="btn-block login-button" onclick="do_register();">注册</a>
+			<a href="#" class="btn-block login-button" onclick="do_register();">{:L('注册')}</a>
 		</form>
 	</div>
 	<p class="sub-text">
-		注册即意味着我同意NGO20的<a href="{:U('Account/agreement')}" target="_blank" class="box-links">用户协议</a>
+		{:L('注册即意味着我同意NGO20的')}<a href="{:U('Account/agreement')}" target="_blank" class="box-links">{:L('用户协议')}</a>
 	</p>
 	<span style="color: red;display:none;" class="register-error-bar"></span>
 	<div class="login-seperator"><hr/></div>
-	已经有帐号了？<a href="javascript:$('.login-link').click();" class="register-from-login">现在登录</a>
+	{:L('已经有帐号了？')}<a href="javascript:$('.login-link').click();" class="register-from-login">{:L('现在登录')}</a>
 </div>

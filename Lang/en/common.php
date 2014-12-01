@@ -39,7 +39,26 @@ return array(
     'CERTIFICATION_LINKS' => '<a href="http://www.miibeian.gov.cn/">皖ICP备10014970号-2</a>',
 
 
+    '使用QQ登录' => 'Sign-in with QQ',
+    '使用微博登录' => 'Sign-in with Weibo',
+    '或者' => 'or',
+    '电子邮件' => 'email',
+    '密码' => 'password',
+    '忘记密码?' => 'forget password?',
+    '下次自动登录' => 'Stay signed in',
+    '登录' => 'Sign-in',
+    '还没有帐号？' => 'doesn\'t have an account?',
+    '立即注册' => 'Register Now',
 
-
+    '注册' => 'Register',
+    '使用QQ注册' => 'Register with QQ',
+    '使用微博注册' => 'Register with Weibo',
+    '使用电子邮件注册' => 'Register with Email',
+    '姓名' => 'Name',
+    '再次输入密码' => 'Re-enter password',
+    '注册即意味着我同意NGO20的' => 'Upon register, I agree with the ',
+    '用户协议' => 'User Agreement',
+    '已经有帐号了？' => 'Already have an account?',
+    '现在登录' => 'Sign-in',
 
     );
