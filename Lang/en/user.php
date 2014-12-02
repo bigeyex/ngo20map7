@@ -23,4 +23,16 @@ return array(
     '机构风采' => 'Photos',
     '点击上传照片' => 'Click to upload photos',
     '创建机构并继续' => 'Create NGO and continue',
+
+
+    // edit user
+    '基本资料' => 'General Information',
+    '机构风采' => 'Photos',
+    '联系方式' => 'Contect Information',
+    '信息披露' => 'Transparency',
+    '修改密码' => 'Change Password',
+    '查看机构页面' => 'View Public Page',
+
+    '点击更换标志' => 'Click to change Logo',
+    '活动/项目照片' => 'Photos of this NGO',
     );

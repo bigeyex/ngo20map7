@@ -1,5 +1,5 @@
    $(function(){
-       if($('#map-input-box').length >= 1 && $('#inputName').length < 1){
+       if($('#map-input-box').length >= 1){
          loadGoogleMap();
        }
        $('.pill-select').pillSelectBox();
@@ -9,35 +9,48 @@
        // jquery upload and crop
        if(typeof FlashUploader !== 'undefined'){
           FlashUploader.init();
-          
-          $('.upload-photo-button').click(function(){
+          $('.fileinput-button').click(function(){
             FlashUploader.open(function(url){
               $('.image-showcase').append('<a class="uploaded-image-slide" href="'+app_path+'/Public/Uploaded/'+url+'" data-lightbox="image-1" ><img src="'+app_path+'/Public/Uploaded/th628x326_'+url+'" width="119"/><input type="hidden" name="images[]" value="'+url+'"/><i class="fa fa-times remove-image-icon" ></i></a>');
               dispatcher.dispatch('image.uploaded', url);
             });
-          });
-       }
-
-       if(typeof $.fn.fileupload !== 'undefined'){
-         $('.upload-logo').fileupload({
-          dataType: 'json',
-          url:app_path+'/Util/upload/w/150/h/150/',
-          add: function(e, data){
-            $('#imgpreview-image').attr('src', app_path+'/Public/img/loading.gif');
-            $('#imgpreview-image').show();
-            data.submit();
-          },
-          done: function(e, data){
-            $('#imgpreview-image').attr('src', app_path+'/Public/Uploaded/'+data.result.url);
-            $('#hidden-input-image').val(data.result.url);
-            $('#imgpreview-image').show();
-          }
          });
        }
 
        if($.fn.validate !== undefined){
-         $('.add-event-form').validate();
+         var log_in_subscribed = false;
+         $('.add-event-form').validate({
+          submitHandler: function(form){
+            $.post(app_path+'/Event/insert', $('.add-event-form').serializeArray(), function(result){
+                if(result == 'ok'){
+                    if($('.logged-in-stab').length >= 1){
+                      window.location.href = app_path+'/Event/edit';
+                    }
+                    else{ // if user is not logged in, ask him/her to login in first
+                      if(!log_in_subscribed){
+                        dispatcher.subscribe('login', function(){
+                          window.location.href = app_path+'/Event/edit';
+                        });
+                      }
+                      log_in_subscribed = true;
+
+                      $('.login-link').click();
+                    }
+                } // if result is correct
+                else{
+                    alert(result);
+                }
+            });
+          }
+         });
        }
+
+       $('.image-showcase').on('click', '.remove-image-icon', function(e){
+          dispatcher.dispatch('image.deleted', $(this).parent().find('input').val());
+          $(this).parent().remove();
+          e.stopPropagation();
+          e.preventDefault();
+       })
    });
    function loadGoogleMap(){
       var script = document.createElement("script");
@@ -171,36 +184,4 @@
        }
 
    };
-   
-$(function(){
-    var name_check_keyup_timer = null;
-    $('#inputName').keyup(function(){
-        if(name_check_keyup_timer){
-            clearTimeout(name_check_keyup_timer);
-        }
-        name_check_keyup_timer = setTimeout(function(){
-            var name = $('#inputName').val();
-            $('.name-checking').html(trans.check_name);
-            if(name == ''){
-                $('.name-checking').html(trans.check_name_default);
-                $('.other-fields').hide();
-                return;
-            }
-            $.get(app_path+'/User/ajax_check_name/name/'+name, function(res){
-                if(!res){
-                    $('.name-checking').html(trans.check_name_ok);
-                    $('.other-fields').show();
-                    if(map_control.map === null){
-                      loadGoogleMap();
-                    }
-                }
-                else{
-                    // $('.name-checking').html('该机构已经在地图上注册。您可以<a href="'+app_path+'/User/coauthor/id/'+res
-                    //                             +'">申请成为协作者</a>');
-                    $('.name-checking').html(trans.check_name_failed);
-                    $('.other-fields').hide();
-                }
-            });
-        }, 1000);
-    });
-})
+

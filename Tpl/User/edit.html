@@ -16,14 +16,14 @@
         <div class="row">
             <div class="span3">
                 <ul class="form-nav">
-                    <li class="{:active_if($p==1)}"><a href="{:U('User/edit')}/id/{$user.id}/p/1"><i class="edit-checkmark fa fa-check" style="width:20px;"></i> 基本资料</a></li>
-                    <li class="{:active_if($p==2)}"><a href="{:U('User/edit')}/id/{$user.id}/p/2"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_PHOTOS])}" style="width:20px;"></i> 机构风采</a></li>
-                    <li class="{:active_if($p==3)}"><a href="{:U('User/edit')}/id/{$user.id}/p/3"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_CONTACT_INFO])}" style="width:20px;"></i> 联系方式</a></li>
-                    <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/4"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_MORE_INFO])}" style="width:20px;"></i> 信息披露</a></li>
+                    <li class="{:active_if($p==1)}"><a href="{:U('User/edit')}/id/{$user.id}/p/1"><i class="edit-checkmark fa fa-check" style="width:20px;"></i> {:L('基本资料')}</a></li>
+                    <li class="{:active_if($p==2)}"><a href="{:U('User/edit')}/id/{$user.id}/p/2"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_PHOTOS])}" style="width:20px;"></i> {:L('机构风采')}</a></li>
+                    <li class="{:active_if($p==3)}"><a href="{:U('User/edit')}/id/{$user.id}/p/3"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_CONTACT_INFO])}" style="width:20px;"></i> {:L('联系方式')}</a></li>
+                    <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/4"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_MORE_INFO])}" style="width:20px;"></i> {:L('信息披露')}</a></li>
                     <?php if (user('is_admin')): ?>
-                      <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/5"><i class="edit-checkmark fa " style="width:20px;"></i>  修改密码</a></li>
+                      <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/5"><i class="edit-checkmark fa " style="width:20px;"></i>  {:L('修改密码')}</a></li>
                     <?php endif ?>
-                    <li class="preview-org-page"><a href="{:U('User/view')}/id/{$user.id}" target="_blank"><i class="fa fa-eye" style="width:20px;"></i> 查看机构页面</a></li>
+                    <li class="preview-org-page"><a href="{:U('User/view')}/id/{$user.id}" target="_blank"><i class="fa fa-eye" style="width:20px;"></i> {:L('查看机构页面')}</a></li>
                     
                 </ul>
             </div>
@@ -37,31 +37,31 @@
                       <!-- basic info section -->
 
                       <div class="box-header">
-                          基本信息
+                          {:L('基本信息')}
                       </div>
                       <div class="box-content">
                     <div class="control-group">
-                        <label class="control-label" for="inputName">机构名称</label>
+                        <label class="control-label" for="inputChangeName">{:L('机构名称')}</label>
                         <div class="controls">
-                          <input type="text" id="inputName" name="name" value="{$user.name}" class="span6" placeholder="填写公益机构全称">
+                          <input type="text" id="inputChangeName" name="name" value="{$user.name}" class="span6" placeholder="{:L('填写公益机构全称')}">
                         </div>
                     </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputIntro">机构简介</label>
+                          <label class="control-label" for="inputIntro">{:L('机构简介')}</label>
                           <div class="controls">
-                            <textarea id="inputIntro" name="intro" class="span6" rows="5" placeholder="请用一段简短的话来描述您的机构">{$user.intro}</textarea>
+                            <textarea id="inputIntro" name="intro" class="span6" rows="5" placeholder="{:L('请用一段简短的话来描述您的机构')}">{$user.intro}</textarea>
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputAim">机构使命</label>
+                          <label class="control-label" for="inputAim">{:L('机构使命')}</label>
                           <div class="controls">
-                            <input type="text" id="inputAim" value="{$user.aim}" name="aim" class="span6" placeholder="请用一句话来描述机构的使命">
+                            <input type="text" id="inputAim" value="{$user.aim}" name="aim" class="span6" placeholder="{:L('请用一句话来描述机构的使命')}">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputPlace">办公地点</label>
+                          <label class="control-label" for="inputPlace">{:L('办公地点')}</label>
                           <div class="controls map-input">
-                            <input type="text" id="inputPlace" name="place" value="{$user.place}" class="span6 map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标">
+                            <input type="text" id="inputPlace" name="place" value="{$user.place}" class="span6 map-address" placeholder="{:L('请填入具体的活动地址或在地图上点击鼠标')}">
                             <input type="hidden" name="longitude" value="{$user.longitude}" class="map-longitude">
                             <input type="hidden" name="latitude" value="{$user.latitude}" class="map-latitude">
                             <input type="hidden" name="province" value="{$user.province}" class="map-province">
@@ -70,7 +70,7 @@
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputField">服务领域</label>
+                          <label class="control-label" for="inputField">{:L('服务领域')}</label>
                           <div class="controls">
                             <input type="text" id="inputField" name="work_field" class="span6 pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童" value="{$user.work_field}">
                             <i class="icon-dropdown"></i>
@@ -78,14 +78,14 @@
                       </div>
                       
                       <div class="control-group">
-                          <label class="control-label" for="inputLogo">机构标志</label>
+                          <label class="control-label" for="inputLogo">{:L('机构标志')}</label>
                           <input type="hidden" name="image" id="hidden-input-image" value="{$user.image}"/>
                           <div class="controls">
                             <div class="image-preview">
                               <img src="__APP__/Public/Uploaded/th150x150_{$user.image}" width="150" id="imgpreview-image"/>
                             </div>
                             <span class="fileinput-button upload-logo btn">
-                                <span id="imgupload-retext-image" class="">点击更换标志</span>
+                                <span id="imgupload-retext-image" class="">{:L('点击更换标志')}</span>
                                 <!-- The file input field used as target for the file upload widget -->
                                 <input class="fileupload upload-logo" type="file" name="files" re-text="重新上传标志"
                         crop-width="150" crop-height="150" data-url="{:U('Util/upload')}/w/150/h/150/" target-input="image"/>
@@ -93,14 +93,14 @@
                           </div>
                       </div>
                       <div class="submit-button controls">
-                          <button class="button">保存</button>
+                          <button class="button">{:L('保存')}</button>
                       </div>
                       </div> <!-- box-content -->
 
                       <?php elseif($p==PAGE_PHOTOS): ?>
 
                       <div class="box-header">
-                          活动/项目照片 <span class="subtitle">({$user.name})</span>
+                          {:L('活动/项目照片')} <span class="subtitle">({$user.name})</span>
                       </div>
                       <div class="box-content" style="min-height:400px;">
                       <div class="">
@@ -116,7 +116,7 @@
                         </div>
                         <div class="add-photo-button fileinput-button upload-photo-button">
                             <i class="upload-photos-icon fa fa-upload"></i>
-                            <span id="imgupload-retext-image" class="upload-photos-text">上传新照片</span>
+                            <span id="imgupload-retext-image" class="upload-photos-text">{:L('上传新照片')}</span>
                             <!-- The file input field used as target for the file upload widget -->
                         </div>
                       </div>
@@ -124,69 +124,69 @@
                       <?php elseif($p==PAGE_CONTACT_INFO): ?>
 
                       <div class="box-header">
-                          联系方式 <span class="subtitle">({$user.name})</span>
+                          {:L('联系方式')} <span class="subtitle">({$user.name})</span>
                       </div>
                       <div class="box-content org-contact-info-section">
                       <div class="control-group">
-                          <label class="control-label" for="inputContact">联系人</label>
+                          <label class="control-label" for="inputContact">{:L('联系人')}</label>
                           <div class="controls">
                             <input type="text" id="inputContact" name="contact_name" class="span6" value="{$user.contact_name}">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputPhone">机构电话</label>
+                          <label class="control-label" for="inputPhone">{:L('机构电话')}</label>
                           <div class="controls">
                             <input type="text" id="inputPhone" name="phone" class="span6" value="{$user.phone}">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputMail">机构邮箱</label>
+                          <label class="control-label" for="inputMail">{:L('机构邮箱')}</label>
                           <div class="controls">
                             <input type="text" id="inputMail" name="public_email" class="span6" value="{$user.public_email}">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputWebsite">机构网站</label>
+                          <label class="control-label" for="inputWebsite">{:L('机构网站')}</label>
                           <div class="controls">
                             <input type="text" id="inputWebsite" name="website" class="span6" value="{$user.website}">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputFax">机构传真</label>
+                          <label class="control-label" for="inputFax">{:L('机构传真')}</label>
                           <div class="controls">
                             <input type="text" id="inputFax" name="fax" class="span6" value="{$user.fax}">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputWeibo">机构微博</label>
+                          <label class="control-label" for="inputWeibo">{:L('机构微博')}</label>
                           <div class="controls">
                             <select name="weibo_provider" class="input-small" value="{$user.weibo_provider}">
-                              <option value="新浪微博">新浪微博</option>
-                              <option value="腾讯微博">腾讯微博</option>
-                              <option value="搜狐微博">搜狐微博</option>
+                              <option value="新浪微博">{:L('新浪微博')}</option>
+                              <option value="腾讯微博">{:L('腾讯微博')}</option>
+                              <option value="搜狐微博">{:L('搜狐微博')}</option>
                             </select>
                             @<input type="text" id="inputWeibo" name="weibo" class="" value="{$user.weibo}">
                           </div>
                       </div>
                       <div class="submit-button controls">
-                          <button class="button">保存</button>
+                          <button class="button">{:L('保存')}</button>
                       </div>
                       </div> <!-- box-content -->
 
                       <?php elseif($p==PAGE_MORE_INFO): ?>
 
                       <div class="box-header">
-                          信息披露 <span class="subtitle">({$user.name})</span>
+                          {:L('信息披露')} <span class="subtitle">({$user.name})</span>
                       </div>
                       <div class="box-content">
                       <div class="control-group">
-                          <label class="control-label" for="inputServiceArea">服务区域</label>
+                          <label class="control-label" for="inputServiceArea">{:L('服务区域')}</label>
                           <div class="controls">
                             <input type="text" id="inputServiceArea" name="service_area" class="span6" value="{$user.service_area}" placeholder="本机构在哪些地区开展业务？">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label">成立时间</label>
+                          <label class="control-label">{:L('成立时间')}</label>
                           <div class="controls">
                               <select name="register_year" class="input-medium" value="{$user.register_year}">
                                   <option>请选择年份</option>
@@ -236,37 +236,37 @@
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputFulltime">全职人数</label>
+                          <label class="control-label" for="inputFulltime">{:L('全职人数')}</label>
                           <div class="controls">
                             <input type="text" id="inputFulltime" name="staff_fulltime" class="span6" value="{$user.staff_fulltime}" placeholder="">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputParttime">兼职人数</label>
+                          <label class="control-label" for="inputParttime">{:L('兼职人数')}</label>
                           <div class="controls">
                             <input type="text" id="inputParttime" name="staff_parttime" class="span6" value="{$user.staff_parttime}" placeholder="">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputVolunteer">核心志愿者数</label>
+                          <label class="control-label" for="inputVolunteer">{:L('核心志愿者数')}</label>
                           <div class="controls">
                             <input type="text" id="inputVolunteer" name="staff_volunteer" class="span6" value="{$user.staff_volunteer}">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputFinancialLink">财务披露链接</label>
+                          <label class="control-label" for="inputFinancialLink">{:L('财务披露链接')}</label>
                           <div class="controls">
                             <input type="text" id="inputFinancialLink" name="financial_link" class="span6" value="{$user.financial_link}" placeholder="如果可以在网上看到机构的财务披露，请将链接贴在这里">
                           </div>
                       </div>
                       <div class="control-group">
-                          <label class="control-label" for="inputFundSource">资金来源</label>
+                          <label class="control-label" for="inputFundSource">{:L('资金来源')}</label>
                           <div class="controls">
                             <textarea id="inputFundSource" name="fund_source" class="span6" rows="5">{$user.fund_source}</textarea>
                           </div>
                       </div>
                       <div class="submit-button controls">
-                          <button class="button">保存</button>
+                          <button class="button">{:L('保存')}</button>
                       </div>
                       </div> <!-- box-content -->
 
@@ -313,7 +313,31 @@
     {:js('lightbox')}
 </block>
 <block name="script-after">
-  {:js('-user-add')}
+<?php if (LANG_SET == 'zh-cn'): ?>
+    {:js('-user-add')}
+<?php else: ?>
+    <script>
+    var trans = {
+        default_lat : {:C('DEFAULT_LATITUDE')},
+        default_lon : {:C('DEFAULT_LONGITUDE')},
+        check_name : "{:L('正在检查机构名称有没有被使用...')}",
+        check_name_default : "{:L('请首先填写机构名称')}",
+        check_name_ok : "{:L('该机构在地图上尚无记录，欢迎入驻公益地图')}",
+        check_name_failed : "{:L('该机构已经在地图上注册。')}"
+    };
+
+    var trans_upload = {
+        tab_upload_text : "{:L('上传本地照')}",
+        tab_webcam_text : "{:L('摄像头拍照')}",
+        browse_button : "{:L('请点击按钮选择图片')}",
+        browse_tip : "{:L('仅支持JPG、JPEG、GIF、PNG格式的图片文件\n文件不能大于8MB')}",
+        button_upload_text : "{:L('保存')}",
+        button_cancel_text : "{:L('取消')}",
+        button_shutter_text : "{:L('拍照')}",
+    };
+    </script>
+    {:js('-user-add-google')}
+<?php endif; ?>
   <script>
   function setCoverImg(e, url){
     var user_id = $('#hidden_user_id').val();
