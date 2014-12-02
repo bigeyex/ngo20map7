@@ -8,11 +8,14 @@ return array(
     // i18n configuations
     'LANG_SWITCH_ON' => true,   
     'VAR_LANGUAGE'     => 'l',
+
     'LANG_LIST' => 'ar,en',
     'DEFAULT_LANG' => 'en',
     'DEFAULT_LANG_NAME' => 'English',
     'SECONDARY_LANG' => 'ar',
     'SECONDARY_LANG_NAME' => 'Arabic',
+    'DEFAULT_LATITUDE' => '32.675',
+    'DEFAULT_LONGITUDE' => '111.559',
     
     "LOAD_EXT_FILE"=>"htmlhelpers,auth,qndmodel",
     'LOAD_EXT_CONFIG' => 'db,content,credentials,mail_templates',

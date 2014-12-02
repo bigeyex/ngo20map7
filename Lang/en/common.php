@@ -14,7 +14,7 @@ return array(
     // homepage
     'HOME_SLOGAN' => 'Discover NGOs and Corporate Social Responsibilities',
     'HOME_USER_COUNT' => 'There are <span class="highlight total-count" title="%sNGOs, %sNGO Activities, %s CSR news, %s Case studies" data-toggle="tooltip">%s</span> NGOs in this website',
-    'HOME_CSR_COUNT' => '共有%s条企业社会责任信息',
+    'HOME_CSR_COUNT' => '%s pieces of CSR information',
 
     // homepage search box
     'HOME_FIND_PROVINCE_CITY' => 'Location',
@@ -23,9 +23,9 @@ return array(
     'HOME_FIND_KEYWORD' => 'Keywords',
     'HOME_SEARCH_BUTTON' => 'Search',
     'HOME_FIND_NGOS_IN_CITIES' => 'Find NGOs around you',
-    'HOME_FIND_NGOS_IN_CITIES_DESC' => '在不同的城市中寻找公益机构',
-    'HAS_NUM_OF_ORGS' => '有<span class="highlight">%s</span>家机构',
-    'NOW_REGISTER' => '现在注册地图',
+    'HOME_FIND_NGOS_IN_CITIES_DESC' => 'Find NGOs in cities',
+    'HAS_NUM_OF_ORGS' => '<span class="highlight">%s</span> NGOs',
+    'NOW_REGISTER' => 'Register now',
 
 
     // Chinese cities
@@ -60,5 +60,28 @@ return array(
     '用户协议' => 'User Agreement',
     '已经有帐号了？' => 'Already have an account?',
     '现在登录' => 'Sign-in',
+
+
+    // image upload section
+    '上传本地照' => 'Upload local files',
+    '摄像头拍照' => 'Take a picture',
+    '请点击按钮选择图片' => 'Click to select an image',
+    '仅支持JPG、JPEG、GIF、PNG格式的图片文件\n文件不能大于8MB' => 'JPG, JPEG, GIF, PNG files accepted, less than 8MB',
+    '保存' => 'Save',
+    '取消' => 'Cancel',
+
+    '联系人' => 'Content Name',
+    '机构电话' => 'Telephone',
+    '机构邮箱' => 'Public Email',
+    '机构网站' => 'Website',
+    '机构传真' => 'Fax Number',
+    '机构微博' => 'Weibo',
+    '服务区域' => 'Region of service',
+    '成立时间' => 'Date of Establishment',
+    '全职人数' => 'Number of fulltime employees',
+    '兼职人数' => 'Number of parttime employees',
+    '核心志愿者数' => 'Number of Core volunteers',
+    '财务披露链接' => 'Link to financial report',
+    '资金来源' => 'Funding sources',
 
     );

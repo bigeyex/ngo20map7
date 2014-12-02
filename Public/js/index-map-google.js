@@ -39,7 +39,7 @@ function MapView(){
     this.onload = function(){
         var mapOptions = {
             zoom: 11,
-            center: new google.maps.LatLng(121.491, 31.233)
+            center: new google.maps.LatLng(trans.default_lat, trans.default_lon)
         };
         self.map = new google.maps.Map(document.getElementById('main-map-container'),
       mapOptions);  
