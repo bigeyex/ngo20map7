@@ -54,6 +54,12 @@
 <?php if (LANG_SET == 'zh-cn'): ?>
     {:js('index-map')}
 <?php else: ?>
+    <script>
+    var trans = {
+        default_lat : {:C('DEFAULT_LATITUDE')},
+        default_lon : {:C('DEFAULT_LONGITUDE')}
+    };
+    </script>
     {:js('index-map-google')}
 <?php endif; ?>
 

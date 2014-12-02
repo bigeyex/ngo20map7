@@ -23,7 +23,7 @@ var FlashUploader = {
                 halfSizes.push(halfX+'*'+halfY);
                 avatarSizes.push('__avatar'+sizes[i]);
             }
-            this._flashObject = new fullAvatarEditor("swfContainer", {
+            var configs = {
                 id: 'swf',
                 upload_url: app_path+'/Util/flashUpload',
                 src_upload: 0,
@@ -34,7 +34,13 @@ var FlashUploader = {
                 avatar_sizes: halfSizes.join('|'),
                 avatar_field_names: avatarSizes.join('|'),
                 avatar_scale: 2
-            }, function(json){
+            };
+            if(typeof trans_upload !== 'undefined'){
+                for(var i in trans_upload){
+                    configs[i] = trans_upload[i];
+                }
+            }
+            this._flashObject = new fullAvatarEditor("swfContainer", configs, function(json){
                 // flash upload callback function
                 if(json.code==5){
                     $.fancybox.close();

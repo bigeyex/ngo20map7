@@ -61,4 +61,13 @@ return array(
     '已经有帐号了？' => 'Already have an account?',
     '现在登录' => 'Sign-in',
 
+
+    // image upload section
+    '上传本地照' => 'Upload local files',
+    '摄像头拍照' => 'Take a picture',
+    '请点击按钮选择图片' => 'Click to select an image',
+    '仅支持JPG、JPEG、GIF、PNG格式的图片文件\n文件不能大于8MB' => 'JPG, JPEG, GIF, PNG files accepted, less than 8MB',
+    '保存' => 'Save',
+    '取消' => 'Cancel',
+
     );

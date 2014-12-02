@@ -110,7 +110,32 @@
 {:js('flash-cropper')}
 </block>
 <block name="script-after">
-{:js('-user-add')}
+<?php if (LANG_SET == 'zh-cn'): ?>
+    {:js('-user-add')}
+<?php else: ?>
+    <script>
+    var trans = {
+        default_lat : {:C('DEFAULT_LATITUDE')},
+        default_lon : {:C('DEFAULT_LONGITUDE')},
+        check_name : "{:L('正在检查机构名称有没有被使用...')}",
+        check_name_default : "{:L('请首先填写机构名称')}",
+        check_name_ok : "{:L('该机构在地图上尚无记录，欢迎入驻公益地图')}",
+        check_name_failed : "{:L('该机构已经在地图上注册。')}"
+    };
+
+    var trans_upload = {
+        tab_upload_text : "{:L('上传本地照')}",
+        tab_webcam_text : "{:L('摄像头拍照')}",
+        browse_button : "{:L('请点击按钮选择图片')}",
+        browse_tip : "{:L('仅支持JPG、JPEG、GIF、PNG格式的图片文件\n文件不能大于8MB')}",
+        button_upload_text : "{:L('保存')}",
+        button_cancel_text : "{:L('取消')}",
+        button_shutter_text : "{:L('拍照')}",
+    };
+    </script>
+    {:js('-user-add-google')}
+<?php endif; ?>
+
 <?php if(!user()): ?>
   <script>
     $(function(){

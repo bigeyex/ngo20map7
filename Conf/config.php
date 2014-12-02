@@ -13,6 +13,8 @@ return array(
     'DEFAULT_LANG_NAME' => '中文',
     'SECONDARY_LANG' => 'en',
     'SECONDARY_LANG_NAME' => 'English',
+    'DEFAULT_LATITUDE' => '32.675',
+    'DEFAULT_LONGITUDE' => '111.559',
     
     "LOAD_EXT_FILE"=>"htmlhelpers,auth,qndmodel",
     'LOAD_EXT_CONFIG' => 'db,content,credentials,mail_templates',
