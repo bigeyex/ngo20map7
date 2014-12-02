@@ -1,6 +1,6 @@
 <?php
 return array(
-    'ORG_FIELDS' => array('医疗卫生健康','女性权利','儿童青少年','教育助学','艾滋病','灾害管理','文化艺术','环境保护','农村发展','城市社区建设','劳工权益','同性恋','政策倡导','信息网络','公益行业支持','社会企业','动物福利','老年人','民间研究机构','企业社会责任','残障人士','综合志愿服务','其它'),
+    'ORG_FIELDS' => array('Health','Women Rights','Children & Youth','Education','AIDS','Disaster','Culture','Environment','Rural Development','Urban Communities','Worker Rights','LGBT','Policy','Information/Network','NGO Support','Social Corporation','Animal','Elder People','R&D','CSR','Disabilities','General Volunteering','Others'),
 
     'PROVINCES' => array('北京','天津','河北','内蒙古','山西','上海','安徽','江苏','浙江','山东','福建','江西','广东','广西','海南','河南','湖北','湖南','黑龙江','吉林','辽宁','陕西','甘肃','宁夏','青海','新疆','重庆','四川','云南','贵州','西藏','香港','澳门','台湾'
         ),
@@ -12,9 +12,9 @@ return array(
 EOS
 ,
     'EVENT_RESOURCES' => array('资金','物品','场地','技术','志愿者','媒体','能力建设','咨询','法律支持','技术培训','免费广告位','多媒体设备','交通设施'),
-    'EVENT_NEEDS' => array('需要合作方','媒体需求','物资需求','资金需求','志愿者需求'),
+    'EVENT_NEEDS' => array('Joint venture','Media','Materials','Funding','Volunteers'),
     'EVENT_TYPE' => array(
-                        'requirement' => array('需要合作方','媒体需求','物资需求','资金需求','志愿者需求'),
+                        'requirement' => array('Joint venture','Media','Materials','Funding','Volunteers'),
                         'resource' => array('资金','物品','场地','技术','志愿者','媒体','能力建设','咨询','法律支持','技术培训','免费广告位','多媒体设备','交通设施'),
         ),
     'HOMEPAGE_TAG' => array('留守儿童','义工','农民工','捐书','助学','乡村教育','电脑教室','希望小学',
