@@ -147,6 +147,13 @@ function onBaiduMapLoaded(){
 
    // add all the points
    point_collection = [];   // BMap.Point objects
+   var point = new BMap.Point(home_lng, home_lat);
+   point_collection.push(point);
+   var homeIcon = new BMap.Icon(app_path+"/Public/img/icons/star-icon.png", new BMap.Size(32, 32), {    
+       offset: new BMap.Size(16, 16)  
+   });
+   var marker = new BMap.Marker(point, {icon: homeIcon});
+   map.addOverlay(marker);  
    for(var i in points){
         var p = points[i];
         var point = new BMap.Point(p.lng, p.lat);

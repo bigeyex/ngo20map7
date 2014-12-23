@@ -31,6 +31,8 @@ class UserAction extends BaseAction{
         foreach($user_medal as $map){
             $medal_arr[] = $map['medal_id'];
         }
+        tmpl_global('title', $user['name']);
+
         $this->assign('medals', $medals);
         $this->assign('medal_list', $medal_arr);
 

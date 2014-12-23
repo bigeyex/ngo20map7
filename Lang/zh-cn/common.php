@@ -3,7 +3,7 @@
 return array(
 
     // general / masthead
-    'PAGE_TITLE' => 'NGO20MAP',
+    'PAGE_TITLE' => '公益地图',
     'SEARCH_BOX_PLACEHOLDER' => '输入你感兴趣的',
     'SEARCH_BOX_RESULT_PLACEHOLDER' => '输入关键词开始搜索',
     'BUTTON_PUBLISH_EVENT' => '发布活动/项目',
