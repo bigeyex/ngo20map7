@@ -106,8 +106,8 @@
                       <div class="">
                         <div class="image-showcase">
                           <?php foreach($images as $image): ?>
-                            <a class="uploaded-image-slide" href="/ngo20map7/Public/Uploaded/{$image.url}" data-lightbox="image-1">
-                                <img src="/ngo20map7/Public/Uploaded/th628x326_{$image.url}" width="119">
+                            <a class="uploaded-image-slide" href="__APP__/Public/Uploaded/{$image.url}" data-lightbox="image-1">
+                                <img src="__APP__/Public/Uploaded/th628x326_{$image.url}" width="119">
                                 <input type="hidden" name="images[]" value="{$image.url}">
                                 <i class="fa fa-times remove-image-icon"></i>
                                 <i class="fa fa-home cover-image-icon {:active_if($image['url']==$user['cover_img'])}" onclick="setCoverImg(event, '{$image.url}')"></i>
