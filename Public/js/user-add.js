@@ -80,6 +80,10 @@
                }, 1000);
            });
 
+           if($('.map-longitude').val() != '' && $('.map-latitude').val() != ''){
+              self.set_initial_location();
+           }
+
            $('.add-location-button').click(self.save_location);
        },
        geocode: function(address){
@@ -116,6 +120,20 @@
                     }    
                  }      
            });
+       },
+       set_initial_location: function(){
+          var self = this;
+          var lng = $('.map-longitude').val();
+          var lat = $('.map-latitude').val();
+          var point = new BMap.Point(lng, lat);
+          var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {    
+              offset: new BMap.Size(15, 18)
+          });  
+          var marker = new BMap.Marker(point, {icon: redIcon});
+          self.map.addOverlay(marker);
+          self.map.centerAndZoom(point, 11);
+          marker.setTop(true);
+          self.marker = marker;
        },
        save_location: function(){
           var self = this;
