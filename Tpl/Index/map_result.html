@@ -8,7 +8,7 @@
             <div class="photo-title {:class_if('no-shadow', empty($item['cover_img']))}">{$item.name|short=12}</div>
         </a>
         <div class="item-org-info">
-            <div class="org-logo"><img src="{:upimage($item['user']['image'], '628x326')}" width="42"/></div>
+            <div class="org-logo"><img src="{:upimage($item['user']['image'], '150x150')}" width="42"/></div>
             <h4 class="org-name"><a href="{:U('User/view')}/id/{$item.user.id}" target="_blank">{$item.user.name|short=12}</a></h4>
             <h4 class="org-city">{$item.province}</h4>
         </div>
@@ -20,7 +20,7 @@
             <div class="photo-title no-shadow"> </div>
         </a>
         <div class="item-org-info">
-            <div class="org-logo"><img src="{:upimage($item['image'], '628x326')}" width="42"/></div>
+            <div class="org-logo"><img src="{:upimage($item['image'], '150x150')}" width="42"/></div>
             <h4 class="org-name"><a href="{:U('User/view')}/id/{$item.id}" target="_blank">{$item.name|short=12}</a></h4>
             <h4 class="org-city">{$item.province}</h4>
         </div>

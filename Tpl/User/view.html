@@ -193,7 +193,7 @@
     <div class="right-column">
         <div class="block" id="org-location">
             <h2 class="header">机构地址</h2>
-            <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers={$user.longitude},{$user.latitude}&zoom=10&markerStyles=l,,0x2166c8"/>
+            <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=5&markers={$user.longitude},{$user.latitude}&zoom=10&markerStyles=l,,0x2166c8"/>
         </div>
         <div class="block zan-box">
             <a href="javascript:void(0);" class="user-zan-link">
@@ -208,7 +208,7 @@
                 <?php foreach ($related_users as $r): ?>
                     <li>
                         <a href="{:U('User/view')}/id/{$r.id}">
-                            <img class="avatar" src="{:upimage($r['cover_img'])}"/>
+                            <img class="avatar" src="{:upimage($r['image'])}"/>
                             <p class="name">{$r.name}</p>
                         </a>
                     </li>

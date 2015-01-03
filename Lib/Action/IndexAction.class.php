@@ -181,7 +181,7 @@ class IndexAction extends BaseAction {
         }
         $pager = OO('BNBPage')->build($count_with_multipal_locations, $results_per_page, $page);
 
-        $result = $base_model->order('cover_img desc, create_time desc')->limit($pager->firstRow, $pager->rowsPerPage)->select();
+        $result = $base_model->order('cover_img!="" desc, create_time desc')->limit($pager->firstRow, $pager->rowsPerPage)->select();
         // process result: merge same items, concate lng and lat
         $result_map = array();
         if(!is_user){

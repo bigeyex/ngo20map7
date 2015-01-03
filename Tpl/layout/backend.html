@@ -101,9 +101,10 @@ var _hmt = _hmt || [];
 <div class="subnav">
   <div class="container">
     <ul>
+      <li><a href="{:U('User/view')}">返回机构展示</a></li>
       <li class="{:active_for('Dashboard/index')}"><a href="{:U('Dashboard/index')}">工作台</a></li>
       <!-- <li><a href="#">站内信</a></li> -->
-      <li class="{:active_for('Event/manage')}"><a href="{:U('Event/manage')}">活动/项目管理</a></li>
+      <li class="{:active_for('Event/manage')}"><a href="{:U('Event/manage')}">活动管理</a></li>
       <?php if(user('user_id')): ?>
       <li class="update-org-info-link {:active_for('User/edit')}"><a href="{:U('User/edit')}">更新机构信息</a></li>
         <?php if(user('local_map')): ?>

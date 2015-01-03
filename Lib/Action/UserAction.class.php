@@ -6,7 +6,10 @@ define('PAGE_MORE_INFO',4);
 define('PAGE_USER_PASSWORD',5);
 
 class UserAction extends BaseAction{
-    function view($id){
+    function view($id=0){
+        if($id===0 && user()){
+            $id = user('id');
+        }
         if(!$id){
             $this->redirectWithError('我不知道你看的是哪个机构啊');
         }
