@@ -14,7 +14,7 @@ return array(
     'SECONDARY_LANG' => 'en',
     'SECONDARY_LANG_NAME' => 'English',
     
-    "LOAD_EXT_FILE"=>"htmlhelpers,auth,qndmodel",
+    "LOAD_EXT_FILE"=>"htmlhelpers,auth",
     'LOAD_EXT_CONFIG' => 'db,content,credentials,mail_templates',
     'VAR_PAGE' => 'p',
     'MD5_SALT' => 'flwei^e417',

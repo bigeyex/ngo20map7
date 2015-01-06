@@ -98,6 +98,7 @@ class Log {
      */
     static function write($message,$level=self::ERR,$type='',$destination='',$extra='') {
         $now = date(self::$format);
+        if(!C('LOG_PATH')) C('LOG_PATH', APP_PATH.'Runtime/Logs/');
         $type = $type?$type:C('LOG_TYPE');
         if(self::FILE == $type) { // 文件方式记录日志
             if(empty($destination))

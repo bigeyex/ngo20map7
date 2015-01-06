@@ -1,6 +1,6 @@
 <?php
 
-class EventModel extends QnDModel{
+class EventModel extends BaseModel{
 
     function keyword($key){
         return $this->where(array('_complex'=>array(

@@ -22,20 +22,24 @@
  * @return void
  */
 function halt($error) {
+    $e_org = array();
     $e = array();
+    if (!is_array($error)) {
+        $trace          = debug_backtrace();
+        $e_org['message']   = $error;
+        $e_org['file']      = $trace[0]['file'];
+        $e_org['line']      = $trace[0]['line'];
+        ob_start();
+        debug_print_backtrace();
+        $e_org['trace']     = ob_get_clean();
+    } else {
+        $e_org              = $error;
+    }
+    print_r($e_org);
+    Log::write(json_encode($e_org),Log::ERR);
     if (APP_DEBUG) {
         //调试模式下输出错误信息
-        if (!is_array($error)) {
-            $trace          = debug_backtrace();
-            $e['message']   = $error;
-            $e['file']      = $trace[0]['file'];
-            $e['line']      = $trace[0]['line'];
-            ob_start();
-            debug_print_backtrace();
-            $e['trace']     = ob_get_clean();
-        } else {
-            $e              = $error;
-        }
+        $e = $e_org;
     } else {
         //否则定向到错误页面
         $error_page         = C('ERROR_PAGE');

@@ -1,30 +1,16 @@
 <?php
-function O($name='', $tablePrefix='',$connection='') {
-    $class = ucwords($name).'Model';
-    import('Model/'.$name);
-    
-    if($name!='' && class_exists($class)){
-        $model = new $class($name);
-    }else{
-        $model = new QnDModel($name);
+
+class BaseModel extends Model{
+
+    public function __construct($name='',$tablePrefix='',$connection='') {
+        if('' !== $name || is_subclass_of($this,'BaseModel') ){
+            // 如果是AdvModel子类或者有传入模型名称则获取字段缓存
+        }else{
+            // 空的模型 关闭字段缓存
+            $this->autoCheckFields = false;
+        }
+        parent::__construct($name,$tablePrefix,$connection);
     }
-    return $model;
-}
-
-function OO($name){
-    import('@.Classes.'.$name );
-    return new $name;
-}
-
-function extract_field($arr, $field){
-    $ret = array();
-    foreach($arr as $result){
-        array_push($ret, $result[$field]);
-    }
-    return array_unique($ret);
-}
-
-class QnDModel extends Model{
     
     public function with($field, $op, $value=null){
         if($op === null){

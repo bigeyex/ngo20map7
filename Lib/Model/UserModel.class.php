@@ -1,6 +1,6 @@
 <?php
 
-class UserModel extends QnDModel{
+class UserModel extends BaseModel{
 
     function keyword($key){
         return $this->where(array('_complex'=>array(

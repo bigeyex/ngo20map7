@@ -1,6 +1,6 @@
 <?php
 
-class LocalMapModel extends QnDModel{
+class LocalMapModel extends BaseModel{
     public function add_local_map(){
         
     }

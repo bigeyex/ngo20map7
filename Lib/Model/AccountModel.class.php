@@ -1,6 +1,6 @@
 <?php
 
-class AccountModel extends QnDModel{
+class AccountModel extends BaseModel{
 
     public function login($email, $pwd, $mode='password', $token=''){
         if(empty($pwd))return false;

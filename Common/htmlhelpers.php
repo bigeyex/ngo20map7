@@ -125,13 +125,13 @@ function js($str=null, $max_ie=20){
             }
         }
         else{
-            // $js_list[] = $str;
-            if(APP_DEBUG){
-                return '<script type="text/javascript" src="'.__APP__.'/Public/js/'.$str.'.js"></script>';
-            }
-            else{
-                return '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js(array($str)).'.js"></script>';
-            }
+            $js_list[] = $str;
+            // if(APP_DEBUG){
+            //     return '<script type="text/javascript" src="'.__APP__.'/Public/js/'.$str.'.js"></script>';
+            // }
+            // else{
+            //     return '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js(array($str)).'.js"></script>';
+            // }
         }
     }
     else{    // render js files
@@ -156,6 +156,7 @@ function minimize_js($file_list){
     // get the newest file
     $max_time = 0;
     foreach($file_list as $file){
+        // $time: the last modified time of the js file
         $time = filemtime(APP_PATH.'Public/js/'.$file.'.js');
         if($time > $max_time) $max_time = $time;
     }
@@ -166,13 +167,26 @@ function minimize_js($file_list){
     }
     else{
         require_once APP_PATH.'Lib/Classes/Minifier2.php';
-        // concat all files as one
         $final_js = '';
+        // minimize each file
         foreach($file_list as $file){
-            $final_js .= file_get_contents(APP_PATH.'Public/js/'.$file.'.js');
+            $file_md5 = 'ms_'.md5($file);
+            $minimized_single_file = APP_PATH.'Public/cache/'.$file_md5.'.js';
+            $time = filemtime(APP_PATH.'Public/js/'.$file.'.js');
+            // if the file is old, rebuild if
+            if(!file_exists($minimized_single_file) || filemtime($minimized_single_file)<$time){
+               $single_file_js = file_get_contents(APP_PATH.'Public/js/'.$file.'.js');
+               $partial_js = Minifier::minify($single_file_js);
+               file_put_contents($minimized_single_file, $partial_js);
+            }
+            else{   // otherwise load from compressed file
+                $partial_js = file_get_contents($minimized_single_file);
+            }
+            $final_js .= $partial_js;
         }
-        file_put_contents($md5_file, Minifier::minify($final_js));
-        return $files_md5;
+        // concat all files as one
+        file_put_contents($md5_file, $final_js);
+        return $files_md5;  
     }
     
 }
@@ -199,15 +213,26 @@ function css($str=null, $max_ie=20){
             return '<link href="'.__APP__.'/Public/css/'.substr($str, 1).'.css" rel="stylesheet"/>';
         }
         else{
-            // $css_list[] = $str;
-            return '<link href="'.__APP__.'/Public/css/'.$str.'.css" rel="stylesheet"/>';
+            $css_list[] = $str;
+            // return '<link href="'.__APP__.'/Public/css/'.$str.'.css" rel="stylesheet"/>';
         }
     }
     else{    // render js files
         if(APP_DEBUG){
             $ret = '';
             foreach($css_list as $css){
-                $ret .= '<link href="'.__APP__.'/Public/css/'.$css.'.css" rel="stylesheet"/>';
+                if(substr($css, strlen($css)-5) == '.less'){
+                    $file_md5 = 'lc_' . substr($css, 0, strlen($css)-5) . '.css';
+                    $output_path = APP_PATH . 'Public/cache/' . $file_md5;
+                    $file_path = APP_PATH . 'Public/css/' . $css;
+                    require_once APP_PATH.'Lib/Classes/lessc.inc.php';
+                    $less = new lessc;
+                    $less->checkedCompile($file_path, $output_path);
+                    $ret .= '<link href="'.__APP__.'/Public/cache/'.$file_md5.'" rel="stylesheet"/>';
+                }
+                else{
+                    $ret .= '<link href="'.__APP__.'/Public/css/'.$css.'.css" rel="stylesheet"/>';
+                }
             }
             return $ret;
         }
@@ -233,12 +258,34 @@ function minimize_css($file_list){
     }
     else{
         require APP_PATH.'Lib/Classes/CSSMin.class.php';
+        require APP_PATH.'Lib/Classes/lessc.inc.php';
         // concat all files as one
         $final_css = '';
         foreach($file_list as $file){
-            $final_css .= file_get_contents(APP_PATH.'Public/css/'.$file.'.css');
+            $file_md5 = 'ms_'.md5($file);
+            $minimized_single_file = APP_PATH.'Public/cache/'.$file_md5.'.css';
+            $time = filemtime(APP_PATH.'Public/js/'.$file.'.css');
+            // compile the file if it is old
+            if(!file_exists($minimized_single_file) || filemtime($minimized_single_file)<$time){
+               // check if it is a .less file, compile it first
+                if(substr($file, strlen($file)-5) == '.less'){
+                    $single_file_css = file_get_contents(APP_PATH.'Public/css/'.$file);
+                    $less = new lessc;
+                    $single_file_css = $less->compile($single_file_css);
+                }
+                else{
+                    $single_file_css = file_get_contents(APP_PATH.'Public/css/'.$file.'.css');
+                }
+                $partial_css = OO('CSSMin')->run($single_file_css);
+                file_put_contents($minimized_single_file, $partial_css);
+            }
+            else{   // otherwise, load it from cache
+                $partial_css = file_get_contents($minimized_single_file);
+            }
+            $final_css .= $partial_css;
         }
-        file_put_contents($md5_file, OO('CSSMin')->run($final_css));
+        // concat all files as one
+        file_put_contents($md5_file, $final_css);
         return $files_md5;
     }   
 }

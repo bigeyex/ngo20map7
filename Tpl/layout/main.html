@@ -49,6 +49,7 @@
         {:css('bootstrap')}
         {:css('header')}
         {:css('homepage')}
+        {:css('responsive-main.less')}
     </block>
 
         
@@ -135,12 +136,12 @@ var _hmt = _hmt || [];
 {:js('bootstrap.min')}
 {:js('jquery.fancybox')}
 {:js('header')}
+{:js('toastr.min')}
 <block name="script-before"></block>
 {:js()}
-{:js('-jquery.placeholder', 9)}
 <block name="script-after"></block>
 <?php if(true || isset($_SESSION['flash']) || isset($with_notification)): ?>
-{:js('-toastr.min')}
+
 {:css('-toastr.min')}
 <?php endif; ?>
 <?php if(isset($_SESSION['flash'])): ?>

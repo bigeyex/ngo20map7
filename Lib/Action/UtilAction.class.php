@@ -2,6 +2,25 @@
 
 class UtilAction extends Action{
 
+    public function zipimage(){
+        import('ORG.Util.Image');
+        $width = intval($_GET['width']);
+        $height = intval($_GET['height']);
+        $path = APP_PATH . 'Public/Uploaded/';
+        $source = preg_replace('/[^\w_0-9\.]/', '', $_GET['source']);
+
+        if(!$width || !$height || !$source || $width>1280 || $height>1280){
+            Log::record("invalid argument in zipimage: $width | $height | $source");
+            die('invalid argument');
+        }
+
+        Image::thumb2($path . $source, $path . 'th'.$width.'x'.$height.'_'.$source, '', $width, $height);
+        $new_file_path = $path . 'th'.$width.'x'.$height.'_'.$source;
+        $mime_type = mime_content_type($path . 'th'.$width.'x'.$height.'_'.$source);
+        header("Content-type: $mime_type");
+        readfile($new_file_path);
+    }
+
     public function captcha(){
         import('ORG.Util.ValidateCode');
         $_vc = new ValidateCode();      //实例化一个对象
