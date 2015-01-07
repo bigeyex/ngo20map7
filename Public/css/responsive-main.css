@@ -1,0 +1,33 @@
+@media (max-width: 980px) {
+    #sb-site .hide-phone, .navbar .nav.hide-phone{
+        display: none;
+    }
+
+    #sb-site .mobile-only{
+        display: block;
+    }
+
+    #header .brand{
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #header .pull-right{
+        position: absolute;
+        right: 0px;
+        top: 12px;
+        left: auto;
+    }
+
+    #header .left-side-menu-button{
+        display: block;
+        position: absolute;
+        left: 15px;
+        top: 21px;
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+}

@@ -41,6 +41,7 @@
     <meta name="other" content="中国都由哪些草根公益组织？中国所有的公益组织网站,微博,微信">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="google-translate-customization" content="44d41f0d07cd23db-706a5687f4b69682-g76a6e16d360e3d07-11"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title><block name="title"></block>{:tmpl_global('title')} {:L('PAGE_TITLE')}</title>
     <block name="css-framework">
         {:css('jquery-ui')}
@@ -49,7 +50,8 @@
         {:css('bootstrap')}
         {:css('header')}
         {:css('homepage')}
-        {:css('responsive-main.less')}
+        {:css('slidebars')}
+        {:css('responsive-main')}
     </block>
 
         
@@ -71,11 +73,15 @@ var _hmt = _hmt || [];
   </head>
   
 <body>
+<div id="sb-site">
+
+
 <div style="width:0;height:0;overflow:hidden;"><img src="__APP__/Public/img/ngo20-logo.png" style="width:0;height:0;" title="公益地图-NGO20" alt=""></div>
 
 <div id="header" class="navbar navbar-top">
   <div class="navbar-inner">
     <div class="container container-full-width page-container page-container-responsive navbar-container">
+      <div class="left-side-menu-button fa fa-bars sb-toggle-left"></div>
       <a href="{:U('Index/index')}" class="brand NGO20">NGO20</a>
       <ul class="nav hide-phone">
         <li id="header-search">
@@ -99,16 +105,16 @@ var _hmt = _hmt || [];
       <ul class="nav pull-right logged-out">
         <li><a data-login-modal="" href="{:U('Index/list_index')}">{:L('LINK_NAME_BOOK')}<i class="icon-dropdown"></i></a></li>
         <?php if (!user()): ?>
-        <li><a class="fancybox.ajax fancybox register-link" href="__APP__/Account/partial_register_box">{:L('LINK_SIGN_UP')}</a></li>
-        <li><a class="fancybox.ajax fancybox login-link" href="__APP__/Account/partial_login_box">{:L('LINK_LOG_IN')}</a></li>
+        <li class="hide-phone"><a class="fancybox.ajax fancybox register-link" href="__APP__/Account/partial_register_box">{:L('LINK_SIGN_UP')}</a></li>
+        <li class="hide-phone"><a class="fancybox.ajax fancybox login-link" href="__APP__/Account/partial_login_box">{:L('LINK_LOG_IN')}</a></li>
         <?php else: ?>
         <include file="layout:_login_stab"/>
         <?php endif ?>
 
         <?php if (LANG_SET == C('DEFAULT_LANG')): ?>
-        <li><a data-login-modal="" href="__SELF__<?php echo (parse_url(__SELF__, PHP_URL_QUERY) ? '&' : '?') . 'l=' . C('SECONDARY_LANG'); ?>">{:C('SECONDARY_LANG_NAME')}<i class="icon-dropdown"></i></a></li>
+        <li class="hide-phone"><a data-login-modal="" href="__SELF__<?php echo (parse_url(__SELF__, PHP_URL_QUERY) ? '&' : '?') . 'l=' . C('SECONDARY_LANG'); ?>">{:C('SECONDARY_LANG_NAME')}<i class="icon-dropdown"></i></a></li>
         <?php else: ?>
-        <li><a data-login-modal="" href="__SELF__<?php echo (parse_url(__SELF__, PHP_URL_QUERY) ? '&' : '?') . 'l=' . C('DEFAULT_LANG'); ?>">{:C('DEFAULT_LANG_NAME')}<i class="icon-dropdown"></i></a></li>
+        <li class="hide-phone"><a data-login-modal="" href="__SELF__<?php echo (parse_url(__SELF__, PHP_URL_QUERY) ? '&' : '?') . 'l=' . C('DEFAULT_LANG'); ?>">{:C('DEFAULT_LANG_NAME')}<i class="icon-dropdown"></i></a></li>
         <?php endif; ?>
 
       </ul>
@@ -135,8 +141,10 @@ var _hmt = _hmt || [];
 {:js('jquery-ui.min')}
 {:js('bootstrap.min')}
 {:js('jquery.fancybox')}
+{:js('slidebars')}
 {:js('header')}
 {:js('toastr.min')}
+
 <block name="script-before"></block>
 {:js()}
 <block name="script-after"></block>
@@ -218,5 +226,20 @@ function force_google_translate(){
 </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         
 <?php endif ?>
+
+
+</div> <!-- sb-site -->
+
+<div class="sb-slidebar sb-left">
+  <form action="{:U('Search/result')}" id="sidebar-search-form">
+     <i class="fa fa-search slidebar-search-icon"></i>
+     <input type="text" placeholder="{:L('SEARCH_BOX_PLACEHOLDER')}" name="q">
+  </form>
+  <ul class="slidebar-menu">
+    <li><a href="#">发布活动 / 项目</a></li>
+    <li><a href="#">登录</a></li>
+    <li><a href="#">注册</a></li>
+  </ul>
+</div>
 </body>
 </html>

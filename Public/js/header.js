@@ -45,6 +45,8 @@ $(function(){
         
     });
 
+    // enable slidebars for mobile platforms
+    $.slidebars();
 });
 
 function pre_delete(e){
@@ -130,3 +132,5 @@ function signup_keydown(e){
         $('.login-button').click();
     } 
 }
+
+

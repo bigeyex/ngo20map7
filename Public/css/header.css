@@ -9,7 +9,7 @@ form{
 }
 
 .navbar .brand.NGO20 {
-    background-image: url(../img/ngo20-logo.png);
+    background: url(../img/ngo20-logo.png) no-repeat;
     text-indent: -9999px;
     width: 123px;
     height: 46px;
@@ -469,4 +469,63 @@ a.act{
 
 .add-photo-button{
   cursor: pointer;
+}
+
+/* hidden mobile elements */
+#sb-site .mobile-only{
+  display: none;
+}
+
+/* responsive slide bar */
+#sb-site{
+  overflow: hidden;
+}
+
+.sb-slidebar.sb-left{
+  background-color: #787878;
+}
+
+#sidebar-search-form{
+  padding: 9px;
+  background-color: #5f5f5f;
+}
+
+#sidebar-search-form input{
+  margin: 0;
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding-left: 30px;
+  background-color: #929292;
+  border: none;
+  box-sizing: border-box; /* css3 rec */
+  -moz-box-sizing: border-box; /* ff2 */
+  -ms-box-sizing: border-box; /* ie8 */
+  -webkit-box-sizing: border-box; /* safari3 */
+  -khtml-box-sizing: border-box; /* konqueror */
+}
+
+.slidebar-search-icon{
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  font-size: 16px;
+  color: #5d5d5d;
+}
+
+.slidebar-menu{
+  margin: 0;
+
+}
+
+.slidebar-menu li{
+  list-style: none;
+  background-color: #8e8e8e;
+  border-bottom: 1px solid #7c7b7c;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+}
+.slidebar-menu li a{
+  color: white;
 }

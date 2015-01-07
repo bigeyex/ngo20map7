@@ -106,6 +106,10 @@ function attach_autocomplete(id, source){
             else{
                 $('#hero-search-bar').css('left',165);
             }
+
+            if(width < 980){
+                $('#search-input-keyword').attr('placeholder', '来寻找你的小伙伴吧');
+            }
         });
         $(window).resize();
         

@@ -2,6 +2,7 @@
 
 <block name="head">
 {:css('jquery.mCustomScrollbar')}
+{:css('responsive-homepage')}
 </block>
 
 
@@ -26,26 +27,26 @@
                 <?php endif; ?>
             </ul>
           </div>
-          <div class="icon-slideshow-left"></div>
-          <div class="icon-slideshow-right"></div>
+          <div class="icon-slideshow-left hide-phone"></div>
+          <div class="icon-slideshow-right hide-phone"></div>
     </div>
     
     <div id="hero-search-bar">
-        <h2>{:L('HOME_SLOGAN')}.</h2>
+        <h2>{:L('HOME_SLOGAN')}</h2>
         <p class="sub-title">{:LS('HOME_USER_COUNT', array($total_count['ngo'], $total_count['event'], $total_count['csr'], $total_count['case'], $total_count['ngo']))}, {:LS('HOME_CSR_COUNT', array($total_count['csr']))}</p>
         <form class="form-inline search-filter-form" method="get" action="{:U('Index/map')}">
-            <div class="control-group">
+            <div class="control-group hide-phone">
                 <input type="text" name="province" id="search-input-region" class="no-dropdown" placeholder="{:L('HOME_FIND_PROVINCE_CITY')}"/>
                 <i class="icon-cross" id="search-input-region-cross"></i>
                 <div id="search-input-region-results"></div>
             </div> 
-            <div class="control-group">
+            <div class="control-group hide-phone">
                 <input type="text" name="work_field" id="search-input-cause" placeholder="{:L('HOME_FIND_CAUSE_AREA')}"/>
                 <i class="icon-dropdown" id="search-input-cause-dropdown"></i>
                 <i class="icon-cross" id="search-input-cause-cross"></i>
                 <div id="search-input-cause-results"></div>
             </div> 
-            <div class="control-group">
+            <div class="control-group hide-phone">
                 <input type="text" name="type" id="search-input-type" placeholder="{:L('HOME_FIND_INFO_TYPE')}"/>
                 <i class="icon-dropdown" id="search-input-type-dropdown"></i>
                 <i class="icon-cross" id="search-input-type-cross"></i>
@@ -53,12 +54,13 @@
             </div> 
             <div class="control-group">
                 <input type="text" name="keyword" id="search-input-keyword" class="large" placeholder="{:L('HOME_FIND_KEYWORD')}"/>
-                <i class="icon-dropdown" id="search-input-keyword-dropdown"></i>
+                <i class="icon-dropdown hide-phone" id="search-input-keyword-dropdown"></i>
                 <i class="icon-cross" id="search-input-keyword-cross"></i>
                 <div id="search-input-keyword-results"></div>
             </div> 
             <div class="control-group">
                 <input type="submit" class="search-btn" value="{:L('HOME_SEARCH_BUTTON')}"/>
+                <i class="fa fa-search home-search-icon mobile-only"></i>
             </div>
         </form>
     </div> <!-- hero-search-bar -->

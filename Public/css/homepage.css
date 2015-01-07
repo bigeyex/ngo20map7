@@ -756,4 +756,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
     right: 6px;
     top: -1px;
 }
+
+.left-side-menu-button{
+    display: none;
 }
