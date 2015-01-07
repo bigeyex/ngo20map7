@@ -50,7 +50,7 @@
           $(this).parent().remove();
           e.stopPropagation();
           e.preventDefault();
-       })
+       });
    });
    function loadBaiduMap(){
        var script = document.createElement("script");

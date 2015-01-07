@@ -99,7 +99,7 @@ form{
 
 /* header login part */
 .login-box{
-  width: 275px;
+  width: 274px;
 }
 
 .login-box input, .qq-signup, .weibo-signup, .login-button{
@@ -470,6 +470,7 @@ a.act{
 .add-photo-button{
   cursor: pointer;
 }
+
 
 /* hidden mobile elements */
 #sb-site .mobile-only{

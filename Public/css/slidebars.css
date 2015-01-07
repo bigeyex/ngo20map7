@@ -71,7 +71,7 @@ html.sb-web-app body {
 	width: 100%;
 	position: relative;
 	z-index: 1; /* Site sits above Slidebars */
-	background-color: #ffffff; /* Default background colour, you can overwrite this with your own css. I suggest moving your html or body background styling here. Making this transparent will allow the Slidebars beneath to be visible. */
+	/*background-color: #ffffff;  Default background colour, you can overwrite this with your own css. I suggest moving your html or body background styling here. Making this transparent will allow the Slidebars beneath to be visible. */
 }
 
 /* ---------------

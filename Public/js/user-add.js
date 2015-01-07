@@ -38,6 +38,13 @@
        if($.fn.validate !== undefined){
          $('.add-event-form').validate();
        }
+
+       $('.image-showcase').on('click', '.remove-image-icon', function(e){
+          dispatcher.dispatch('image.deleted', $(this).parent().find('input').val());
+          $(this).parent().remove();
+          e.stopPropagation();
+          e.preventDefault();
+       })
    });
    function loadBaiduMap(){
        var script = document.createElement("script");

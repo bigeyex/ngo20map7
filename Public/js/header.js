@@ -5,12 +5,7 @@ $(function(){
 		closeEffect	: 'none',
 		fitToView : false,
 		topRatio : 0.1,
-		closeBtn : false,
-		afterShow: function(){
-			if($().placeholder !== undefined){
-				$('input textarea').placeholder();
-			}
-		}
+		closeBtn : false
 	});
 	
     $('#header-search-input').focus(function(){
