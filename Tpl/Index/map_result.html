@@ -2,8 +2,8 @@
 <ul class="result-list">
     <?php foreach($result as $item): ?>
     <?php if(!$is_user): ?>
-    <li class="map-item" lng="{$item.longitude}" lat="{$item.latitude}" title="{$item.name}" link="{:U('Event/view')}/id/{$item.id}">
-        <a class="item-photo" href="{:U('Event/view')}/id/{$item.id}" target="_blank">
+    <li class="map-item" lng="{$item.longitude}" lat="{$item.latitude}" title="{$item.name}" link="{:U('Event/view')}/id/{$item.event_id}">
+        <a class="item-photo" href="{:U('Event/view')}/id/{$item.event_id}" target="_blank">
             <div class="photo-wrapper"><img src="{:upimage($item['cover_img'], '628x326')}" width="312"/></div>
             <div class="photo-title {:class_if('no-shadow', empty($item['cover_img']))}">{$item.name|short=12}</div>
         </a>

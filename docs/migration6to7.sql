@@ -56,3 +56,7 @@ ALTER TABLE `user` ADD COLUMN `like_count` int NOT NULL DEFAULT '0';
 
 
 ALTER TABLE `ngo20map7`.`settings` CHANGE COLUMN `v` `v` text DEFAULT NULL;
+
+
+
+ALTER TABLE `event` ADD COLUMN `signup_link` varchar(255) AFTER `like_count`, ADD COLUMN `signup_qr` varchar(255) AFTER `signup_link`;

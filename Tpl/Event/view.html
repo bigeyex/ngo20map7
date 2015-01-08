@@ -139,9 +139,22 @@
             <h2 class="header">项目地址</h2>
             <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers={$baidu_static_img_markers}&zoom=10&markerStyles=l,,0x2166c8"/>
         </div>
+        <?php if (!empty($event['signup_link'])): ?>
+            <div class="block zan-box">
+                <a href="{$event.signup_link}" class="fancybox" data-fancybox-type="iframe">
+                    <i class="signup-icon zan-box-icon"></i>
+                    <p class="zan-text">现在报名</p>
+                    <?php if (!empty($event['signup_qr'])): ?>
+                    <p class="zan-subtext"><a href="{$event.signup_qr}" class="fancybox">查看报名二维码</a></p>
+                    <?php else: ?>
+                    <p class="zan-subtext">点击填写报名表</p>
+                    <?php endif; ?>
+                </a>
+            </div>
+        <?php endif ?>
         <div class="block zan-box">
             <a href="javascript:void(0);" class="event-zan-link">
-                <i class="zan-icon"></i>
+                <i class="zan-icon zan-box-icon"></i>
                 <p class="zan-text">点个赞</p>
                 <p class="zan-subtext">已被点赞<span class="like-count">{$event.like_count}</span>次</p>
             </a>

@@ -95,6 +95,12 @@
                       </div>
                       <?php endif ?>
                       <div class="control-group">
+                          <label class="control-label" for="inputSignupLink">{:L('报名链接')}</label>
+                          <div class="controls">
+                            <input type="text" id="inputSignupLink" name="signup_link" class="span6" placeholder="{:L('如果有报名链接，请粘贴在此处')}" value="{$event.signup_link}"/>
+                          </div>
+                      </div>
+                      <div class="control-group">
                           <label class="control-label" for="inputPlace">活动/项目时间</label>
                           <div class="controls time-input">
                             <div class="group">

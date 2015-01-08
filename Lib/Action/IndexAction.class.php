@@ -167,11 +167,12 @@ class IndexAction extends BaseAction {
         
             
         if(!empty($minlon)){
-        $base_model = $base_model->with('longitude', 
+            $base_model = $base_model->with('longitude', 
                                      array(array('gt', floatval($minlon)), array('lt', floatval($maxlon))))
                                  ->with('latitude', 
                                      array(array('gt', floatval($minlat)), array('lt', floatval($maxlat))));
         }
+        $base_model = $base_model->with('is_checked', 1)->with('enabled', 1);
         
         $count_with_multipal_locations = $base_model->count();
         import("@.Classes.BNBPage");

@@ -183,13 +183,21 @@ h2.header{
     text-decoration: none;
 }
 
-.zan-icon{
+.zan-box-icon{
     width: 58px;
     height: 44px;
-    background: url(../img/zan-heart.png) no-repeat;
     display: block;
     margin-left: 20px;
     float: left;
+}
+
+.zan-icon{
+    background: url(../img/zan-heart.png) no-repeat;
+
+}
+
+.signup-icon{
+    background: url(../img/write-icon.png) no-repeat;
 }
 
 .zan-text, .zan-subtext{
@@ -208,6 +216,10 @@ h2.header{
     color: #8b8d8d;
     margin-bottom:  0;
     letter-spacing: 2px;
+}
+
+.zan-subtext a{
+    color: #8b8d8d;
 }
 
 .similar-orgs li{
