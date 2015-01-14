@@ -2,6 +2,7 @@
 
 <block name="head">
 {:css('jquery.mCustomScrollbar')}
+{:css('owl.carousel')}
 {:css('responsive-homepage')}
 </block>
 
@@ -69,38 +70,44 @@
 <div class="row gray-bg">
     <div class="container city-guide">
         <h2>{:L('HOME_FIND_NGOS_IN_CITIES')}</h2>
-        <p class="sub-title">{:L('HOME_FIND_NGOS_IN_CITIES_DESC')}</p>
+        <p class="sub-title hide-phone">{:L('HOME_FIND_NGOS_IN_CITIES_DESC')}</p>
         <div class="sub-container">
-            <div class="column">
+            <div class="mobile-only city-blocks">
+
+            </div>
+            <div class="column double-column city-list">
                 <div class="city-block city-guangzhou">
                     <a class="mask" href="{:U('Index/map')}/province/广东">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-guangzhou.jpg"/>
                         <h3>{:L('CITY_GUANGZHOU')}</h3>
                         <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['广东省']))}</p>
                     </a>
                 </div>
                 <div class="city-block city-beijing">
                     <a class="mask" href="{:U('Index/map')}/province/北京">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-beijing.jpg"/>
                         <h3>北京</h3>
                         <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['北京市']))}</p>
                     </a>
                 </div>
-            </div>
-            <div class="column">
                 <div class="city-block city-anhui">
                     <a class="mask" href="{:U('Index/map')}/province/安徽">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-anhui.jpg"/>
                         <h3>安徽</h3>
                         <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['安徽省']))}</p>
                     </a>
                 </div>
                 <div class="city-block city-hunan">
                     <a class="mask" href="{:U('Index/map')}/province/湖南">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-hunan.jpg"/>
                         <h3>湖南</h3>
                         <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['湖南省']))}</p>
                     </a>
                 </div>
             </div>
-            <div class="column">
+            <div class="column register-column">
                 <div class="register-block">
+                    <img class="join-bg mobile-only" src="__APP__/Public/img/photos/join-pic.jpg"/>
                     <h3>{:L('NOW_REGISTER')}</h3>
                     <p>
                         和<span class="highlight">{$total_count.ngo}</span>家公益机构<br/>
@@ -112,7 +119,7 @@
                 </div>
             </div>
         </div> <!-- sub-container -->
-        <div class="more-link">
+        <div class="more-link hide-phone">
             <a href="{:U('Index/map')}">查看更多城市</a>
         </div>
     </div>
@@ -124,17 +131,17 @@
         <p class="sub-title">每个人都可以找到自己的公益伴侣</p>
         <div class="sub-container">
             <div class="column column-ngo">
-                <div class="brand-icon brand-icon-ngo"></div>
+                <div class="brand-icon brand-icon-ngo"><img class="mobile-only" src="__APP__/Public/img/icons/brandicon-ngo.png"/></div>
                 <h3>公益机构</h3>
                 <p>看看企业资助方都在关心什么</p>
             </div>
             <div class="column column-csr">
-                <div class="brand-icon brand-icon-csr"></div>
+                <div class="brand-icon brand-icon-csr"><img class="mobile-only" src="__APP__/Public/img/icons/brandicon-csr.png"/></div>
                 <h3>企业</h3>
                 <p>寻找值得合作的公益机构</p>
             </div>
             <div class="column column-ind">
-                <div class="brand-icon brand-icon-ind"></div>
+                <div class="brand-icon brand-icon-ind"><img class="mobile-only" src="__APP__/Public/img/icons/brandicon-ind.png"/></div>
                 <h3>公益人</h3>
                 <p>了解公益知道去哪里帮忙</p>
             </div>
@@ -144,22 +151,20 @@
 
 <div class="row gray-bg">
     <div class="container story-showcase">
-        <h2>每个公益机构都有一个故事</h2>
-        <p class="sub-title">聆听这片土地上发生的感动</p>
+        <h2 class="hide-phone">每个公益机构都有一个故事</h2>
+        <p class="sub-title hide-phone">聆听这片土地上发生的感动</p>
         <div class="slideshow" id="story-showcase-slideshow">
-            <ul>
             	<?php foreach($news as $piece): ?>
-                <li><a href="{:U('Event/view')}/id/{$piece.id}" target="_blank">
+                <div class="story-showcase-item"><a href="{:U('Event/view')}/id/{$piece.id}" target="_blank">
                     <div class="hover-text">
                         <h3>{$piece.name}</h3>
-                        <p>{$piece.uname}</p>
+                        <p class="hide-phone">{$piece.uname}</p>
                     </div>
-                    <img class="lazy" src="__APP__/Public/img/grey.png" data-original="__APP__/Public/Uploaded/th628x326_{$piece.cimg}" width="313px"/>
-                </a></li>
+                    <img class="lazy" src="__APP__/Public/img/grey.png" data-original="__APP__/Public/Uploaded/th628x326_{$piece.cimg}" width="100%"/>
+                </a></div>
 	            <?php endforeach; ?>
-            </ul>
         </div>
-        <div class="slideshow-control">
+        <div class="slideshow-control hide-phone">
             <a class="left-arrow" href="javascript:void(0);"></a>
             <a class="right-arrow" href="javascript:void(0);"></a>
         </div>
@@ -172,6 +177,7 @@
 	
 {:js('jquery.jcarousel.min')}
 {:js('jquery.lazyload.min')}
+{:js('owl.carousel')}
 <script>
 	{:C('COMPLETION_SCRIPT')}
 </script>

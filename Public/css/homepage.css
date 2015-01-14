@@ -240,25 +240,9 @@ have a fixed width and height (but it's not required).
     float: left;
 }
 
-.city-block{
-    height: 173px;
-    margin-top: 10px;
-    display: block;
-}
-
-.city-block .mask{
-    display: block;
-    height: 173px;
-    background-color: rgba(0,0,0,0);
-}
-
-.city-block a.mask:hover{
-    background-color: rgba(0,0,0,.5);
-    -webkit-transition: background-color 250ms linear;
-    -moz-transition: background-color 250ms linear;
-    -o-transition: background-color 250ms linear;
-    -ms-transition: background-color 250ms linear;
-    transition: background-color 250ms linear;
+.sub-container .double-column{
+    width: 646px;
+    margin-left: 0;
 }
 
 .city-guangzhou{
@@ -275,6 +259,45 @@ have a fixed width and height (but it's not required).
 
 .city-hunan{
     background: url(../img/photos/city-hunan.jpg) no-repeat;
+}
+
+.city-block{
+    height: 173px;
+    margin-top: 10px;
+    margin-left: 9px;
+    display: block;
+    position: relative;
+    float: left;
+    width: 314px;
+}
+
+.city-block .mask{
+    display: block;
+    height: 173px;
+    background-color: rgba(0,0,0,0);
+    z-index: 1;
+}
+
+.city-block a.mask:hover{
+    background-color: rgba(0,0,0,.5);
+    -webkit-transition: background-color 250ms linear;
+    -moz-transition: background-color 250ms linear;
+    -o-transition: background-color 250ms linear;
+    -ms-transition: background-color 250ms linear;
+    transition: background-color 250ms linear;
+}
+
+.city-block .city-bg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+
+.city-block h3, .city-block p{
+    z-index: 1;
+    position: relative;
 }
 
 .register-block{
@@ -433,9 +456,9 @@ div.more-link a{
 }
 
 /*story showcase slideshow*/
-#story-showcase-slideshow li{
+#story-showcase-slideshow li, #story-showcase-slideshow .story-showcase-item{
     border: 1px solid #757575;
-    margin-left: 5px;
+    margin-left: 6px;
     -webkit-border-radius: 1px;
 	-moz-border-radius: 1px;
 	border-radius: 1px;
@@ -445,15 +468,14 @@ div.more-link a{
 }
 
 .story-showcase .hover-text{
-    width: 276px;
+    width: 100%;
     height: 165px;
     position: absolute;
     left: 0;
     top: 0;
     color: #fff;
     background: rgba(0,0,0,.6);
-    padding-left: 17px;
-    padding-right: 22px;
+
     letter-spacing: 1px;
 /*    display: none;*/
     opacity: 0;
@@ -462,9 +484,20 @@ div.more-link a{
     -webkit-transition: opacity .25s ease-in-out;
 }
 
+.story-showcase a{
+    overflow: hidden;
+    height: 163px;
+    display: block;
+}
+
 .story-showcase a:hover .hover-text{
     display: block;
     opacity: 1;
+}
+
+.story-showcase .hover-text h3, .story-showcase .hover-text p{
+    padding-left: 17px;
+    padding-right: 22px;
 }
 
 .story-showcase .hover-text h3{
@@ -523,6 +556,7 @@ div.more-link a{
 
 #footer p.primary-links{
     margin-bottom: 13px;
+    letter-spacing: 0.3px;
 }
 
 

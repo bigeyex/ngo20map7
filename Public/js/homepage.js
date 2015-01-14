@@ -88,6 +88,7 @@ function attach_autocomplete(id, source){
             jcarousel_api.jcarouselAutoscroll('start');
         });
 
+        var city_carousel_handle = null;
         // resize hero slideshow according to the window width
         $(window).resize(function(){
             var width = $(window).width();
@@ -109,23 +110,40 @@ function attach_autocomplete(id, source){
 
             if(width < 980){
                 $('#search-input-keyword').attr('placeholder', '来寻找你的小伙伴吧');
+
+                // init carousel
+                if(!city_carousel_handle){
+                    $('.city-list').owlCarousel({
+                        singleItem: true
+                    });
+
+                    city_carousel_handle = $('.city-list').data('owlCarousel');
+                }
+            }
+            else{
+                // destroy city carousel
+                if(city_carousel_handle){
+                    city_carousel_handle.destroy();
+                    city_carousel_handle = null;
+                }
             }
         });
         $(window).resize();
         
         // story-showcase slideshow
-        $('#story-showcase-slideshow').jcarousel({
-            wrap: 'circular'   
-        }).on('jcarousel:scrollend', function(event, carousel) {
-            $("img.lazy").trigger('lazyload');
+        $('#story-showcase-slideshow').owlCarousel({
+            items: 3,
+            lazyLoad: true,
+            itemsDesktop: false,
+            itemsDesktopSmall : false
         });
+        var story_slideshow = $('#story-showcase-slideshow').data('owlCarousel');
+        window.story_slideshow = story_slideshow;
+
         $('.story-showcase .left-arrow').click(function(){
-            $('#story-showcase-slideshow').jcarousel('scroll', '-=2');
+            story_slideshow.prev();
         });
         $('.story-showcase .right-arrow').click(function(){
-            $('#story-showcase-slideshow').jcarousel('scroll', '+=2');
+            story_slideshow.next();
         });
-
-        $("img.lazy").lazyload({event: 'lazyload'});
-        $("img.lazy").trigger('lazyload');
     });

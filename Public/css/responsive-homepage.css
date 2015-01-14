@@ -3,24 +3,41 @@
         left: 0 !important;
         text-align: center;
         width: 100%;
+        top: 85px;
     }
 
     #hero-search-bar h2{
-        font-size: 28px;
-        font-weight: normal;
-    }
+        font-size: 19.44px;
+        font-weight: lighter;
+    
+        letter-spacing: 1px;
+        margin-bottom: 0;
+        margin-top: 17px;
+        margin-left: 3px;
+        line-height: 24px;
+}
 
     #hero-search-bar p.sub-title{
-        width: 380px;
-        font-size: 17px;
+        width: 265px;
+        font-size: 12.5px;
         margin-left: auto;
         margin-right: auto;
-        padding-top: 0;
-        line-height: 26px;
-    }
+        padding-top: 4px;
+        line-height: 18px;
+    
+        letter-spacing: 0.9px;
+        padding-left: 3px;
+        font-weight: lighter;
+}
 
     #hero-search-bar span.highlight{
-        font-size: 20px;
+        font-size: 14px;
+    
+        letter-spacing: 0;
+}
+
+    .row.white-bg{
+        border-bottom: none;
     }
 
     .search-filter-form{
@@ -28,31 +45,153 @@
         border: none;
         margin-left: auto;
         margin-right: auto;
-    }
+    
+        padding-top: 8px;
+        padding-left: 4px;
+}
 
     .search-filter-form input.large{
         border-radius: 0;
-        width: 250px;
-    }
+        width: 187px;
+    
+        height: 32px;
+        border: none;
+        font-size: 11.11px;
+        letter-spacing: 0.6px;
+}
 
     .search-filter-form input.search-btn{
         border-radius: 0;
         border: none;
         background: #299802;
         margin-left: -5px;
-        width: 55px;
+        width: 41px;
         text-indent: -9999px;
-    }
+    
+        height: 32px;
+}
 
     .home-search-icon{
         position: absolute;
-        top: 12px;
-        right: 18px;
+        top: 8px;
+        right: 13px;
         color: white;
-        font-size: 20px;
+        font-size: 15px;
     }
 
     #hero-region .slideshow-wrapper{
-        height: 450px;
+        height: 340px;
     }
+
+    .city-guide .register-block p{
+        padding-top: 0;
+    
+        font-size: 12.5px;
+        line-height: 16.8px;
+        padding-left: 70;
+        margin-left: 0;
+    }
+
+    .brand-icons .sub-container{
+        margin-top: 14px;
+    
+        width: 310px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-right: 2px;
+}
+
+    .brand-icons h2{
+        text-align: center;
+        font-size: 16.66px;
+        line-height: 18px;
+        margin-top: 33px;
+        padding-left: 24px;
+    
+        margin-bottom: 2px;
+    }
+
+    .brand-icons p.sub-title{
+        font-size: 12.5px;
+        text-align: center;
+    
+        padding-left: 20px;
+        letter-spacing: 0.8px;
+    }
+
+    .brand-icons .column{
+        width: 80px;
+    
+        margin-left: 22px;
+}
+
+    .brand-icons .column h3{
+        font-size: 11.11px;
+    
+        margin-top: 5px;
+        letter-spacing: 1px;
+        padding-left: 4px;
+        margin-bottom: 1px;
+}
+
+    .brand-icons .column p{
+        font-size: 8.33px;
+    
+        margin-bottom: 26px;
+        line-height: 12px;
+        width: 66px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1px;
+        letter-spacing: 0.5px;
+}
+
+    .brand-icon{
+        background: none;
+        width: 60px;
+        height: 60px;
+    }
+
+    .brand-icon img{
+        width: 62px;
+        height: 62px;
+    }
+
+
+    /* story show */
+
+    .story-showcase{
+        padding-bottom: 0;
+    }
+
+    #story-showcase-slideshow{
+        margin: 0;
+    }
+
+    #story-showcase-slideshow li, #story-showcase-slideshow .story-showcase-item{
+        border: none;
+        height: 185px;
+    }
+
+    .story-showcase a {
+        height: 185px;
+    }
+
+    .story-showcase .hover-text{
+        display: block;
+        opacity: 1;
+        height: 185px;
+        background: none;
+    }
+    .story-showcase .hover-text h3{
+        font-size: 12.5px;
+    
+        margin: 0;
+        position: absolute;
+        bottom: 12px;
+        left: 14px;
+        width: 202px;
+        line-height: 17px;
+}
 }
