@@ -3,6 +3,7 @@
 <block name="head">
 {:css('jquery.mCustomScrollbar')}
 {:css('org-home')}
+{:css('responsive-map')}
 </block>
 
 
@@ -10,7 +11,7 @@
 
 
 <div class="right-fixed-column">
-    <div class="filter-search-bar form-inline">
+    <div class="filter-search-bar form-inline hide-phone">
             <div class="control-group">
                 <input type="text" id="search-input-region" class="filter-input no-dropdown" placeholder="找省份或城市" value="{$_GET.province}"/>
                 <i class="icon-cross" id="search-input-region-cross"></i>
@@ -35,6 +36,10 @@
             </div><!--
          --><a class="commit-search-button" href="javascript:void(0);">搜索<i class="white-mag-glass"></i></a>
     </div> <!-- filter-search-bar -->
+    <div class="mobile-search-filter mobile-only">
+        <input type="text" placeholder="{:L('来寻找你的小伙伴吧')}" name="q">
+         <i class="fa fa-search mobile-search-filter-icon"></i>
+    </div>
     <div class="result-panel">
         {:R('Index/map_result', array($_GET))}
     </div>

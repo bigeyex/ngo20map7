@@ -1,0 +1,131 @@
+@media (max-width: 980px) {
+
+    .left-fluid-column{
+        display: none;
+    }
+
+    .mobile-search-filter{
+        background-color: #c5c5c1;
+        padding: 3px 5px;
+        position: relative;
+    
+        box-shadow: 0 1px 2px #666;
+}
+
+    .mobile-search-filter input{
+        display: block;
+        -webkit-box-sizing : border-box;‌​
+        -moz-box-sizing : border-box;
+        box-sizing : border-box;
+    
+        width: 100%;
+        font-size: 11.12px;
+        padding: 16px 13px;
+        margin: 0;
+        border-radius: 0;
+}
+
+    .mobile-search-filter-icon{
+        position: absolute;
+        right: 13px;
+        top: 13px;
+        color: #c7c7c4;
+    }
+
+    .result-panel{
+        padding: 0;
+    }
+
+    .result-panel .result-count{
+        font-size: 11.12px;
+    
+        padding: 6px 10px 4px;
+        border-bottom: 1px solid #e1e1ef;
+    }
+
+    .result-list li{
+    float: none;
+
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #cac9c6;
+    overflow: hidden;
+    height: 125px;
+    position: relative;
+}
+
+    .result-list .item-photo{
+    width: auto;
+
+    
+    height: 125px;
+}
+
+    .result-list .photo-wrapper{
+        padding-right: 134px;
+    }
+
+    .result-list .photo-wrapper img{
+        width: 100%;
+    }
+
+    .item-org-info{
+
+    }
+
+    .item-org-info .org-logo{
+    position: absolute;
+
+    right: 94px;
+    bottom: 11px;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+}
+
+.item-photo .photo-title{
+    text-shadow: none;
+    background: none;
+    right: 12px;
+    top: 20px;
+    width: 111px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: initial;
+    z-index: 1;
+    color: #5a5a5a;
+    font-size: 11.12px;
+    line-height: 15px;
+}
+
+.item-org-info .org-logo img{
+    width: 32px;
+}
+
+    .item-org-info .org-name{
+    position: absolute;
+
+    right: 2px;
+    bottom: 18px;
+    margin: 0;
+    border: 0;
+    font-size: 9px;
+    width: 86px;
+    line-height: 12px;
+}
+
+    .item-org-info .org-city{
+    position: absolute;
+        
+    bottom: 11px;
+    right: 2px;
+    color: #393c3d;
+    font-size: 8.34px;
+    margin: 0;
+    width: 86px;
+}
+
+}

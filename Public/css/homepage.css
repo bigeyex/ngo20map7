@@ -744,6 +744,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
     overflow: hidden;
 }
 
+.item-org-info .org-logo img{
+    width: 42px;
+}
+
 .item-org-info .org-name{
     padding: 7px 0 6px;
     margin: 0 0 0 58px;   
