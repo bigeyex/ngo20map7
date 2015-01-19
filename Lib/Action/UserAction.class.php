@@ -45,7 +45,13 @@ class UserAction extends BaseAction{
         $this->assign('user', $user);
         $this->assign('events', $events);
         $this->assign('related_users', $related_users);
-        $this->display();
+        if(isMobile()){
+            $this->display('m_view');
+        }
+        else{
+            $this->display();
+        }
+        
     }
 
     function add(){

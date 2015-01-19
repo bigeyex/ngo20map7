@@ -1,0 +1,37 @@
+<extend name="layout:main"/>
+
+<block name="head">
+{:css('org-home')}
+</block>
+
+
+<block name="body">
+
+<div class="container main-container">
+    <div class="logo-title-region">
+        <div class="org-logo">
+            <img src="{:upimage($user['image'], '150x150')}"/>
+        </div>
+        <div class="title-region">
+            <h1>{$user.name}</h1>
+            <p>{$user.aim}</p>
+        </div>
+    </div>
+</div>
+
+</block>
+
+
+<block name="script-before">
+    <script>
+        var user_id = "{$user.id}";
+        var home_lng="{$user.longitude}";
+        var home_lat="{$user.latitude}";
+    </script>
+{:js('CurveLine.min')}
+</block>
+<block name="script-after">
+
+</block>
+<block name="footer">
+</block>
