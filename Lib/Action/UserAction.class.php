@@ -14,7 +14,7 @@ class UserAction extends BaseAction{
             $this->redirectWithError('我不知道你看的是哪个机构啊');
         }
         $user = O('user')->find($id);
-        $events = O('event')->with('user_id', $id)->fetch('event_location')->select();
+        $events = O('event')->with('user_id', $id)->fetch('event_location')->limit(20)->select();
         // concate and attach longitude and latitude
         for($i=0;$i<count($events);$i++){
             $lngs = array();
@@ -26,7 +26,9 @@ class UserAction extends BaseAction{
             $events[$i]['lngs'] = implode(',', $lngs);
             $events[$i]['lats'] = implode(',', $lats);
         }
-        $related_users = O('user')->recommend($user);
+        if(!isMobile()){
+            $related_users = O('user')->recommend($user);
+        }
 
         $medals = O('medal')->order('score desc')->select();
         $user_medal = O('medalmap')->with('user_id', $id)->select();
@@ -39,7 +41,7 @@ class UserAction extends BaseAction{
         $this->assign('medals', $medals);
         $this->assign('medal_list', $medal_arr);
 
-        $photos = O('media')->with('event_id', 0)->with('type', 'image')->with('user_id', $id)->select();
+        $photos = O('media')->with('type', 'image')->with('user_id', $id)->limit(20)->select();
         $this->assign('user_photos', $photos);
 
         $this->assign('user', $user);

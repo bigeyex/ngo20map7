@@ -796,6 +796,10 @@ label.error{
     margin-top: 10px;
 }
 
+.info-image img{
+    width: 120px;
+}
+
 .info-window-triangle{
     width: 0; 
     height: 0; 

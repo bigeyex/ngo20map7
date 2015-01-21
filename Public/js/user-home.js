@@ -2,7 +2,7 @@ $(function(){
    $( ".tabs" ).tabs({
         active: 0,
         activate: function(event, ui){
-            if(undefined !== map && $(event.currentTarget).hasClass('tab-map')){
+            if(typeof map !== 'undefined' && $(event.currentTarget).hasClass('tab-map')){
                 setTimeout(function(){
                     map.setViewport(point_collection);
                 }, 1000);
@@ -39,8 +39,18 @@ $(function(){
     });
    });
 
-   if($('#map-container').length > 0){
+   if($('#map-container').length > 0 && !Environment.isMobile()){
        loadBaiduMap();
+    }
+
+    $('#org-address-link').click(function(){
+        if($('#map-container').length > 0 && typeof map === 'undefined'){
+            loadBaiduMap();
+        }
+    });
+
+    if(Environment.isMobile()){
+        $( '.swipebox' ).swipebox();
     }
 });
 
@@ -67,16 +77,26 @@ function onBaiduMapLoaded(){
         }
         map.panTo(new BMap.Point(longitude, parseFloat(latitude)));
         if(event_info.image){
-            var image_content = '<div class="info-image"><img src="'+app_path+'/Public/Uploaded/th628x326_'+event_info.image+'" width="120"/></div>';
+            var image_content = '<div class="info-image"><img src="'+app_path+'/Public/Uploaded/th628x326_'+event_info.image+'"/></div>';
         }
         else{
             var image_content = '';
         }
         var content = '<div class="info-title"><a href="'+app_path+'/Event/view/id/'+event_info.id+'">'+event_info.name+'</a></div>'+image_content+'<div class="info-desc">'+event_info.intro+'</div>';
         
-        overlay = new HTMLOverlay(longitude, latitude, 170, 172, '<div class="info-window"><div class="info-window-box">'+content+'<div class="info-window-close-button fa fa-times"></div><div class="info-window-triangle"></div></div></div>');
+        if(!Environment.isMobile()){
+            overlay = new HTMLOverlay(longitude, latitude, 170, 172, '<div class="info-window"><div class="info-window-box">'+content+'<div class="info-window-close-button fa fa-times"></div><div class="info-window-triangle"></div></div></div>');
+        }
+        else{
+            overlay = new HTMLOverlay(longitude, latitude, 120, 122, '<div class="info-window"><div class="info-window-box">'+content+'<div class="info-window-close-button fa fa-times"></div><div class="info-window-triangle"></div></div></div>');
+        }
         map.addOverlay(overlay);
         $('.info-window-close-button').click(function(){
+            map.removeOverlay(overlay);
+            overlay = null;
+        });
+
+        $('.info-window-close-button').on('touchend', function(){
             map.removeOverlay(overlay);
             overlay = null;
         });

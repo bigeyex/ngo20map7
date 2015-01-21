@@ -1,14 +1,15 @@
 <extend name="layout:main"/>
 
 <block name="head">
-{:css('org-home')}
+{:css('org-home-m')}
+{:css('swipebox')}
 </block>
 
 
 <block name="body">
 
 <div class="container main-container">
-    <div class="logo-title-region">
+    <div class="logo-title-region"> <!-- logo -->
         <div class="org-logo">
             <img src="{:upimage($user['image'], '150x150')}"/>
         </div>
@@ -17,6 +18,165 @@
             <p>{$user.aim}</p>
         </div>
     </div>
+
+    <!-- 领域、地域、勋章 -->
+    <div class="brief-info">
+        <div class="item">
+            <span class="title">{:L('地址：')}</span>
+            <span class="content">{$user.place}</span>
+        </div>
+        <div class="item">
+            <span class="title">{:L('领域：')}</span>
+            <span class="content">{$user.work_field}</span>
+        </div>
+        <div class="item">
+            <span class="title">{:L('勋章：')}</span>
+            <span class="content">
+                <?php foreach ($medals as $medal): ?>
+                    <?php if (in_array($medal['id'], $medal_list)): ?>
+                        <a class="user-medal" href="__APP__/Index/list_index?medal={$medal.id}">
+                            <img class="" src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="26" height="26" data-toggle="tooltip" title="{$medal.name}" data-original-title="{$medal.name}"/>
+                        </a>
+                    <?php endif ?>
+                <?php endforeach ?>
+            </span>
+        </div>
+    </div> 
+
+    <div class="zan-box">
+        <a href="javascript:void(0);" class="user-zan-link">
+            <i class="zan-icon"><img src="__APP__/Public/img/zan-heart.png"/></i>
+            <p class="zan-text">点个赞</p>
+            <p class="zan-subtext">已被点赞<span class="like-count">{$user.like_count}</span>次</p>
+        </a>
+    </div>
+
+    <div class="detail tabs">
+        <ul>
+            <li><a href="#org-intro">{:L('简介')}</a></li>
+            <li><a id="org-address-link" href="#org-address">{:L('地图')}</a></li>
+            <li><a href="#org-events">{:L('活动')}</a></li>
+            <li><a href="#org-detail">{:L('资料')}</a></li>
+            <li><a href="#org-pics">{:L('风采')}</a></li>
+        </ul>
+        <div id="org-intro">
+            {$user.intro|strip_tags|nl2br}
+        </div>
+        <div id="org-address">
+            <div id="map-container" style="height: 300px;"></div>
+        </div>
+        <div id="org-events">
+            <?php foreach ($events as $event): ?>
+            <li class="event-switch" title="{$event.name|mb_substr=0,12}" event-id="{$event.id}" intro="{$event.intro|strip_tags|mb_substr=0,50}" image="{$event.cover_img}" lngs="{$event.lngs}" lats="{$event.lats}">
+                <a href="{:U('Event/view')}/id/{$event.id}">
+                    <div class="project-list-image">
+                        
+                            <img src="{:O('Event')->findAPhoto($event['id'])}"/>
+                        
+                    </div>
+                    <div class="text-content">
+                        <h3>{$event.name|mb_substr=0,20}</h3>
+                        <p>{$event.intro|strip_tags|mb_substr=0,50}</p>
+                    </div>
+                </a>
+            </li> 
+            <?php endforeach ?>
+        </div>
+        <div id="org-detail">
+            <table class="table table-striped">
+                <tr>
+                    <td class="title">联系方式</td>
+                    <td>
+                            {$user.contact_name} 
+                            {$user.phone}
+                        <br/>
+                            {$user.public_email}      
+                    </td>
+                </tr>
+                <?php if (!empty($user['website'])): ?>
+                <tr>
+                    <td class="title">网站</td>
+                    <td>      
+                        <a href="{$user.website|addhttp}">访问机构网站</a> 
+                    </td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['fax'])): ?>
+                <tr>
+                    <td class="title">传真</td>
+                    <td>{$user.fax}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['weibo'])): ?>
+                <tr>
+                    <td class="title">微博</td>
+                    <td>{$user.weibo}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['service_area'])): ?>
+                <tr>
+                    <td class="title">服务区域</td>
+                    <td>{$user.service_area}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['work_field'])): ?>
+                <tr>
+                    <td class="title">关注领域</td>
+                    <td>{$user.work_field}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['register_year'])): ?>
+                <tr>
+                    <td class="title">成立时间</td>
+                    <td>{$user.register_year}年{$user.register_month}月</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['staff_fulltime'])): ?>
+                <tr>
+                    <td class="title">机构规模</td>
+                    <td>
+                        <span>全职人数: </span>{$user.staff_fulltime} <br/>
+                        <span>兼职人数: </span>{$user.staff_parttime} <br/>
+                        <span>志愿者人数: </span>{$user.staff_volunteer} <br/>
+                    </td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['register_type'])): ?>
+                <tr>
+                    <td class="title">机构规模</td>
+                    <td>
+                        {$user.register_type}<br/>
+                        <span>注册时间: </span>{$user.documented_year}年{$user.documented_month}月
+                    </td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['financial_link'])): ?>
+                <tr>
+                    <td class="title">财务披露情况</td>
+                    <td>
+                        <p><a href="{$user.financial_link|addhttp}">跳转到财务披露页面</a></p>
+                    </td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($user['fund_source'])): ?>
+                <tr>
+                    <td class="title">资金来源</td>
+                    <td>
+                        {$user.fund_source}
+                    </td>
+                </tr>
+                <?php endif ?>
+            </table>
+        </div>
+        <div id="org-pics">
+            <?php foreach ($user_photos as $photo): ?>
+            <a rel="gallery-1" href="__APP__/Public/Uploaded/th628x326_{$photo.url}" class="swipebox">
+                <img src="__APP__/Public/Uploaded/th150x150_{$photo.url}" alt="image">
+            </a>
+            <?php endforeach ?>
+        </div>
+    </div> <!-- detail tabs -->
+
 </div>
 
 </block>
@@ -29,6 +189,9 @@
         var home_lat="{$user.latitude}";
     </script>
 {:js('CurveLine.min')}
+{:js('user-home')}
+{:js('jquery.swipebox')}
+{:js('jquery.lazyload.min')}
 </block>
 <block name="script-after">
 

@@ -1,0 +1,279 @@
+.main-container{
+    background: #f7f7f7;
+}
+
+.logo-title-region{
+    margin: 30px 15px;
+
+}
+.org-logo{
+    float: left;
+
+}
+
+.org-logo img{
+    width: 90px;
+
+    max-width: 90px;
+    max-height: 90px;
+}
+
+.title-region{
+    margin-left: 108px;
+
+}
+
+.title-region h1{
+    font-size: 20.84px;
+
+    margin: 0;
+    line-height: 26px;
+    color: #333333;
+}
+
+.title-region p{
+    color: #6c6c6c;
+
+    line-height: 18px;
+    margin-top: 4px;
+}
+
+.brief-info-region{
+
+}
+
+.brief-info{
+    padding: 16px 17px;
+
+    clear: both;
+    line-height: 21px;
+    color: #6c6c6c;
+}
+
+.brief-info .item{
+    clear: both;
+}
+
+.brief-info .item .title{
+    display: block;
+
+    float: left;
+}
+
+.brief-info .item .content{
+    display: block;
+
+    margin-left: 45px;
+}
+
+.user-medal{
+
+}
+
+.user-medal img{
+    
+}
+
+.zan-box{
+    width: 241px;
+
+    height: 51px;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    border: 1px solid #e4e4e4;
+    margin-bottom: 31px;
+    margin-top: 21px;
+}
+
+.zan-icon {
+    float: left;
+    
+    margin: 12px 0 0 66px;
+}
+
+.zan-icon img {
+    width: 35px;
+    
+}
+
+.zan-text{
+    color: #333;
+
+    margin: 9px 0 0 112px;
+    line-height: normal;
+}
+
+.zan-subtext{
+    color: #a0a0a0; 
+    margin: 0px 0 0 110px;
+
+    font-size: 11px;
+    line-height: 18px;
+}
+
+.ui-tabs .ui-tabs-nav, ul.ui-tabs-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all{
+    padding: 0;
+
+    background: #e4e4e4;
+    border: none;
+}
+
+.ui-tabs .ui-tabs-nav li{
+    position: relative;
+    border: none;
+    padding: 16px 7px 15px 3px;
+    margin: 0;
+    background: #e4e4e4;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor{
+    font-size: 14px;
+
+    color: #6c6c6c;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+    background: none;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor{
+    color: #333333;
+}
+
+
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor:after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 9px 9px 9px;
+    border-color: transparent transparent #ffffff transparent;
+    left: 24px;
+    top: 53px;
+}
+
+.detail .ui-tabs-panel{
+    background: white;
+    padding: 34px 30px;
+    font-size: 14px;
+    color: #333333;
+}
+
+
+
+
+/* info-window */
+.info-window{
+    z-index: 1;
+}
+
+.info-window-box{
+    width: 216px;
+    height: 89px;
+    padding: 12px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #1d61c0;
+    color: white;
+    position: absolute;
+    top: 0px;
+}
+
+.info-title a{
+    font-size: 13px;
+    color: white;
+}
+
+.info-desc{
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 5px;
+    word-wrap: break-word;
+}
+
+.info-image{
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    float: right;
+    margin-top: 10px;
+}
+
+
+.info-image img{
+    width: 50px;
+}
+
+
+.info-window-triangle{
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 12px solid #1d61c0;
+    position: absolute;
+    top: 112px;
+    left: 114px;
+}
+
+.info-window-close-button{
+    width: 10px;
+    height: 14px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.event-switch{
+    list-style: none;
+
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.project-list-image{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    float: right;
+}
+
+.project-list-image img{
+    width: 80px;
+}
+
+.text-content{
+
+}
+
+.text-content h3{
+    font-size: 15px;
+    color: #555;
+    margin: 0;
+    line-height: 20px;
+}
+
+.text-content p{
+    margin-top: 5px;
+
+    margin-bottom: 0;
+    width: 230px;
+    word-break: break-all;
+    color: #9a9a9a;
+    font-size: 12px;
+}
+
+td.title{
+    width: 60px;
+}
+
+#org-pics a{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
