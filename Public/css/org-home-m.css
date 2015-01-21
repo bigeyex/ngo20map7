@@ -277,3 +277,52 @@ td.title{
     margin-right: 10px;
     margin-bottom: 10px;
 }
+
+
+/* event page */
+
+.event-title-region{
+    background: white;
+}
+
+.event-cover-photo{
+
+}
+
+.event-cover-photo img{
+    
+    height: 246px;
+}
+
+.event-org-logo{
+    float: right;
+
+    width: 67px;
+    height: 67px;
+    overflow: hidden;
+    margin: 8px 12px;
+}
+
+.event-org-logo img{
+    
+    width: 67px;
+}
+
+.event-title{
+
+}
+
+.event-title h1{
+    margin: 0;
+
+    font-size: 21px;
+    line-height: 24px;
+    padding: 17px 19px 0;
+}
+
+.event-title p{
+    margin: 0;
+
+    padding: 3px 35px 18px 19px;
+    font-size: 14px;
+}

@@ -1,0 +1,138 @@
+<extend name="layout:main"/>
+
+<block name="head">
+{:css('org-home-m')}
+{:css('swipebox')}
+</block>
+
+
+<block name="body">
+
+<div class="container main-container">
+    <div class="event-cover-photo">
+        <img src="{:upimage($event['cover_img'], '628x326')}"/>
+    </div>
+
+    <div class="event-title-region">
+        <div class="event-org-logo">
+            <img src="{:upimage($user['image'], '150x150')}"/>
+        </div>
+        <div class="event-title">
+            <h1>{$event.name}</h1>
+            <p>{$user.name}</p>
+        </div>
+    </div>
+
+    
+    <div class="detail tabs">
+        <ul>
+            <li><a href="#event-intro">{:L('详情')}</a></li>
+            <li><a href="#event-detail">{:L('资料')}</a></li>
+            <li><a href="#event-map">{:L('地点')}</a></li>
+        </ul>
+        <div id="event-intro">
+            {$event.intro|strip_tags|nl2br}
+        </div>
+        <div id="event-detail">
+            <table class="table table-striped">
+                <?php if (!empty($event['host'])): ?>
+                <tr>
+                    <td class="title">相关机构</td>
+                    <td>{$event.host}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['res_tags'])): ?>
+                <tr>
+                    <td class="title">
+                        <?php if ($event['type']=='csr'): ?>
+                        活动资源
+                        <?php else: ?>
+                        活动需求
+                        <?php endif; ?>
+                    </td>
+                    <td>{$event.res_tags}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['begin_time'])): ?>
+                <tr>
+                    <td class="title">开始时间</td>
+                    <td>{$event.begin_time}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['end_time'])): ?>
+                <tr>
+                    <td class="title">结束时间</td>
+                    <td>{$event.end_time}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_name'])): ?>
+                <tr>
+                    <td class="title">联系人</td>
+                    <td>{$event.contact_name}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_phone'])): ?>
+                <tr>
+                    <td class="title">联系电话</td>
+                    <td>{$event.contact_phone}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_email'])): ?>
+                <tr>
+                    <td class="title">电子邮箱</td>
+                    <td>{$event.contact_email}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['contact_qq'])): ?>
+                <tr>
+                    <td class="title">联系QQ</td>
+                    <td>{$event.contact_qq}</td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['url'])): ?>
+                <tr>
+                    <td class="title">网站</td>
+                    <td>      
+                        <a href="{$event.url|addhttp}">访问机构网站</a> 
+                    </td>
+                </tr>
+                <?php endif ?>
+                <?php if (!empty($event['req_description'])): ?>
+                <tr>
+                    <td class="title">需求描述</td>
+                    <td>{$event.req_description}</td>
+                </tr>
+                <?php endif ?>
+            </table>
+        </div>
+        <div id="event-map">
+            <table class="table table-striped">
+                <?php foreach ($locations as $location): ?>
+                    <tr><td>{$location.place}</td></tr>
+                <?php endforeach ?>
+            </table>
+            <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=10&markers={$baidu_static_img_markers}&zoom=10&markerStyles=l,,0x2166c8"/>
+        </div>
+    </div> <!-- detail tabs -->
+
+</div>
+
+</block>
+
+
+<block name="script-before">
+    <script>
+        var user_id = "{$user.id}";
+        var home_lng="{$user.longitude}";
+        var home_lat="{$user.latitude}";
+    </script>
+{:js('CurveLine.min')}
+{:js('user-home')}
+{:js('jquery.swipebox')}
+{:js('jquery.lazyload.min')}
+</block>
+<block name="script-after">
+
+</block>
+<block name="footer">
+</block>

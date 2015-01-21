@@ -124,8 +124,8 @@
             <h4>活动图片</h4>
             <?php foreach ($media as $item): ?>
                 <?php if ($item['type']=='image'): ?>
-                    <a class="uploaded-image-slide" href="/Public/Uploaded/{$item.url}" data-lightbox="image-1">
-                        <img src="/Public/Uploaded/th628x326_{$item.url}" width="119">
+                    <a class="uploaded-image-slide" href="{:upimage($item['url'])}" data-lightbox="image-1">
+                        <img src="{:upimage($item['url'], '628x326')}" width="119">
                         <i class="fa fa-times remove-image-icon"></i>
                     </a>
                 <?php elseif ($item['type']=='video'): ?>

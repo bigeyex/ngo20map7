@@ -38,7 +38,13 @@ class EventAction extends BaseAction{
         $this->assign('event', $event);
         $this->assign('baidu_static_img_markers', $baidu_static_img_markers);
         $this->assign('related_users', $related_users);
-        $this->display();
+        $this->assign('locations', $locations);
+        if(isMobile()){
+            $this->display('m_view');
+        }
+        else{
+            $this->display();
+        }
     }
 
     function edit($id=0, $p=PAGE_BASIC_INFO){
