@@ -2,6 +2,7 @@
 
 <block name="head">
 {:css('jquery.mCustomScrollbar')}
+{:css('jquery.remodal')}
 {:css('org-home')}
 {:css('responsive-map')}
 </block>
@@ -37,13 +38,54 @@
          --><a class="commit-search-button" href="javascript:void(0);">搜索<i class="white-mag-glass"></i></a>
     </div> <!-- filter-search-bar -->
     <div class="mobile-search-filter mobile-only">
-        <input type="text" placeholder="{:L('来寻找你的小伙伴吧')}" name="q">
+        <a class="filter-action" href="#modal"></a>
          <i class="fa fa-search mobile-search-filter-icon"></i>
     </div>
     <div class="result-panel">
         {:R('Index/map_result', array($_GET))}
     </div>
 </div>
+
+<div class="remodal-bg">
+</div>
+
+<div class="remodal" data-remodal-id="modal">
+    <div class="remodal-title-bar">筛选</div>
+    <div class="remodal-filter">
+        <div class="full-width-input">
+            <input type="text" placeholder="找省份或城市" id="remodal-filter-province"/>
+        </div>
+        <div class="half-width-input">
+            <select id="remodal-filter-field" placeholder="找领域">
+                <option value="">全部领域</option>
+            <?php foreach (C('ORG_FIELDS') as $field): ?>
+                <option value="{$field}">{$field}</option>
+            <?php endforeach ?>
+            </select>
+            <i class="fa fa-caret-down"></i>
+        </div>
+        <div class="half-width-input half-width-input-right">
+            <select id="remodal-filter-type" placeholder="找机构或企业">
+                <option value="公益机构">公益机构</option>
+                <option value="公益活动">公益活动</option>
+                <option value="企业公益活动">企业公益活动</option>
+                <option value="对接案例">对接案例</option>
+            </select>
+            <i class="fa fa-caret-down"></i>
+        </div>
+        <div class="full-width-input">
+            <input type="text" placeholder="热词搜索" id="remodal-filter-keyword"/>
+            <i class="fa fa-caret-down"></i>
+        </div>
+        <div class="search-action-button">
+            <div class="action-button-container">
+                <i class="fa fa-search"></i>
+                搜索
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="left-fluid-column"><div id="main-map-container" style="height: 100%"></div></div>
 
@@ -53,6 +95,7 @@
 <block name="script-before">
 	
 {:js('jquery.jcarousel.min')}
+{:js('jquery.remodal')}
 <script>
 	{:C('COMPLETION_SCRIPT')}
 </script>

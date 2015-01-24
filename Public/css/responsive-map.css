@@ -12,7 +12,7 @@
         box-shadow: 0 1px 2px #666;
 }
 
-    .mobile-search-filter input{
+    .mobile-search-filter .filter-action{
         display: block;
         -webkit-box-sizing : border-box;‌​
         -moz-box-sizing : border-box;
@@ -23,6 +23,7 @@
         padding: 16px 13px;
         margin: 0;
         border-radius: 0;
+        background: white;
 }
 
     .mobile-search-filter-icon{
@@ -64,11 +65,13 @@
 }
 
     .result-list .photo-wrapper{
-        padding-right: 134px;
-    }
+        margin-right: 134px;
+    
+        overflow: hidden;
+}
 
     .result-list .photo-wrapper img{
-        width: 100%;
+        height: 100%;
     }
 
     .item-org-info{
@@ -126,6 +129,131 @@
     font-size: 8.34px;
     margin: 0;
     width: 86px;
+}
+
+
+/* remodal */
+
+    .remodal{
+        padding: 0;
+    }
+
+    .remodal-close{
+    right: 7px;
+
+    left: auto;
+    top: 6px;
+}
+
+    .remodal-title-bar{
+    font-size: 16px;
+
+    line-height: 19px;
+    padding: 9px;
+    border-bottom: 1px solid #c8c8c8;
+    background: #fcfcfc;
+}
+
+    .remodal-filter{
+    padding: 17px 18px 0 18px;
+
+    }
+
+    .remodal-filter .full-width-input{
+    width: 100%;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+    .remodal-filter .full-width-input input{
+    display: block;
+        
+    width: 100%;
+    border-width: 0;
+    padding: 17px 7px;
+    border: 1px solid #cdcdcd;
+    border-radius: 0;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+    .remodal-filter .half-width-input{
+    display: inline-block;
+    border-radius: 0;
+    width: 49%;
+    padding-right: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+    .remodal-filter .half-width-input-right{
+    padding-left: 3px;
+    padding-right: 0;
+}
+
+    .remodal-filter .half-width-input select{
+    width: 100%;
+        
+    border-radius: 0;
+    border: 1px solid #cdcdcd;
+    padding: 0px 4px;
+    margin-bottom: 0;
+    -webkit-appearance: none;
+    height: 36px;
+}
+
+    .remodal-filter .search-action-button{
+    color: white;
+    position: relative;
+    background: #279800;
+    padding: 8px;
+}
+
+    .half-width-input .fa-caret-down, .full-width-input .fa-caret-down{
+        position: absolute;
+    
+        right: 11px;
+        top: 12px;
+        font-size: 12px;
+        color: #959595;
+}
+    .half-width-input .fa-caret-down{
+        right: 15px;
+    }
+
+    .half-width-input-right .fa-caret-down{
+        right: 10px;
+    }
+
+    .search-action-button .fa-search{
+        position: absolute;
+    
+        left: 0;
+        top: -2px;
+        font-size: 21px;
+}
+    .action-button-container{
+        position: relative;
+        width: 91px;
+    
+        margin-left: auto;
+        margin-right: auto;
+}
+
+    .load-next-page{
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 4px;
+        border: 1px solid #c5c5c1;
+    
+        width: 100px;
+        padding: 3px 8px;
+        margin-top: 19px;
+        font-size: 13px;
+        color: #5a5a5a;
 }
 
 }

@@ -20,6 +20,16 @@ $(function(){
         mapView.init();
     }
     filterView.init();
+
+    $('.search-action-button').click(function(){
+        $('#search-input-region').val($('#remodal-filter-province').val());
+        $('#search-input-cause').val($('#remodal-filter-field').val());
+        $('#search-input-type').val($('#remodal-filter-type').val());
+        $('#search-input-keyword').val($('#remodal-filter-keyword').val());
+        $('.commit-search-button').click();
+        var inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
+        inst.close();
+    });
 });
 
 
@@ -159,6 +169,13 @@ function FilterView(){
            self.commitChange();
        });
 
+       $('.result-panel').on('click', '.load-next-page', function(e){
+            page = self.page+1;
+            self.page = parseInt(page);
+            self.loadNextPage();
+            $('.load-next-page').text('').addClass('fa fa-spinner');
+       })
+
        $('.result-panel').on('click', '.pager span', function(e){
             var dom = $(this);
             var page;
@@ -227,6 +244,20 @@ function FilterView(){
         $('.result-panel').load(app_path+'/Index/map_result?'+$.param(params), function(){
             dispatcher.dispatch('result.refreshed');
             $('.result-panel').scrollTop(0);
+        });
+    }
+
+    this.loadNextPage = function(){
+        var params = {
+            province : $('#search-input-region').val(),
+            work_field : $('#search-input-cause').val(),
+            type : $('#search-input-type').val(),
+            keyword : $('#search-input-keyword').val(),
+            mobile_next_page: true
+        };
+        $.get(app_path+'/Index/map_result?'+$.param(params), function(content){
+            $('.load-next-page').remove();
+            $('.result-panel').append(content);
         });
     }
     

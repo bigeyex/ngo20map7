@@ -40,6 +40,10 @@ class IndexAction extends BaseAction {
     }
 
     public function list_index($type='ngo', $work_field=null, $province=null, $keyword=null, $medal=null){
+        if(isMobile()){
+            $this->redirect('map');
+            return;
+        }
         $medals = O('Medal')->order('score desc')->select();
         $is_user = false;
         if($type == 'event'){

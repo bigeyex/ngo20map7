@@ -1,4 +1,7 @@
-<p class="result-count">共{$grand_total}条记录 · 视野中{$count}条 · {$page}/{$total_page}页</p>
+<?php if (!isset($_GET['mobile_next_page'])): ?>
+   <p class="result-count">共{$grand_total}条记录 · 视野中{$count}条 · {$page}/{$total_page}页</p> 
+<?php endif ?>
+
 <ul class="result-list">
     <?php foreach($result as $item): ?>
     <?php if(!$is_user): ?>
@@ -28,4 +31,7 @@
     <?php endif ?>
     <?php endforeach; ?>
 </ul>
-<div class="pager">{$pager_html}</div>
+<div class="pager hide-phone">{$pager_html}</div>
+<div class="load-next-page mobile-only">
+    {:L('加载下一页')}
+</div>
