@@ -41,6 +41,7 @@ function in_result_set($needle, $heystack, $search_by='id'){
 }
 
 function receive_tourist($tour_id){
+    return false;
     if(APP_DEBUG){
         return true;
     }
