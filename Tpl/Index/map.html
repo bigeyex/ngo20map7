@@ -1,12 +1,18 @@
 <extend name="layout:main"/>
 
+<block name="meta-keywords">
+    <meta name="description" content="{$_GET.province} {$_GET.type} 公益地图旨在建立草根公益组织与企业、公益人之间信息对接的平台。在这里，您可以找到全国各地的公益组织，也可以找到企业的CSR项目。">
+    <meta name="keywords" content="{$_GET.province} {$_GET.type} 中国公益组织,公益机构,名录,地图,公益项目,企业CSR报告,对接案例,新闻">
+</block>
+
+<block name="title">{$_GET.province}</block>
+
 <block name="head">
 {:css('jquery.mCustomScrollbar')}
 {:css('jquery.remodal')}
 {:css('org-home')}
 {:css('responsive-map')}
 </block>
-
 
 <block name="body">
 
