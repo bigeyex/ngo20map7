@@ -45,5 +45,5 @@ foreach($case_list as $record){
 }
 
 
-$generator->render();
+$generator->render('../Public/cache/map-photo.png');
 // print_r($generator);

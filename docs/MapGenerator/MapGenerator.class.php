@@ -63,6 +63,9 @@ class MapGenerator{
         if($fileName == null){
             Imagepng($this->imageHandler);
         }
+        else{
+            Imagepng($this->imageHandler, $fileName);
+        }
         ImageDestroy($this->imageHandler);
     }
 

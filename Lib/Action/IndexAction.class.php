@@ -10,7 +10,7 @@ class IndexAction extends BaseAction {
     			$news[$i]['name'] = $name_parts[1];
     		}
     	}
-    	
+
     	$ngo_count = O('user')->with('type', 'ngo')->with('is_checked', 1)->active_only()->count();
         $ngo_event_count = O('event')->with('type', 'ngo')->active_only()->count();
         $csr_count = O('event')->with('type', 'csr')->active_only()->count();

@@ -12,7 +12,14 @@
     <div class="slideshow-wrapper">
           <div class="slideshow">
             <ul>
-                <li><a href="{:U('Index/map')}"><img src="__APP__/Public/img/photos/hero-image1.jpg"/></a></li>
+                <li><a href="{:U('Index/map')}">
+                    <?php if (file_exists(APP_PATH."/Public/cache/map-photo.png")): ?>
+                        <img src="__APP__/Public/cache/map-photo.png"/>
+                    <?php else: ?>
+                        <img src="__APP__/Public/img/photos/hero-image1.jpg"/>
+                    <?php endif ?>
+                    
+                </a></li>
                 <?php if (!empty($hero_images)): ?>
                     <?php for($i=1;$i<=4;$i++): ?>
                         <?php if (!empty($hero_images['id'.$i])): ?>
