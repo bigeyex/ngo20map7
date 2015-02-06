@@ -4,7 +4,7 @@ var FlashUploader = {
     init: function(sizes){
         var self = this;
         if(typeof sizes === 'undefined'){
-            sizes = ['628x326', '1280x500'];
+            sizes = ['628x326', '1280x664'];
         }
         if(this._flashObject === null){
             $('body').append('<div id="swf_div" style="display:none;">'+
@@ -33,7 +33,7 @@ var FlashUploader = {
                 browse_tip: '仅支持JPG、JPEG、GIF、PNG格式的图片文件\n文件不能大于8MB',
                 avatar_sizes: halfSizes.join('|'),
                 avatar_field_names: avatarSizes.join('|'),
-                avatar_scale: 2
+                avatar_scale: 3
             }, function(json){
                 // flash upload callback function
                 if(json.code==5){
@@ -47,4 +47,4 @@ var FlashUploader = {
         this._callback = callback;
         $.fancybox($('#swf_div'));
     }
-}
+};

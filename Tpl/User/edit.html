@@ -313,7 +313,7 @@
     {:js('lightbox')}
 </block>
 <block name="script-after">
-  {:js('-user-add')}
+  {:js('user-add')}
   <script>
   function setCoverImg(e, url){
     var user_id = $('#hidden_user_id').val();
@@ -343,56 +343,4 @@
     });
   });
   </script>
-
-  <?php if(receive_tourist('User/edit')): ?>
-    {:css('-bootstrap-tour.min')}
-    {:js('-bootstrap-tour')}
-    <script>
-        $(function(){
-            // Instance the tour
-            var tour = new Tour({
-              storage: false,
-              steps: [
-              {
-                title: "感谢！",
-                content: "您的机构已经在公益地图上成功登记。现在您可以继续完善下面的信息。",
-                orphan: true,
-                backdrop: true
-              },
-              {
-                element: ".form-nav",
-                title: "完善不同板块的信息",
-                content: "您可以点击这边的链接，去不同板块完善机构信息。已经基本完成的板块会有对勾✓提示",
-                placement: "right",
-                backdrop: true
-              },
-              {
-                element: ".preview-org-page",
-                title: "预览机构页面",
-                content: "你可以点击这里看看机构的页面在访客眼里是什么样子。欣赏一下自己的劳动成果吧。",
-                placement: "right"
-              },
-              {
-                element: ".update-org-info-link",
-                title: "随时补充机构信息",
-                content: "你也可以以后在登录后点击这里补充信息，或者随时更新信息。",
-                placement: "bottom"
-              },
-              {
-                element: ".org-contact-info-section",
-                title: "现在开始填写",
-                content: "现在开始填写机构的联系资料吧，让企业和其他机构方便地找到您。",
-                placement: "top"
-              }
-            ]});
-
-            // Initialize the tour
-            tour.init();
-
-            // Start the tour
-            tour.start();
-        })
-    </script>
-    
-  <?php endif; ?>
 </block>
