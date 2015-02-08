@@ -162,12 +162,14 @@ class EventAction extends BaseAction{
 
             //add images
             $media_model = O('media');
-            foreach($_POST['images'] as $image){
-                $media_model->add(array(
-                    'url' => $image,
-                    'event_id' => $new_id,
-                    'type' => 'image'
-                ));
+            if(!empty($_POST['images'])){
+                foreach($_POST['images'] as $image){
+                    $media_model->add(array(
+                        'url' => $image,
+                        'event_id' => $new_id,
+                        'type' => 'image'
+                    ));
+                }
             }
             flash('公益活动添加成功', 'success');
             echo 'ok';
