@@ -20,28 +20,28 @@
 <div class="right-fixed-column">
     <div class="filter-search-bar form-inline hide-phone">
             <div class="control-group">
-                <input type="text" id="search-input-region" class="filter-input no-dropdown" placeholder="找省份或城市" value="{$_GET.province}"/>
+                <input type="text" id="search-input-region" class="filter-input no-dropdown" placeholder="{:L('找省份或城市')}" value="{$_GET.province}"/>
                 <i class="icon-cross" id="search-input-region-cross"></i>
                 <div id="search-input-region-results"></div>
             </div>
             <div class="control-group">
-                <input type="text" id="search-input-cause" class="filter-input" placeholder="找领域" value="{$_GET.work_field}"/>
+                <input type="text" id="search-input-cause" class="filter-input" placeholder="{:L('找领域')}" value="{$_GET.work_field}"/>
                 <i class="icon-dropdown" id="search-input-cause-dropdown"></i>
                 <i class="icon-cross" id="search-input-cause-cross"></i>
                 <div id="search-input-cause-results"></div>
             </div>
             <div class="control-group">
-                <input type="text" id="search-input-type" class="filter-input" placeholder="找机构或企业" value="{$_GET.type}"/>
+                <input type="text" id="search-input-type" class="filter-input" placeholder="{:L('找机构或企业')}" value="{$_GET.type}"/>
                 <i class="icon-dropdown" id="search-input-type-dropdown"></i>
                 <i class="icon-cross" id="search-input-type-cross"></i>
                 <div id="search-input-type-results"></div>
             </div>
             <div class="control-group search-keywords">
-                <input type="text" id="search-input-keyword" class="filter-input large" placeholder="搜热词（如：留守儿童）" value="{$_GET.keyword}"/>
+                <input type="text" id="search-input-keyword" class="filter-input large" placeholder="{:L('搜热词（如：留守儿童）')}" value="{$_GET.keyword}"/>
                 <i class="icon-cross" id="search-input-keyword-cross"></i>
                 <div id="search-input-keyword-results"></div>
             </div><!--
-         --><a class="commit-search-button" href="javascript:void(0);">搜索<i class="white-mag-glass"></i></a>
+         --><a class="commit-search-button" href="javascript:void(0);">{:L('搜索')}<i class="white-mag-glass"></i></a>
     </div> <!-- filter-search-bar -->
     <div class="mobile-search-filter mobile-only">
         <a class="filter-action" href="#modal"></a>
