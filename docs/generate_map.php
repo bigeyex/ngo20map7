@@ -9,7 +9,7 @@ ob_end_clean();
 
 $generator = new MapGenerator(1280,500);
 $generator->loadImageAsBackground('MapGenerator/base-map.png');
-$generator->calibrate(65.708793,48.643092,146.546515,24.198402);
+$generator->calibrate(48.104879,53.580089,159.518909,19.421305);
 
 // mark all csrs
 $csr_icon = $generator->loadImage('MapGenerator/csr-icon.png');
