@@ -131,7 +131,7 @@ function attach_autocomplete(id, source){
         $(window).resize();
         
         // story-showcase slideshow
-        $('#story-showcase-slideshow').owlCarousel({
+        $('#story-showcase-slideshow,#story-showcase-slideshow2').owlCarousel({
             items: 3,
             lazyLoad: true,
             itemsDesktop: false,

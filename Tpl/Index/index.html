@@ -74,60 +74,25 @@
     </div> <!-- hero-search-bar -->
 </div>
 
-<div class="row gray-bg">
-    <div class="container city-guide">
-        <h2>{:L('HOME_FIND_NGOS_IN_CITIES')}</h2>
-        <p class="sub-title hide-phone">{:L('HOME_FIND_NGOS_IN_CITIES_DESC')}</p>
-        <div class="sub-container">
-            <div class="mobile-only city-blocks">
 
-            </div>
-            <div class="column double-column city-list">
-                <div class="city-block city-guangzhou">
-                    <a class="mask" href="{:U('Index/map')}/province/广东">
-                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-guangzhou.jpg"/>
-                        <h3>{:L('CITY_GUANGZHOU')}</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['广东省']))}</p>
-                    </a>
-                </div>
-                <div class="city-block city-beijing">
-                    <a class="mask" href="{:U('Index/map')}/province/北京">
-                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-beijing.jpg"/>
-                        <h3>北京</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['北京市']))}</p>
-                    </a>
-                </div>
-                <div class="city-block city-anhui">
-                    <a class="mask" href="{:U('Index/map')}/province/安徽">
-                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-anhui.jpg"/>
-                        <h3>安徽</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['安徽省']))}</p>
-                    </a>
-                </div>
-                <div class="city-block city-hunan">
-                    <a class="mask" href="{:U('Index/map')}/province/湖南">
-                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-hunan.jpg"/>
-                        <h3>湖南</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['湖南省']))}</p>
-                    </a>
-                </div>
-            </div>
-            <div class="column register-column">
-                <div class="register-block">
-                    <img class="join-bg mobile-only" src="__APP__/Public/img/photos/join-pic.jpg"/>
-                    <h3>{:L('NOW_REGISTER')}</h3>
-                    <p>
-                        和<span class="highlight">{$total_count.ngo}</span>家公益机构<br/>
-                        做朋友
-                    </p>
-                    <?php if(!user()): ?>
-                    <a class="join-link" href="javascript:void(0);" onclick="$('.register-link').click();">加入地图</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div> <!-- sub-container -->
-        <div class="more-link hide-phone">
-            <a href="{:U('Index/map')}">查看更多城市</a>
+<div class="row gray-bg">
+    <div class="container story-showcase">
+        <h2 class="hide-phone">最新公益活动</h2>
+        <p class="sub-title hide-phone">看看身边都发生了哪些公益新鲜事</p>
+        <div class="slideshow" id="story-showcase-slideshow">
+                <?php foreach($news as $piece): ?>
+                <div class="story-showcase-item"><a href="{:U('Event/view')}/id/{$piece.id}" target="_blank">
+                    <div class="hover-text">
+                        <h3>{$piece.name}</h3>
+                        <p class="hide-phone">{$piece.uname}</p>
+                    </div>
+                    <img class="lazy" src="__APP__/Public/Uploaded/th628x326_{$piece.cimg}" width="100%"/>
+                </a></div>
+                <?php endforeach; ?>
+        </div>
+        <div class="slideshow-control hide-phone">
+            <a class="left-arrow" href="javascript:void(0);"></a>
+            <a class="right-arrow" href="javascript:void(0);"></a>
         </div>
     </div>
 </div>
@@ -157,26 +122,76 @@
 </div>
 
 <div class="row gray-bg">
-    <div class="container story-showcase">
-        <h2 class="hide-phone">每个公益机构都有一个故事</h2>
-        <p class="sub-title hide-phone">聆听这片土地上发生的感动</p>
-        <div class="slideshow" id="story-showcase-slideshow">
-            	<?php foreach($news as $piece): ?>
-                <div class="story-showcase-item"><a href="{:U('Event/view')}/id/{$piece.id}" target="_blank">
-                    <div class="hover-text">
-                        <h3>{$piece.name}</h3>
-                        <p class="hide-phone">{$piece.uname}</p>
+    <div class="container city-guide">
+        <h2>{:L('HOME_FIND_NGOS_IN_CITIES')}</h2>
+        <p class="sub-title hide-phone">{:L('HOME_FIND_NGOS_IN_CITIES_DESC')}</p>
+        <div class="sub-container">
+            <div class="mobile-only city-blocks">
+
+            </div>
+            <div class="column double-column city-list">
+                <?php if (!empty($hero_images)): ?>
+                    <?php for($i=1;$i<=4;$i++): ?>
+                    <div class="city-block" style="background:url(<?php echo $hero_images['province_img'.$i] ?>) no-repeat;">
+                        <a class="mask" href="{:U('Index/map')}/province/<?php echo $hero_images['province'.$i] ?>">
+                            <img class="city-bg mobile-only" src="<?php echo $hero_images['province_img'.$i] ?>"/>
+                            <h3><?php echo $hero_images['province'.$i] ?></h3>
+                            <p>{:LS('HAS_NUM_OF_ORGS', array($province_count[$hero_images['province'.$i]]))}</p>
+                        </a>
                     </div>
-                    <img class="lazy" src="__APP__/Public/Uploaded/th628x326_{$piece.cimg}" width="100%"/>
-                </a></div>
-	            <?php endforeach; ?>
-        </div>
-        <div class="slideshow-control hide-phone">
-            <a class="left-arrow" href="javascript:void(0);"></a>
-            <a class="right-arrow" href="javascript:void(0);"></a>
+                    <?php endfor; ?>
+                <?php else: ?>
+                <div class="city-block city-guangzhou">
+                    <a class="mask" href="{:U('Index/map')}/province/广东">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-guangzhou.jpg"/>
+                        <h3>{:L('CITY_GUANGZHOU')}</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['广东省']))}</p>
+                    </a>
+                </div>
+                <div class="city-block city-hunan">
+                    <a class="mask" href="{:U('Index/map')}/province/湖南">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-hunan.jpg"/>
+                        <h3>湖南</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['湖南省']))}</p>
+                    </a>
+                </div>
+                <div class="city-block city-anhui">
+                    <a class="mask" href="{:U('Index/map')}/province/安徽">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-anhui.jpg"/>
+                        <h3>安徽</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['安徽省']))}</p>
+                    </a>
+                </div>
+                <div class="city-block city-beijing">
+                    <a class="mask" href="{:U('Index/map')}/province/北京">
+                        <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-beijing.jpg"/>
+                        <h3>北京</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['北京市']))}</p>
+                    </a>
+                </div>
+                
+                <?php endif; ?>
+            </div>
+            <div class="column register-column">
+                <div class="register-block">
+                    <img class="join-bg mobile-only" src="__APP__/Public/img/photos/join-pic.jpg"/>
+                    <h3>{:L('NOW_REGISTER')}</h3>
+                    <p>
+                        和<span class="highlight">{$total_count.ngo}</span>家公益机构<br/>
+                        做朋友
+                    </p>
+                    <?php if(!user()): ?>
+                    <a class="join-link" href="javascript:void(0);" onclick="$('.register-link').click();">加入地图</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div> <!-- sub-container -->
+        <div class="more-link hide-phone">
+            <a href="{:U('Index/map')}">查看更多城市</a>
         </div>
     </div>
 </div>
+
 </block>
 
 
