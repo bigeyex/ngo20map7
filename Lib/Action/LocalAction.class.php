@@ -255,6 +255,11 @@ class LocalAction extends BaseAction{
                 'local_id' => $local_id,
                 'key' => $content_id,
             );
+
+        $has_right_to_admin = $this->has_right_to_admin();
+        if(!$has_right_to_admin){
+            $query_map['is_checked'] = 1;
+        }
             
         if(isset($_GET['q'])){
             $query_map['_complex'] = array(
@@ -276,7 +281,7 @@ class LocalAction extends BaseAction{
         $this->assign('module', $module);
         $this->assign('posts', $posts);
         $this->assign('page_bar', $page_bar);
-        $this->assign('has_right_to_admin', $this->has_right_to_admin());
+        $this->assign('has_right_to_admin', $has_right_to_admin);
         $this->display();
     }
     
