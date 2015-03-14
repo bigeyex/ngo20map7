@@ -4,6 +4,11 @@ return array(
 
     'PROVINCES' => array('北京','天津','河北','内蒙古','山西','上海','安徽','江苏','浙江','山东','福建','江西','广东','广西','海南','河南','湖北','湖南','黑龙江','吉林','辽宁','陕西','甘肃','宁夏','青海','新疆','重庆','四川','云南','贵州','西藏','香港','澳门','台湾'
         ),
+    'event_labels' => array(
+        'ngo' => '公益活动',
+        'csr' => '企业活动',
+        'case' => '对接案例'
+        ),
     'COMPLETION_SCRIPT' => <<<EOS
     var type_categories = [{q:"公益机构",p:"gongyijigou"}, {q:"公益活动",p:"gongyihuodong"}, {q:"企业公益活动",p:"qiyegongyihuodong"}, {q:"对接案例",p:"duijieanli"}];
     var cause_categories = [{q:'医疗卫生健康',p:'yiliaoweishengjiankang'},{q:'女性权利',p:'nvxingquanli'},{q:'儿童青少年',p:'ertongqingshaonian'},{q:'教育助学',p:'jiaoyuzhuxue'},{q:'艾滋病',p:'aizibing'},{q:'灾害管理',p:'zaihaiguanli'},{q:'文化艺术',p:'wenhuayishu'},{q:'环境保护',p:'huanjingbaohu'},{q:'农村发展',p:'nongcunfazhan'},{q:'城市社区建设',p:'chengshishequjianshe'},{q:'劳工权益',p:'laogongquanyi'},{q:'同性恋',p:'tongxinglian'},{q:'政策倡导',p:'zhengcechangdao'},{q:'信息网络',p:'xinxiwangluo'},{q:'公益行业支持',p:'gongyihangyezhichi'},{q:'社会企业',p:'shehuiqiye'},{q:'动物福利',p:'dongwufuli'},{q:'老年人',p:'laonianren'},{q:'民间研究机构',p:'minjianyanjiujigou'},{q:'企业社会责任',p:'qiyeshehuizeren'},{q:'残障人士',p:'canzhangrenshi'},{q:'综合志愿服务',p:'zonghezhiyuanfuwu'},{q:'其它',p:'qita'}];

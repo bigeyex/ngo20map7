@@ -29,6 +29,8 @@
     <form class="form-horizontal add-event-form">
         <?php if (isset($_GET['type'])): ?>
           <input type="hidden" name="type" value="{$_GET.type}"/>
+        <?php else: ?>
+          <input type="hidden" name="type" value="ngo"/>
         <?php endif ?>
         <div class="control-group">
             <label class="control-label" for="inputName">{:L('活动/项目名称')}</label>

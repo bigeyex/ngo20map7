@@ -31,6 +31,17 @@ class AdminAction extends BaseAction{
         echo 'ok';
     }
 
+    public function change_event_type(){
+        $this->userMayEditEvent($_GET['id']);
+        $event_model = M('Event');
+        $del = $event_model->where(array('id'=>$_GET['id']));
+        $del->type = $_GET['type'];
+        $del->save();
+
+        echo 'ok';
+    }
+
+
     public function setvip(){
         $this->userMayEditUser($_GET['id']);
         $user_model = M('User');

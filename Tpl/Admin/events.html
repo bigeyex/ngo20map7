@@ -71,6 +71,7 @@
             <th><input id="check" type="checkbox" onclick="CheckAll('syllabus-table')"></th>
             <th width="200">{:L('活动名称')}</th>
             <th width="200">{:L('主办者')}</th>
+            <th width="100">{:L('类型')}</th>
             <th width="200">{:L('发布时间')}</th>
             <th width="200">{:L('操作')}</th>
         </tr>
@@ -79,6 +80,10 @@
                 <td><input type="checkbox" value="{$vo.id}" name="key"></td>
                 <td><a class="{:class_if('uncheck', !$vo['is_checked'])}" target="_blank" href="{:U('Event/view')}/id/{$vo.id}">{$vo.name}</a></td>
                 <td><a target="_blank" href="{:U('User/view')}/id/{$vo.user_id}">{$vo.creator_name}</a></td>
+                <td>
+                    {:label_for('event_labels', $vo['type'])}<br/>
+                    <a href="javascript:void(0);" onclick="change_event_type(event,{$vo.id})">切换</a>
+                </td>
                 <td>
                     <php>if(!empty($vo['create_time'])){ echo date('Y-m-d', strtotime($vo['create_time'])); }</php>
                 </td>

@@ -363,6 +363,17 @@ function datef($str, $format='Y年m月d日 h:i'){
 	return date($format, strtotime($str));
 }
 
+function label_for($group, $str){
+    if(empty(C($group))){
+        return '';
+    }
+    $c_group = C($group);
+    if(empty($c_group[$str])){
+        return L('无');
+    }
+    return L($c_group[$str]);
+}
+
 function label_type($str){
 	switch ($str) {
 		case 'ngo':
