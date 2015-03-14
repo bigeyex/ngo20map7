@@ -8,6 +8,9 @@ class LocalAction extends BaseAction{
         $local_map = $local_map_model->where(array(
             'identifier' => $name,
         ))->find();
+        if(!$name || !$local_map){
+            $this->redirectWithError(L('没有找到二级地图'));
+        }
         $default_map_center = array('lng'=>'', 'lat'=>'', 'zoom'=>'');
         $config = json_decode($local_map['config'], true);
         if(isset($config['map_center'])){
