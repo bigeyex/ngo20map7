@@ -364,10 +364,10 @@ function datef($str, $format='Y年m月d日 h:i'){
 }
 
 function label_for($group, $str){
-    if(empty(C($group))){
+    $c_group = C($group);
+    if(empty($c_group)){
         return '';
     }
-    $c_group = C($group);
     if(empty($c_group[$str])){
         return L('无');
     }
