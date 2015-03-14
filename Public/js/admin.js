@@ -2,7 +2,7 @@ function change_type(event,id){
 	$(event.target).parent().html('<a href="javascript:void(0);" onclick="change_type_to(\'ngo\','+id+',event)">公益组织</a><br/><a href="javascript:void(0);" onclick="change_type_to(\'csr\','+id+',event)">企业</a><br/><a href="javascript:void(0);" onclick="change_type_to(\'ind\','+id+',event)">公益人</a><br/><a href="javascript:void(0);" onclick="change_type_to(\'fund\','+id+',event)">基金会</a>');
 }
 function change_event_type(event,id){
-    $(event.target).parent().html('<a href="javascript:void(0);" onclick="change_event_type_to(\'ngo\','+id+',event)">公益活动</a><br/><a href="javascript:void(0);" onclick="change_type_to(\'csr\','+id+',event)">企业活动</a><br/><a href="javascript:void(0);" onclick="change_type_to(\'case\','+id+',event)">对接案例</a>');
+    $(event.target).parent().html('<a href="javascript:void(0);" onclick="change_event_type_to(\'ngo\','+id+',event)">公益活动</a><br/><a href="javascript:void(0);" onclick="change_event_type_to(\'csr\','+id+',event)">企业活动</a><br/><a href="javascript:void(0);" onclick="change_event_type_to(\'case\','+id+',event)">对接案例</a>');
 }
 function change_type_to(type, id, event){
 	$.get(app_path+"/Admin/change_type", {'id': id, 'type': type}, function(result){
