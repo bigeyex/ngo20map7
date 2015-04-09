@@ -77,28 +77,28 @@
         </tr>
         <volist name="event_result" id="vo">
             <tr>
-                <td><input type="checkbox" value="{$vo.id}" name="key"></td>
-                <td><a class="{:class_if('uncheck', !$vo['is_checked'])}" target="_blank" href="{:U('Event/view')}/id/{$vo.id}">{$vo.name}</a></td>
+                <td><input type="checkbox" value="{$vo.event_id}" name="key"></td>
+                <td><a class="{:class_if('uncheck', !$vo['is_checked'])}" target="_blank" href="{:U('Event/view')}/id/{$vo.event_id}">{$vo.name}</a></td>
                 <td><a target="_blank" href="{:U('User/view')}/id/{$vo.user_id}">{$vo.creator_name}</a></td>
                 <td>
                     {:label_for('event_labels', $vo['type'])}<br/>
-                    <a href="javascript:void(0);" onclick="change_event_type(event,{$vo.id})">切换</a>
+                    <a href="javascript:void(0);" onclick="change_event_type(event,{$vo.event_id})">切换</a>
                 </td>
                 <td>
                     <php>if(!empty($vo['create_time'])){ echo date('Y-m-d', strtotime($vo['create_time'])); }</php>
                 </td>
                 <td>
                     <eq name="vo['enabled']" value="0">
-                        <a href="{:U('Admin/batch')}/ids/{$vo.id}/action/recovery/type/events" class=" btn btn-mini" ques="{:L('确实要恢复该事件吗？')}">{:L('恢复')}</a>
-                        <a href="{:U('Admin/batch')}/ids/{$vo.id}/action/erase/type/events" class=" fast-confirm btn-danger btn btn-mini" ques="{:L('无法恢复!!确实要彻底删除该事件吗？')}">彻底删除</a>
+                        <a href="{:U('Admin/batch')}/ids/{$vo.event_id}/action/recovery/type/events" class=" btn btn-mini" ques="{:L('确实要恢复该事件吗？')}">{:L('恢复')}</a>
+                        <a href="{:U('Admin/batch')}/ids/{$vo.event_id}/action/erase/type/events" class=" fast-confirm btn-danger btn btn-mini" ques="{:L('无法恢复!!确实要彻底删除该事件吗？')}">彻底删除</a>
                     <else/>
-                        <a target="_blank" href="{:U('Event/edit')}/id/{$vo.id}" class="btn btn-mini">{:L('编辑')}</a>
+                        <a target="_blank" href="{:U('Event/edit')}/id/{$vo.event_id}" class="btn btn-mini">{:L('编辑')}</a>
                         <eq name="vo['is_checked']" value="1">
-                            <a href="{:U('Admin/batch')}/ids/{$vo.id}/action/lock/type/events" class="fast-confirm btn btn-mini" ques="{:L('确实要屏蔽该事件吗？')}">{:L("屏蔽")}</a>
+                            <a href="{:U('Admin/batch')}/ids/{$vo.event_id}/action/lock/type/events" class="fast-confirm btn btn-mini" ques="{:L('确实要屏蔽该事件吗？')}">{:L("屏蔽")}</a>
                         <else/>
-                            <a href="{:U('Admin/batch')}/ids/{$vo.id}/action/check/type/events" class=" btn btn-mini btn-success" ques="{:L('确实要审核通过该事件吗？')}">{:L("审核")}</a>
+                            <a href="{:U('Admin/batch')}/ids/{$vo.event_id}/action/check/type/events" class=" btn btn-mini btn-success" ques="{:L('确实要审核通过该事件吗？')}">{:L("审核")}</a>
                         </eq>
-                        <a href="{:U('Admin/batch')}/ids/{$vo.id}/action/del/type/events" class="fast-confirm btn btn-mini btn-danger" ques="{:L('确实要删除该事件吗？')}">{:L("删除")}</a>
+                        <a href="{:U('Admin/batch')}/ids/{$vo.event_id}/action/del/type/events" class="fast-confirm btn btn-mini btn-danger" ques="{:L('确实要删除该事件吗？')}">{:L("删除")}</a>
                     </eq>
                 </td>
             </tr>

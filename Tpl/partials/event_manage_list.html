@@ -1,0 +1,22 @@
+<?php foreach ($events as $event): ?>
+<li>
+    <div class="event-image">
+        <a href="{:U('Event/view')}/id/{$event.id}">
+            <img src="{:upimage($event['cover_img'], '628x326')}" width="137px"/>
+        </a>
+    </div>
+    <div class="event-list-detail">
+        <div class="event-title">
+            <a href="{:U('Event/view')}/id/{$event.id}">{$event.name}</a>
+        </div>
+        <div class="event-actions">
+            <a href="{:U('Event/edit')}/id/{$event.id}" class="act">编辑活动信息</a>
+            <a href="{:U('Event/view')}/id/{$event.id}" class="act">查看活动</a>
+            <a href="javascript:void(0);" class="act" onclick="pre_delete(event)">删除活动</a>
+            <a href="{:U('Event/delete')}/id/{$event.id}" class="act hide">确认删除活动</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</li>
+
+<?php endforeach ?>

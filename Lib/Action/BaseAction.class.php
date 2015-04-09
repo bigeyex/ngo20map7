@@ -10,8 +10,17 @@ class BaseAction extends Action{
             return;
         }
         $event = O('event')->find($id);
+        $event_location = O('event_location')->with('event_id', $id)->find();
         if($event && ($event['account_id']==0 || $event['account_id']==user('account_id'))){
             return;
+        }
+        if($event_location){
+            $local_maps = O('local_map')->with('admin_id', user('id'))->select();
+            foreach($local_maps as $local){
+                if(strpos($event_location['province'], $local['province']) !== FALSE || strpos($event_location['city'], $local['province']) !== FALSE){
+                    return;
+                }
+            }
         }
         $this->redirectWithError('需要先登录或权限不足');
     }
@@ -41,19 +50,10 @@ class BaseAction extends Action{
         }
         // check if user is the local admin of another user
         $local_maps = O('local_map')->with('admin_id', user('id'))->select();
-        if(count($local_maps > 0)){
-           $local_cond = array(); 
-           foreach($local_maps as $local_map){
-                if(!empty($local_map['province'])){
-                    $local_cond[] = array('like', '%'.$local_map['province'].'%');
-                }
-           }
-           if(count($local_cond) > 0){
-                $result_count = O('user')->where(array('province|city'=>$local_cond))->count();
-                if($result_count > 0){
-                    return;
-                }
-           }
+        foreach($local_maps as $local){
+            if(strpos($user['province'], $local['province']) !== FALSE || strpos($user['city'], $local['province']) !== FALSE){
+                return;
+            }
         }
         $this->redirectWithError('需要先登录或权限不足');
     }

@@ -1,4 +1,4 @@
-<extend name="layout:backend"/>
+<extend name="layout:backend2"/>
 
 <block name="head">
     {:css('event-manage')}
@@ -20,9 +20,7 @@
                     </div>
                     <ul class="action-links">
                         <li><a class="act" href="{:U('User/edit')}">更新机构资料</a></li>
-                        <li><a class="act" href="{:U('Event/add')}">发布公益活动</a></li>
-                        <li><a class="act" href="{:U('Event/add')}/type/csr">发布企业公益活动</a></li>
-                        <li><a class="act" href="{:U('Event/add')}/type/case">发布对接案例</a></li>
+                        <li><a class="act" href="{:U('Event/add')}">发布活动</a></li>
                     </ul>
                 </div>
             </div>
@@ -56,9 +54,6 @@
 
                             <?php endforeach ?>
                         </ul>
-                        <?php if($event_count > 10): ?>
-                        <a href="javascript:void(0);" onclick="load_more_event();" class="more-event-link">显示更多活动</a>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -71,19 +66,6 @@
 <block name="script-before">
 </block>
 <block name="script-after">
-    <script>
-    var page = 1;
-    var event_count = {$event_count};
-    function load_more_event(){
-        $.get(app_path+'/Event/manage_next_page/p/'+page, function(content){
-            $('ul.event-manage').append(content);
-            if(page*10 > event_count){
-                $('.more-event-link').hide();
-            }
-        })
-        page++;
-    }
-    </script>
 </block>
 <block name="footer">
 </block>

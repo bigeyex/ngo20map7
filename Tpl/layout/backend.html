@@ -53,7 +53,7 @@ var _hmt = _hmt || [];
   var hm = document.createElement("script");
   hm.src = "//hm.baidu.com/hm.js?872dddf0962c4b1a38db3a043b36affc";
   var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
+  // s.parentNode.insertBefore(hm, s);
 })();
 </script>
         
@@ -103,34 +103,31 @@ var _hmt = _hmt || [];
   <div class="container">
     <ul>
       <li><a href="{:U('User/view')}">返回机构展示</a></li>
-      <li class="{:active_for('Dashboard/index')}"><a href="{:U('Dashboard/index')}">工作台</a></li>
+      <!-- <li class="{:active_for('Dashboard/index')}"><a href="{:U('Dashboard/index')}">工作台</a></li> -->
       <!-- <li><a href="#">站内信</a></li> -->
       <li class="{:active_for('Event/manage')}"><a href="{:U('Event/manage')}">活动管理</a></li>
       <?php if(user('user_id')): ?>
-      <li class="update-org-info-link {:active_for('User/edit')}"><a href="{:U('User/edit')}">更新机构信息</a></li>
-        <?php if(user('local_map')): ?>
-          <?php foreach(user('local_map') as $local_map): ?>
-              <li><a href="{:U('Local/index')}/name/{$local_map.identifier}">{$local_map.name}</a></li>
-              <li><a href="{:U('Index/list_index')}/type/ngo/model/users/province/{$local_map.province}">审核{$local_map.province}</a></li>
-          <?php endforeach; ?>
-        <?php endif; ?>
+      <li class="update-org-info-link {:active_for('User/edit')}"><a href="{:U('User/edit')}">机构信息</a></li>
       <?php else: ?>
-      <li class="create-new-org-link {:active_for('User/add')}"><a href="{:U('User/add')}">登记公益机构</a></li>
+      <li class="create-new-org-link {:active_for('User/add')}"><a href="{:U('User/add')}">机构登记</a></li>
       <?php endif; ?>
-      <?php foreach (O('LocalMap')->byUserId(user('id')) as $localMap): ?>
+      <?php $user_local_maps = O('LocalMap')->byUserId(user('id')); ?>
+      <?php foreach ($user_local_maps as $localMap): ?>
         <li class="{:active_for('Local/*')}"><a href="{:U('Local/index')}/name/{$localMap.identifier}">{$localMap.name}</a></li>
       <?php endforeach ?>
       <li class="{:active_for('Account/settings')}"><a href="{:U('Account/settings')}">账户设置</a></li>
-      <?php if (user('is_admin')): ?>
+      <?php if (user('is_admin') || count($user_local_maps)>0): ?>
         <li>
         <div class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">管理员工具</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a tabindex="-1" href="{:U('Admin/users')}">公益机构管理</a></li>
             <li><a tabindex="-1" href="{:U('Admin/events')}">活动/项目管理</a></li>
-            <li><a tabindex="-1" href="{:U('Admin/cover_pictures')}">首页图片管理</a></li>
-            <li><a tabindex="-1" href="{:U('Local/manage')}">二级地图管理</a></li>
-            <li><a tabindex="-1" href="{:U('Medal/index')}">勋章管理</a></li>
+            <?php if (user('is_admin')): ?>
+              <li><a tabindex="-1" href="{:U('Admin/cover_pictures')}">首页图片管理</a></li>
+              <li><a tabindex="-1" href="{:U('Local/manage')}">二级地图管理</a></li>
+              <li><a tabindex="-1" href="{:U('Medal/index')}">勋章管理</a></li>
+            <?php endif; ?>
           </ul>
         </div>
       </li>

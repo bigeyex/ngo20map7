@@ -99,13 +99,28 @@ class EventAction extends BaseAction{
     function manage(){
         if(!user('account_id')){
             $events = array();
+            $event_count = 0;
         }
         else{
-            $events = O('event')->with('account_id', user('account_id'))->select();
+            $events = O('event')->with('account_id', user('account_id'))->limit(10)->select();
+            $event_count = O('event')->with('account_id', user('account_id'))->count();
         }
 
         $this->assign('events', $events);
+        $this->assign('event_count', $event_count);
         $this->display();
+    }
+
+    function manage_next_page($p){
+        if(!user('account_id')){
+            $events = array();
+        }
+        else{
+            $events = O('event')->with('account_id', user('account_id'))->limit(10*$p, 10)->select();
+        }
+
+        $this->assign('events', $events);
+        $this->display('partials:event_manage_list');
     }
 
     // @ajaxaction

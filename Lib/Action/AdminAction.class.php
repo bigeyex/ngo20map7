@@ -70,7 +70,11 @@ class AdminAction extends BaseAction{
     }
     
     public function events(){
-        $this->needToBeAdmin();
+        $this->needLoggedIn();
+        $local_map_list = O('LocalMap')->byUserId(user('id'));
+        if(count($local_map_list) == 0){
+            $this->needToBeAdmin();
+        }
         $event_model = D('Event');
         
         //从session中读取搜索条件
@@ -112,10 +116,19 @@ class AdminAction extends BaseAction{
         if(!empty($q)){
             $where_clause['name'] = array('like', "%$q%");
         }
-        
+
+        if(!user('is_admin')){
+            $like_array = array();
+            foreach($local_map_list as $local_map){
+                $like_array[] = "%".$local_map['province']."%";
+            }
+            $where_clause['province'] = array('like', $like_array, 'OR');
+
+        }
+
         import("@.Classes.TBPage");
         $listRows = C('ADMIN_ROW_LIST');
-        $event_count = $event_model->where($where_clause)->count();
+        $event_count = $event_model->join('event_location on event.id=event_location.event_id')->where($where_clause)->count();
         $Page = new TBPage($event_count,$listRows);
         $event_result = $event_model->where($where_clause)->order('create_time desc')->limit($Page->firstRow.','.$listRows)->select();
 
@@ -148,7 +161,11 @@ class AdminAction extends BaseAction{
     }
     
     public function users(){
-        $this->needToBeAdmin();
+        $this->needLoggedIn();
+        $local_map_list = O('LocalMap')->byUserId(user('id'));
+        if(count($local_map_list) == 0){
+            $this->needToBeAdmin();
+        }
         $user_model = M('User');
         
         //从session中读取搜索条件
@@ -194,6 +211,14 @@ class AdminAction extends BaseAction{
         }
         if(!empty($q)){
             $where_clause['name'] = array('like', "%$q%");
+        }
+
+        if(!user('is_admin')){
+            $like_array = array();
+            foreach($local_map_list as $local_map){
+                $like_array[] = "%".$local_map['province']."%";
+            }
+            $where_clause['province'] = array('like', $like_array, 'OR');
         }
         
         import("@.Classes.TBPage");
