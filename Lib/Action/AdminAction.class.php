@@ -120,15 +120,16 @@ class AdminAction extends BaseAction{
         if(!user('is_admin')){
             $like_array = array();
             foreach($local_map_list as $local_map){
-                $like_array[] = "%".$local_map['province']."%";
+                $like_array[] = "province like '%".$local_map['province']."%'";
             }
-            $where_clause['province'] = array('like', $like_array, 'OR');
+            // $where_clause['province'] = array('like', $like_array, 'OR');
+            $where_clause['_string'] = "id in (select event_id from event_location where ".implode('or', $like_array)." )";
 
         }
 
         import("@.Classes.TBPage");
         $listRows = C('ADMIN_ROW_LIST');
-        $event_count = $event_model->join('event_location on event.id=event_location.event_id')->where($where_clause)->count();
+        $event_count = $event_model->where($where_clause)->count();
         $Page = new TBPage($event_count,$listRows);
         $event_result = $event_model->where($where_clause)->order('create_time desc')->limit($Page->firstRow.','.$listRows)->select();
 
