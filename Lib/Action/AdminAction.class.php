@@ -140,13 +140,16 @@ class AdminAction extends BaseAction{
                 $user_ids[$e['user_id']] = 1;
             }
         }
-        $user_model = new UserModel();
-        $related_users = $user_model->query("select id,name from user where id in (".implode(',', array_keys($user_ids)).")");
-        foreach($related_users as $r){
-            $user_ids[$r['id']] = $r['name'];
-        }
-        for($i=0;$i<count($event_result);$i++){
-            $event_result[$i]['creator_name'] = $user_ids[$event_result[$i]['user_id']];
+
+        if(!empty($user_ids)){
+            $user_model = new UserModel();
+            $related_users = $user_model->query("select id,name from user where id in (".implode(',', array_keys($user_ids)).")");
+            foreach($related_users as $r){
+                $user_ids[$r['id']] = $r['name'];
+            }
+            for($i=0;$i<count($event_result);$i++){
+                $event_result[$i]['creator_name'] = $user_ids[$event_result[$i]['user_id']];
+            }
         }
 
 
