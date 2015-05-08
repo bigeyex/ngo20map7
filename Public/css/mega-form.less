@@ -1,0 +1,126 @@
+.mega-form{
+
+    .form-nav{
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+        width: 100%;
+        /*text-align: center;*/
+        
+        td{
+            padding: 5px 15px;
+            background: #eee;
+            border: 1px solid #ccc;
+        }
+        
+        a{
+            color: #555;
+        }
+
+        td.active a{
+            color: #2980b9;
+        }
+
+        td.passed{
+            background: #2ecc71;
+        }
+    }
+
+    .form-big{
+        border-collapse: collapse;
+        margin-bottom: 15px;
+        width: 100%;
+
+        td{
+            border: 1px solid #ccc;
+        }
+
+        tr.title, tr.title td{
+            border: none;
+        }
+
+        td{
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        strong{
+            font-size: 16px;
+            margin-top: 12px;
+            display: block;
+        }
+
+        label{
+            display: inline;
+        }
+
+        label.title{
+            color:#e67e22;
+            display: block;
+            font-size: 14px;
+        }
+
+        input[type="text"].full-width, textarea.full-width{
+            width: 90%;
+        }
+
+        input[type="text"]{
+            margin: 0;
+            
+            border: 0;
+            box-shadow: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        input[type="checkbox"], input[type="radio"]{
+            margin-bottom: 6px;
+            margin-left: 10px;
+        }
+
+        textarea{
+            height: 100px;
+            border: none;
+            box-shadow: none;
+        }
+
+        input.sshort{
+            width: 80px;
+            
+        }
+
+        input.inline{
+            padding: 0;
+            
+        }
+
+        input.short{
+            width: 150px;
+        }
+
+        label.checkbox-label{
+            margin:0 10px 0 0;
+            font-size: 14px;
+        }
+
+        label.no-margin{
+            margin: 0;
+        }
+    }
+
+    .form-actions{
+        text-align: right;
+
+        .form-action{
+            border: 0;
+            border-radius: 1px;
+            background: #27ae60;
+            width: 180px;
+            color: white;
+            box-shadow: 2px 2px 2px #2ecc71;
+        }
+
+        .form-action:hover{
+            box-shadow: 3px 3px 2px #2ecc71;
+        }
+    }
+
+}

@@ -1,0 +1,26 @@
+.mega-form .form-nav{
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.mega-form .form-nav td{
+    padding: 5px 15px;
+    background: #eee;
+    border: 1px solid #ccc;
+}
+
+
+.mega-form .form-nav a{
+    color: #555;
+}
+
+.mega-form .form-nav td.active a{
+    color: #2980b9;
+}
+
+.mega-form .form-nav td.passed{
+    background: #2ecc71;
+}
+
+.mega-form 

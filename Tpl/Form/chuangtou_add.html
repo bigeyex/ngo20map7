@@ -1,0 +1,130 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+    {:css('admin')}
+    {:css('mega-form.less')}
+    {:css('font-awesome.min')}
+</block>
+
+
+<block name="body">
+<div class="container">
+    <div class="box admin-box mega-form form-mode">
+        <table class="form-nav">
+            <tr>
+                <td class="active"><a href="{:U('Form/chuangtou_add')}/page/1">机构信息</a></td>
+                <td><a href="{:U('Form/chuangtou_add')}/page/2">项目简介</a></td>
+                <td><a href="{:U('Form/chuangtou_add')}/page/3">项目计划</a></td>
+                <td><a href="{:U('Form/chuangtou_add')}/page/4">预期影响</a></td>
+                <td><a href="{:U('Form/chuangtou_add')}/page/4">提交</a></td>
+            </tr>
+        </table>
+        <form action="put" method="post">
+            <table class="form-big"> 
+                <tr class="title">
+                    <td colspan="3">
+                        <strong>机构基本信息</strong>
+                    </td>
+                <tr>
+                    <td colspan="3">
+                        <label class="title" for="form-2">机构名称</label>
+                        <input id="form-2"  type="text" class="full-width"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label class="title" for="form-3">机构所在地</label>
+                        <input id="form-3" type="text" class="short"/>省/自治区/直辖市<input type="text" class="short"/>市/县<input type="text" class="short"/>（街道地址）
+                    </td colspan="3">
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label class="title">机构类型</label>
+                        <input id="form-4" type="radio" name="org-type"/>
+                        <label class="checkbox-label" for="form-4">社会团体</label>
+                        <input id="form-5" type="radio" name="org-type"/>
+                        <label class="checkbox-label" for="form-5">民办非企业</label>
+                        <input id="form-6" type="radio" name="org-type"/>
+                        <label class="checkbox-label" for="form-6">工商注册的民间公益机构</label>
+                        <input id="form-7" type="radio" name="org-type"/>
+                        <label class="checkbox-label" for="form-7">暂未注册的民间公益机构</label>
+                        <input id="form-8" type="radio" name="org-type"/>
+                        <label class="checkbox-label no-margin" for="form-8">其他（请注明）</label>
+                        <input type="text" class="sshort inline"/>
+                    </td>
+                </tr>
+                <tr class="title">
+                    <td colspan="3">
+                        <strong>机构联系方式</strong>
+                    </td>
+                <tr>
+                <tr>
+                    <td>
+                        <label class="title" for="form-8">联系人</label>
+                        <input id="form-8"  type="text"/>
+                    </td>
+                    <td>
+                        <label class="title" for="form-9">手机</label>
+                        <input id="form-9"  type="text"/>
+                    </td>
+                    <td>
+                        <label class="title" for="form-11">电话</label>
+                        <input id="form-11"  type="text"/>
+                    </td>
+                <tr>
+                <tr>
+                    <td>
+                        <label class="title" for="form-12">邮箱</label>
+                        <input id="form-12"  type="text"/>
+                    </td>
+                    <td>
+                        <label class="title" for="form-13">微博昵称</label>
+                        <input id="form-13"  type="text"/>
+                    </td>
+                    <td>
+                        <label class="title" for="form-14">微信</label>
+                        <input id="form-14"  type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label class="title" for="form-15">机构网址</label>
+                        <input id="form-15"  type="text" class="full-width"/>
+                    </td>
+                <tr>
+                <tr class="title">
+                    <td colspan="3">
+                        <strong>负责人姓名和简介</strong>
+                    </td>
+                <tr>
+                    <td colspan="3">
+                        <label class="title" for="form-16">负责人姓名</label>
+                        <input id="form-16"  type="text" class="full-width"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label class="title" for="form-17">负责人简介</label>
+                        <textarea class="full-width" id="form-17"></textarea>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-actions">
+                <button class="form-action"><i class="fa fa-floppy-o"></i> 保存</button>
+                <button class="form-action">保存并进入下一页 <i class="fa fa-chevron-right"></i></button>
+            </div>
+        </form>
+    </div> <!-- box -->
+</div>
+
+</block>
+
+
+<block name="script-before">
+</block>
+<block name="script-after">
+
+</block>
+<block name="footer">
+</block>
