@@ -150,6 +150,7 @@ var _hmt = _hmt || [];
 {:js('bootstrap.min')}
 {:js('slidebars')}
 {:js('header')}
+
 <block name="script-before"></block>
 {:js()}
 {:js('-jquery.placeholder', 9)}
@@ -160,9 +161,10 @@ $(function(){
 </script>
 <block name="script-after"></block>
 <?php if(isset($_SESSION['flash']) || isset($with_notification)): ?>
+
+<?php endif; ?>
 {:js('-toastr.min')}
 {:css('-toastr.min')}
-<?php endif; ?>
 <?php if(isset($_SESSION['flash'])): ?>
   <script>
   $(function(){
