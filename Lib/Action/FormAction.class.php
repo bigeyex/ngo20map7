@@ -29,6 +29,7 @@ class FormAction extends BaseAction{
         if(!isset($form['form_data'])) $this->redirectWithError('出错了,请联系管理员');
 
         $fdata = $form['form_data'];
+        $fdata['id'] = $form['id'];
         if($page==1){
             if(empty($fdata['org_name'])) $fdata['org_name']=user('name');
             if(empty($fdata['org_province'])) $fdata['org_province']=user('province');
@@ -46,7 +47,12 @@ class FormAction extends BaseAction{
     }
 
     public function save(){
-        
+        $this->userCanEditForm();
+        D('Form')->save(array(
+            'id' => $_POST['id'],
+            'form_data' => $_POST
+            ));
+        echo 'ok';
     }
 
     public function add(){
@@ -72,6 +78,17 @@ class FormAction extends BaseAction{
             'id' => $form_id
             ))->delete();
         $this->redirect('index');
+    }
+
+    public function userCanEditForm($form_id){
+        $cnt = O('Form')->with('id', $form_id)->with('account_id', user('account_id'))->count();
+        if($cnt > 0){
+            return;
+        } 
+        else{
+            $this->redirectWithError('没有权限编辑表单');
+            return false;
+        }
     }
 
 }

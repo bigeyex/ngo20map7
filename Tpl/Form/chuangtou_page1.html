@@ -4,6 +4,7 @@
     {:css('admin')}
     {:css('mega-form.less')}
     {:css('font-awesome.min')}
+    {:css('jquery-confirm.min')}
 </block>
 
 
@@ -20,6 +21,8 @@
             </tr>
         </table>
         <form method="post" id="chuangtou_form">
+            <input type="hidden" id="form_id" name="id" value="{$form.id}"/>
+            <input type="hidden" id="form_page" name="page" value="1"/>
             <table class="form-big"> 
                 <tr class="title">
                     <td colspan="3">
@@ -42,15 +45,15 @@
                 <tr>
                     <td colspan="3">
                         <label class="title">机构类型</label>
-                        <input id="form-4" type="radio" name="org_type"/>
+                        <input id="form-4" type="radio" name="org_type" value="社会团体"/>
                         <label class="checkbox-label" for="form-4">社会团体</label>
-                        <input id="form-5" type="radio" name="org_type"/>
+                        <input id="form-5" type="radio" name="org_type" value="民办非企业"/>
                         <label class="checkbox-label" for="form-5">民办非企业</label>
-                        <input id="form-6" type="radio" name="org_type"/>
+                        <input id="form-6" type="radio" name="org_type" value="工商注册的民间公益机构"/>
                         <label class="checkbox-label" for="form-6">工商注册的民间公益机构</label>
-                        <input id="form-7" type="radio" name="org_type"/>
+                        <input id="form-7" type="radio" name="org_type" value="暂未注册的民间公益机构"/>
                         <label class="checkbox-label" for="form-7">暂未注册的民间公益机构</label>
-                        <input id="form-8" type="radio" name="org_type"/>
+                        <input id="form-8" type="radio" name="org_type" value="其他（请注明）"/>
                         <label class="checkbox-label no-margin" for="form-8">其他（请注明）</label>
                         <input type="text" class="sshort inline" name="org_type_other" value="{$form.org_type_other}"/>
                     </td>
@@ -127,6 +130,7 @@
 </block>
 <block name="script-after">
     {:js('chuangtou-form')}
+    {:js('jquery-confirm.min')}
 </block>
 <block name="footer">
 </block>
