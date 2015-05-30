@@ -1,0 +1,63 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+    {:css('admin')}
+    {:css('font-awesome.min')}
+</block>
+
+
+<block name="body">
+<div class="container">
+    <div class="box admin-box chuangtou">
+        <h3 class="strong">{:L('正在填写的申请')}</h3>
+        <table class="table table-hover">
+            <tr>
+                <th>申请编号</th>
+                <th>申请项目</th>
+                <th>申请时间</th>
+                <th>最后修改时间</th>
+                <th></th>
+            </tr>
+            
+            <?php if(empty($forms)): ?>
+            <tr>
+                <td colspan="5" class="none">还没有有效的申请</td>
+            </tr>
+            <?php else: ?>
+                <?php foreach($forms as $form): ?>
+                <tr>
+                    <td>{$form.id}</td>
+                    <td>{$form.title}</td>
+                    <td>{$form.create_time}</td>
+                    <td>{$form.edit_time}</td>
+                    <td>
+                        <a href="{:U('Form/edit')}/form_id/{$form.id}" target="_blank" class="btn btn-mini">修改</a>&nbsp;
+                        <a href="javascript:void(0)" onclick="pre_delete(event)" class="fast-confirm btn btn-mini btn-danger" ques="确实要永久删除该用户吗？">删除</a>
+                        <a href="{:U('Form/delete')}/form_id/{$form.id}" style="display:none;" class=" fast-confirm btn btn-mini btn-danger" ques="确实要永久删除该用户吗？">确认删除</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            
+        </table>
+        <h3 class="strong">{:L('可以填写的申请')}</h3>
+        <table class="table table-hover">
+            <tr>
+                <td>
+                    <a href="{:U('Form/add')}">填写公益创投大赛申请表</a>
+                </td>
+            </tr>
+        </table>
+    </div> <!-- box -->
+</div>
+
+</block>
+
+
+<block name="script-before">
+</block>
+<block name="script-after">
+
+</block>
+<block name="footer">
+</block>

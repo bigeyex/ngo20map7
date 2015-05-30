@@ -4,6 +4,7 @@
     {:css('admin')}
     {:css('mega-form.less')}
     {:css('font-awesome.min')}
+    {:css('jquery-confirm.min')}
 </block>
 
 
@@ -19,7 +20,9 @@
                 <td><a href="{:U('Form/chuangtou_add')}/page/4">提交</a></td>
             </tr>
         </table>
-        <form action="put" method="post">
+        <form method="post" id="chuangtou_form">
+            <input type="hidden" id="form_id" name="id" value="{$form.id}"/>
+            <input type="hidden" id="form_page" name="page" value="1"/>
             <table class="form-big"> 
                 <tr class="title">
                     <td colspan="3">
@@ -28,29 +31,31 @@
                 <tr>
                     <td colspan="3">
                         <label class="title" for="form-2">机构名称</label>
-                        <input id="form-2"  type="text" class="full-width"/>
+                        <input id="form-2"  type="text" class="full-width" name="org_name" value="{$form.org_name}"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
                         <label class="title" for="form-3">机构所在地</label>
-                        <input id="form-3" type="text" class="short"/>省/自治区/直辖市<input type="text" class="short"/>市/县<input type="text" class="short"/>（街道地址）
+                        <input id="form-3" type="text" class="short" name="org_province" value="{$form.org_province}"/>省/自治区/直辖市
+                        <input type="text" class="short" name="org_city" value="{$form.org_city}"/>市/县
+                        <input type="text" class="short" name="org_street" value="{$form.org_street}"/>（街道地址）
                     </td colspan="3">
                 </tr>
                 <tr>
                     <td colspan="3">
                         <label class="title">机构类型</label>
-                        <input id="form-4" type="radio" name="org-type"/>
+                        <input id="form-4" type="radio" name="org_type" value="社会团体"/>
                         <label class="checkbox-label" for="form-4">社会团体</label>
-                        <input id="form-5" type="radio" name="org-type"/>
+                        <input id="form-5" type="radio" name="org_type" value="民办非企业"/>
                         <label class="checkbox-label" for="form-5">民办非企业</label>
-                        <input id="form-6" type="radio" name="org-type"/>
+                        <input id="form-6" type="radio" name="org_type" value="工商注册的民间公益机构"/>
                         <label class="checkbox-label" for="form-6">工商注册的民间公益机构</label>
-                        <input id="form-7" type="radio" name="org-type"/>
+                        <input id="form-7" type="radio" name="org_type" value="暂未注册的民间公益机构"/>
                         <label class="checkbox-label" for="form-7">暂未注册的民间公益机构</label>
-                        <input id="form-8" type="radio" name="org-type"/>
+                        <input id="form-8" type="radio" name="org_type" value="其他（请注明）"/>
                         <label class="checkbox-label no-margin" for="form-8">其他（请注明）</label>
-                        <input type="text" class="sshort inline"/>
+                        <input type="text" class="sshort inline" name="org_type_other" value="{$form.org_type_other}"/>
                     </td>
                 </tr>
                 <tr class="title">
@@ -61,35 +66,35 @@
                 <tr>
                     <td>
                         <label class="title" for="form-8">联系人</label>
-                        <input id="form-8"  type="text"/>
+                        <input id="form-8"  type="text" name="org_contact" value="{$form.org_contact}"/>
                     </td>
                     <td>
                         <label class="title" for="form-9">手机</label>
-                        <input id="form-9"  type="text"/>
+                        <input id="form-9"  type="text" name="org_mobile" value="{$form.org_mobile}"/>
                     </td>
                     <td>
                         <label class="title" for="form-11">电话</label>
-                        <input id="form-11"  type="text"/>
+                        <input id="form-11"  type="text" name="org_phone" value="{$form.org_phone}"/>
                     </td>
                 <tr>
                 <tr>
                     <td>
                         <label class="title" for="form-12">邮箱</label>
-                        <input id="form-12"  type="text"/>
+                        <input id="form-12"  type="text" name="org_email" value="{$form.org_email}"/>
                     </td>
                     <td>
                         <label class="title" for="form-13">微博昵称</label>
-                        <input id="form-13"  type="text"/>
+                        <input id="form-13"  type="text" name="org_weibo" value="{$form.org_weibo}"/>
                     </td>
                     <td>
                         <label class="title" for="form-14">微信</label>
-                        <input id="form-14"  type="text"/>
+                        <input id="form-14"  type="text" name="org_wechat" value="{$form.org_wechat}"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
                         <label class="title" for="form-15">机构网址</label>
-                        <input id="form-15"  type="text" class="full-width"/>
+                        <input id="form-15"  type="text" class="full-width" name="org_website" value="{$form.org_website}"/>
                     </td>
                 <tr>
                 <tr class="title">
@@ -98,7 +103,7 @@
                     </td>
                 <tr>
                     <td colspan="3">
-                        <label class="title" for="form-16">负责人姓名</label>
+                        <label class="title" for="form-16">机构负责人姓名</label>
                         <input id="form-16"  type="text" class="full-width"/>
                     </td>
                 </tr>
@@ -124,7 +129,8 @@
 <block name="script-before">
 </block>
 <block name="script-after">
-
+    {:js('chuangtou-form')}
+    {:js('jquery-confirm.min')}
 </block>
 <block name="footer">
 </block>

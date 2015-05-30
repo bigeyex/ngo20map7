@@ -427,6 +427,7 @@ i.icon{
 .pager{
   margin-left: -10px;
   margin-top: 10px;
+  clear: both;
 }
 
 .pager span{

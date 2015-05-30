@@ -460,6 +460,18 @@ CREATE TABLE `weibo` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10747 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sender_name` varchar(255) DEFAULT NULL,
+  `sender` varchar(255) DEFAULT NULL,
+  `content` text,
+  `reply` text,
+  `is_visible` smallint(6) DEFAULT '0',
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
 -- ----------------------------
 --  Procedure structure for `mig`
 -- ----------------------------

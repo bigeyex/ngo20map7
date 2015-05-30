@@ -5,6 +5,14 @@
     <i class="icon-dropdown"></i>
   </a>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    <?php if(user('user_id')): ?>
+      <li><a href="{:U('User/view')}">查看机构页面</a></li>
+      <li><a href="{:U('User/edit')}">编辑机构信息</a></li>
+      <li><a href="{:U('User/manage_comments')}">评论管理</a></li>
+    <?php else: ?>
+      <li><a href="{:U('User/add')}">机构登记</a></li>
+    <?php endif; ?>
+    <li role="presentation" class="divider"></li>
     <li><a tabindex="-1" href="{:U('Dashboard/index')}">工作台</a></li>
     <li><a tabindex="-1" href="{:U('Account/settings')}">账户设置</a></li>
     <?php if (user('is_admin')): ?>

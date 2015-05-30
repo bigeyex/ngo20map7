@@ -102,12 +102,13 @@ var _hmt = _hmt || [];
 <div class="subnav">
   <div class="container">
     <ul>
-      <li><a href="{:U('User/view')}">返回机构展示</a></li>
+      <li><a href="{:U('User/view')}">查看机构页面</a></li>
       <!-- <li class="{:active_for('Dashboard/index')}"><a href="{:U('Dashboard/index')}">工作台</a></li> -->
       <!-- <li><a href="#">站内信</a></li> -->
       <li class="{:active_for('Event/manage')}"><a href="{:U('Event/manage')}">活动管理</a></li>
       <?php if(user('user_id')): ?>
-      <li class="update-org-info-link {:active_for('User/edit')}"><a href="{:U('User/edit')}">机构信息</a></li>
+      <li class="update-org-info-link {:active_for('User/edit')}"><a href="{:U('User/edit')}">编辑机构信息</a></li>
+      <li class="{:active_for('User/manage_comments')}"><a href="{:U('User/manage_comments')}">评论管理</a></li>
       <?php else: ?>
       <li class="create-new-org-link {:active_for('User/add')}"><a href="{:U('User/add')}">机构登记</a></li>
       <?php endif; ?>
@@ -150,6 +151,7 @@ var _hmt = _hmt || [];
 {:js('bootstrap.min')}
 {:js('slidebars')}
 {:js('header')}
+
 <block name="script-before"></block>
 {:js()}
 {:js('-jquery.placeholder', 9)}
@@ -160,9 +162,10 @@ $(function(){
 </script>
 <block name="script-after"></block>
 <?php if(isset($_SESSION['flash']) || isset($with_notification)): ?>
+
+<?php endif; ?>
 {:js('-toastr.min')}
 {:css('-toastr.min')}
-<?php endif; ?>
 <?php if(isset($_SESSION['flash'])): ?>
   <script>
   $(function(){

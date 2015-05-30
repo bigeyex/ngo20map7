@@ -1,0 +1,60 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+    {:css('admin')}
+</block>
+
+<block name="body">
+<div class="container">
+<div class="box admin-box">
+    
+    <table class="table">
+        <?php if(empty($comments)): ?>
+            <tr><p class="comment">还没有评论</p></tr>
+        <?php else: ?>
+            <?php foreach($comments as $comment): ?>
+                <tr>
+                    <td class="comment-item">
+                        <p class="comment-title">
+                            <span class="commenter-name">{$comment.sender_name}</span>
+                            [<a href="mailto:{$comment.sender}">{$comment.sender}</a>]
+                        </p>
+                        <p class="comment-content">
+                            {$comment.content}
+                            
+                            <p class="comment-reply">
+                                <?php if(!empty($comment['reply'])): ?>
+                                回复: {$comment.reply}
+                                <?php endif; ?>
+                            </p>
+                            
+                        </p>
+                        <p class="comment-actions">
+                            <button class="btn btn-primary reply-button" reply-to="{$comment.id}">
+                                回复
+                            </button>
+                            <button class="btn btn-danger fast-confirm" onclick="pre_delete(event)">
+                                删除评论
+                            </button>
+                            <button class="btn btn-danger fast-confirm hide reply-delete-button" reply-to="{$comment.id}">
+                                确认删除评论
+                            </button>
+                        </p>
+                    </td>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </table>
+
+</div> <!-- box -->
+</div>
+</block>
+
+
+<block name="script-before">
+    {:js('comment_manage')}
+</block>
+<block name="script-after">
+
+</block>
+<block name="footer">
+</block>

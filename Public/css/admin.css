@@ -16,3 +16,53 @@ form{
 .pagination{
     margin: 10px 0;
 }
+
+.strong{
+    color: #e67e22;
+}
+
+.comment-actions{
+    text-align: right;
+}
+
+.comment-title{
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.commenter-name{
+    font-weight: bold;
+}
+
+.comment-title a{
+    color: #777;
+}
+
+.comment-content{
+    margin-bottom: 5px;
+}
+
+.comment-reply{
+    font-size: 14px;
+    color: #999;
+    margin-left: 30px;
+}
+
+.reply-comment{
+    text-align: right;
+}
+
+.reply-comment textarea{
+    display: block;
+    margin-left: auto;
+    width: 95%;
+    height: 90px;
+}
+
+.reply-comment .btn{
+    margin-left: 10px;
+}
+
+.deleted{
+    color: #aaa;
+}
