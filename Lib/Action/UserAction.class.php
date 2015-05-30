@@ -38,6 +38,10 @@ class UserAction extends BaseAction{
         }
         tmpl_global('title', $user['name']);
 
+        // load comments
+        $comments = O('comment')->with('user_id', $id)->with('is_visible', true)->select();
+        $this->assign('comments', $comments);
+
         $this->assign('medals', $medals);
         $this->assign('medal_list', $medal_arr);
 
@@ -256,6 +260,64 @@ class UserAction extends BaseAction{
         }
     }
 
+    function add_comment(){
+        if(empty($_POST['content'])){
+            echo '内容不能为空';
+            return;
+        }
+
+        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+            echo '电子邮件格式不正确';
+            return;
+        }
+
+        if(!is_numeric($_POST['user_id'])){
+            echo '用户信息出错';
+            return;
+        }
+
+        O('comment')->add(array(
+            'content' => $_POST['content'],
+            'user_id' => $_POST['user_id'],
+            'sender' => $_POST['email'],
+            'sender_name' => $_POST['sender_name'],
+            ));
+        echo 'ok';
+    }
+
+    function manage_comments(){
+        $comments = O('comment')->with('user_id', user('id'))->select();
+
+        $this->assign('comments', $comments);
+        $this->display();
+    }
+
+    function reply_comment(){
+        $comment = O('comment')->find($_POST['id']);
+        if(!$comment){
+            echo L('数据出错');
+            return;
+        }
+        if(user('id') != $comment['user_id']){
+            echo L('登录已过期，请重新登录');
+            return;
+        }
+
+        $comment['reply']=$_POST['content'];
+        $comment['is_visible']=1;
+        O('comment')->save($comment);
+        echo 'ok';
+    }
+
+    function delete_comment(){
+        $comment = O('comment')->find($_POST['id']);
+        if(!$comment || $comment['user_id']!=user('id')){
+            echo L('数据出错');
+            return;
+        }
+        O('comment')->with('id', $_POST['id'])->delete();
+        echo 'ok';
+    }
 
     // deprecated
     function coauthor($id){

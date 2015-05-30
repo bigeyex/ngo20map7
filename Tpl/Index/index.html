@@ -175,13 +175,28 @@
             <div class="column register-column">
                 <div class="register-block">
                     <img class="join-bg mobile-only" src="__APP__/Public/img/photos/join-pic.jpg"/>
+                    <?php if(!user()): ?>
                     <h3>{:L('NOW_REGISTER')}</h3>
                     <p>
                         和<span class="highlight">{$total_count.ngo}</span>家公益机构<br/>
                         做朋友
                     </p>
-                    <?php if(!user()): ?>
+                    
                     <a class="join-link" href="javascript:void(0);" onclick="$('.register-link').click();">加入地图</a>
+                    <?php elseif(!user('user_id')): ?>
+                    <h3>{:L('登记机构')}</h3>
+                    <p>
+                        在地图上登记您的公益机构
+                    </p>
+                    
+                    <a class="join-link" href="{:U('User/add')}">登记机构</a>
+                    <?php else: ?>
+                    <h3>{:L('管理机构')}</h3>
+                    <p>
+                        完善您的机构信息
+                    </p>
+                    
+                    <a class="join-link" href="{:U('User/edit')}">管理机构</a>
                     <?php endif; ?>
                 </div>
             </div>

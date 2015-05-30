@@ -11,6 +11,35 @@ $(function(){
         }
     });
 
+   $(".photo-container").fancybox({
+        openEffect  : 'none',
+        closeEffect : 'none'
+    });
+
+   var validateEmail = function(email){
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        return re.test(email);
+    };
+
+   $('#comment-post-btn').click(function(){
+
+        if(!validateEmail($('#comment_email').val())){
+            toastr.error('请输入正确格式的电子邮件');
+            return;
+        }
+
+        $.post(app_path+"/User/add_comment", $('#comment_form').serialize(), function(result){
+            if(result == 'ok'){
+                toastr.success('评论成功发送，将在回复后可见。');
+                $('#comment-post-btn').replaceWith('<p>评论成功发送，将在回复后可见</p>')
+            }
+            else{
+                toastr.error(result);
+            }
+            
+        });
+   });
+
    $('.user-zan-link').click(function(){
     $.get(app_path+'/User/ajaxLike/id/'+user_id, function(result){
         if(result == 'ok'){
