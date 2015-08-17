@@ -33,4 +33,33 @@ class SearchAction extends BaseAction{
         $this->display();
     }
 
+    public function mediaGallery(){
+        $this->assign('media', $this->mediaGalleryJson());
+        $this->display();
+    }
+
+    public function ajaxMediaGalleryJson($page=1){
+        print $this->mediaGalleryJson($page);
+    }
+
+    public function upvotePhoto($id){
+        if(empty($id) || !is_numeric($id)) return;
+        O('Media')->with('id', $id)->setInc('upvote');
+        echo 'ok';
+    }
+
+    public function downvotePhoto($id){
+        if(empty($id) || !is_numeric($id)) return;
+        O('Media')->with('id', $id)->setInc('downvote');
+        echo 'ok';
+    }
+
+    private function mediaGalleryJson($page=1, $per_page=20){
+        $media = O('Media')->where("media.type='image' and event_id != 0 and media.user_id is not null")
+                    ->join("event on event_id=event.id")->field("media.id id,media.url url,upvote,downvote,event.name name")
+                    ->order('id desc')->limit(($page-1) * $per_page, $per_page)->select();
+        
+        return json_encode($media, true);
+    }
+
 }
