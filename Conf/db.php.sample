@@ -7,5 +7,15 @@ return array(
     'DB_PORT' => '3306',
     'DB_PREFIX' => '',
     'SEARCH_API_PATH' => '/Users/wangyu/xunsearch/sdk/php/lib/XS.php',
+
+    // credentials:
+    'WECHAT_TOKEN' => '',
+    'WECHAT_APPID' => '',
+    'WECHAT_APPSECRET' => '',
+
+    'QQ_APPKEY' => '',
+    'QQ_APPSECRET' => '',
+    'WEIBO_APPKEY' => '',
+    'WEIBO_APPSECRET'=> '',
 );
 ?>

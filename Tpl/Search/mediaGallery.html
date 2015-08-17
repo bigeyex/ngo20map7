@@ -1,0 +1,121 @@
+<extend name="layout:main"/>
+
+
+
+<block name="body">
+    <div class="container">
+        <h1>NGO图片选</h1>
+        <div id="photo-container">
+        </div>
+        <a id="load-more" onclick="loadMore()">更多图片</a>
+    </div>
+</block>
+
+
+<block name="head">
+    <style>
+        .container h1{
+            text-align: center;
+            margin: 30px;
+        }
+
+        .photo-item{
+            display: inline-block;
+            margin-right: 18px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #aaa;
+            padding-bottom: 5px;
+        }
+
+        #photo-container img{
+            width: 300px;
+        }
+
+        .photo-container{
+            width: 300px;
+            height: 156px;
+            overflow: hidden;
+        }
+
+        .photo-action{
+            padding-top: 5px;
+            font-size: 18px;
+        }
+
+        .photo-action b{
+              float: left;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              font-size: 14px;
+              font-weight: normal;
+              max-width: 200px;
+        }
+
+        .photo-action a{
+            margin-left: 10px;
+            float: right;
+        }
+
+        #load-more{
+            cursor: pointer;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            display: block;
+        }
+    </style>
+</block>
+
+<block name="script-after">
+    <script>
+    var page = 1;
+    var photodata = {$media};
+
+    function loadPhotos(data){
+        for(var i in data){
+            var id = data[i]['id'];
+            var url = data[i]['url'];
+            var upvote = data[i]['upvote'];
+            var downvote = data[i]['downvote'];
+            var name = data[i]['name'];
+            $('#photo-container').append('<div class="photo-item"><div class="photo-container"><a href="__APP__/Public/Uploaded/th1280x664_'+url+'" target="_blank"><img src="__APP__/Public/Uploaded/th628x326_'+url+'"/></a></div><div class="photo-action"><b>'+name+'</b><a href="javascript:void(0);" onclick="downvote(event, '+id+')">踩(<span>'+downvote+'</span>)</a><a href="javascript:void(0);" onclick="upvote(event, '+id+')">顶(<span>'+upvote+'</span>)</a></div></div>');
+        }
+        // $.get(app_path+'/Search/mediaGalleryJson')
+    }
+
+    function loadMore(){
+        page++;
+        $.getJSON(app_path+'/Search/ajaxMediaGalleryJson/page/'+page, function(result){
+            loadPhotos(result);
+        });
+    }
+
+    function upvote(event, id){
+        $.get(app_path+'/Search/upvotePhoto/id/'+id, function(result){
+            if(result=='ok'){
+                var el = event.target.tagName.toUpperCase()=='SPAN'?$(event.target):$(event.target).find('span');
+                var val = el.text();
+                var intVal = parseInt(val);
+                el.text(intVal+1);
+            }
+        });
+    }
+
+     function downvote(event, id){
+        $.get(app_path+'/Search/downvotePhoto/id/'+id, function(result){
+            if(result=='ok'){
+                var el = event.target.tagName.toUpperCase()=='SPAN'?$(event.target):$(event.target).find('span');
+                var val = el.text();
+                var intVal = parseInt(val);
+                el.text(intVal+1);
+            }
+        });
+    }
+
+    $(function(){
+        loadPhotos(photodata);
+    })
+    </script>
+    
+</block>
