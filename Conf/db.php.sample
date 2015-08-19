@@ -10,6 +10,7 @@ return array(
 
     // credentials:
     'WECHAT_TOKEN' => '',
+    'WECHAT_AESKEY' => '',
     'WECHAT_APPID' => '',
     'WECHAT_APPSECRET' => '',
 
