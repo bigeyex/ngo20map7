@@ -1,0 +1,67 @@
+<extend name="layout:mobile"/>
+
+<block name="body">
+    <header class="bar bar-nav">
+      <h1 class="title">关联/登记机构</h1>
+    </header>
+    <div class="content">
+        <ul class="table-view">
+          <li class="table-view-divider">我以前注册过公益地图帐号</li>
+          <li class="table-view-cell">
+            <a class="navigate-right">
+                扫描二维码关联帐号
+            </a>
+          </li>
+          <li class="table-view-cell">
+            <a class="navigate-right" href="#loginViaPasswordModal" data-transition="slide-in">
+                通过邮箱和密码登录
+            </a>
+          </li>
+          <li class="table-view-cell">
+            <a class="navigate-right">
+                通过微博登录
+            </a>
+          </li>
+          <li class="table-view-cell">
+            <a class="navigate-right">
+                通过QQ登录
+            </a>
+          </li>
+          <li class="table-view-divider">我从未注册过公益地图帐号</li>
+          <li class="table-view-cell">
+            <a class="navigate-right">
+                扫描二维码加入公益机构
+            </a>
+          </li>
+          <li class="table-view-cell">
+            <a class="navigate-right">
+                搜索公益机构并加入
+            </a>
+          </li>
+          <li class="table-view-cell">
+            <a class="navigate-right">
+                登记新的公益机构(需审核)
+            </a>
+          </li>
+        </ul>
+    </div> <!-- .content -->
+    
+    <div class="modal" id="loginViaPasswordModal">
+      <header class="bar bar-nav">
+        <a class="btn btn-link pull-left" href="#loginViaPasswordModal">
+          返回
+        </a>
+        <h1 class="title">通过用户名和密码登录</h1>
+      </header>
+
+      <div class="content">
+        <form class="input-group">
+          <ul class="table-view">
+              <li><input type="email" placeholder="电子邮件"></li>
+              <li><input type="password" placeholder="密码"></li>
+              <li class="table-view-cell"><a href="#">登录</a></li>
+          </ul>
+        </form>
+      </div>    
+    </div>
+</block>
