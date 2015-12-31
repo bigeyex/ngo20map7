@@ -3,38 +3,50 @@
         left: 0 !important;
         text-align: center;
         width: 100%;
-        top: 85px;
+        top: 119px;
+        position: absolute;
+    }
+    
+    #hero-slogan{
+        top: 0;
     }
 
-    #hero-search-bar h2{
-        font-size: 19.44px;
+    #hero-slogan h2{
+        font-size: 17.44px;
         font-weight: lighter;
-    
         letter-spacing: 1px;
         margin-bottom: 0;
         margin-top: 17px;
         margin-left: 3px;
         line-height: 24px;
+        text-shadow: none;
+        color: black;
 }
 
-    #hero-search-bar p.sub-title{
-        width: 265px;
-        font-size: 12.5px;
+    #hero-slogan p.sub-title{
+        width: 235px;
+        font-size: 11.5px;
         margin-left: auto;
         margin-right: auto;
-        padding-top: 4px;
-        line-height: 18px;
-    
+        padding-top: 2px;
+        line-height: 16px;
         letter-spacing: 0.9px;
         padding-left: 3px;
         font-weight: lighter;
+        text-shadow: none;
+        color: black;
 }
 
-    #hero-search-bar span.highlight{
+    #hero-slogan span.highlight{
         font-size: 14px;
     
         letter-spacing: 0;
-}
+    }
+    
+    .hero-event-name{
+        right: 170px;
+        top: 76px;
+    }
 
     .row.white-bg{
         border-bottom: none;
@@ -52,22 +64,22 @@
 
     .search-filter-form input.large{
         border-radius: 0;
-        width: 187px;
-    
-        height: 32px;
+        width: 168px;
+        height: 30px;
         border: none;
         font-size: 11.11px;
         letter-spacing: 0.6px;
+        border: 1px solid #959595;
+        padding-left: 8px;
 }
 
     .search-filter-form input.search-btn{
         border-radius: 0;
         border: none;
         background: #299802;
-        margin-left: -5px;
+        /* margin-left: -5px; */
         width: 41px;
         text-indent: -9999px;
-    
         height: 32px;
 }
 
@@ -80,7 +92,8 @@
     }
 
     #hero-region .slideshow-wrapper{
-        height: 340px;
+        height: 215px;
+        padding-top: 143px;
     }
 
     .city-guide .register-block p{

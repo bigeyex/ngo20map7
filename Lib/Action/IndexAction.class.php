@@ -33,7 +33,18 @@ class IndexAction extends BaseAction {
         $recent_events = O('event')->join('user on event.user_id=user.id')->field('event.id id, event.name name, user.name uname, event.cover_img cimg')
                             ->with('event.is_checked', 1)->limit(10)->order('event.cover_img is not null desc,event.create_time desc')->select();
     	
-        $this->assign('hero_images', O('Setting')->read_json('hero_images'));
+    	$hero_images = O('Setting')->read_json('hero_images');
+    	for($i=1;$i<=4;$i++){
+        	if(!empty($hero_images['id'.$i])){
+            	$hero_event_id = $hero_images['id'.$i];
+            	$hero_event = O('event')->find($hero_event_id);
+            	if($hero_event){
+                	$hero_images['name'.$i] = $hero_event['name'];
+            	}
+        	}
+    	}
+
+    $this->assign('hero_images', $hero_images);
     	$this->assign('total_count', $total_count);
     	$this->assign('news', $recent_events);
     	$this->display();
