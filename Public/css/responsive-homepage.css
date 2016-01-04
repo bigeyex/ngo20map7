@@ -44,8 +44,8 @@
     }
     
     .hero-event-name{
-        right: 170px;
-        top: 76px;
+        right: 0;
+        top: auto;
     }
 
     .row.white-bg{

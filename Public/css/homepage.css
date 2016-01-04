@@ -80,6 +80,10 @@
     overflow: hidden;
 }
 
+.slideshow li a{
+    display: block;
+}
+
 .hero-event-name{
     position: absolute;
     z-index: 5000;
@@ -87,7 +91,7 @@
     text-shadow: 0 0 15px rgba(0,0,0,5), 0 -1px 10px rgba(0,0,0,5);
     letter-spacing: 1px;
     
-    top: -211px;
+    top: 15px;
     /* width: 100%; */
     text-align: right;
     right: 200px;
