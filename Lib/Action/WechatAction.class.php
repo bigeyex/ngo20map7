@@ -11,10 +11,18 @@
             $type = $wechat->getRev()->getRevType();
             switch($type) {
                 case Wechat::MSGTYPE_TEXT:
-                        $wechat->text("hello, I'm wechat")->reply();
-                        exit;
+//                         $wechat->text("hello, I'm wechat")->reply();
                         break;
                 case Wechat::MSGTYPE_EVENT:
+                        $eventObject = $wechat->getRevEvent();
+                        if($eventObject['event'] == Wechat::EVENT_SUBSCRIBE){
+                            $wechat->news(array(array(
+                                'Title' => '点击关联或创建机构',
+                                'Description' => '欢迎使用公益地图！请先关联或创建机构',
+                                'PicUrl' => 'http://www.ngo20map.com/Public/img/ngo20-logo-m.png',
+                                'Url' => "http://$_SERVER[HTTP_HOST]".U('Wechat/link_account')
+                            )))->reply();  
+                        }
                         break;
                 case Wechat::MSGTYPE_IMAGE:
                         break;

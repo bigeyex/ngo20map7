@@ -1,0 +1,2 @@
+ALTER TABLE `ngo20map7`.`account` ADD COLUMN `api_wechat_id` varchar(100) AFTER `api_qq_token`, ADD COLUMN `api_wechat_token` varchar(100) AFTER `api_wechat_id`;
+ALTER TABLE `ngo20map`.`account` ADD COLUMN `is_temp_account` smallint NOT NULL DEFAULT '0';
