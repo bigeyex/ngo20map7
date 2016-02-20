@@ -55,7 +55,7 @@ class IndexAction extends BaseAction {
             $this->redirect('map');
             return;
         }
-        $medals = O('Medal')->order('score desc')->select();
+        // $medals = O('Medal')->order('score desc')->select();
         $is_user = false;
         if($type == 'event'){
             $base_model = O('event')->with('type', 'ngo')->attach('user');
@@ -93,7 +93,7 @@ class IndexAction extends BaseAction {
         $listRows = C('LIST_RECORD_PER_PAGE');
         $pager = new TBPage($count, $listRows);
         if($type=='ngo'){
-            $result = $base_model->order('medal_score desc, id desc')->limit($pager->firstRow, $listRows)->fetch('medalmap')->select();
+            $result = $base_model->order('id desc')->limit($pager->firstRow, $listRows)->select();
             if(!empty($medal)){
                 $this->assign('current_medal', O('medal')->find($medal));
             }
@@ -113,7 +113,7 @@ class IndexAction extends BaseAction {
         $this->assign('result', $result);
         $this->assign('pager_html', $pager->show());
 
-        $this->assign('medals', $medals);
+        // $this->assign('medals', $medals);
         $this->display();
     }
 

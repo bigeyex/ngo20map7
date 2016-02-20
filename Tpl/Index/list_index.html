@@ -57,7 +57,8 @@
             
         </div>
 
-        <?php if ($type=='ngo'): ?>
+        <!-- 暂时隐藏勋章功能 -->
+        <?php if (false && $type=='ngo'): ?>
             <div class="medal-filters">
                 <?php foreach ($medals as $medal): ?>
                     <a class="medal-stab" style="background:url(__APP__/Public/Uploaded/th32x32_{$medal.image}) no-repeat;" data-toggle="tooltip" data-placement="bottom" title="" href="{:url_replace('medal', $medal['id'])}" data-original-title="{$medal.description}">{$medal.name}</a>
@@ -77,7 +78,7 @@
                 
                 <?php if ($type=='ngo'): ?>
                     <th>地点</th>
-                    <th>勋章</th>
+                   <!-- <th>勋章</th> -->
                 <?php endif; ?>
             </thead>
             <tbody>
@@ -89,13 +90,6 @@
                             </td>
                             <td>
                                 {$row.province}
-                            </td>
-                            <td>
-                            <?php foreach ($medals as $medal): ?>
-                                <?php if (in_result_set($medal['id'], $row['medalmap'], 'medal_id')): ?>
-                                    <img class="medal-icon" src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="32" data-toggle="tooltip" title="" data-original-title="{$medal.name}"/>
-                                <?php endif ?>
-                            <?php endforeach ?>
                             </td>
                         <?php else: ?>
                             <td>
