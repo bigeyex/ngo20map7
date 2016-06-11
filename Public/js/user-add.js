@@ -1,4 +1,82 @@
    $(function(){
+
+     // reveal next
+     $('.reveal-next').change(function(){
+       var $el = $(this);
+       if($el.val() != 0){
+         $el.next().show();
+       }
+       else {
+         $el.next().hide();
+       }
+     });
+
+
+     // simple validation
+     var validateForm = function(formPage){
+       var formPageDiv = $('.form-page')[formPage];
+       var passed = true;
+       $(formPageDiv).find('select.required, input.required').each(function(){
+         var $caption = $(this).parent().find('.caption');
+         if($(this).val() === ''){
+           passed = false;
+           if($caption.find('.error').length == 0){
+             $caption.append('<span class="error">必填</span>');
+           }
+           $(this).parent().parent().find('.control-label').addClass('error');
+         }
+         else { // the field is not empty
+           $caption.find('.error').remove();
+           $(this).parent().parent().find('.control-label').removeClass('error');
+         }
+       });
+       return passed;
+     };
+
+     // pager for forms
+     var currentFormPage = 0;
+     var switchFormPage = function(page){
+       var $formPages = $('.form-page');
+       var pageCount = $formPages.length;
+       if(page < 0 || page >= pageCount){
+         return;
+       }
+       $($formPages[currentFormPage]).hide();
+       $($formPages[page]).show();
+       currentFormPage = page;
+       if(page == 0){
+         $('.prev-form-page').hide();
+       }
+       else{
+         $('.prev-form-page').show();
+       }
+
+       if(page == pageCount-1){
+         $('.next-form-page').hide();
+         $('.submit-form-button').show();
+       }
+       else{
+         $('.next-form-page').show();
+         $('.submit-form-button').hide();
+       }
+
+     }
+     $('.form-page:gt(0)').hide();
+     $('.prev-form-page').click(function(){
+       switchFormPage(currentFormPage-1);
+     });
+     $('.next-form-page').click(function(){
+       if(validateForm(currentFormPage)){
+         switchFormPage(currentFormPage+1);
+       }
+       else{
+         document.body.scrollTop = 0;
+
+       }
+     })
+     switchFormPage(0);
+     // end of switching pages
+
        if($('#map-input-box').length >= 1){
          loadBaiduMap();
        }
@@ -9,7 +87,7 @@
        // jquery upload and crop
        if(typeof FlashUploader !== 'undefined'){
           FlashUploader.init();
-          
+
           $('.upload-photo-button').click(function(){
             FlashUploader.open(function(url){
               $('.image-showcase').append('<a class="uploaded-image-slide" href="'+app_path+'/Public/Uploaded/'+url+'" data-lightbox="image-1" ><img src="'+app_path+'/Public/Uploaded/th628x326_'+url+'" width="119"/><input type="hidden" name="images[]" value="'+url+'"/><i class="fa fa-times remove-image-icon" ></i></a>');
@@ -33,6 +111,24 @@
             $('#imgpreview-image').show();
           }
          });
+
+         // doc uploaders
+         $('.upload-doc').fileupload({
+          dataType: 'json',
+          url:app_path+'/Util/uploadDoc/',
+          add: function(e, data){
+            data.submit();
+          },
+          done: function(e, data){
+            if(data.result.url){
+              $(this).next().val(data.result.url);
+              $(this).prev().text('已上传,点击可替换文件');
+            }
+            else{
+              $(this).prev().text('出错:'+data.result.error+' 点击重新上传');
+            }
+          }
+         });
        }
 
        if($.fn.validate !== undefined){
@@ -49,16 +145,16 @@
    function loadBaiduMap(){
        var script = document.createElement("script");
        script.src = "http://api.map.baidu.com/api?v=1.5&ak=1m5xok7fCAjkwvynKoxxEnb1&callback=onBaiduMapLoaded";
-       document.body.appendChild(script);  
+       document.body.appendChild(script);
    }
-   
+
    function onBaiduMapLoaded(){
-       var map = new BMap.Map('map-input-box');  
-       map.centerAndZoom(new BMap.Point(121.491, 31.233), 11);  
+       var map = new BMap.Map('map-input-box');
+       map.centerAndZoom(new BMap.Point(121.491, 31.233), 11);
        map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM}));
        map_control.init(map);
    }
-   
+
    // map control
    var map_control = {
        markers: [],
@@ -77,11 +173,11 @@
                    clearTimeout(change_timer);
                }
                change_timer = setTimeout(function(){
-                   var myGeo = new BMap.Geocoder();      
-                   myGeo.getPoint($('.map-address').val(), function(point){      
-                      if (point) {      
-                          self.set_location(point, true);  
-                      }      
+                   var myGeo = new BMap.Geocoder();
+                   myGeo.getPoint($('.map-address').val(), function(point){
+                      if (point) {
+                          self.set_location(point, true);
+                      }
                       return null;
                    }, "北京市");
                }, 1000);
@@ -94,14 +190,14 @@
            $('.add-location-button').click(self.save_location);
        },
        geocode: function(address){
-           
+
        },
        set_location: function(point, center, callback){
            var self = this;
            if(self.marker === null){
-             var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {    
+             var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {
                 offset: new BMap.Size(15, 18)
-            });       
+            });
              var marker = new BMap.Marker(point, {icon: redIcon});
              self.map.addOverlay(marker);
              marker.setTop(true);
@@ -115,17 +211,17 @@
            if(center){
                self.map.setCenter(point);
            }
-           var myGeo = new BMap.Geocoder();      
+           var myGeo = new BMap.Geocoder();
 
-           myGeo.getLocation(point, function(result){      
-                 if (result){      
+           myGeo.getLocation(point, function(result){
+                 if (result){
                      $('.map-province').val(result.addressComponents.province);
                      $('.map-city').val(result.addressComponents.city);
                      $('.add-location-button').prop('disabled', false);
                     if(callback !== undefined){
                         callback(result.address);
-                    }    
-                 }      
+                    }
+                 }
            });
        },
        set_initial_location: function(){
@@ -133,9 +229,9 @@
           var lng = $('.map-longitude').val();
           var lat = $('.map-latitude').val();
           var point = new BMap.Point(lng, lat);
-          var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {    
+          var redIcon = new BMap.Icon(app_path+"/Public/img/icons/red-marker.png", new BMap.Size(30, 36), {
               offset: new BMap.Size(15, 18)
-          });  
+          });
           var marker = new BMap.Marker(point, {icon: redIcon});
           self.map.addOverlay(marker);
           self.map.centerAndZoom(point, 11);
@@ -158,8 +254,8 @@
           $('.location-sets').append(item_dom);
           (function(item_dom){  // create a scope to store current position data
             var dom = item_dom;
-            var blueIcon = new BMap.Icon(app_path+"/Public/img/icons/blue-marker.png", new BMap.Size(26, 36), {    
-                offset: new BMap.Size(7, 18),    
+            var blueIcon = new BMap.Icon(app_path+"/Public/img/icons/blue-marker.png", new BMap.Size(26, 36), {
+                offset: new BMap.Size(7, 18),
             });
             var marker = new BMap.Marker(new BMap.Point($('.map-longitude').val(), $('.map-latitude').val()), {icon: blueIcon});
             map_control.map.addOverlay(marker);
@@ -170,7 +266,7 @@
 
 
           })(item_dom);
-          
+
           $('.add-location-button').prop('disabled', true);
           $('.map-address').val('');
           return false;
@@ -181,7 +277,7 @@
        }
 
    };
-   
+
 $(function(){
     var name_check_keyup_timer = null;
     $('#inputName').keyup(function(){
