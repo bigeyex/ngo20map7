@@ -59,7 +59,7 @@
           <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">发布机构</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-              <span class="add-user-name">长沙市雨花区益家公益文化促进中心</span>
+              <span class="add-user-name" id="create-user-name"></span>
               <div class="change-user"><a class="weui_btn weui_btn_mini weui_btn_default" id="change-user-button">更换用户</a></div>
             </div>
           </div>
@@ -111,13 +111,13 @@
       </div> <!-- tab-3 -->
     </div>
     <div class="weui_tabbar">
-      <a href="#tab-all-needs" class="weui_tabbar_item weui_bar_item_on" onclick="loadWishesList()">
+      <a href="#tab-all-needs" class="weui_tabbar_item weui_bar_item_on" onclick="loadWishesList()" id="all-wish-tab-button">
         <div class="weui_tabbar_icon">
           <i class="icon-people icons" style="color: #2ecc71;"></i>
         </div>
         <p class="weui_tabbar_label">大家的心愿</p>
       </a>
-      <a href="#tab-create-need" class="weui_tabbar_item">
+      <a href="#tab-create-need" class="weui_tabbar_item" id="publish-wish-tab-button">
         <div class="weui_tabbar_icon">
           <i class="icon-plus icons" style="color: #e74c3c;"></i>
         </div>
@@ -139,20 +139,20 @@
         <div class="weui_cell">
           <div class="weui_cell_hd"><label class="weui_label">登录邮箱</label></div>
           <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="email" placeholder="example@qq.com">
+            <input id="link-email-input" class="weui_input" type="email" placeholder="example@qq.com">
           </div>
         </div>
         <div class="weui_cell">
           <div class="weui_cell_hd"><label class="weui_label">密码</label></div>
           <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="password">
+            <input id="link-password-input" class="weui_input" type="password">
           </div>
         </div>
       </div> <!-- weui_cells -->
       <a class="weui_btn weui_btn_mini weui_btn_default register-now-button">没有公益地图账号？现在注册</a>
       <div class="action_button_primary link-account-buttons">
-        <a href="javascript:;" class="weui_btn weui_btn_default close-popup">取消</a>
-        <a href="javascript:;" class="weui_btn weui_btn_primary">下一步</a>
+        <a href="javascript:;" class="weui_btn weui_btn_default" id="cancel-link-account">取消</a>
+        <a href="javascript:;" class="weui_btn weui_btn_primary" id="link-account-action-button">下一步</a>
       </div>
     </div>
   </div> <!-- Dialog: connect-account-popup -->
@@ -212,7 +212,7 @@
         <div class="weui_tab_bd">
           <div class="wish-detail">
             <h2 data-bind="text: content"></h2>
-            <div class="publisher" data-bind="text: author">长沙市雨花区益家公益文化促进中心</div>
+            <div class="publisher" data-bind="text: author"></div>
             <div class="count-groups">
               <i class="icons icon-heart"></i><span class="like-count" data-bind="text: likes">50</span>
               <i class="icons icon-action-undo"></i><span class="reply-count" data-bind="text: replies">1</span>
@@ -278,6 +278,7 @@
   window.config_progress_types = [{title:"新出现", value:""}, {title:"尚无回应", value:"noreply"}, {title:"已完成", value:"completed"}];
   window.config_mylist_types = [{title:"未读", value:"unread"}, {title:"我发起的", value:"my"}, {title:"我回应的", value:"replied"}, {title:"我关注的", value:"liked"}];
   window.account_id = {:user('account_id')};
+  window.user_id = "{:user('user_id')}";
   window.account_author_name = "{:user('name')}";
   </script>
 

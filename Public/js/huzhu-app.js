@@ -314,4 +314,33 @@ $(function(){
   $('#return-to-huzhu-button').click(function(){
     $('#wish-detail-popup').popup();
   });
+
+  // ============== Link Account
+  $('#publish-wish-tab-button').click(function(){
+    if(!window.user_id) {
+      $('#connect-account-popup').popup();
+    }
+  });
+
+  $('#cancel-link-account').click(function(){
+    $.closePopup();
+    if(!window.user_id) {
+      $('#all-wish-tab-button').click();
+    }
+  });
+
+  $('#create-user-name').text(window.account_author_name);
+  $('#link-account-action-button').click(function(){
+    $.showLoading();
+    $.post(app_path+'/HuZhu/linkAccount', {
+      'username': $('#link-email-input').val(),
+      'password': $('#link-password-input').val()
+    }, function(result){
+      window.user_id = result.user_id;
+      window.account_author_name = result.name;
+      $('#create-user-name').text(result.name);
+      $.hideLoading();
+      $.closePopup();
+    }, 'json');
+  });
 });

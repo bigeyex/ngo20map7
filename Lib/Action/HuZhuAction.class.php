@@ -2,13 +2,7 @@
     define(HUZHU_ITEMS_PER_PAGE, 20);
     class HuZhuAction extends WechatBaseAction{
         public function _initialize(){
-          // TODO: added wechat auth function
-          // TODO: remove DEMO DATA
-          $_SESSION['login_user'] = array(
-            'account_id' => 4176,
-            'name' => '测试用户',
-            'user_id' => 19184
-          );
+          $this->redirectWithOpenID();
         }
 
         public function index(){
@@ -210,6 +204,23 @@
 
         public function linkAccount() {
           // login and fetch user in session. Delete temp account if needed
+          $old_account = O('Account')->find(user('account_id'));
+          if(!$old_account) {
+            echo '微信登录错误';
+            return;
+          }
+          $account_model = new AccountModel();
+          $login_result = $account_model->login($_POST['username'], $_POST['password']);
+          if (!$login_result) {
+            echo '用户名或密码错误';
+            return;
+          }
+          $old_account['user_id'] = user('user_id');
+          O('Account')->save($old_account);
+          echo json_encode(array(
+            'user_id' => user('user_id'),
+            'name' => user('name')
+          ));
         }
 
         public function userShouldOwnWish($wishId) {

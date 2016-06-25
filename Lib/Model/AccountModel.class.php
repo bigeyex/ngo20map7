@@ -35,7 +35,12 @@ class AccountModel extends BaseModel{
             //login successfully
             //fetch other user information
             $user_model = new UserModel();
-            $user_data = $user_model->where(array('account_id'=>$result['id']))->find();
+            if($mode == 'api' && !empty($result['user_id'])) {
+              $user_data = $user_model->find($result['user_id']);
+            }
+            else{
+              $user_data = $user_model->where(array('account_id'=>$result['id']))->find();
+            }
             if($user_data){
                 $user_data['local_maps'] = O('local_map')->with('admin_id', $user_data['id'])->select();
                 $_SESSION['login_user'] = array_merge($user_data, $result);
@@ -85,4 +90,3 @@ class AccountModel extends BaseModel{
         return $id;
     }
 }
-
