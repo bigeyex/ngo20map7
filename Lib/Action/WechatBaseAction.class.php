@@ -1,10 +1,10 @@
 <?php
     import("@.Classes.CachedWechat");
-    
+
     class WechatBaseAction extends BaseAction{
 
         protected $wechat = null;
-        
+
         protected function wechatInit(){
             if($this->wechat !== null) return;
             $wechatOptions = array(
@@ -15,13 +15,13 @@
             );
             $this->wechat = new CachedWechat($wechatOptions);
         }
-        
+
         protected function getJsSign(){
             // try to retrive accessToken and jsapiTicket
             $this->wechatInit();
             return $this->wechat->getJsSign("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
         }
-        
+
         protected function redirectWithOpenID($state=0){
             $appid = C('WECHAT_APPID');
             $redirect_uri = urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
@@ -37,22 +37,8 @@
                 if(!empty($userinfo['openid'])){
                     $_SESSION['wechat_openid'] = $userinfo['openid'];
                     // try logging in
-                    $account = O('Account')->with('api_wechat_id', $userinfo['openid'])->find();
-                    if($account){
-                        $_SESSION['account'] = $account;
-                    }
-                    else{
-                        // add a temporary account.
-                        $account_record = array('api_wechat_id'=>$userinfo['openid'], 'is_temp_account'=>true);
-                        $id = O('Account')->add($account_record);
-                        if($id){
-                            $account_record['id'] = $id;
-                            $_SESSION['account'] = $account_record;
-                        }
-                        else{
-                            $this->redirectWithError(L('微信处理数据出错'));
-                        }
-                    }
+                    $account_model = new AccountModel();
+                    $account_model->login('wechat', $userinfo['openid'], 'api');
                 }
                 else{
                     $this->redirectWithError(L('不能使用微信登录'));

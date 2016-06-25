@@ -3,12 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title>WeUI</title>
+        <title><block name="title"></block></title>
         <!-- 引入 WeUI -->
-        <link rel="stylesheet" href="path/to/weui/dist/style/weui.min.css"/>
+        <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.2/weui.css"/>
+        <block name="css">
+        </block>
     </head>
     <body>
         <!-- 使用 -->
-        <a href="javascript:;" class="weui_btn weui_btn_primary">绿色按钮</a>
+        <script>
+            var app_path="__APP__";
+        </script>
+        <block name="content">
+        </block>
     </body>
 </html>

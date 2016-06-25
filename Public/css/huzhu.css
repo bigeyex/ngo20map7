@@ -1,0 +1,210 @@
+html, body {
+  height: 100%;
+}
+
+.weui_tab{
+  position: static;
+}
+
+.weui_tabbar_item{
+  text-align: center;
+}
+.weui_tabbar_item .icons {
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.weui-row {
+  padding: 7px 14px;
+}
+
+/* select box */
+.select-box {
+  border-radius: 3px;
+  border: 1px solid #bbb;
+  font-size: 14px;
+  padding: 3px 8px;
+  position: relative;
+  box-shadow: 1px 1px 3px rgba(70,70,70,.5);
+}
+
+.select-box .icons {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  color: #27ae60;
+}
+
+.main-scroll-view {
+  position: absolute;
+  bottom: 55px;
+  top: 88px;
+  right: 0;
+  left: 0;
+  overflow: auto;
+  display: block;
+}
+
+#tab-my-needs .main-scroll-view {
+  top: 40px;
+}
+
+.wish-item:nth-child(5n) { background-color: #16a085; }
+.wish-item:nth-child(5n+1) { background-color: #27ae60; }
+.wish-item:nth-child(5n+2) { background-color: #2980b9; }
+.wish-item:nth-child(5n+3) { background-color: #8e44ad; }
+.wish-item:nth-child(5n+4) { background-color: #2c3e50; }
+
+.wish-item {
+  height: 150px;
+  margin-bottom: 15px;
+  margin-right: 5px;
+  color: white;
+  position: relative;
+  box-shadow: 1px 1px 4px #765;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.wish-item h2, .wish-detail h2 {
+  font-size: 15px;
+  margin: 8px;
+}
+
+.wish-item .publisher, .wish-detail .publisher {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 26px;
+  font-size: 12px;
+}
+
+.wish-item .count-groups, .wish-detail .count-groups{
+  font-size: 10px;
+  position: absolute;
+  bottom: 5px;
+  left: 8px;
+}
+
+.wish-item .count-groups span {
+  margin-right: 5px;
+}
+
+.wish-item .count-groups i.icons {
+  margin-right: 2px;
+}
+
+#tab-create-need {
+  background: #fbf9fe;
+}
+
+#tab-create-need .add-user-name {
+  font-size: 14px;
+}
+
+.action_button_primary {
+  float: right;
+  margin: 15px;
+}
+
+.link-account-buttons {
+  margin-top: 0;
+}
+
+.link-account-buttons .weui_btn {
+  display: inline-block;
+  margin-top: 0;
+}
+
+.register-now-button {
+  margin: 10px;
+}
+
+#wish-detail-popup .weui_tabbar .icons {
+  color: #387ef5;
+}
+
+#wish-detail-popup .weui_tabbar_item {
+  padding: 12px 0 12px;
+}
+
+.wish-detail {
+  margin: 15px;
+  background-color: #ffeda4;
+  position: relative;
+  padding: 10px;
+  box-shadow: 2px 2px 5px #f39c12;
+  min-height: 120px;
+}
+
+.wish-detail h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.wish-detail .publisher {
+  font-size: 14px;
+  left: 10px;
+  bottom: 30px;
+}
+
+.wish-detail .count-groups {
+  font-size: 14px;
+  left: 10px;
+  bottom: 8px;
+}
+
+.reply-title {
+  font-size: 18px;
+  margin: 10px 20px;
+}
+
+.post-reply {
+  margin: 10px 15px;
+  background: white;
+  box-shadow: 1px 1px 3px #999;
+  padding: 10px;
+  margin-bottom: 10px;
+  min-height: 60px;
+  position: relative;
+}
+
+.reply-author {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #999;
+}
+
+.time-frame {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 14px;
+  color: #999;
+}
+
+.reply-content {
+  margin-top: 25px;
+}
+
+.reply-actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.select-box input {
+  border: none;
+  width: 70px;
+  font-size: 15px;
+}
+
+#wish-detail-popup #like-wish-button.liked i {
+  color: red;
+}
+
+.weui-picker-container-visible {
+  z-index: 10;
+}
