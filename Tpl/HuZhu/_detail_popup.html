@@ -1,0 +1,72 @@
+<div id="wish-detail-popup" class="weui-popup-container">
+  <div class="weui-popup-modal">
+    <div class="weui_tab">
+      <div class="weui_tab_bd">
+        <div class="wish-detail">
+          <h2 data-bind="text: content"></h2>
+          <div class="publisher">
+            <div class="account-name">
+              <span data-bind="visible: is_verified" class="icons icon-badge badge-icon"></span>
+              <span data-bind="visible: !is_verified()">(未认证)</span>
+              <span data-bind="text: author" class="account-name-span"></span>
+            </div>
+            <div class="ngo-name" data-bind="text: ngo_name"></div>
+          </div>
+          <div class="count-groups">
+            <i class="icons icon-heart"></i><span class="like-count" data-bind="text: likes">50</span>
+            <i class="icons icon-action-undo"></i><span class="reply-count" data-bind="text: replies">1</span>
+          </div>
+        </div>
+        <h2 class="reply-title">回应</h2>
+        <div class="post-replies" data-bind="foreach: replyList">
+          <div class="post-reply">
+            <div class="reply-author" data-bind="text: author"></div>
+            <div class="time-frame" data-bind="text: moment(publish_date().split(' ')[0], 'YYYY-MM-DD').add(1, 'days').fromNow()"></div>
+            <div class="reply-content" data-bind="text: content"></div>
+            <div class="reply-actions" data-bind="visible: window.account_id==account_id(), click: $parent.showReplyMenu">
+              <i class="icons icon-options-vertical"></i>
+            </div>
+          </div>
+        </div>
+        <div class="add-reply" id="add-reply-form">
+          <div class="weui_cells_title">添加回应</div>
+          <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+              <div class="weui_cell_bd weui_cell_primary">
+                <textarea class="weui_textarea" id="reply-content-input" placeholder="请输入回应" rows="3"></textarea>
+              </div>
+              <a href="javascript:;" class="weui_btn weui_btn_primary" id="post-reply-button">发布</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui_tabbar">
+        <a href="javascript:;" class="weui_tabbar_item">
+          <div class="weui_tabbar_icon">
+            <i class="icon-arrow-left icons close-popup"></i>
+          </div>
+        </a>
+        <a id="like-wish-button" href="javascript:;" class="weui_tabbar_item" data-bind="css: {liked: isLiked() != 0}">
+          <div class="weui_tabbar_icon">
+            <i class="icon-heart icons"></i>
+          </div>
+        </a>
+        <a id="share-wish-button" href="javascript:;" class="weui_tabbar_item">
+          <div class="weui_tabbar_icon">
+            <i class="icon-share icons"></i>
+          </div>
+        </a>
+        <a id="reply-nav-button" href="javascript:;" class="weui_tabbar_item">
+          <div class="weui_tabbar_icon">
+            <i class="icon-action-undo icons"></i>
+          </div>
+        </a>
+        <a id="wish-action-button" href="javascript:;" class="weui_tabbar_item" data-bind="visible: window.account_id==account_id()">
+          <div class="weui_tabbar_icon">
+            <i class="icon-options icons"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

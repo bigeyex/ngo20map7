@@ -1,6 +1,6 @@
 <?php
 // replace a part of the url request.
-// eg. for current url as 
+// eg. for current url as
 // http://localhost/show?a=1&b=2
 // url_replace('a', 3) returns:
 // http://localhost/show?a=3&b=2
@@ -109,12 +109,12 @@ function addhttp($url) {
 }
 
 // insert a <script> tag
-// usage: 
+// usage:
 // js('example.js') -> add example.js to the javascript list;
 // js() -> render concatnated and minimized js at current point;
 // js('nc:example.js') -> no compile - insert a raw js stab at current point
 // js('nc:example.js', 7) -> insert js stab only if ie version < 7
-function js($str=null, $max_ie=20){ 
+function js($str=null, $max_ie=20){
 	static $js_list = array();
 	if($str !== null && get_ie_version()<$max_ie){
         if(substr($str, 0, 1)==='-'){
@@ -122,7 +122,7 @@ function js($str=null, $max_ie=20){
                 return '<script type="text/javascript" src="'.__APP__.'/Public/js/'.substr($str, 1).'.js"></script>';
             }
             else{
-                return '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js(array(substr($str, 1))).'.js"></script>';
+                return '<script type="text/javascript" src="'.__APP__.'/Runtime/Cache/'.minimize_js(array(substr($str, 1))).'.js"></script>';
             }
         }
         else{
@@ -131,7 +131,7 @@ function js($str=null, $max_ie=20){
             //     return '<script type="text/javascript" src="'.__APP__.'/Public/js/'.$str.'.js"></script>';
             // }
             // else{
-            //     return '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js(array($str)).'.js"></script>';
+            //     return '<script type="text/javascript" src="'.__APP__.'/Runtime/Cache/'.minimize_js(array($str)).'.js"></script>';
             // }
         }
     }
@@ -145,12 +145,25 @@ function js($str=null, $max_ie=20){
             return $ret;
         }
         else{
-            $result = '<script type="text/javascript" src="'.__APP__.'/Public/cache/'.minimize_js($js_list).'.js"></script>';
+            $result = '<script type="text/javascript" src="'.__APP__.'/Runtime/Cache/'.minimize_js($js_list).'.js"></script>';
             $js_list = array();
             return $result;
         }
     }
     return '';
+}
+
+function js_list($js_list) {
+  if(APP_DEBUG) {
+    $ret = '';
+    foreach($js_list as $js){
+        $ret .= '<script type="text/javascript" src="'.__APP__.'/Public/js/'.$js.'.js"></script>';
+    }
+    return $ret;
+  }
+  else {
+    return '<script type="text/javascript" src="'.__APP__.'/Runtime/Cache/'.minimize_js($js_list).'.js"></script>';
+  }
 }
 
 function minimize_js($file_list){
@@ -162,9 +175,9 @@ function minimize_js($file_list){
         if($time > $max_time) $max_time = $time;
     }
     $files_md5 = 'minified_'.md5(implode('', $file_list));
-    $md5_file = APP_PATH.'Public/cache/'.$files_md5.'.js';
+    $md5_file = APP_PATH.'Runtime/Cache/'.$files_md5.'.js';
     if(file_exists($md5_file) && filemtime($md5_file)>=$max_time){
-       return $files_md5; 
+       return $files_md5;
     }
     else{
         require_once APP_PATH.'Lib/Classes/Minifier2.php';
@@ -172,7 +185,7 @@ function minimize_js($file_list){
         // minimize each file
         foreach($file_list as $file){
             $file_md5 = 'ms_'.md5($file);
-            $minimized_single_file = APP_PATH.'Public/cache/'.$file_md5.'.js';
+            $minimized_single_file = APP_PATH.'Runtime/Cache/'.$file_md5.'.js';
             $time = filemtime(APP_PATH.'Public/js/'.$file.'.js');
             // if the file is old, rebuild if
             if(!file_exists($minimized_single_file) || filemtime($minimized_single_file)<$time){
@@ -187,9 +200,9 @@ function minimize_js($file_list){
         }
         // concat all files as one
         file_put_contents($md5_file, $final_js);
-        return $files_md5;  
+        return $files_md5;
     }
-    
+
 }
 
 function get_ie_version(){
@@ -224,12 +237,12 @@ function css($str=null, $max_ie=20){
             foreach($css_list as $css){
                 if(substr($css, strlen($css)-5) == '.less'){
                     $file_md5 = 'lc_' . substr($css, 0, strlen($css)-5) . '.css';
-                    $output_path = APP_PATH . 'Public/cache/' . $file_md5;
+                    $output_path = APP_PATH . 'Runtime/Cache/' . $file_md5;
                     $file_path = APP_PATH . 'Public/css/' . $css;
                     require_once APP_PATH.'Lib/Classes/lessc.inc.php';
                     $less = new lessc;
                     $less->checkedCompile($file_path, $output_path);
-                    $ret .= '<link href="'.__APP__.'/Public/cache/'.$file_md5.'" rel="stylesheet"/>';
+                    $ret .= '<link href="'.__APP__.'/Runtime/Cache/'.$file_md5.'" rel="stylesheet"/>';
                 }
                 else{
                     $ret .= '<link href="'.__APP__.'/Public/css/'.$css.'.css" rel="stylesheet"/>';
@@ -238,7 +251,7 @@ function css($str=null, $max_ie=20){
             return $ret;
         }
         else{
-            return '<link href="'.__APP__.'/Public/cache/'.minimize_css($css_list).'.css" rel="stylesheet"/>';
+            return '<link href="'.__APP__.'/Runtime/Cache/'.minimize_css($css_list).'.css" rel="stylesheet"/>';
         }
         $css_list = array();
     }
@@ -253,9 +266,9 @@ function minimize_css($file_list){
         if($time > $max_time) $max_time = $time;
     }
     $files_md5 = 'minified_'.md5(implode('', $file_list));
-    $md5_file = APP_PATH.'Public/cache/'.$files_md5.'.css';
+    $md5_file = APP_PATH.'Runtime/Cache/'.$files_md5.'.css';
     if(file_exists($md5_file) && filemtime($md5_file)>=$max_time){
-       return $files_md5; 
+       return $files_md5;
     }
     else{
         require APP_PATH.'Lib/Classes/CSSMin.class.php';
@@ -264,7 +277,7 @@ function minimize_css($file_list){
         $final_css = '';
         foreach($file_list as $file){
             $file_md5 = 'ms_'.md5($file);
-            $minimized_single_file = APP_PATH.'Public/cache/'.$file_md5.'.css';
+            $minimized_single_file = APP_PATH.'Runtime/Cache/'.$file_md5.'.css';
             $time = filemtime(APP_PATH.'Public/js/'.$file.'.css');
             // compile the file if it is old
             if(!file_exists($minimized_single_file) || filemtime($minimized_single_file)<$time){
@@ -288,7 +301,7 @@ function minimize_css($file_list){
         // concat all files as one
         file_put_contents($md5_file, $final_css);
         return $files_md5;
-    }   
+    }
 }
 
 function link_for($str){
@@ -389,7 +402,7 @@ function label_type($str){
 		case 'event':
 			return '活动';
 			break;
-		
+
 		default:
 			return '';
 			break;
@@ -413,15 +426,15 @@ function cleanInput($input) {
 	return $output;
 }
 
-function escape_sql($inp) { 
-    if(is_array($inp)) 
-        return array_map(__METHOD__, $inp); 
+function escape_sql($inp) {
+    if(is_array($inp))
+        return array_map(__METHOD__, $inp);
 
-    if(!empty($inp) && is_string($inp)) { 
-        return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $inp); 
-    } 
+    if(!empty($inp) && is_string($inp)) {
+        return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $inp);
+    }
 
-    return $inp; 
+    return $inp;
 }
 
 // back to the previous page
@@ -441,7 +454,7 @@ function flash($content, $type='error'){
 }
 
 function admin_only(){
-    
+
 }
 
 ?>

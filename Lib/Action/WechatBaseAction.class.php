@@ -22,11 +22,14 @@
             return $this->wechat->getJsSign("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
         }
 
-        protected function redirectWithOpenID($state=0){
+        protected function redirectWithOpenID($request_part='', $state=0){
             $appid = C('WECHAT_APPID');
-            $redirect_uri = urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+            if($request_part == '') {
+              $request_part = $_SERVER[REQUEST_URI];
+            }
+            $redirect_uri = urlencode("http://$_SERVER[HTTP_HOST]$request_part");
             if(!isset($_SESSION['wechat_openid']) && !isset($_GET['code'])){
-                $authorize_uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=$state#wechat_redirect";
+                $authorize_uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=$state#wechat_redirect";
                 redirect($authorize_uri);
             }
             else if(!isset($_SESSION['wechat_openid'])){
@@ -38,7 +41,7 @@
                     $_SESSION['wechat_openid'] = $userinfo['openid'];
                     // try logging in
                     $account_model = new AccountModel();
-                    $account_model->login('wechat', $userinfo['openid'], 'api');
+                    $account_model->login('wechat', $userinfo['openid'], 'api', $userinfo['access_token']);
                 }
                 else{
                     $this->redirectWithError(L('不能使用微信登录'));
