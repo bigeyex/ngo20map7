@@ -84,6 +84,8 @@
     <div class="container story-showcase">
         <h2 class="hide-phone">最新公益活动</h2>
         <p class="sub-title hide-phone">看看身边都发生了哪些公益新鲜事</p>
+	<div>
+	</div>
         <div class="slideshow" id="story-showcase-slideshow">
                 <?php foreach($news as $piece): ?>
                 <div class="story-showcase-item"><a href="{:U('Event/view')}/id/{$piece.id}" target="_blank">
@@ -147,31 +149,31 @@
                     <?php endfor; ?>
                 <?php else: ?>
                 <div class="city-block city-guangzhou">
-                    <a class="mask" href="{:U('Index/map')}/province/广东">
+                    <a class="mask" href="{:U('Index/map')}/province/陕西">
                         <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-guangzhou.jpg"/>
-                        <h3>{:L('CITY_GUANGZHOU')}</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['广东省']))}</p>
+                        <h3>陕西</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['陕西省']))}</p>
                     </a>
                 </div>
                 <div class="city-block city-hunan">
-                    <a class="mask" href="{:U('Index/map')}/province/湖南">
+                    <a class="mask" href="{:U('Index/map')}/province/河南">
                         <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-hunan.jpg"/>
-                        <h3>湖南</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['湖南省']))}</p>
+                        <h3>河南</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['河南省']))}</p>
                     </a>
                 </div>
                 <div class="city-block city-anhui">
-                    <a class="mask" href="{:U('Index/map')}/province/安徽">
+                    <a class="mask" href="{:U('Index/map')}/province/贵州">
                         <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-anhui.jpg"/>
-                        <h3>安徽</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['安徽省']))}</p>
+                        <h3>贵州</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['贵州省']))}</p>
                     </a>
                 </div>
                 <div class="city-block city-beijing">
-                    <a class="mask" href="{:U('Index/map')}/province/北京">
+                    <a class="mask" href="{:U('Index/map')}/province/四川">
                         <img class="city-bg mobile-only" src="__APP__/Public/img/photos/city-beijing.jpg"/>
-                        <h3>北京</h3>
-                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['北京市']))}</p>
+                        <h3>四川</h3>
+                        <p>{:LS('HAS_NUM_OF_ORGS', array($province_count['四川省']))}</p>
                     </a>
                 </div>
                 

@@ -134,6 +134,7 @@ class LocalAction extends BaseAction{
     }
 
     public function save(){
+        $this->need_right_to_admin($_POST['id']);
         $news_model = new LocalMapModel();
         $news_model->create();
         $news_model->save();
@@ -142,6 +143,7 @@ class LocalAction extends BaseAction{
     }
 
     public function delete_map($id){
+        $this->need_right_to_admin($id);
         $local_map_model = new LocalMapModel();
         $local_map_model->delete($id);
 
@@ -379,7 +381,11 @@ class LocalAction extends BaseAction{
     }
     
     public function map_widget($local_id){
+//	echo 'map_widget!';
+
         $local_map = O('local_map')->find($local_id);
+//	echo $local_map;
+	
         $default_map_center = array('lng'=>'', 'lat'=>'', 'zoom'=>'');
         $config = json_decode($local_map['config'], true);
         if(!empty($_GET['center_lng'])){
