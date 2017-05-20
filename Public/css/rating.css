@@ -1,0 +1,70 @@
+body {
+    background-color: #fff;
+}
+
+.rating-banner {
+    height: 168px;
+    color: #fff;
+    text-align: center;
+    background: url(../img/rating-banner.png) repeat-x center;
+}
+
+.rating-banner > h3 {
+    margin: 0;
+    padding: 25px 0 16px;
+    font-size: 32px;
+}
+
+.rating-banner > p {
+    font-size: 14px;
+}
+
+.rating-main {
+    width: 960px;
+    margin: 22px auto;
+}
+
+.rating-ngo-areas {
+    float: left;
+    font-size: 14px;
+}
+
+.rating-ngo-areas h3 {
+    font-size: 14px;
+    color: #3b3b3b;
+    margin: 0;
+}
+.rating-ngo-areas li {
+    list-style: none;
+    line-height: 24px;
+}
+
+.rating-ngo-areas li a {
+    color: #8b8b8b;
+}
+
+.rating-ngo-areas li.selected a {
+    color: #3b3b3b;
+}
+.rating-ngos {
+    padding-left: 220px;
+}
+
+.rating-ngos h3 {
+    color: #379311;
+    font-size: 36px;
+    font-weight: 400;
+}
+.rating-ngo {
+    margin-bottom: 24px;
+}
+.rating-ngo h4 a {
+    color: #3d3d3d;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.rating-ngo p  {
+    color: #8b8b8b;
+    font-size: 14px;
+}

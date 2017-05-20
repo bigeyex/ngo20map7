@@ -106,6 +106,7 @@ var _hmt = _hmt || [];
       </ul>
       <ul class="nav pull-right logged-out">
         <li><a data-login-modal="" href="{:U('Index/list_index')}">{:L('LINK_NAME_BOOK')}<i class="icon-dropdown"></i></a></li>
+        <li><a data-login-modal="" href="{:U('Rating/view')}">{:L('LINK_NGO_RATINGS')}<i class="icon-dropdown"></i></a></li>
         <?php if (!user()): ?>
         <li class="hide-phone"><a class="fancybox.ajax fancybox register-link" href="__APP__/Account/partial_register_box">{:L('LINK_SIGN_UP')}</a></li>
         <li class="hide-phone"><a class="fancybox.ajax fancybox login-link" href="__APP__/Account/partial_login_box">{:L('LINK_LOG_IN')}</a></li>

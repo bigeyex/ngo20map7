@@ -1,0 +1,47 @@
+<extend name="layout:main" />
+<block name="title">全国公益组织排名</block>
+<block name="css-framework">
+    {:css('jquery-ui')}
+    {:css('font-awesome.min')}
+    {:css('jquery.fancybox')}
+    {:css('bootplus')}
+    {:css('header')}
+    {:css('homepage')}
+    {:css('slidebars')}
+    {:css('responsive-main')}
+    {:css('rating')}
+</block>
+<block name="body">
+    <div class="rating-banner">
+        <h3>NGO评级数据库，企业资源对接池</h3>
+        <p>NGO评级数据库通过企业社会责任经理人视角对公益组织进行评级</p>
+        <p>促进企业CSR资源与公益项目的需求匹配和资源对接</p>
+    </div>
+    <div class="rating-main">
+        <div class="rating-ngo-areas">
+            <h3>分类</h3>
+            <ul>
+                <li <?php if(!$curArea):?>class="selected"<?php endif; ?> >
+                <a href="{:strtok($_SERVER['REQUEST_URI'], '?')}">组织综合排名</a>
+                </li>
+            <?php foreach (C('ORG_FIELDS') as $val): ?>
+                <li <?php if($curArea == $val): ?>class="selected"<?php endif;?> >
+                    <a href="?area={$val}">{$val}</a>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        </div>
+        <div class="rating-ngos">
+            <?php foreach ($ratingMap as $rating => $array): ?>
+                <h3>{$rating}</h3>
+                <?php foreach ($array as $ngo): ?>
+                    <div class="rating-ngo">
+                        <h4><a href="{:U('User/view')}/id/{$ngo['account_id']}">{$ngo['name']}</a></h4>
+                        <p>{$ngo['intro']}</p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+            <div class="pager">{$pager_html}</div>
+        </div>
+    </div>
+</block>

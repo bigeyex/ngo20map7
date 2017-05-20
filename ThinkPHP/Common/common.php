@@ -507,7 +507,7 @@ function L($name=null, $value=null) {
     // 判断语言获取(或设置)
     // 若不存在,直接返回全大写$name
     if (is_string($name)) {
-        $name = strtoupper($name);
+        $name = mb_strtoupper($name, 'utf-8');
         if (is_null($value))
             return isset($_lang[$name]) ? $_lang[$name] : $name;
         $_lang[$name] = $value; // 语言定义

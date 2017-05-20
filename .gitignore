@@ -8,3 +8,4 @@ sftp-config.json
 .idea
 Conf/db.php
 deployment-config.json
+.iml
