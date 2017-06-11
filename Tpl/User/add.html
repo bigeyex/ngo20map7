@@ -28,21 +28,28 @@
           </div>
           <div class="other-fields" style="display:none;">
             <div class="control-group">
-                <label class="control-label" for="inputDesc">{:L('机构简介')}</label>
+                <label class="control-label" for="inputName">{:L('组织别称或者简称')}</label>
+                <div class="controls">
+                    <input type="text" id="inputByname" name="byname" class="input-large" placeholder="{:L('填写组织别称或者简称')}">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputDesc">{:L('组织简介')}</label>
                 <div class="controls">
                   <textarea id="inputDesc" name="intro" class="input-large" rows="5" placeholder="{:L('请用一段简短的话来描述您的机构')}"></textarea>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputDesc">{:L('机构使命')}</label>
+                <label class="control-label" for="inputDesc">{:L('组织使命')}</label>
                 <div class="controls">
-                  <input type="text" id="inputName" name="aim" class="input-large" placeholder="请用一句话来描述机构的使命">
+                  <input type="text" id="inputAim" name="aim" class="input-large" placeholder="请用一句话来描述机构的使命">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputPlace">{:L('办公地点')}</label>
                 <div class="controls map-input-user">
-                  <input type="text" id="inputName" name="place" class="input-large map-address" placeholder="{:L('请填入具体的活动地址或在地图上点击鼠标')}">
+                  <div class="caption"></div>
+                  <input type="text" id="inputPlace" name="place" class="input-large map-address required" placeholder="{:L('请填入具体的活动地址或在地图上点击鼠标')}">
                   <input type="hidden" name="longitude" class="map-longitude">
                   <input type="hidden" name="latitude" class="map-latitude">
                   <input type="hidden" name="province" class="map-province">
@@ -50,16 +57,27 @@
                   <div class="map-input-box" id="map-input-box" style="height: 217px; width: 500px"></div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="inputField">{:L('服务领域')}</label>
-                <div class="controls">
-                  <input type="text" id="inputField" name="work_field" class="input-large pill-select" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
-                  <i class="icon-dropdown"></i>
-                </div>
-            </div>
+              <div class="control-group">
+                  <label class="control-label" for="inputLinkman">{:L('联系人姓名')}</label>
+                  <div class="controls">
+                      <input type="text" id="inputLinkman" name="phone" class="input-large" placeholder="请输入联系人姓名">
+                  </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="inputPhone">{:L('联系电话')}</label>
+                  <div class="controls">
+                      <input type="text" id="inputPhone" name="phone" class="input-large" placeholder="请输入联系电话">
+                  </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="inputEmail">{:L('联系邮箱')}</label>
+                  <div class="controls">
+                      <input type="text" id="inputEmail" name="phone" class="input-large" placeholder="请输入联系邮箱">
+                  </div>
+              </div>
 
             <div class="control-group">
-                <label class="control-label">{:L('机构标志')}</label>
+                <label class="control-label">{:L('组织标志或logo')}</label>
                 <input type="hidden" name="image" id="hidden-input-image" value=""/>
                 <div class="controls">
                   <div class="image-preview">
@@ -75,7 +93,7 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label">{:L('机构风采')}</label>
+                <label class="control-label">{:L('组织风采')}</label>
                 <div class="controls">
                   <div class="image-showcase">
 
@@ -91,6 +109,14 @@
           </div> <!-- other fields -->
         </div> <!-- step 1 -->
         <div class="step-2 form-page">
+            <div class="control-group">
+                <label class="control-label has-more-text" for="inputField">{:L('组织服务领域')}</label>
+                <div class="controls">
+                    <div class="caption">贵组织的服务领域是(点击选择，可多选)</div>
+                    <input type="text" id="inputField" name="work_field" class="input-large pill-select required" data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童">
+                    <i class="icon-dropdown"></i>
+                </div>
+            </div>
           <div class="control-group">
               <label class="control-label has-more-text">成立年份</label>
               <div class="controls">
@@ -118,30 +144,68 @@
                 </select>
               </div>
           </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">全职人员数量</label>
+                <div class="controls">
+                    <div class="caption">贵组织全职人员的数量</div>
+                    <select name="staff_fulltime" class="required" title="全职人员数量" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="20人及以上">20人及以上</option>
+                        <option value="10~19人">10~19人</option>
+                        <option value="10人以下">10人以下</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">全职成员平均工作经验</label>
+                <div class="controls">
+                    <div class="caption">贵组织成员平均在公益领域的工作经验</div>
+                    <select name="member_experience" class="required" title="平均工作经验" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="3年以下">3年以下</option>
+                        <option value="3-5年">3-5年</option>
+                        <option value="5-10年">5-10年</option>
+                        <option value="10年以上">10年以上</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">组织领导人从事本领域的工作经验</label>
+                <div class="controls">
+                    <div class="caption">贵组织领导人从事本领域的工作经验</div>
+                    <select name="lead_experience" class="required" title="领导人工作经验" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="3年以下">3年以下</option>
+                        <option value="3-5年">3-5年</option>
+                        <option value="5-10年">5-10年</option>
+                        <option value="10年以上">10年以上</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">财务会计人员情况</label>
+                <div class="controls">
+                    <div class="">贵组织的财务/会计人员情况是</div>
+                    <select name="accountant_status" class="required" title="财务会计人员" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="全职">有全职的财务/会计人员</option>
+                        <option value="兼职">有兼职的财务/会计人员</option>
+                        <option value="没有">没有财务/会计人员</option>
+                    </select>
+                </div>
+            </div>
           <div class="control-group has-caption-stub">
               <label class="control-label has-more-text">自主信息平台</label>
               <div class="controls">
                 <div class="caption">贵组织拥有的自主信息平台是(点击选择，可多选)</div>
-                <input type="text" id="inputField" name="info_platform" class="input-large required pill-select" data-options="官方微博,微信公众号,官方网站,暂无" placeholder="请选择">
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-text">全职人员数量</label>
-              <div class="controls">
-                <div class="caption">贵组织全职人员的数量</div>
-                <select name="staff_fulltime" class="required" title="全职人员数量" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="20人及以上">20人及以上</option>
-                    <option value="10~19人">10~19人</option>
-                    <option value="10人以下">10人以下</option>
-                </select>
+                <input type="text" id="inputInfoPlatform" name="info_platform" class="input-large required pill-select" data-options="官方微博,微信公众号,官方网站,暂无" placeholder="请选择">
               </div>
           </div>
           <div class="control-group has-caption-stub">
               <label class="control-label has-more-text">拥有制度</label>
               <div class="controls">
                 <div class="caption">贵组织拥有以上制度中的(点击选择，可多选)</div>
-                <input type="text" id="inputField" name="org_rules" class="input-large required pill-select" data-options="组织章程,工作手册,程序化报销制度,以上都没有" placeholder="请选择">
+                <input type="text" id="inputOrgRules" name="org_rules" class="input-large required pill-select" data-options="组织章程,工作手册,程序化报销制度,以上都没有" placeholder="请选择">
               </div>
           </div>
           <div class="control-group">
@@ -152,18 +216,6 @@
                     <option value="">——请选择——</option>
                     <option value="1">有</option>
                     <option value="0">无</option>
-                </select>
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-text">财务会计人员</label>
-              <div class="controls">
-                <div class="">贵组织的财务/会计人员情况是</div>
-                <select name="accountant_status" class="required" title="财务会计人员" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="全职">有全职的财务/会计人员</option>
-                    <option value="兼职">有兼职的财务/会计人员</option>
-                    <option value="没有">没有财务/会计人员</option>
                 </select>
               </div>
           </div>
@@ -199,137 +251,124 @@
                 </div>
               </div>
           </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">项目最大规模</label>
+                <div class="controls">
+                    <div class="caption">贵组织实施过的项目中，单个项目最高资金规模</div>
+                    <select name="project_scale" class="required" title="项目最大规模" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="20万以下">20万以下</option>
+                        <option value="20万-50万">20万-50万</option>
+                        <option value="50万-100万">50万-100万</option>
+                        <option value="100万及以上">100万及以上</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">活动参加人数</label>
+                <div class="controls">
+                    <div class="caption">过去一年里，有多少人参加贵组织的活动</div>
+                    <select name="participant_scale" class="required" title="年度规划" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="500人以下">500人以下</option>
+                        <option value="501-2000人">501-2000人</option>
+                        <option value="2001-5000人">2001-5000人</option>
+                        <option value="5001-10000人">5001-10000人</option>
+                        <option value="10000人以上">10000人以上</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">服务区域</label>
+                <div class="controls">
+                    <div class="caption">过去一年里，贵组织的线下活动和服务所在区域</div>
+                    <select name="service_area" class="required" title="年度规划" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="组织所在的社区">组织所在的社区</option>
+                        <option value="组织所在的城市">组织所在的城市</option>
+                        <option value="组织所在的省份">组织所在的省份</option>
+                        <option value="涵盖几个省份">涵盖几个省份</option>
+                        <option value="全国范围都有">全国范围都有</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-more-text">媒体报道数量</label>
+                <div class="controls">
+                    <div class="caption">过去一年里，贵组织及其活动（不包括招募）被媒体（包括传统媒体和新媒体。微信、微博和论坛不计入其中）报道的数量</div>
+                    <select name="media_report" class="required" title="媒体报道数量" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="100次以上">100次以上</option>
+                        <option value="51-100">51-100次</option>
+                        <option value="21-50">21-50次</option>
+                        <option value="6-20">6-20次</option>
+                        <option value="1-5">1-5次</option>
+                        <option value="0">我们的活动还没有被媒体报道过</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group has-caption-stub">
+                <label class="control-label has-more-text">近期资助情况</label>
+                <div class="controls">
+                    <div class="caption">过去两年里，贵组织曾经获得以下哪些资助(点击选择，可多选)</div>
+                    <input type="text" id="inputFundInfo" name="fund_info" class="input-large required pill-select" data-options="基金会,政府部门,企业,个人,未获得资助" placeholder="请选择">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">获得奖项</label>
+                <div class="controls">
+                    <div class="caption">过去两年里，贵组织或组织的项目（活动）是否有获奖情况</div>
+                    <select class="reveal-next required" name="has_reward" title="年度规划" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="1">有</option>
+                        <option value="0">暂未获得奖项</option>
+                    </select>
+                    <input type="text" name="reward_detail" class="inline-input hidden" style="display:none;" placeholder="请列出具体奖项"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label has-more-text">民政评估级别</label>
+                <div class="controls">
+                    <div class="caption">贵组织在民政评估中的评估级别</div>
+                    <select name="gov_level" class="required" title="民政评估级别" value="{$user.register_type}">
+                        <option value="">——请选择——</option>
+                        <option value="5A">5A</option>
+                        <option value="4A">4A</option>
+                        <option value="3A">3A</option>
+                        <option value="2A">2A</option>
+                        <option value="A">A</option>
+                        <option value="0">暂未参与评估</option>
+                    </select>
+                </div>
+            </div>
         </div> <!-- step 2 -->
         <div class="step-3 form-page">
-          <div class="control-group">
-              <label class="control-label has-more-text">项目最大规模</label>
-              <div class="controls">
-                <div class="caption">贵组织实施过的项目中，单个项目最高资金规模</div>
-                <select name="project_scale" class="required" title="项目最大规模" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="20万以下">20万以下</option>
-                    <option value="20万-50万">20万-50万</option>
-                    <option value="50万-100万">50万-100万</option>
-                    <option value="100万及以上">100万及以上</option>
-                </select>
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-text">平均工作经验</label>
-              <div class="controls">
-                <div class="caption">贵组织成员平均在公益领域的工作经验</div>
-                <select name="member_experience" class="required" title="平均工作经验" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="3年以下">3年以下</option>
-                    <option value="3-5年">3-5年</option>
-                    <option value="5-10年">5-10年</option>
-                    <option value="10年以上">10年以上</option>
-                </select>
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-more-text">媒体报道数量</label>
-              <div class="controls">
-                <div class="caption">过去一年里，贵组织及其活动（不包括招募）被媒体（包括传统媒体和新媒体。微信、微博和论坛不计入其中）报道的数量</div>
-                <select name="media_report" class="required" title="媒体报道数量" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="100次以上">100次以上</option>
-                    <option value="51-100">51-100次</option>
-                    <option value="21-50">21-50次</option>
-                    <option value="6-20">6-20次</option>
-                    <option value="1-5">1-5次</option>
-                    <option value="0">我们的活动还没有被媒体报道过</option>
-                </select>
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-text">民政评估级别</label>
-              <div class="controls">
-                <div class="caption">贵组织在民政评估中的评估级别</div>
-                <select name="gov_level" class="required" title="民政评估级别" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="5A">5A</option>
-                    <option value="4A">4A</option>
-                    <option value="3A">3A</option>
-                    <option value="2A">2A</option>
-                    <option value="A">A</option>
-                    <option value="0">暂未参与评估</option>
-                </select>
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-text">获得奖项</label>
-              <div class="controls">
-                <div class="caption">过去两年里，贵组织或组织的项目（活动）是否有获奖情况</div>
-                <select class="reveal-next required" name="has_reward" title="年度规划" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="1">有</option>
-                    <option value="0">暂未获得奖项</option>
-                </select>
-                <input type="text" name="reward_detail" class="inline-input hidden" style="display:none;" placeholder="请列出具体奖项"/>
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-text">活动参加人数</label>
-              <div class="controls">
-                <div class="caption">过去一年里，有多少人参加贵组织的活动</div>
-                <select name="participant_scale" class="required" title="年度规划" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="500人以下">500人以下</option>
-                    <option value="501-2000人">501-2000人</option>
-                    <option value="2001-5000人">2001-5000人</option>
-                    <option value="5001-10000人">5001-10000人</option>
-                    <option value="10000人以上">10000人以上</option>
-                </select>
-              </div>
-          </div>
-          <div class="control-group">
-              <label class="control-label has-more-text">服务区域</label>
-              <div class="controls">
-                <div class="caption">过去一年里，贵组织的线下活动和服务所在区域</div>
-                <select name="service_area" class="required" title="年度规划" value="{$user.register_type}">
-                    <option value="">——请选择——</option>
-                    <option value="我们组织所在的社区">我们组织所在的社区</option>
-                    <option value="我们组织所在的城市">我们组织所在的城市</option>
-                    <option value="我们组织所在的省份">我们组织所在的省份</option>
-                    <option value="涵盖几个省份">涵盖几个省份</option>
-                    <option value="全国范围都有">全国范围都有</option>
-                </select>
-              </div>
-          </div>
-          <div class="control-group has-caption-stub">
-              <label class="control-label has-more-text">资金来源</label>
-              <div class="controls">
-                <div class="caption">过去两年里，贵组织曾经获得以下哪些资助(点击选择，可多选)</div>
-                <input type="text" id="inputField" name="fund_info" class="input-large required pill-select" data-options="基金会,政府部门,企业,个人,未获得资助" placeholder="请选择">
-              </div>
-          </div>
           <div class="control-group">
               <label class="control-label  has-more-text" for="inputDesc">{:L('核心技术')}</label>
               <div class="controls">
                 <div class="caption">贵组织的核心技术（知识或者产品）是什么</div>
-                <textarea id="inputDesc" name="key_resource" class="input-large required" rows="3" placeholder="贵组织的核心技术（知识或者产品）是什么"></textarea>
+                <textarea id="inputKeyResource" name="key_resource" class="input-large required" rows="3" placeholder="贵组织的核心技术（知识或者产品）是什么"></textarea>
               </div>
           </div>
           <div class="control-group">
               <label class="control-label has-more-text" for="inputDesc">{:L('定位和使命')}</label>
               <div class="controls">
                 <div class="caption">贵组织的定位、愿景和使命是什么</div>
-                <textarea id="inputDesc" name="aim" class="input-large required" rows="3" placeholder="贵组织的定位、愿景和使命是什么"></textarea>
+                <textarea id="inputFocus" name="focus" class="input-large required" rows="3" placeholder="贵组织的定位、愿景和使命是什么"></textarea>
               </div>
           </div>
           <div class="control-group">
               <label class="control-label has-more-text" for="inputDesc">{:L('合作伙伴')}</label>
               <div class="controls">
                 <div class="caption">请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业、NGO、基金会</div>
-                <textarea id="inputDesc" name="partner_info" class="input-large required" rows="3" placeholder="请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业或者NGO、基金会"></textarea>
+                <textarea id="inputPartners" name="partner_info" class="input-large required" rows="3" placeholder="请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业或者NGO、基金会"></textarea>
               </div>
           </div>
           <div class="control-group">
               <label class="control-label has-more-text" for="inputDesc">{:L('资助方')}</label>
               <div class="controls">
                 <div class="caption">请列举贵组织三个最重要的资助方名称</div>
-                <textarea id="inputDesc" name="fund_source" class="input-large required" rows="3" placeholder="请列举贵组织三个最重要的资助方名称"></textarea>
+                <textarea id="inputFundSources" name="fund_source" class="input-large required" rows="3" placeholder="请列举贵组织三个最重要的资助方名称"></textarea>
               </div>
           </div>
         </div>  <!-- step 3 -->
