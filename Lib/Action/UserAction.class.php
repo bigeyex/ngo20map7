@@ -404,6 +404,10 @@ class UserAction extends BaseAction
         }
 
         $score = $this->calcScore($_POST);
+        $Rating = M('rating');
+        $data['account_id'] = user('account_id');
+        $data['score'] = $score;
+        $Rating->add($data);
 
         // update login data with current ngo
         $_SESSION['login_user'] = array_merge($user_data, $_SESSION['login_user']);

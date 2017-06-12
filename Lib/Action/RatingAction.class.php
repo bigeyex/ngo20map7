@@ -30,7 +30,7 @@ class RatingAction extends BaseAction
     }
 
     public function rating() {
-        $id = user('id');
+        $id = user('account_id');
         $ratingModel = M('Rating');
         $result = $ratingModel->where(array('account_id'=>$id))->select();
         $score = $result[0]['score'];
@@ -41,8 +41,11 @@ class RatingAction extends BaseAction
 
     private function calcRating($score)
     {
-        define(GAP_VALUE, 15);
-        $ratings = array("A+", "A", "B+", "B", "C+", "C");
-        return $ratings[count($ratings) - floor($score / GAP_VALUE)];
+        if ($score >= 85) return 'A+';
+        if ($score >= 80) return 'A';
+        if ($score >= 75) return 'A-';
+        if ($score >= 65) return 'B+';
+        if ($score >= 60) return 'B';
+        return 'B-';
     }
 }
