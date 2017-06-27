@@ -1,4 +1,4 @@
-<extend name="layout:main" />
+<extend name="layout:main"/>
 <block name="title">全国公益组织排名</block>
 <block name="css-framework">
     {:css('jquery-ui')}
@@ -17,31 +17,152 @@
         <p>NGO评级数据库通过企业社会责任经理人视角对公益组织进行评级</p>
         <p>促进企业CSR资源与公益项目的需求匹配和资源对接</p>
     </div>
-    <div class="rating-main">
-        <div class="rating-ngo-areas">
-            <h3>分类</h3>
-            <ul>
-                <li <?php if(!$curArea):?>class="selected"<?php endif; ?> >
-                <a href="{:strtok($_SERVER['REQUEST_URI'], '?')}">组织综合排名</a>
-                </li>
-            <?php foreach (C('ORG_FIELDS') as $val): ?>
-                <li <?php if($curArea == $val): ?>class="selected"<?php endif;?> >
-                    <a href="?area={$val}">{$val}</a>
-                </li>
-            <?php endforeach; ?>
-            </ul>
-        </div>
-        <div class="rating-ngos">
-            <?php foreach ($ratingMap as $rating => $array): ?>
-                <h3>{$rating}</h3>
-                <?php foreach ($array as $ngo): ?>
-                    <div class="rating-ngo">
-                        <h4><a href="{:U('User/view')}/id/{$ngo['account_id']}">{$ngo['name']}</a></h4>
-                        <p>{$ngo['intro']}</p>
-                    </div>
-                <?php endforeach; ?>
-            <?php endforeach; ?>
-            <div class="pager">{$pager_html}</div>
+    <div class="rating-modal">
+        <div class="rating-search">
+            <div class="rating-close">X</div>
+            <div class="rating-search-workfield">
+                <h3>领域</h3>
+                <ul> <?php foreach (C('ORG_FIELDS') as $val): ?>
+                    <li>{$val}</li>
+                    <?php endforeach; ?> </ul>
+            </div>
+            <div class="rating-search-location">
+                <h3>地域</h3>
+                <input type="text"/>
+            </div>
+            <div class="rating-search-level">
+                <h3>评级</h3>
+                <ul>
+                    <li>A+</li>
+                    <li>A</li>
+                    <li>A-</li>
+                    <li>B+</li>
+                    <li>B</li>
+                    <li>B-</li>
+                </ul>
+            </div>
+            <div class="rating-btn filter-btn">开始筛选</div>
         </div>
     </div>
+    <div class="rating-main">
+            <div class="rating-list-header">
+                <div class="rating-list-column-name">组织综合排名</div>
+                <div class="rating-search-btn"><span>筛选</span><i class="icon-dropdown"></i></div>
+            </div>
+            <ul class="rating-list"></ul>
+            <div class="rating-btn list-more">加载更多</div>
+    </div>
+</block>
+<block name="script-after">
+    <script>
+        var work_field = null, place = null, level = 0, offset = 0, levelCounts = null, lastRatingLevel = null,
+            total = 0;
+        $('.rating-search-workfield, .rating-search-level').on('click', 'li', function () {
+            $(this).toggleClass('selected');
+        });
+
+        $('.filter-btn').on('click', function () {
+            work_field = $('.rating-search-workfield .selected').map(function () {
+                return $(this).text().trim()
+            }).get().join(',');
+            place = $('.rating-search-location').val();
+            level = $('.rating-search-level .selected').map(function () {
+                return $(this).text().trim()
+            }).get().join(',');
+
+            offset = 0;
+            getRatings();
+            $('.rating-modal').hide();
+        });
+
+        $('.rating-close').on('click', function () {
+            $('.rating-modal').hide();
+        });
+
+        $('.rating-search-btn').on('click', function () {
+            $('.rating-modal').show();
+        });
+
+        $('.list-more').on('click', function () {
+            getRatings(offset, work_field, place, level);
+        });
+
+        function getRatings() {
+            if (offset === undefined) offset = 0;
+            query = "offset=" + offset;
+            if (work_field) {
+                query += "&work_field=" + encodeURIComponent(work_field);
+            }
+            if (place) {
+                query += "&location=" + encodeURIComponent(place);
+            }
+            if (level) {
+                query += "&rating_level=" + encodeURIComponent(level);
+            }
+
+            var url = '/Rating/ratings?' + query;
+            $.get(url, function (data) {
+                if (offset == 0) $('.rating-list').html('');
+                if (!data.ratings || data.ratings.length == 0) {
+                    $('.list-more').hide();
+                    return;
+                }
+                if (offset == 0) {
+                    levelCounts = data.counts;
+                    calcTotal();
+                    lastRatingLevel = data.ratings[0].rating_level;
+                    $('.rating-list').append(genSectionHeader(lastRatingLevel));
+                }
+
+                offset += data.ratings.length;
+                appendRatingList(data.ratings);
+                if (offset >= total) {
+                    $('.list-more').hide();
+                }
+            });
+        }
+
+        function calcTotal() {
+            total = 0;
+            for (var i = 0, len = levelCounts.length; i < len; ++i) {
+                total += levelCounts[i].count;
+            }
+        }
+
+        function appendRatingList(ratings) {
+            $('.rating-list').append(genRatingsHtml(ratings));
+        }
+
+        function getRatingLevelCount(level) {
+            for (var i = 0, len = levelCounts.length; i < len; ++i) {
+                if (levelCounts[i].rating_level == level)
+                    return levelCounts[i].count;
+            }
+            return 0;
+        }
+
+        function genSectionHeader(level) {
+            return '<div class="rating-list-section-header"><span>' + level + '</span><span>（' + getRatingLevelCount(level) + '家机构）</span></div>';
+
+        }
+
+        function genRatingsHtml(ratings) {
+            var html = '';
+            for (var i = 0, len = ratings.length; i < len; ++i) {
+                if (ratings[i].rating_level != lastRatingLevel) {
+                    lastRatingLevel = ratings[i].rating_level;
+                    html += genSectionHeader(lastRatingLevel);
+                }
+                html += '<li><a href="/User/view/id/' + ratings[i].id + '">' + ratings[i].name + '</a></li>';
+            }
+            return html;
+        }
+
+        $(document).on('ready', function () {
+            getRatings();
+        })
+
+
+    </script>
+
 </block>

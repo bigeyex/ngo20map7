@@ -65,7 +65,8 @@ class UserAction extends BaseAction
     {
 
         if (user('user_id')) {
-            $this->redirect('User/edit');
+//            $this->redirect('User/edit');
+            $this->redirect('Rating/rating');
         }
         $this->display();
     }
@@ -362,6 +363,28 @@ class UserAction extends BaseAction
         return $score;
     }
 
+
+    private function calcRating($score)
+    {
+        if ($score >= 85) return 'A+';
+        if ($score >= 80) return 'A';
+        if ($score >= 75) return 'A-';
+        if ($score >= 65) return 'B+';
+        if ($score >= 60) return 'B';
+        return 'B-';
+    }
+
+    private function updateRating($id) {
+        $rating_score = $this->calcScore($_POST);
+        $rating_level = $this->calcRating($rating_score);
+        O('user')->save(array(
+            'id' => $id,
+            'rating_score' => $rating_score,
+            'rating_level' => $rating_level
+        ));
+
+    }
+
     function insert()
     {
         $this->needLoggedIn();
@@ -403,11 +426,17 @@ class UserAction extends BaseAction
             ));
         }
 
-        $score = $this->calcScore($_POST);
+        $rating_score = $this->calcScore($_POST);
+        $rating_level = $this->calcRating($rating_score);
         $Rating = M('rating');
         $data['account_id'] = user('account_id');
-        $data['score'] = $score;
+        $data['score'] = $rating_score;
         $Rating->add($data);
+        O('user')->save(array(
+           'id' => $new_id,
+            'rating_score' => $rating_score,
+            'rating_level' => $rating_level
+        ));
 
         // update login data with current ngo
         $_SESSION['login_user'] = array_merge($user_data, $_SESSION['login_user']);
@@ -440,6 +469,7 @@ class UserAction extends BaseAction
                 $user->is_admin = 0;
             }
             $user->save();
+            $this->updateRating($_POST['id']);
             $user = O('user')->find($_POST['id']);
             if ($user['is_checked']) {
                 OO('XSearch')->index('user', $_POST['id'], $user['name'], $user['intro']);

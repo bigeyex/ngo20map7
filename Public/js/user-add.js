@@ -14,9 +14,8 @@
 
      // simple validation
      var validateForm = function(formPage){
-       var formPageDiv = $('.form-page')[formPage];
        var passed = true;
-       $(formPageDiv).find('select.required, input.required').each(function(){
+       $('form.form-horizontal').find('select.required, input.required').each(function(){
          var $caption = $(this).parent().find('.caption');
          if($(this).val() === ''){
            passed = false;
@@ -33,56 +32,21 @@
        return passed;
      };
 
-     // pager for forms
-     var currentFormPage = 0;
-     var switchFormPage = function(page){
-       var $formPages = $('.form-page');
-       var pageCount = $formPages.length;
-       if(page < 0 || page >= pageCount){
-         return;
-       }
-       $($formPages[currentFormPage]).hide();
-       $($formPages[page]).show();
-       currentFormPage = page;
-       if(page == 0){
-         $('.prev-form-page').hide();
-       }
-       else{
-         $('.prev-form-page').show();
-       }
-
-       if(page == pageCount-1){
-         $('.next-form-page').hide();
-         $('.submit-form-button').show();
-       }
-       else{
-         $('.next-form-page').show();
-         $('.submit-form-button').hide();
-       }
-
-     }
-     $('.form-page:gt(0)').hide();
-     $('.prev-form-page').click(function(){
-       switchFormPage(currentFormPage-1);
+     $('form.form-horizontal').on('submit', function() {
+         return validateForm();
      });
-     $('.next-form-page').click(function(){
-       if(validateForm(currentFormPage)){
-         switchFormPage(currentFormPage+1);
-       }
-       else{
-         document.body.scrollTop = 0;
-
-       }
-     })
-     switchFormPage(0);
-     // end of switching pages
 
        if($('#map-input-box').length >= 1){
          loadBaiduMap();
        }
        $('.pill-select').pillSelectBox();
        $('.datepicker').datetimepicker({lang: 'ch'});
-       $('select').each(function(){$(this).val($(this).attr('value'))});
+       $('select').each(function () {
+           var $this = $(this);
+           if(!$this.val()){
+               $this.val($this.attr('value'))
+           }
+       });
 
        // jquery upload and crop
        if(typeof FlashUploader !== 'undefined'){

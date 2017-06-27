@@ -2,50 +2,44 @@
 class RatingAction extends BaseAction
 {
 
-    public function view($area = null)
+    public function ratings($work_field = "", $location = "", $rating_level = null, $offset = 0) {
+        $userModel = O("user");
+
+        $data = "type = 'ngo'";
+        if(isset($work_field) && $work_field != "") {
+            $data .= "and MULTI_FIND_IN_SET('" . $work_field . "', work_field)";
+        }
+        if(isset($location) && $location != "") {
+            $data .= "and (province like '" . $location ."%' or city like '" . $location ."%')";
+        }
+        if(isset($rating_level) && $rating_level != "") {
+            $data .= " and FIND_IN_SET(rating_level, '" . $rating_level . "')";
+        }
+        $limit = C("LIST_RECORD_PER_PAGE");
+
+        $levelCounts = null;
+        if(!isset($offset) || $offset == 0) {
+            $offset = 0;
+            $levelCounts = $userModel->where($data)->group("rating_level")->field('rating_level, count(1) as count')->select();
+        }
+
+        $ratings = $userModel->where($data)->order("rating_score desc, id")->limit($offset, $limit)->field('id, account_id, name, rating_level')->select();
+
+        $ret = array('ratings' => $ratings, 'counts' => $levelCounts);
+
+        return $this->ajaxReturn($ret);
+    }
+
+    public function view()
     {
-        $ratingModel = M('Rating');
-        if (isset($area)) {
-            $data = "FIND_IN_SET('" . $area . "', target_areas)";
-        }
-        $count = $ratingModel->where($data)->count();
-        $listRows = C("LIST_RECORD_PER_PAGE");
-        import("@.Classes.TBPage");
-        $pager = new TBPage($count, $listRows);
-        $result = $ratingModel->where($data)->order("score desc")->limit($pager->firstRow, $listRows)->select();
-        $ratingMap = array();
-//        $rating = "";
-        foreach ($result as $item) {
-            $rating = $this->calcRating($item['score']);
-            if (!isset($ratingMap[$rating])) {
-                $ratingMap[$rating] = array($item);
-            } else {
-                array_push($ratingMap[$rating], $item);
-            }
-        }
-        $this->assign('curArea', $area);
-        $this->assign('ratingMap', $ratingMap);
-        $this->assign('pager_html', $pager->show());
         return $this->display();
     }
 
     public function rating() {
-        $id = user('account_id');
-        $ratingModel = M('Rating');
-        $result = $ratingModel->where(array('account_id'=>$id))->select();
-        $score = $result[0]['score'];
-        $this->assign('score', $score);
-        $this->assign('rating', $this->calcRating($score));
+        $id = user('user_id');
+        $user = O('user')->find($id);
+        $this->assign('user', $user);
         return $this->display();
     }
 
-    private function calcRating($score)
-    {
-        if ($score >= 85) return 'A+';
-        if ($score >= 80) return 'A';
-        if ($score >= 75) return 'A-';
-        if ($score >= 65) return 'B+';
-        if ($score >= 60) return 'B';
-        return 'B-';
-    }
 }

@@ -50,9 +50,27 @@
                     this.pillDom = pillDom;
                 }
               });
+              var lastItem = dropdown_menu.find('a').last().get(0);
+              var lastExcluding = trigger_box.hasClass('last-excluding');
               dropdown_menu.find('a').click(function(){
+                  function removeItem(item) {
+                      if (!item.pillDom) return;
+                      item.pillDom.remove();
+                      item.pillDom = null;
+                      $(item).removeClass('selected');
+                  }
+                  function removeConfilictItems(selectedItem) {
+                      if(selectedItem !== lastItem) {
+                          removeItem(lastItem);
+                      } else {
+                          dropdown_menu.find('a').each(function() {
+                              removeItem(this);
+                          })
+                      }
+                  }
                   $(this).toggleClass('selected');
                   if($(this).hasClass('selected')){
+                      if(lastExcluding) removeConfilictItems(this);
                     // the item is not selected - select now
                     var pillDom = $('<span class="pill-select-pills"><i class="pill-close fa fa-times" tval="'+$(this).text()+'"></i>'+$(this).text()+'</span>');
                     trigger_box.find('.trigger-box-text').append(pillDom);
