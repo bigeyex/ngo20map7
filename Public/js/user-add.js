@@ -11,23 +11,38 @@
        }
      });
 
-
+     var phoneRegexp = /^(\+?86)?((\d{3,4}-?\d{7,8}(-\d{3,4})?)|(1\d{10}))$/;
+         urlRegexp = /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+       emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
      // simple validation
      var validateForm = function(formPage){
        var passed = true;
-       $('form.form-horizontal').find('select.required, input.required').each(function(){
+       $('form.form-horizontal').find('select.required, input.required, input[data-check]').each(function(){
          var $caption = $(this).parent().find('.caption');
-         if($(this).val() === ''){
-           passed = false;
-           if($caption.find('.error').length == 0){
-             $caption.append('<span class="error">必填</span>');
-           }
-           $(this).parent().parent().find('.control-label').addClass('error');
+           var error = null, $this = $(this), checkType = null;
+         if (checkType = $this.data('check')) {
+            if ($this.val()) {
+                switch (checkType) {
+                    case 'url':
+                        error = urlRegexp.test($this.val()) ? '' : '链接地址格式不正确，请重新输入';
+                        break;
+                    case 'email':
+                        error = emailRegexp.test($this.val()) ? '' : '邮箱地址格式不正确，请重新输入';
+                        break;
+                    case 'phone':
+                        error = phoneRegexp.test($this.val()) ? '' : '电话号码格式不正确，请重新输入';
+                }
+            }
+         } else if ($this.val() == '') {
+             error = '必填';
          }
-         else { // the field is not empty
            $caption.find('.error').remove();
            $(this).parent().parent().find('.control-label').removeClass('error');
-         }
+           if (error) {
+               passed = false;
+               $caption.append('<span class="error">' + error + '</span>');
+               $(this).parent().parent().find('.control-label').addClass('error');
+           }
        });
        return passed;
      };
@@ -108,15 +123,38 @@
    });
    function loadBaiduMap(){
        var script = document.createElement("script");
-       script.src = "http://api.map.baidu.com/api?v=1.5&ak=1m5xok7fCAjkwvynKoxxEnb1&callback=onBaiduMapLoaded";
+       script.src = "http://api.map.baidu.com/api?v=2.0&ak=1m5xok7fCAjkwvynKoxxEnb1&callback=onBaiduMapLoaded";
        document.body.appendChild(script);
+   }
+
+   function getGeoLocation(cb) {
+       var geolocation = new BMap.Geolocation();
+       try {
+           geolocation.getCurrentPosition(function (result) {
+               if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                   cb(result.point);
+               } else {
+                   cb();
+               }
+           });
+       } catch (e) {
+           cb();
+       }
    }
 
    function onBaiduMapLoaded(){
        var map = new BMap.Map('map-input-box');
-       map.centerAndZoom(new BMap.Point(121.491, 31.233), 11);
-       map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM}));
-       map_control.init(map);
+       var city = new BMap.LocalCity();
+       city.get(function (result) {
+           map.centerAndZoom(result.center, 11);
+           getGeoLocation(function (point) {
+               if (!!point) {
+                   map.centerAndZoom(point, 11);
+               }
+               map.addControl(new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM}));
+               map_control.init(map);
+           })
+       })
    }
 
    // map control
@@ -152,6 +190,7 @@
            }
 
            $('.add-location-button').click(self.save_location);
+
        },
        geocode: function(address){
 

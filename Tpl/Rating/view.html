@@ -28,7 +28,11 @@
             </div>
             <div class="rating-search-location">
                 <h3>地域</h3>
-                <input type="text"/>
+                <input class="rating-input" type="text"/>
+            </div>
+            <div class="rating-search-keyword">
+                <h3>关键词</h3>
+                <input class="rating-input" type="text"/>
             </div>
             <div class="rating-search-level">
                 <h3>评级</h3>
@@ -55,8 +59,8 @@
 </block>
 <block name="script-after">
     <script>
-        var work_field = null, place = null, level = 0, offset = 0, levelCounts = null, lastRatingLevel = null,
-            total = 0;
+        var work_field = null, place = null, keyword = null, level = 0, offset = 0,
+                levelCounts = null, lastRatingLevel = null, total = 0;
         $('.rating-search-workfield, .rating-search-level').on('click', 'li', function () {
             $(this).toggleClass('selected');
         });
@@ -65,7 +69,8 @@
             work_field = $('.rating-search-workfield .selected').map(function () {
                 return $(this).text().trim()
             }).get().join(',');
-            place = $('.rating-search-location').val();
+            place = $('.rating-search-location input').val();
+            keyword = $('.rating-search-keyword input').val();
             level = $('.rating-search-level .selected').map(function () {
                 return $(this).text().trim()
             }).get().join(',');
@@ -96,6 +101,9 @@
             if (place) {
                 query += "&location=" + encodeURIComponent(place);
             }
+            if (keyword) {
+                query += "&keyword=" + encodeURIComponent(keyword);
+            }
             if (level) {
                 query += "&rating_level=" + encodeURIComponent(level);
             }
@@ -108,6 +116,7 @@
                     return;
                 }
                 if (offset == 0) {
+                    $('.list-more').show();
                     levelCounts = data.counts;
                     calcTotal();
                     lastRatingLevel = data.ratings[0].rating_level;
@@ -125,7 +134,7 @@
         function calcTotal() {
             total = 0;
             for (var i = 0, len = levelCounts.length; i < len; ++i) {
-                total += levelCounts[i].count;
+                total += parseInt(levelCounts[i].count);
             }
         }
 

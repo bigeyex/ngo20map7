@@ -2,7 +2,7 @@
 class RatingAction extends BaseAction
 {
 
-    public function ratings($work_field = "", $location = "", $rating_level = null, $offset = 0) {
+    public function ratings($work_field = "", $location = "", $keyword = "", $rating_level = null, $offset = 0) {
         $userModel = O("user");
 
         $data = "type = 'ngo'";
@@ -11,6 +11,9 @@ class RatingAction extends BaseAction
         }
         if(isset($location) && $location != "") {
             $data .= "and (province like '" . $location ."%' or city like '" . $location ."%')";
+        }
+        if(isset($keyword) && $keyword != "") {
+            $data .= "and (name like '%" . $keyword ."%' or intro like '%$keyword%')";
         }
         if(isset($rating_level) && $rating_level != "") {
             $data .= " and FIND_IN_SET(rating_level, '" . $rating_level . "')";

@@ -7,6 +7,12 @@
 {:css('jquery.fileupload')}
 {:css('jquery.Jcrop')}
 {:css('user-edit')}
+<style>
+    .caption .error {
+        margin-left: 5px;
+        color: red;
+    }
+</style>
 <?php if($p==PAGE_MORE_INFO): ?>
 {:css('user-info')}
 <style>
@@ -19,6 +25,7 @@
         margin-left: 200px;
         margin-bottom: 20px;
     }
+
 </style>
 <?php endif; ?>
 
@@ -144,25 +151,29 @@
                       <div class="control-group">
                           <label class="control-label" for="inputPhone">机构电话</label>
                           <div class="controls">
-                            <input type="text" id="inputPhone" name="phone" class="span6" value="{$user.phone}">
+                              <div class="caption"></div>
+                            <input type="text" id="inputPhone" name="phone" class="span6" data-check="phone" value="{$user.phone}">
                           </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputMail">机构邮箱</label>
                           <div class="controls">
-                            <input type="text" id="inputMail" name="public_email" class="span6" value="{$user.public_email}">
+                              <div class="caption"></div>
+                            <input type="text" id="inputMail" name="public_email" class="span6" data-check="email" value="{$user.public_email}">
                           </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputWebsite">机构网站</label>
                           <div class="controls">
-                            <input type="text" id="inputWebsite" name="website" class="span6" value="{$user.website}">
+                              <div class="caption"></div>
+                            <input type="text" id="inputWebsite" name="website" class="span6" data-check="url" value="{$user.website}">
                           </div>
                       </div>
                       <div class="control-group">
                           <label class="control-label" for="inputFax">机构传真</label>
                           <div class="controls">
-                            <input type="text" id="inputFax" name="fax" class="span6" value="{$user.fax}">
+                              <div class="caption"></div>
+                            <input type="text" id="inputFax" name="fax" class="span6" value="{$user.fax}" data-check="phone">
                           </div>
                       </div>
                       <div class="control-group">
@@ -189,15 +200,15 @@
                           <div class="box-content">
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织的服务领域是(点击选择，可多选)</div>
-                                      <input type="text" id="inputField" name="work_field" class="input-large pill-select"
+                                      <div class="caption">贵组织的服务领域是(点击选择，可多选)<span style="color:red"> *</span></div>
+                                      <input type="text" id="inputField" name="work_field" class="input-large pill-select required"
                                              data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童"
                                              value="{$user.work_field}">
                                   </div>
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织的成立年份是</div>
+                                      <div class="caption">贵组织的成立年份是<span style="color:red"> *</span></div>
                                       <select name="register_year" class="required" value="{$user.register_year}">
                                           <option value="">请选择年份</option>
                                           <?php for($i=0;$i<50;$i++): ?>
@@ -229,7 +240,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织的注册类型是</div>
+                                      <div class="caption">贵组织的注册类型是<span style="color:red"> *</span></div>
                                       <select name="register_type" class="required" title="注册类型"
                                               value="{$user.register_type}">
                                           <option value="">——请选择——</option>
@@ -243,7 +254,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织全职人员的数量</div>
+                                      <div class="caption">贵组织全职人员的数量<span style="color:red"> *</span></div>
                                       <select id="selectStaffFulltime" name="staff_fulltime_range" class="required"
                                               title="全职人员数量" value="{$user.staff_fulltime_range}">
                                           <option value="">——请选择——</option>
@@ -255,7 +266,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织成员平均在公益领域的工作经验</div>
+                                      <div class="caption">贵组织成员平均在公益领域的工作经验<span style="color:red"> *</span></div>
                                       <select name="member_experience" class="required" title="平均工作经验"
                                               value="{$user.member_experience}">
                                           <option value="">——请选择——</option>
@@ -268,7 +279,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织领导人从事本领域的工作经验</div>
+                                      <div class="caption">贵组织领导人从事本领域的工作经验<span style="color:red"> *</span></div>
                                       <select name="lead_experience" class="required" title="领导人工作经验"
                                               value="{$user.lead_experience}">
                                           <option value="">——请选择——</option>
@@ -295,7 +306,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="">贵组织的财务/会计人员情况是</div>
+                                      <div class="">贵组织的财务/会计人员情况是<span style="color:red"> *</span></div>
                                       <select name="accountant_status" class="required" title="财务会计人员"
                                               value="{$user.accountant_status}">
                                           <option value="">——请选择——</option>
@@ -307,7 +318,7 @@
                               </div>
                               <div class="control-group has-caption-stub">
                                   <div class="controls">
-                                      <div class="caption">贵组织拥有的自主信息平台是(点击选择，可多选)</div>
+                                      <div class="caption">贵组织拥有的自主信息平台是(点击选择，可多选)<span style="color:red"> *</span></div>
                                       <input type="text" id="inputInfoPlatform" name="info_platform"
                                              class="input-large required pill-select" data-options="官方微博,微信公众号,官方网站,暂无"
                                              placeholder="请选择" value="{$user.info_platform}">
@@ -315,7 +326,7 @@
                               </div>
                               <div class="control-group has-caption-stub">
                                   <div class="controls">
-                                      <div class="caption">贵组织拥有以下制度中的(点击选择，可多选)</div>
+                                      <div class="caption">贵组织拥有以下制度中的(点击选择，可多选)<span style="color:red"> *</span></div>
                                       <input type="text" id="inputOrgRules" name="org_rules"
                                              class="input-large required pill-select"
                                              data-options="组织章程,工作手册,程序化报销制度,以上都没有" placeholder="请选择" value="{$user.org_rules}">
@@ -323,7 +334,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织是否拥有理事会</div>
+                                      <div class="caption">贵组织是否拥有理事会<span style="color:red"> *</span></div>
                                       <select name="has_board" class="required" title="是否有理事会"
                                               value="{$user.has_board}">
                                           <option value="">——请选择——</option>
@@ -334,7 +345,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织是否有年度规划/计划（如果愿意，请上传）</div>
+                                      <div class="caption">贵组织是否有年度规划/计划（如果愿意，请上传）<span style="color:red"> *</span></div>
                                       <select class="reveal-next required" name="has_plan" title="年度规划"
                                               value="{$user.has_plan}">
                                           <option value="">——请选择——</option>
@@ -350,7 +361,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织是否有年度工作报告（如果愿意，请上传）</div>
+                                      <div class="caption">贵组织是否有年度工作报告（如果愿意，请上传）<span style="color:red"> *</span></div>
                                       <select class="reveal-next required" name="has_report" title="年度规划"
                                               value="{$user.has_report}">
                                           <option value="">——请选择——</option>
@@ -366,7 +377,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织实施过的项目中，单个项目最高资金规模</div>
+                                      <div class="caption">贵组织实施过的项目中，单个项目最高资金规模<span style="color:red"> *</span></div>
                                       <select name="project_scale" class="required" title="项目最大规模"
                                               value="{$user.project_scale}">
                                           <option value="">——请选择——</option>
@@ -393,7 +404,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">过去一年里，贵组织的线下活动和服务所在区域</div>
+                                      <div class="caption">过去一年里，贵组织的线下活动和服务所在区域<span style="color:red"> *</span></div>
                                       <select name="service_area" class="required" title="年度规划"
                                               value="{$user.service_area}">
                                           <option value="">——请选择——</option>
@@ -407,7 +418,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">过去一年里，贵组织及其活动（不包括招募）被媒体（包括传统媒体和新媒体。微信、微博和论坛不计入其中）报道的数量</div>
+                                      <div class="caption">过去一年里，贵组织及其活动（不包括招募）被媒体（包括传统媒体和新媒体。微信、微博和论坛不计入其中）报道的数量<span style="color:red"> *</span></div>
                                       <select name="media_report" class="required" title="媒体报道数量"
                                               value="{$user.media_report}">
                                           <option value="">——请选择——</option>
@@ -422,7 +433,7 @@
                               </div>
                               <div class="control-group has-caption-stub">
                                   <div class="controls">
-                                      <div class="caption">过去两年里，贵组织曾经获得以下哪些资助(点击选择，可多选)</div>
+                                      <div class="caption">过去两年里，贵组织曾经获得以下哪些资助(点击选择，可多选)<span style="color:red"> *</span></div>
                                       <input type="text" id="inputFundInfo" name="fund_info"
                                              class="input-large required pill-select"
                                              data-options="基金会,政府部门,企业,个人,未获得资助" placeholder="请选择" value="{$user.fund_info}">
@@ -430,7 +441,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">过去两年里，贵组织或组织的项目（活动）是否有获奖情况</div>
+                                      <div class="caption">过去两年里，贵组织或组织的项目（活动）是否有获奖情况<span style="color:red"> *</span></div>
                                       <select class="reveal-next required" name="has_reward" title="年度规划"
                                               value="{$user.has_reward}">
                                           <option value="">——请选择——</option>
@@ -443,7 +454,7 @@
                               </div>
                               <div class="control-group">
                                   <div class="controls">
-                                      <div class="caption">贵组织在民政评估中的评估级别</div>
+                                      <div class="caption">贵组织在民政评估中的评估级别<span style="color:red"> *</span></div>
                                       <select name="gov_level" class="required" title="民政评估级别"
                                               value="{$user.gov_level}">
                                           <option value="">——请选择——</option>
@@ -487,7 +498,7 @@
                               <div class="control-group">
                                   <div class="controls">
                                       <div class="caption">财务披露链接</div>
-                                      <input type="text" id="inputFinancialLink" name="financial_link" class="span6"
+                                      <input type="text" id="inputFinancialLink" name="financial_link" class="span6" data-check="url"
                                              value="{$user.financial_link}" placeholder="如果可以在网上看到机构的财务披露，请将链接贴在这里">
                                   </div>
                               </div>
