@@ -132,11 +132,14 @@ ALTER TABLE user
   ADD reward_detail VARCHAR(100),
   ADD gov_level VARCHAR(20),
   ADD key_resource VARCHAR(100),
-  ADD vision VARCHAR(100),
+  ADD vision VARCHAR(300),
   ADD partner_info VARCHAR(100),
+  ADD typical_case VARCHAR(500),
   ADD rating_score int(11),
   ADD rating_level VARCHAR(10);
 
 -- update user table's data;
 UPDATE user SET staff_fulltime_range = CalcFullStaffRange(staff_fulltime);
 UPDATE user SET  rating_score = 90 * RAND() + 10, rating_level = CalcRating(rating_score);
+
+-- ALTER TABLE user ADD typical_case VARCHAR(100);

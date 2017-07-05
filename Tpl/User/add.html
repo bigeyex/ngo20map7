@@ -37,14 +37,8 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="caption">贵组织的简介</div>
-                            <textarea id="inputDesc" name="intro" class="input-large" rows="5"
+                            <textarea id="inputDesc" name="intro" class="input-large" rows="5"  maxlength=500
                                       placeholder="{:L('请用一段简短的话来描述您的机构')}"></textarea>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <div class="caption">贵组织的使命</div>
-                            <input type="text" id="inputAim" name="aim" class="input-large" placeholder="请用一句话来描述机构的使命">
                         </div>
                     </div>
                     <div class="control-group">
@@ -398,29 +392,36 @@
                     <div class="control-group">
                         <div class="controls">
                             <div class="caption">贵组织的核心技术（知识或者产品）是什么</div>
-                            <textarea id="inputKeyResource" name="key_resource" class="input-large required" rows="3"
+                            <textarea id="inputKeyResource" name="key_resource" class="input-large required" rows="3" maxlength=100
                                       placeholder="贵组织的核心技术（知识或者产品）是什么">{$user.key_resource}</textarea>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
                             <div class="caption">贵组织的定位、愿景和使命是什么</div>
-                            <textarea id="inputFocus" name="vision" class="input-large required" rows="3"
+                            <textarea id="inputFocus" name="vision" class="input-large required" rows="3" maxlength=300
                                       placeholder="贵组织的定位、愿景和使命是什么">{$user.vision}</textarea>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
                             <div class="caption">请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业、NGO、基金会</div>
-                            <textarea id="inputPartners" name="partner_info" class="input-large required" rows="3"
+                            <textarea id="inputPartners" name="partner_info" class="input-large required" rows="3" maxlength=100
                                       placeholder="请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业或者NGO、基金会">{$user.partner_info}</textarea>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
                             <div class="caption">请列举贵组织三个最重要的资助方名称</div>
-                            <textarea id="inputFundSources" name="fund_source" class="input-large required" rows="3"
+                            <textarea id="inputFundSources" name="fund_source" class="input-large required" rows="3" maxlength=100
                                       placeholder="请列举贵组织三个最重要的资助方名称">{$user.fund_source}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="caption">请描述组织最成功的一个公益项目</div>
+                            <textarea id="inputTypicalCase" name="typical_case" class="input-large required" rows="3"  maxlength=500
+                                      placeholder="请描述组织最成功的一个公益项目">{$user.typical_case}</textarea>
                         </div>
                     </div>
                     <div class="control-group">

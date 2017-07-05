@@ -16,7 +16,7 @@ body {
 .rating-banner > h3 {
     margin: 0;
     padding: 25px 0 16px;
-    font-size: 32px;
+    font-size: 28px;
 }
 
 .rating-banner > p {
@@ -30,7 +30,7 @@ body {
     background: #fff;
     width: 100%;
     height: 100%;
-    font-size: 22px;
+    font-size: 16px;
     z-index: 99;
     overflow: auto;
     display: none;
@@ -38,7 +38,7 @@ body {
 
 .rating-close {
     float:right;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 200;
     margin: 8px;
     cursor: pointer;
@@ -57,16 +57,16 @@ body {
 }
 
 .rating-search h3 {
-    font-size: 28px;
+    font-size: 22px;
 }
 
 .rating-search li {
     list-style: none;
     display: inline-block;
     color: #787878;
-    padding: 5px 8px;
+    padding: 2px 8px;
     margin: 2px 5px;
-    line-height: 30px;
+    line-height: 22px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -81,7 +81,7 @@ body {
 input.rating-input  {
     border: none;
     width: 100%;
-    font-size: 20px;
+    font-size: 16px;
     border-bottom: 2px solid;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -95,11 +95,11 @@ input.rating-input:focus {
 .rating-btn {
     color: #fff;
     width: 300px;
-    margin: 20px auto;
+    margin: 15px auto;
     background: #00940e;
     text-align: center;
-    line-height: 50px;
-    font-size: 24px;
+    line-height: 40px;
+    font-size: 18px;
     cursor: pointer;
 }
 
@@ -107,7 +107,7 @@ input.rating-input:focus {
     width: 100%;
     max-width: 960px;
     margin: 22px auto;
-    font-size: 22px;
+    font-size: 16px;
 }
 
 li.selected {
@@ -118,8 +118,8 @@ li.selected {
 .rating-list-header {
     position: relative;
     padding-left: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
     border-bottom: 2px solid #999;
 }
 
@@ -144,7 +144,7 @@ li.selected {
 
 .rating-list li {
     list-style: none;
-    line-height: 40px;
+    line-height: 30px;
 }
 
 .rating-list li > a {
@@ -152,11 +152,11 @@ li.selected {
 }
 
 .rating-list-section-header {
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .rating-list-section-header > span:first-child {
-    font-size: 32px;
+    font-size: 24px;
     color: #00940e;
 }
 
