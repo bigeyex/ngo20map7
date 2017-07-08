@@ -27,7 +27,7 @@
                     "type": "view",
                     "name": "上传机构风采",
                     "url": "http://dev.ngo20map.com/WechatOrg/photoUpload"
-                }   
+                }
             ]
         },
         {
@@ -47,7 +47,7 @@
                     "type": "scancode_push",
                     "name": "扫码签到",
                     "key": "scan_checkin",
-                }, 
+                },
                 {
                     "type": "view",
                     "name": "发布活动",
@@ -58,7 +58,7 @@
                     "name": "上传图片",
                     "url": "http://dev.ngo20map.com/WechatEvent/photoUpload"
                 }
-                
+
             ]
         },
         {
@@ -75,6 +75,28 @@
                     "url": "http://dev.ngo20map.com/WechatEvent/local_news"
                 }
             ]
+        }
+    ]
+}
+
+
+
+
+
+
+{
+    "button": [
+        {
+            "name": "NGO2.0",
+            "url": "http://www.ngo20.org"
+        },
+        {
+            "name": "公益地图",
+            "url": "http://www.ngo20map.com"
+        },
+        {
+            "name": "公益互助",
+            "url": "http://dev.ngo20map.com/HuZhu/index"
         }
     ]
 }

@@ -1,0 +1,34 @@
+<!-- Page3: My Needs -->
+<div id="tab-my-needs" class="weui_tab_bd_item">
+  <!-- need filters -->
+  <div class="weui-row" id="my-needs-filters">
+    <div class="weui-col-33"></div><div class="weui-col-33"></div>
+    <div class="weui-col-33"><div class="select-box"><input type="text" id="my-filter-selector" value="未读" data-values="unread"/><i class="icons icon-arrow-down"></i></div></div>
+  </div>
+
+  <!-- needs list -->
+  <div class="weui-row main-scroll-view" id="my-needs-list">
+    <div class="weui-pull-to-refresh-layer">
+      <div class="pull-to-refresh-arrow"></div> <!-- 上下拉动的时候显示的箭头 -->
+      <div class="pull-to-refresh-preloader"></div> <!-- 正在刷新的菊花 -->
+      <div class="down">下拉刷新</div><!-- 下拉过程显示的文案 -->
+      <div class="up">释放刷新</div><!-- 下拉超过50px显示的文案 -->
+      <div class="refresh">正在刷新...</div><!-- 正在刷新时显示的文案 -->
+    </div>
+
+    <!-- ko foreach: wishes -->
+    <div class="weui-col-50 wish-item" data-bind="click: $parent.showDetail">
+      <h2 data-bind="text: content"></h2>
+      <div class="publisher" data-bind="text: author"></div>
+      <div class="count-groups">
+        <i class="icons icon-heart"></i><span class="like-count" data-bind="text: likes"></span>
+        <i class="icons icon-action-undo"></i><span class="reply-count" data-bind="text: replies"></span>
+      </div>
+    </div>
+    <!-- /ko -->
+    <div id="my-needs-infinite" class="weui-infinite-scroll">
+      <div class="infinite-preloader"></div><!-- 菊花 -->
+      正在加载... <!-- 文案，可以自行修改 -->
+    </div>
+  </div>
+</div> <!-- tab-3 -->

@@ -1,0 +1,37 @@
+<extend name="layout:backend"/>
+
+<block name="head">
+    {:css('rating-manage')}
+</block>
+
+<block name="body">
+    <div class="container backend-container backend-container-nb">
+        <div class="row">
+            <div class="span2">
+            </div>
+            <div class="span8">
+                <div class="box">
+                    <div class="box-header">
+                        评级成绩
+                    </div>
+                    <div class="box-content">
+                        <?php if(!isset($user["rating_level"])): ?>
+                            <div class="row text-center text-info">
+                                您的机构还未完成评级，请到<a class="btn" href="{:U('User/edit')}/id/{$user.id}/p/4">编辑机构页面</a>完善您的信息。
+                            </div>
+                        <?php else: ?>
+                        <div class="row">
+                            <div class="span2 text-center">综合成绩</div>
+                            <div class="span4 text-success">{$user.rating_level}</div>
+                        </div>
+                        <div class="row" style="margin-top: 20px;margin-bottom: 20px;">
+                            <div class="span2 text-center">评分解析</div>
+                            <div class="span4 text-info">您的机构在评级中获得{$user.rating_score}的评分</div>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

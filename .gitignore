@@ -7,3 +7,5 @@ sftp-config.json
 .DS_Store
 .idea
 Conf/db.php
+deployment-config.json
+*.iml

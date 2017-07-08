@@ -8,6 +8,7 @@ return array(
     'SEARCH_BOX_RESULT_PLACEHOLDER' => 'Type to search...',
     'BUTTON_PUBLISH_EVENT' => 'Publish Events',
     'LINK_NAME_BOOK' => 'NGO List',
+    'LINK_NGO_RATINGS' => 'NGO Ratings',
     'LINK_SIGN_UP' => 'Register',
     'LINK_LOG_IN' => 'Sign-in',
 

@@ -107,6 +107,7 @@ var _hmt = _hmt || [];
       <!-- <li><a href="#">站内信</a></li> -->
       <li class="{:active_for('Event/manage')}"><a href="{:U('Event/manage')}">活动管理</a></li>
       <?php if(user('user_id')): ?>
+      <li class="rating-info"><a href="{:U('Rating/rating')}">评级数据库</a></li>
       <li class="update-org-info-link {:active_for('User/edit')}"><a href="{:U('User/edit')}">编辑机构信息</a></li>
       <li class="{:active_for('User/manage_comments')}"><a href="{:U('User/manage_comments')}">评论管理</a></li>
       <?php else: ?>
@@ -148,7 +149,7 @@ var _hmt = _hmt || [];
 {:js('jquery-1.11.1.min')}
 {:js('jquery-ui.min')}
 {:js('jquery.fancybox')}
-{:js('bootstrap.min')}
+{:js('bootstrap')}
 {:js('slidebars')}
 {:js('header')}
 

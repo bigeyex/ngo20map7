@@ -3,7 +3,7 @@ return array(
     'DB_HOST' => 'localhost',
     'DB_NAME' => 'ngo20map7',
     'DB_USER' => 'root',
-    'DB_PWD' => '',
+    'DB_PWD' => 'Mysql!@3456',
     'DB_PORT' => '3306',
     'DB_PREFIX' => '',
     'SEARCH_API_PATH' => '/Users/wangyu/xunsearch/sdk/php/lib/XS.php',

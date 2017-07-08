@@ -1,0 +1,97 @@
+<extend name="layout:weui"/>
+<block name="css">
+  {:css('-simple-line-icons')}
+  {:css('-jquery-weui.min')}
+  {:css('-huzhu')}
+</block>
+
+<block name="content">
+
+
+
+
+  <div class="weui_tab">
+    <div class="weui_tab_bd">
+
+      <include file="_tab_all_needs"/>
+      <include file="_tab_publish_needs"/>
+      <include file="_tab_my_needs"/>
+    </div>
+    <div class="weui_tabbar">
+      <a href="#tab-all-needs" class="weui_tabbar_item weui_bar_item_on" onclick="loadWishesList()" id="all-wish-tab-button">
+        <div class="weui_tabbar_icon">
+          <i class="icon-people icons" style="color: #2ecc71;"></i>
+        </div>
+        <p class="weui_tabbar_label">大家的心愿</p>
+      </a>
+      <a href="#tab-create-need" class="weui_tabbar_item" id="publish-wish-tab-button">
+        <div class="weui_tabbar_icon">
+          <i class="icon-plus icons" style="color: #e74c3c;"></i>
+        </div>
+        <p class="weui_tabbar_label">发布心愿</p>
+      </a>
+      <a href="#tab-my-needs" class="weui_tabbar_item" onclick="loadMyWishesList()">
+        <div class="weui_tabbar_icon">
+          <i class="icon-user icons" style="color: #9b59b6;"></i>
+        </div>
+        <p class="weui_tabbar_label">我的心愿</p>
+      </a>
+    </div>
+  </div>
+
+  <include file="_connect_account_popup"/>
+  <include file="_publish_popup"/>
+  <include file="_detail_popup"/>
+
+
+
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script>
+  window.config_items_per_page = 20;
+  window.config_need_filter_types = [{title:"全部类型", value:""}, "人", "财", "物", "技术/传播"];
+  window.config_need_types = ["人", "财", "物", "技术/传播"];
+  window.config_progress_types = [{title:"全部", value:""}, {title:"供", value:"supply"}, {title:"需", value:"demand"}];
+  window.config_progress_input_types = [{title:"供", value:"supply"}, {title:"需", value:"demand"}];
+  window.config_mylist_types = [{title:"未读", value:"unread"}, {title:"我发起的", value:"my"}, {title:"我回应的", value:"replied"}, {title:"我关注的", value:"liked"}];
+  window.account_id = {:user('account_id')};
+  window.user_id = "{:user('user_id')}";
+  window.account_author_name = "{:user('name')}";
+  window.get_detail_id = "{$_GET['wish']}";
+
+  wx.config({
+    appId: '{:C('WECHAT_APPID')}',
+    timestamp: {$jsSign['timestamp']},
+    nonceStr: "{$jsSign['noncestr']}",
+    signature: "{$jsSign['signature']}",
+    jsApiList: ['getLocation', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareQZone']
+  });
+
+  wx.ready(function(){
+    if(!localStorage.getItem('cityname')) {
+      wx.getLocation({
+          type: 'wgs84',
+          success: function (res) {
+            HuZhu.locateCity(res.latitude, res.longitude);
+              console.log(res);
+          },
+          cancel: function () {
+            loadWishesList();
+          }
+      });
+    }
+
+    wx.onMenuShareTimeline({
+        title: '我的公益心愿 - '+detailViewModel.content(),
+        link: 'http://www.ngo20map.com/HuZhu/index/wish/'+detailViewModel.id(), // 分享链接
+        imgUrl: '', // 分享图标
+    });
+  });
+  </script>
+
+  {:js('-jquery-1.11.1.min')}
+  {:js('-jquery-weui.min')}
+  {:js('-city-picker.min')}
+  {:js('-knockout-2.2.1')}
+  {:js('-knockout.mapping')}
+  {:js_list(array('moment.min', 'moment-zh-cn', 'huzhu/huzhu-ui-setup','huzhu/huzhu-models','huzhu/huzhu-detail','huzhu/huzhu-query','huzhu/huzhu-publish','huzhu/huzhu-account','huzhu/huzhu-app'))}
+</block>

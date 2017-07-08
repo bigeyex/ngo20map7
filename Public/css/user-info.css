@@ -1,0 +1,47 @@
+@media (min-width: 960px) {
+    .container h2,h5 {
+        margin-left: 260px;
+    }
+
+    .submit-form-button {
+        margin-left: -240px;
+        letter-spacing: 3px;
+        padding: 5px 30px !important;
+    }
+
+}
+@media (max-width: 978px) {
+    .container h2,h5 {
+        text-align: center;
+    }
+    .form-horizontal .controls {
+        margin: 0 5px;
+    }
+    .input-large {
+        width: 100%;
+        max-width: 480px;
+    }
+    .publish-event input,
+    .publish-event textarea {
+        padding: 10px 0;
+    }
+
+    .publish-event select {
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .select-pills ul {
+        width: 100%;
+        max-width: 484px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .select-pills {
+        padding: 10px 0;
+    }
+}
+
+

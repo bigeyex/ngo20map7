@@ -1,0 +1,54 @@
+<div id="publish-success-popup" class="weui-popup-container">
+  <div class="weui-popup-modal">
+    <div class="weui_msg">
+      <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+      <div class="weui_text_area">
+        <h2 class="weui_msg_title">成功发布心愿</h2>
+        <p class="weui_msg_desc">点击确定回到心愿列表</p>
+      </div>
+      <div class="weui_opr_area">
+        <p class="weui_btn_area">
+          <a href="javascript:;" class="weui_btn weui_btn_primary close-popup">确定</a>
+        </p>
+      </div>
+      <div class="weui_extra_area">
+        <a href="">查看刚刚发布的心愿</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="edit-wish-popup" class="weui-popup-container">
+  <div class="weui-popup-modal">
+    <div class="weui_cells_title">心愿内容</div>
+    <div class="weui_cells weui_cells_form">
+      <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+          <textarea class="weui_textarea" placeholder="请输入评论" rows="3" id="input-edit-content" data-bind="value: content"></textarea>
+          <div class="weui_textarea_counter"><span>0</span>/200</div>
+        </div>
+      </div>
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">供/需</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+          <input id="edit-need-category" class="weui_input" type="tel" placeholder="需" data-bind="attr: {'data-values': is_supply()==1?'supply':'demand'}, value: is_supply()==1?'供':'需'">
+        </div>
+      </div>
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">内容分类</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+          <input id="edit-need-type" class="weui_input" type="tel" placeholder="人" data-bind="value: category">
+        </div>
+      </div>
+      <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">有效期至</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+          <input id="edit-exp-date" data-toggle='date' value="{:date('Y-m-d')}" class="weui_input" placeholder="" data-bind="value: expire_date">
+        </div>
+      </div>
+    </div> <!-- weui_cells -->
+
+    <a href="javascript:;" class="weui_btn weui_btn_primary action_button_primary" id="save-huzhu-button">保存</a>
+    <a href="javascript:;" class="weui_btn weui_btn_default action_button_primary" id="return-to-huzhu-button" style="margin-right: 0;">返回</a>
+  </div>
+</div>

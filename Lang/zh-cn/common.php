@@ -8,6 +8,7 @@ return array(
     'SEARCH_BOX_RESULT_PLACEHOLDER' => '输入关键词开始搜索',
     'BUTTON_PUBLISH_EVENT' => '发布活动/项目',
     'LINK_NAME_BOOK' => '名录',
+    'LINK_NGO_RATINGS' => '评级数据库',
     'LINK_SIGN_UP' => '注册',
     'LINK_LOG_IN' => '登录',
 

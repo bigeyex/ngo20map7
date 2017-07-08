@@ -367,8 +367,8 @@ h2.header{
 
 /** Stage carousel specific styles **/
 
-.connected-carousels .carousel-stage { 
-            
+.connected-carousels .carousel-stage {
+
 }
 
 /** Navigation carousel specific styles **/
@@ -376,7 +376,7 @@ h2.header{
 .connected-carousels .carousel-navigation {
     height: 47px;
     width: 240px;
-    background: #fff;        
+    background: #fff;
     margin-left: auto;
     margin-right: auto;
 }
@@ -398,13 +398,13 @@ h2.header{
 
 .connected-carousels .carousel-navigation li img {
     display: block;
-    
+
 }
 
 .connected-carousels .carousel-navigation li.active img {
     margin-top: -1px;
     margin-left: 0px;
-    
+
 }
 
 /** Stage carousel controls **/
@@ -484,6 +484,12 @@ h2.header{
     margin-top: 50px;
 }
 
+.publish-event select{
+  border: 1px solid rgb(169,169,169);
+  height: 40px;
+  width: auto;
+}
+
 .h1-subtitle{
     text-align: center;
     font-size: 16px;
@@ -525,9 +531,18 @@ h2.header{
 	background-image: linear-gradient(to top, #fed72f, #fde65c);
 }
 
+input.submit-form-button {
+  height: 40px;
+  margin-top: -4px;
+}
+
 .publish-event input, .publish-event textarea, .select-pills{
     padding: 10px;
     border: 1px solid #a6a5a5;
+}
+
+.publish-event .inline-input {
+    padding: 9px;
 }
 
 .publish-event .control-label{
@@ -535,6 +550,16 @@ h2.header{
     width: 164px;
     padding: 10px 0px 10px 0;
     letter-spacing: 1px
+}
+
+.publish-event .control-label.has-more-text{
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.publish-event .control-label.has-more-more-text{
+  margin-top: 40px;
+  margin-bottom: 0;
 }
 
 .map-input input{
@@ -599,7 +624,7 @@ h2.header{
     position: absolute;
     top: 13px;
     right: -8px;
-    pointer-events: none 
+    pointer-events: none
 }
 
 .group .icon-dropdown{
@@ -630,6 +655,10 @@ h2.header{
     padding: 13px 8px 0;
     width: 484px;
     z-index: 1;
+}
+
+.has-caption-stub .select-pills ul {
+    margin-top: 19px;
 }
 
 .select-pills li{
@@ -860,8 +889,8 @@ label.error{
 }
 
 .info-window-triangle{
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 12px solid #1d61c0;
@@ -881,4 +910,25 @@ label.error{
 .details-table th{
     text-align: right;
     padding: 2px 10px 2px 0;
+}
+
+.button-file-group{
+  position: relative;
+  display: inline-block;
+}
+
+.button-file-group input{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 4px 29px;
+  opacity: 0;
+}
+
+.caption span.error{
+  margin-left: 5px;
+  color: red;
 }

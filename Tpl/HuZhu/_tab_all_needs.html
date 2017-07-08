@@ -1,0 +1,63 @@
+<!-- Page 1: Everybody's needs -->
+<div id="tab-all-needs" class="weui_tab_bd_item weui_tab_bd_item_active">
+  <div id="needs-filters">
+
+    <!-- need filters -->
+    <div class="weui-row">
+      <div class="weui-col-33"><div class="select-box"><input type="text" id="city-picker" value="北京"/><i class="icons icon-arrow-down"></i></div></div>
+      <div class="weui-col-33"><div class="select-box"><input type="text" id="category-selector" value="全部类型"/><i class="icons icon-arrow-down"></i></div></div>
+      <div class="weui-col-33"><div class="select-box"><input type="text" id="progress-selector" value="全部"/><i class="icons icon-arrow-down"></i></div></div>
+    </div>
+
+    <!-- we-ui search bar -->
+    <div class="weui_search_bar" id="search_bar">
+      <form class="weui_search_outer">
+        <div class="weui_search_inner">
+          <i class="weui_icon_search"></i>
+          <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
+          <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+        </div>
+        <label for="search_input" class="weui_search_text" id="search_text">
+          <i class="weui_icon_search"></i>
+          <span>搜索</span>
+        </label>
+      </form>
+      <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+    </div> <!-- search bar -->
+  </div>
+  <!-- needs list -->
+  <div id="needs-list" class="weui-row main-scroll-view">
+    <div class="weui-pull-to-refresh-layer">
+      <div class="pull-to-refresh-arrow"></div> <!-- 上下拉动的时候显示的箭头 -->
+      <div class="pull-to-refresh-preloader"></div> <!-- 正在刷新的菊花 -->
+      <div class="down">下拉刷新</div><!-- 下拉过程显示的文案 -->
+      <div class="up">释放刷新</div><!-- 下拉超过50px显示的文案 -->
+      <div class="refresh">正在刷新...</div><!-- 正在刷新时显示的文案 -->
+    </div>
+
+    <!-- ko foreach: wishes -->
+    <div class="weui-col-50 wish-item" data-bind="click: $parent.showDetail, attr:{'need-id':id}">
+      <h2 data-bind="text: content"></h2>
+      <div class="publisher">
+        <div class="account-name">
+          <span data-bind="visible: is_verified" class="icons icon-badge badge-icon"></span>
+          <span data-bind="visible: !is_verified">(未认证)</span>
+          <span data-bind="text: author" class="account-name-span"></span>
+        </div>
+        <div class="ngo-name" data-bind="text: ngo_name"></div>
+      </div>
+      <div class="count-groups">
+        <i class="icons icon-heart"></i><span class="like-count" data-bind="text: likes"></span>
+        <i class="icons icon-action-undo"></i><span class="reply-count" data-bind="text: replies"></span>
+      </div>
+      <div class="finish-mask" data-bind="visible: is_complete=='1'">已完成</div>
+      <div class="finish-mask" data-bind="visible: is_open=='0' && is_complete!='1'">已关闭</div>
+      <div class="finish-mask" data-bind="visible: moment(expire_date).diff(new Date())<0 && is_open!='0' && is_complete!='1'">已过期</div>
+    </div>
+    <!-- /ko -->
+    <div id="needs-list-infinite" class="weui-infinite-scroll">
+      <div class="infinite-preloader"></div><!-- 菊花 -->
+      正在加载... <!-- 文案，可以自行修改 -->
+    </div>
+  </div>
+</div> <!-- tab 1 -->

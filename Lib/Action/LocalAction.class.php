@@ -29,19 +29,19 @@ class LocalAction extends BaseAction{
         $this->assign('is_local_admin', $local_map['admin_id']==user('id')||user('is_admin'));
         $this->display();
     }
-     
-    
+
+
     public function manage(){
         $local_map_model = new LocalMapModel();
-        
+
         import("@.Classes.TBPage");
         $listRows = C('ADMIN_ROW_LIST');
         $local_map_count = $local_map_model->where('enabled=1')->count();
         $Page = new TBPage($news_count,$listRows);
         $local_map_result = $local_map_model->order('id desc')->limit($Page->firstRow.','.$listRows)->select();
-        
+
         $page_bar = $Page->show();
-    
+
         $this->assign('local_result', $local_map_result);
         $this->assign('page', $page_bar);
         $this->display();
@@ -62,7 +62,7 @@ class LocalAction extends BaseAction{
         $Page = new TBPage($count,$listRows);
         $users = $user_model->limit($Page->firstRow.','.$listRows)->order('create_time desc')->select();
         $page_bar = $Page->show();
-    
+
         $this->assign('page_bar', $page_bar);
         $this->assign('users', $users);
         $this->display();
@@ -73,7 +73,7 @@ class LocalAction extends BaseAction{
         $local = O('local_map')->find($local_id);
         $province = $local['province'];
         $result = O('user')->province($province)->order('create_time desc')->select();
-        
+
         $fields = array(
             'name' => '名称',
             'contact_name' => '联系人',
@@ -95,7 +95,7 @@ class LocalAction extends BaseAction{
         );
         OO('ExcelExport')->output_excel($fields, $result);
     }
-    
+
     public function add_map(){
         $this->assign('action', 'insert');
         $this->display();
@@ -106,7 +106,7 @@ class LocalAction extends BaseAction{
         $local_map_model->create();
 
         $local_id = $local_map_model->add();
-        
+
         //insert module config
         $default_config = C('DEFAULT_LOCAL_CONFIG');
         foreach($default_config['modules'] as $module){
@@ -142,15 +142,16 @@ class LocalAction extends BaseAction{
     }
 
     public function delete_map($id){
+      $this->need_right_to_admin($id);
         $local_map_model = new LocalMapModel();
         $local_map_model->delete($id);
 
         $this->redirect('manage');
     }
-    
+
     public function embed_map($local_id){
         $pre_path = 'http://'.$_SERVER['HTTP_HOST'].__APP__;
-        
+
         $this->assign('pre_path', $pre_path);
         $this->assign('local_id', $local_id);
         $this->display();
@@ -164,49 +165,49 @@ class LocalAction extends BaseAction{
         O('local_map')->with('id', $_POST['local_id'])->save(array('config'=>json_encode($config)));
         echo 'ok';
     }
-    
+
     // post content
-    
+
     function post_add($local_id, $content_id){
         $local_map_model = new LocalMapModel();
         $local_map = $local_map_model->find($id);
         $module = M('local_modules')->find($content_id);
-        
+
         $post = array();
         $post['local_id'] = $local_id;
         $post['key'] = $content_id;
-        
+
         $this->assign('local_map', $local_map);
         $this->assign('module', $module);
-        
+
         $this->assign('post', $post);
         $this->display();
     }
-    
+
     function post_edit($id){
         $post = O('local_content')->find($id);
         $this->assign('post', $post);
         $this->assign('target', 'post_save');
         $this->display('post_add');
     }
-    
+
     function post_delete($id){
         $this->need_right_to_edit($id);
-        
+
         O('local_content')->with('id', $id)->delete();
         $this->redirect('post_list', array('local_id'=>$old_post['local_id'], 'content_id'=>$old_post['key']));
     }
-    
+
     function post_save(){
         $local_content = O('local_content');
         $post = $local_content->create();
-        
+
         $this->need_right_to_edit($post['id']);
-        
+
         $local_content->save();
         $this->redirect('post_view', array('local_id'=>$post['local_id'], 'content_id'=>$post['key'], 'post_id'=>$post['id']));
     }
-    
+
     function post_insert(){
         $local_content_model = new LocalContentModel();
         if($this->has_right_to_admin($_POST['local_id'])){
@@ -232,14 +233,14 @@ class LocalAction extends BaseAction{
         if(!$is_checked){
             flash('投稿文章在审核之后会出现在列表中', 'warning');
         }
-        
+
         $this->redirect('post_view', array('local_id'=>$_POST['local_id'], 'content_id'=>$_POST['key'], 'post_id'=>$post_id));
     }
-    
+
     function post_view($post_id){
         $local_content_model = new LocalContentModel();
         $post = $local_content_model->find($post_id);
-        
+
         $this->assign('local_id', $post['local_id']);
         $this->assign('post', $post);
         $this->display();
@@ -263,7 +264,7 @@ class LocalAction extends BaseAction{
         if(!$has_right_to_admin){
             $query_map['is_checked'] = 1;
         }
-            
+
         if(isset($_GET['q'])){
             $query_map['_complex'] = array(
                     'name' => array('like', '%'.$_GET['q'].'%'),
@@ -277,9 +278,9 @@ class LocalAction extends BaseAction{
         $posts = O('local_content')->where($query_map)->attach('users')->select();
         $Page = new TBPage($post_count,$listRows);
         $page_bar = $Page->show();
-        
+
         $module = M('local_modules')->find($content_id);
-    
+
         $this->assign('local_map', $local_map);
         $this->assign('module', $module);
         $this->assign('posts', $posts);
@@ -287,7 +288,7 @@ class LocalAction extends BaseAction{
         $this->assign('has_right_to_admin', $has_right_to_admin);
         $this->display();
     }
-    
+
     public function post_stick($id){
         $this->need_right_to_edit($id);
         $post = O('local_content')->find($id);
@@ -296,7 +297,7 @@ class LocalAction extends BaseAction{
         O('local_content')->save($post);
         echo 'ok';
     }
-    
+
     public function post_unstick($id){
         $this->need_right_to_edit($id);
         $post = O('local_content')->find($id);
@@ -304,7 +305,7 @@ class LocalAction extends BaseAction{
         O('local_content')->save($post);
         echo 'ok';
     }
-    
+
     public function post_audit($id){
         $this->need_right_to_edit($id);
         $post = O('local_content')->find($id);
@@ -312,7 +313,7 @@ class LocalAction extends BaseAction{
         O('local_content')->save($post);
         echo 'ok';
     }
-    
+
     public function post_unaudit($id){
         $this->need_right_to_edit($id);
         $post = O('local_content')->find($id);
@@ -320,22 +321,22 @@ class LocalAction extends BaseAction{
         O('local_content')->save($post);
         echo 'ok';
     }
-    
+
     // module editors
-    
+
     public function module_edit($local_id){
         $this->need_right_to_admin($local_id);
         $modules = O('local_modules')->with('local_id', $local_id)->order('sortkey')->select();
-        
+
         $this->assign('local_map', O('local_map')->find($local_id));
         $this->assign('modules', $modules);
         $this->assign('module_types', C('LOCAL_MODULES'));
         $this->display();
     }
-    
+
     public function act_module_add($local_id, $name, $type){
         $this->need_right_to_admin($local_id);
-        
+
         $new_id = O('local_modules')->add(array(
             'local_id' => $local_id,
             'name' => $name,
@@ -343,29 +344,29 @@ class LocalAction extends BaseAction{
         ));
         echo $new_id;
     }
-    
+
     public function act_module_save($id, $name, $type){
         $module = O('local_modules')->find($id);
         $this->need_right_to_admin($module['local_id']);
-        
+
         O('local_modules')->with('id', $id)->save(array(
             'id' => $id,
             'name' => $name,
             'type' => $type,
         ));
-        
+
         echo 'ok';
     }
 
     public function act_module_delete($id){
         $module = O('local_modules')->find($id);
         $this->need_right_to_admin($module['local_id']);
-        
+
         O('local_modules')->with('id', $id)->delete();
-        
+
         echo 'ok';
     }
-    
+
     public function act_module_change_order($new_order){
         $orders = explode(',', $new_order);
         for($i=0;$i<count($orders);$i++){
@@ -374,10 +375,10 @@ class LocalAction extends BaseAction{
                 'sortkey' => $i,
             ));
         }
-        
+
         echo 'ok';
     }
-    
+
     public function map_widget($local_id){
         $local_map = O('local_map')->find($local_id);
         $default_map_center = array('lng'=>'', 'lat'=>'', 'zoom'=>'');
@@ -395,7 +396,7 @@ class LocalAction extends BaseAction{
         $this->assign('local_map', $local_map);
         $this->display('_map_widget');
     }
-    
+
     public function _post_widget($local_id, $module_info){
         $local_content_model = new LocalContentModel();
         $results = $local_content_model->where(array(
@@ -403,17 +404,17 @@ class LocalAction extends BaseAction{
             'key'=>$module_info['id'],
             'is_checked'=>1,
         ))->limit(C('RECORD_PER_POST_WIDGET'))->select();
-        
+
         $this->assign('local_id', $local_id);
         $this->assign('module_info', $module_info);
         $this->assign('posts', $results);
-        $this->display('_post_widget');   
+        $this->display('_post_widget');
     }
-    
+
     public function _mapdata_widget($local_id, $module_info){
         $local_map = O('LocalMap')->find($local_id);
         $province = $local_map['province'];
-        
+
         switch($module_info['type']){
             case 'ngo':
                 $submit_link = U('User/register').'/type/ngo';
@@ -446,16 +447,16 @@ class LocalAction extends BaseAction{
                     ->with('is_checked',1)->with('enabled',1)
                     ->order('create_time desc')->limit(C('RECORD_PER_POST_WIDGET'))->select();
                 break;
-            
+
         }
-        
+
         $this->assign('submit_link', $submit_link);
         $this->assign('detail_link_before_id', $detail_link_before_id);
         $this->assign('more_link', $more_link);
         $this->assign('local_id', $local_id);
         $this->assign('module_info', $module_info);
         $this->assign('results', $results);
-        $this->display('_mapdata_widget');   
+        $this->display('_mapdata_widget');
     }
 
     public function _content_sidebar($local_id, $content_id=0){
@@ -463,14 +464,14 @@ class LocalAction extends BaseAction{
         $local_map = $local_map_model->find($local_id);
         $modules = M('LocalModules')->where(array('local_id'=>$local_id))->select();
 
-        
+
         $this->assign('modules', $modules);
         $this->assign('content_id', $content_id);
         $this->assign('local_map', $local_map);
         $this->assign('has_right_to_admin', $this->has_right_to_admin());
         $this->display('_content_sidebar');
     }
-    
+
     private function need_right_to_edit($post_id){
         //security check
         $old_post = O('local_content')->find($post_id);
@@ -479,7 +480,7 @@ class LocalAction extends BaseAction{
             die('您没有权限修改此信息');
         }
     }
-    
+
     private function need_right_to_admin($local_id){
         if($this->has_right_to_admin($local_id)){
             return true;
@@ -488,7 +489,7 @@ class LocalAction extends BaseAction{
             die('您没有权限管理此二级地图');
         }
     }
-    
+
     private function has_right_to_admin($local_id){
         $local_map = O('local_map')->find($local_id);
         if(!empty($local_map) && (user('is_admin') || $local_map['admin_id']==user('id'))){

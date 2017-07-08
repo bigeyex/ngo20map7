@@ -23,9 +23,9 @@
             <?php if (mb_strlen($user['aim'])<20): ?>
                 {$user.aim}
             <?php else: ?>
-                {$user.aim|mb_substr=0,20}
+                {$user.aim|mb_substr=###,0,20,'utf-8'}
                 <a href="javascript:$('.aim-more-btn').hide();$('.aim-more').show();" class="aim-more-btn">...更多</a>
-                <span class="aim-more" style="display:none;">{$user.aim|mb_substr=20}</span>
+                <span class="aim-more" style="display:none;">{$user.aim|mb_substr=###,20, -1,'utf-8'}</span>
             <?php endif ?>
             
         </p>

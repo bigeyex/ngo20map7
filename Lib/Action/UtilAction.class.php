@@ -36,7 +36,7 @@ class UtilAction extends Action{
         else{
             $image = OO('Uploader')->maxSize('2m')->imageOnly()->upload();
         }
-        
+
         if(!$image->error()){
             echo json_encode(array('url'=>$image->url()));
         }
@@ -45,10 +45,27 @@ class UtilAction extends Action{
         }
     }
 
+    function uploadDoc(){
+        if(isset($_GET['w'])){
+            $image = OO('Uploader')->maxSize('5m')->docOnly()->upload();
+        }
+        else{
+            $image = OO('Uploader')->maxSize('5m')->docOnly()->upload();
+        }
+
+        if(!$image->error()){
+            echo json_encode(array('url'=>$image->url()));
+        }
+        else{
+            echo json_encode(array('error'=>$image->error()));
+        }
+    }
+
+
     function bm_upload(){
         // $image = OO('Uploader')->imageOnly()->thumb('150x150')->thumb('628x326')->upload();
         $image = OO('Uploader')->imageOnly()->upload();
-        
+
         if(!$image->error()){
             $type = $_REQUEST['type'];
             $editorId=$_GET['editorid'];
@@ -135,7 +152,7 @@ class UtilAction extends Action{
                 $msg .= $_FILES[$key]['error'];
             }
             else
-            {   
+            {
                 //处理原始图片（默认的 file 域的名称是__source，可在插件配置参数中自定义。参数名：src_field_name）
                 //如果在插件中定义可以上传原始图片的话，可在此处理，否则可以忽略。
                 if ($key == '__source')
