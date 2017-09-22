@@ -93,8 +93,9 @@ function attach_autocomplete(id, source){
         $(window).resize(function(){
             var width = $(window).width();
             if(width > 1280){
-                $('#hero-region .slideshow').width(width);
-                $('#hero-region .slideshow img').width(width);
+                var wrapWidth = $('.slideshow-wrapper').width() + 10;
+                $('#hero-region .slideshow').width(wrapWidth);
+                $('#hero-region .slideshow img').width(wrapWidth);
                 $('#hero-region .slideshow').height('auto');
                 $('#hero-region .slideshow img').height('auto');
             }
