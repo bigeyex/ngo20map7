@@ -215,4 +215,24 @@
         color: #696969;
         text-align: center;
     }
+
+    #ngo-rating-promotion {
+        height: 255px;
+    }
+
+    #ngo-rating-promotion .pt-8 {
+        padding-top: 10px;
+    }
+
+    #ngo-rating-promotion .mt-5 {
+        margin-top: 5px;
+    }
+
+    #ngo-rating-promotion img {
+        height: 80px;
+    }
+
+    #ngo-rating-chart img{
+        height: 150px;
+    }
 }
