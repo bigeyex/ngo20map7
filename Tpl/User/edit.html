@@ -1,33 +1,34 @@
 <extend name="layout:backend"/>
 
 <block name="head">
-{:css('jquery.datetimepicker')}
-{:css('font-awesome.min')}
-{:css('lightbox')}
-{:css('jquery.fileupload')}
-{:css('jquery.Jcrop')}
-{:css('user-edit')}
-<style>
-    .caption .error {
-        margin-left: 5px;
-        color: red;
-    }
-</style>
-<?php if($p==PAGE_MORE_INFO): ?>
-{:css('user-info')}
-<style>
-@media (min-width: 960px) {
-    .form-horizontal .controls {
-        margin-left: 50px !important;
-    }
-}
-    .button {
-        margin-left: 200px;
-        margin-bottom: 20px;
-    }
+    {:css('jquery.datetimepicker')}
+    {:css('font-awesome.min')}
+    {:css('lightbox')}
+    {:css('jquery.fileupload')}
+    {:css('jquery.Jcrop')}
+    {:css('user-edit')}
+    <style>
+        .caption .error {
+            margin-left: 5px;
+            color: red;
+        }
+    </style>
+    <?php if($p==PAGE_MORE_INFO): ?>
+    {:css('user-info')}
+    <style>
+        @media (min-width: 960px) {
+            .form-horizontal .controls {
+                margin-left: 50px !important;
+            }
+        }
 
-</style>
-<?php endif; ?>
+        .button {
+            margin-left: 200px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+    <?php endif; ?>
 
 </block>
 
@@ -38,515 +39,569 @@
         <div class="row">
             <div class="span3">
                 <ul class="form-nav">
-                    <li class="{:active_if($p==1)}"><a href="{:U('User/edit')}/id/{$user.id}/p/1"><i class="edit-checkmark fa fa-check" style="width:20px;"></i> 基本资料</a></li>
-                    <li class="{:active_if($p==2)}"><a href="{:U('User/edit')}/id/{$user.id}/p/2"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_PHOTOS])}" style="width:20px;"></i> 机构风采</a></li>
-                    <li class="{:active_if($p==3)}"><a href="{:U('User/edit')}/id/{$user.id}/p/3"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_CONTACT_INFO])}" style="width:20px;"></i> 联系方式</a></li>
-                    <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/4"><i class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_MORE_INFO])}" style="width:20px;"></i> 信息披露</a></li>
+                    <li class="{:active_if($p==1)}"><a href="{:U('User/edit')}/id/{$user.id}/p/1"><i
+                            class="edit-checkmark fa fa-check" style="width:20px;"></i> 基本资料</a></li>
+                    <li class="{:active_if($p==2)}"><a href="{:U('User/edit')}/id/{$user.id}/p/2"><i
+                            class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_PHOTOS])}"
+                            style="width:20px;"></i> 机构风采</a></li>
+                    <li class="{:active_if($p==3)}"><a href="{:U('User/edit')}/id/{$user.id}/p/3"><i
+                            class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_CONTACT_INFO])}"
+                            style="width:20px;"></i> 联系方式</a></li>
+                    <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/4"><i
+                            class="edit-checkmark fa {:class_if('fa-check', $completion[PAGE_MORE_INFO])}"
+                            style="width:20px;"></i> 信息披露</a></li>
                     <?php if (user('is_admin')): ?>
-                      <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/5"><i class="edit-checkmark fa " style="width:20px;"></i>  修改密码</a></li>
+                    <li class="{:active_if($p==4)}"><a href="{:U('User/edit')}/id/{$user.id}/p/5"><i
+                            class="edit-checkmark fa " style="width:20px;"></i> 修改密码</a></li>
                     <?php endif ?>
-                    <li class="preview-org-page"><a href="{:U('User/view')}/id/{$user.id}" target="_blank"><i class="fa fa-eye" style="width:20px;"></i> 查看机构页面</a></li>
-                    
+                    <li class="preview-org-page"><a href="{:U('User/view')}/id/{$user.id}" target="_blank"><i
+                            class="fa fa-eye" style="width:20px;"></i> 查看机构页面</a></li>
+
                 </ul>
             </div>
             <div class="span9">
                 <div class="box nav-tab" tab-id="basic-info">
-                    
+
                     <form class="form-horizontal" action="{:U('User/save')}" method="post">
-                      <input type="hidden" name="id" value="{$user.id}" id="hidden_user_id"/>
+                        <input type="hidden" name="id" value="{$user.id}" id="hidden_user_id"/>
 
-                      <?php if($p == PAGE_BASIC_INFO): ?>
-                      <!-- basic info section -->
+                        <?php if($p == PAGE_BASIC_INFO): ?>
+                        <!-- basic info section -->
 
-                      <div class="box-header">
-                          基本信息
-                      </div>
-                      <div class="box-content">
-                    <div class="control-group">
-                        <label class="control-label" for="inputName">机构名称</label>
-                        <div class="controls">
-                          <input type="text" id="inputName" name="name" value="{$user.name}" class="span6" placeholder="填写公益机构全称">
+                        <div class="box-header">
+                            基本信息
                         </div>
-                    </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputIntro">机构简介</label>
-                          <div class="controls">
-                            <textarea id="inputIntro" name="intro" class="span6" rows="5"  maxlength=500 placeholder="请用一段简短的话来描述您的机构">{$user.intro}</textarea>
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputAim">机构使命</label>
-                          <div class="controls">
-                            <input type="text" id="inputAim" value="{$user.aim}" name="aim" class="span6" placeholder="请用一句话来描述机构的使命">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputPlace">办公地点</label>
-                          <div class="controls map-input">
-                            <input type="text" id="inputPlace" name="place" value="{$user.place}" class="span6 map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标">
-                            <input type="hidden" name="longitude" value="{$user.longitude}" class="map-longitude">
-                            <input type="hidden" name="latitude" value="{$user.latitude}" class="map-latitude">
-                            <input type="hidden" name="province" value="{$user.province}" class="map-province">
-                            <input type="hidden" name="city" value="{$user.city}" class="map-city">
-                            <div class="map-input-box" id="map-input-box" style="height: 217px; width: 464px"></div>
-                          </div>
-                      </div>
-
-                      <div class="control-group">
-                          <label class="control-label">机构标志</label>
-                          <input type="hidden" name="image" id="hidden-input-image" value="{$user.image}"/>
-                          <div class="controls">
-                            <div class="image-preview">
-                              <img src="__APP__/Public/Uploaded/th150x150_{$user.image}" width="150" id="imgpreview-image"/>
+                        <div class="box-content">
+                            <div class="control-group">
+                                <label class="control-label" for="inputName">机构名称</label>
+                                <div class="controls">
+                                    <input type="text" id="inputName" name="name" value="{$user.name}" class="span6"
+                                           placeholder="填写公益机构全称">
+                                </div>
                             </div>
-                            <span class="fileinput-button upload-logo btn">
+                            <div class="control-group">
+                                <label class="control-label" for="inputIntro">机构简介</label>
+                                <div class="controls">
+                                    <textarea id="inputIntro" name="intro" class="span6" rows="5" maxlength=500
+                                              placeholder="请用一段简短的话来描述您的机构">{$user.intro}</textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="inputAim">机构使命</label>
+                                <div class="controls">
+                                    <input type="text" id="inputAim" value="{$user.aim}" name="aim" class="span6"
+                                           placeholder="请用一句话来描述机构的使命">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="inputPlace">办公地点</label>
+                                <div class="controls map-input">
+                                    <input type="text" id="inputPlace" name="place" value="{$user.place}"
+                                           class="span6 map-address" placeholder="请填入具体的活动地址或在地图上点击鼠标">
+                                    <input type="hidden" name="longitude" value="{$user.longitude}"
+                                           class="map-longitude">
+                                    <input type="hidden" name="latitude" value="{$user.latitude}" class="map-latitude">
+                                    <input type="hidden" name="province" value="{$user.province}" class="map-province">
+                                    <input type="hidden" name="city" value="{$user.city}" class="map-city">
+                                    <div class="map-input-box" id="map-input-box"
+                                         style="height: 217px; width: 464px"></div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">机构标志</label>
+                                <input type="hidden" name="image" id="hidden-input-image" value="{$user.image}"/>
+                                <div class="controls">
+                                    <div class="image-preview">
+                                        <img src="__APP__/Public/Uploaded/th150x150_{$user.image}" width="150"
+                                             id="imgpreview-image"/>
+                                    </div>
+                                    <span class="fileinput-button upload-logo btn">
                                 <span id="imgupload-retext-image" class="">点击更换标志</span>
-                                <!-- The file input field used as target for the file upload widget -->
+                                        <!-- The file input field used as target for the file upload widget -->
                                 <input class="fileupload upload-logo" type="file" name="files" re-text="重新上传标志"
-                        crop-width="150" crop-height="150" data-url="{:U('Util/upload')}/w/150/h/150/" target-input="image"/>
+                                       crop-width="150" crop-height="150" data-url="{:U('Util/upload')}/w/150/h/150/"
+                                       target-input="image"/>
                             </span>
-                          </div>
-                      </div>
-                      <div class="submit-button controls">
-                          <button class="button">保存</button>
-                      </div>
-                      </div> <!-- box-content -->
+                                </div>
+                            </div>
+                            <div class="submit-button controls">
+                                <button class="button">保存</button>
+                            </div>
+                        </div> <!-- box-content -->
 
-                      <?php elseif($p==PAGE_PHOTOS): ?>
+                        <?php elseif($p==PAGE_PHOTOS): ?>
 
-                      <div class="box-header">
-                          活动/项目照片 <span class="subtitle">({$user.name})</span>
-                      </div>
-                      <div class="box-content" style="min-height:400px;">
-                      <div class="">
-                        <div class="image-showcase">
-                          <?php foreach($images as $image): ?>
-                            <a class="uploaded-image-slide" href="__APP__/Public/Uploaded/{$image.url}" data-lightbox="image-1">
-                                <img src="__APP__/Public/Uploaded/th628x326_{$image.url}" width="119">
-                                <input type="hidden" name="images[]" value="{$image.url}">
-                                <i class="fa fa-times remove-image-icon"></i>
-                                <i class="fa fa-home cover-image-icon {:active_if($image['url']==$user['cover_img'])}" onclick="setCoverImg(event, '{$image.url}')"></i>
-                            </a>
-                          <?php endforeach; ?>
+                        <div class="box-header">
+                            活动/项目照片 <span class="subtitle">({$user.name})</span>
                         </div>
-                        <div class="add-photo-button fileinput-button upload-photo-button">
-                            <i class="upload-photos-icon fa fa-upload"></i>
-                            <span id="imgupload-retext-image" class="upload-photos-text">上传新照片</span>
-                            <!-- The file input field used as target for the file upload widget -->
+                        <div class="box-content" style="min-height:400px;">
+                            <div class="">
+                                <div class="image-showcase">
+                                    <?php foreach($images as $image): ?>
+                                    <a class="uploaded-image-slide" href="__APP__/Public/Uploaded/{$image.url}"
+                                       data-lightbox="image-1">
+                                        <img src="__APP__/Public/Uploaded/th628x326_{$image.url}" width="119">
+                                        <input type="hidden" name="images[]" value="{$image.url}">
+                                        <i class="fa fa-times remove-image-icon"></i>
+                                        <i class="fa fa-home cover-image-icon {:active_if($image['url']==$user['cover_img'])}"
+                                           onclick="setCoverImg(event, '{$image.url}')"></i>
+                                    </a>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="add-photo-button fileinput-button upload-photo-button">
+                                    <i class="upload-photos-icon fa fa-upload"></i>
+                                    <span id="imgupload-retext-image" class="upload-photos-text">上传新照片</span>
+                                    <!-- The file input field used as target for the file upload widget -->
+                                </div>
+                            </div>
+
+                            <?php elseif($p==PAGE_CONTACT_INFO): ?>
+
+                            <div class="box-header">
+                                联系方式 <span class="subtitle">({$user.name})</span>
+                            </div>
+                            <div class="box-content org-contact-info-section">
+                                <div class="control-group">
+                                    <label class="control-label" for="inputContact">联系人</label>
+                                    <div class="controls">
+                                        <input type="text" id="inputContact" name="contact_name" class="span6"
+                                               value="{$user.contact_name}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPhone">机构电话</label>
+                                    <div class="controls">
+                                        <div class="caption"></div>
+                                        <input type="text" id="inputPhone" name="phone" class="span6" data-check="phone"
+                                               value="{$user.phone}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputMail">机构邮箱</label>
+                                    <div class="controls">
+                                        <div class="caption"></div>
+                                        <input type="text" id="inputMail" name="public_email" class="span6"
+                                               data-check="email" value="{$user.public_email}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputWebsite">机构网站</label>
+                                    <div class="controls">
+                                        <div class="caption"></div>
+                                        <input type="text" id="inputWebsite" name="website" class="span6"
+                                               data-check="url" value="{$user.website}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputFax">机构传真</label>
+                                    <div class="controls">
+                                        <div class="caption"></div>
+                                        <input type="text" id="inputFax" name="fax" class="span6" value="{$user.fax}"
+                                               data-check="phone">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputWeibo">机构微博</label>
+                                    <div class="controls">
+                                        <select name="weibo_provider" class="input-small"
+                                                value="{$user.weibo_provider}">
+                                            <option value="新浪微博">新浪微博</option>
+                                            <option value="腾讯微博">腾讯微博</option>
+                                            <option value="搜狐微博">搜狐微博</option>
+                                        </select>
+                                        @<input type="text" id="inputWeibo" name="weibo" class="" value="{$user.weibo}">
+                                    </div>
+                                </div>
+                                <div class="submit-button controls">
+                                    <button class="button">保存</button>
+                                </div>
+                            </div> <!-- box-content -->
+
+                            <?php elseif($p==PAGE_MORE_INFO): ?>
+
+                            <div class="box-header">
+                                信息披露 <span class="subtitle">({$user.name})</span>
+                            </div>
+                            <div class="box-content">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的服务领域是(点击选择，可多选)<span style="color:red"> *</span></div>
+                                        <input type="text" id="inputField" name="work_field"
+                                               class="input-large pill-select required"
+                                               data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童"
+                                               value="{$user.work_field}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的成立年份是<span style="color:red"> *</span></div>
+                                        <select name="register_year" class="required" value="{$user.register_year}">
+                                            <option value="">请选择年份</option>
+                                            <?php for($i=0;$i<50;$i++): ?>
+                                            <?php $year = date('Y')-$i; ?>
+                                            <option value="{$year}">{$year} 年</option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的注册时间是</div>
+                                        <select name="documented_year" class="input-medium"
+                                                value="{$user.documented_year}">
+                                            <option value="">请选择年份</option>
+                                            <?php for($i=0;$i<50;$i++): ?>
+                                            <?php $year = date('Y')-$i; ?>
+                                            <option value="{$year}">{$year} 年</option>
+                                            <?php endfor; ?>
+                                        </select>
+                                        <select name="documented_month" class="input-small"
+                                                value="{$user.documented_month}">
+                                            <option value="">月份</option>
+                                            <?php for($i=1;$i<=12;$i++): ?>
+                                            <option value="{$i}">{$i} 月</option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的注册类型是<span style="color:red"> *</span></div>
+                                        <select name="register_type" class="required" title="注册类型"
+                                                value="{$user.register_type}">
+                                            <option value="">——请选择——</option>
+                                            <option value="民非注册">各级民政部门注册（社会服务机构）</option>
+                                            <option value="工商注册">各级工商部门注册</option>
+                                            <option value="机构挂靠">各级机关事业单位（如学校）内部注册</option>
+                                            <option value="虚拟组织">仅通过网络注册、以虚拟社区等方式存在的组织</option>
+                                            <option value="尚未注册">尚未通过1到4项注册过的组织</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织全职人员的数量<span style="color:red"> *</span></div>
+                                        <select id="selectStaffFulltime" name="staff_fulltime_range" class="required"
+                                                title="全职人员数量" value="{$user.staff_fulltime_range}">
+                                            <option value="">——请选择——</option>
+                                            <option value="20人及以上">20人及以上</option>
+                                            <option value="10~19人">10~19人</option>
+                                            <option value="10人以下">10人以下</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织成员平均在公益领域的工作经验<span style="color:red"> *</span></div>
+                                        <select name="member_experience" class="required" title="平均工作经验"
+                                                value="{$user.member_experience}">
+                                            <option value="">——请选择——</option>
+                                            <option value="3年以下">3年以下</option>
+                                            <option value="3-5年">3-5年</option>
+                                            <option value="5-10年">5-10年</option>
+                                            <option value="10年以上">10年以上</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的负责人/领导人姓名</div>
+                                        <input type="text" id="inputLead" name="lead" class="input-large required"
+                                               placeholder="请输入组织的负责人/领导人姓名" value="{$user.lead}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织领导人从事本领域的工作经验<span style="color:red"> *</span></div>
+                                        <select name="lead_experience" class="required" title="领导人工作经验"
+                                                value="{$user.lead_experience}">
+                                            <option value="">——请选择——</option>
+                                            <option value="3年以下">3年以下</option>
+                                            <option value="3-5年">3-5年</option>
+                                            <option value="5-10年">5-10年</option>
+                                            <option value="10年以上">10年以上</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的兼职人员的数量</div>
+                                        <input type="text" id="inputVolunteer" name="staff_volunteer" class="span6"
+                                               value="{$user.staff_volunteer}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的核心志愿者数量</div>
+                                        <input type="text" id="inputParttime" name="staff_parttime" class="span6"
+                                               value="{$user.staff_parttime}" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="">贵组织的财务/会计人员情况是<span style="color:red"> *</span></div>
+                                        <select name="accountant_status" class="required" title="财务会计人员"
+                                                value="{$user.accountant_status}">
+                                            <option value="">——请选择——</option>
+                                            <option value="全职">有全职的财务/会计人员</option>
+                                            <option value="兼职">有兼职的财务/会计人员</option>
+                                            <option value="没有">没有财务/会计人员</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group has-caption-stub">
+                                    <div class="controls">
+                                        <div class="caption">贵组织拥有的自主信息平台是(点击选择，可多选)<span style="color:red"> *</span>
+                                        </div>
+                                        <input type="text" id="inputInfoPlatform" name="info_platform"
+                                               class="input-large required pill-select"
+                                               data-options="官方微博,微信公众号,官方网站,暂无"
+                                               placeholder="请选择" value="{$user.info_platform}">
+                                    </div>
+                                </div>
+                                <div class="control-group has-caption-stub">
+                                    <div class="controls">
+                                        <div class="caption">贵组织拥有以下制度中的(点击选择，可多选)<span style="color:red"> *</span>
+                                        </div>
+                                        <input type="text" id="inputOrgRules" name="org_rules"
+                                               class="input-large required pill-select"
+                                               data-options="组织章程,工作手册,程序化报销制度,以上都没有" placeholder="请选择"
+                                               value="{$user.org_rules}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织是否拥有理事会<span style="color:red"> *</span></div>
+                                        <select name="has_board" class="required" title="是否有理事会"
+                                                value="{$user.has_board}">
+                                            <option value="">——请选择——</option>
+                                            <option value="1">有</option>
+                                            <option value="0">无</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织是否有年度规划/计划（如果愿意，请上传）<span style="color:red"> *</span>
+                                        </div>
+                                        <select class="reveal-next required" name="has_plan" title="年度规划"
+                                                value="{$user.has_plan}">
+                                            <option value="">——请选择——</option>
+                                            <option value="1">有</option>
+                                            <option value="0">无</option>
+                                        </select>
+                                        <div class="button-file-group" style="display:none;">
+                                            <button class="button" target="">可上传一个文件(5M以下word或ppt)</button>
+                                            <input type="file" class="upload-doc" accept=".doc,.docx,.ppt,.pptx"/>
+                                            <input type="hidden" name="plan_file"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织是否有年度工作报告（如果愿意，请上传）<span style="color:red"> *</span>
+                                        </div>
+                                        <select class="reveal-next required" name="has_report" title="年度规划"
+                                                value="{$user.has_report}">
+                                            <option value="">——请选择——</option>
+                                            <option value="1">有</option>
+                                            <option value="0">无</option>
+                                        </select>
+                                        <div class="button-file-group" style="display:none;">
+                                            <button class="button" target="">可上传一个文件(5M以下word或ppt)</button>
+                                            <input type="file" class="upload-doc" accept=".doc,.docx,.ppt,.pptx"/>
+                                            <input type="hidden" name="report_file"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织实施过的项目中，单个项目最高资金规模<span style="color:red"> *</span>
+                                        </div>
+                                        <select name="project_scale" class="required" title="项目最大规模"
+                                                value="{$user.project_scale}">
+                                            <option value="">——请选择——</option>
+                                            <option value="20万以下">20万以下</option>
+                                            <option value="20万-50万">20万-50万</option>
+                                            <option value="50万-100万">50万-100万</option>
+                                            <option value="100万及以上">100万及以上</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">过去一年里，有多少人参加贵组织的活动</div>
+                                        <select name="participant_scale" class="required" title="年度规划"
+                                                value="{$user.participant_scale}">
+                                            <option value="">——请选择——</option>
+                                            <option value="500人以下">500人以下</option>
+                                            <option value="501-2000人">501-2000人</option>
+                                            <option value="2001-5000人">2001-5000人</option>
+                                            <option value="5001-10000人">5001-10000人</option>
+                                            <option value="10000人以上">10000人以上</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">过去一年里，贵组织的线下活动和服务所在区域<span style="color:red"> *</span>
+                                        </div>
+                                        <select name="service_area" class="required" title="年度规划"
+                                                value="{$user.service_area}">
+                                            <option value="">——请选择——</option>
+                                            <option value="组织所在的社区">组织所在的社区</option>
+                                            <option value="组织所在的城市">组织所在的城市</option>
+                                            <option value="组织所在的省份">组织所在的省份</option>
+                                            <option value="涵盖几个省份">涵盖几个省份</option>
+                                            <option value="全国范围都有">全国范围都有</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">过去一年里，贵组织及其活动（不包括招募）被媒体（包括传统媒体和新媒体。微信、微博和论坛不计入其中）报道的数量<span
+                                                style="color:red"> *</span></div>
+                                        <select name="media_report" class="required" title="媒体报道数量"
+                                                value="{$user.media_report}">
+                                            <option value="">——请选择——</option>
+                                            <option value="100次以上">100次以上</option>
+                                            <option value="51-100">51-100次</option>
+                                            <option value="21-50">21-50次</option>
+                                            <option value="6-20">6-20次</option>
+                                            <option value="1-5">1-5次</option>
+                                            <option value="0">我们的活动还没有被媒体报道过</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group has-caption-stub">
+                                    <div class="controls">
+                                        <div class="caption">过去两年里，贵组织曾经获得以下哪些资助(点击选择，可多选)<span
+                                                style="color:red"> *</span></div>
+                                        <input type="text" id="inputFundInfo" name="fund_info"
+                                               class="input-large required pill-select"
+                                               data-options="基金会,政府部门,企业,个人,未获得资助" placeholder="请选择"
+                                               value="{$user.fund_info}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">过去两年里，贵组织或组织的项目（活动）是否有获奖情况<span style="color:red"> *</span>
+                                        </div>
+                                        <select class="reveal-next required" name="has_reward" title="年度规划"
+                                                value="{$user.has_reward}">
+                                            <option value="">——请选择——</option>
+                                            <option value="1">有</option>
+                                            <option value="0">暂未获得奖项</option>
+                                        </select>
+                                        <input type="text" name="reward_detail" class="inline-input hidden"
+                                               style="display:none;" placeholder="请列出具体奖项"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织在民政评估中的评估级别<span style="color:red"> *</span></div>
+                                        <select name="gov_level" class="required" title="民政评估级别"
+                                                value="{$user.gov_level}">
+                                            <option value="">——请选择——</option>
+                                            <option value="5A">5A</option>
+                                            <option value="4A">4A</option>
+                                            <option value="3A">3A</option>
+                                            <option value="2A">2A</option>
+                                            <option value="A">A</option>
+                                            <option value="0">暂未参与评估</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的核心技术（知识或者产品）是什么</div>
+                                        <textarea id="inputKeyResource" name="key_resource" class="span6 required"
+                                                  maxlength=100
+                                                  rows="3"
+                                                  placeholder="贵组织的核心技术（知识或者产品）是什么">{$user.key_resource}</textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">贵组织的定位、愿景和使命是什么</div>
+                                        <textarea id="inputFocus" name="vision" class="span6 required" rows="3"
+                                                  maxlength=300
+                                                  placeholder="贵组织的定位、愿景和使命是什么">{$user.vision}</textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业、NGO、基金会</div>
+                                        <textarea id="inputPartners" name="partner_info" class="span6 required"
+                                                  maxlength=100
+                                                  rows="3" placeholder="请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业或者NGO、基金会">{$user.partner_info}</textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">请列举贵组织三个最重要的资助方名称</div>
+                                        <textarea id="inputFundSources" name="fund_source" class="span6 required"
+                                                  maxlength=100
+                                                  rows="3"
+                                                  placeholder="请列举贵组织三个最重要的资助方名称">{$user.fund_source}</textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">请描述组织最成功的一个公益项目</div>
+                                        <textarea id="inputTypicalCase" name="typical_case" class="span6 required"
+                                                  rows="3" maxlength=500
+                                                  placeholder="请描述组织最成功的一个公益项目">{$user.typical_case}</textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="caption">财务披露链接</div>
+                                        <input type="text" id="inputFinancialLink" name="financial_link" class="span6"
+                                               data-check="url"
+                                               value="{$user.financial_link}" placeholder="如果可以在网上看到机构的财务披露，请将链接贴在这里">
+                                    </div>
+                                </div>
+                            </div> <!-- other fields -->
+                            <div class="submit-button other-fields" style="display:none;">
+                                <input class="button submit-form-button" type="submit" value="{:L('完成')}"/>
+                            </div>
+                            <div class="submit-button controls">
+                                <button class="button">保存</button>
+                            </div>
+                        </div> <!-- box-content -->
+
+                        <?php elseif($p==PAGE_USER_PASSWORD): ?>
+
+                        <div class="box-header">
+                            修改登录凭据 <span class="subtitle">({$user.name})</span>
                         </div>
-                      </div>
+                        <div class="box-content org-contact-info-section">
+                            <div class="control-group">
+                                <label class="control-label" for="inputEmail">登录电子邮箱</label>
+                                <div class="controls">
+                                    <input type="email" id="inputEmail" name="email" class="span6"
+                                           value="{$user.email}">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="inputPassword">登录密码</label>
+                                <div class="controls">
+                                    <input type="password" id="inputPassword" name="password" class="span6">
+                                </div>
+                            </div>
+                            <div class="submit-button controls">
+                                <button class="button">保存</button>
+                            </div>
+                        </div> <!-- box-content -->
+                        <?php endif; ?>
+                    </form>
 
-                      <?php elseif($p==PAGE_CONTACT_INFO): ?>
+                </div> <!-- box -->
 
-                      <div class="box-header">
-                          联系方式 <span class="subtitle">({$user.name})</span>
-                      </div>
-                      <div class="box-content org-contact-info-section">
-                      <div class="control-group">
-                          <label class="control-label" for="inputContact">联系人</label>
-                          <div class="controls">
-                            <input type="text" id="inputContact" name="contact_name" class="span6" value="{$user.contact_name}">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputPhone">机构电话</label>
-                          <div class="controls">
-                              <div class="caption"></div>
-                            <input type="text" id="inputPhone" name="phone" class="span6" data-check="phone" value="{$user.phone}">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputMail">机构邮箱</label>
-                          <div class="controls">
-                              <div class="caption"></div>
-                            <input type="text" id="inputMail" name="public_email" class="span6" data-check="email" value="{$user.public_email}">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputWebsite">机构网站</label>
-                          <div class="controls">
-                              <div class="caption"></div>
-                            <input type="text" id="inputWebsite" name="website" class="span6" data-check="url" value="{$user.website}">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputFax">机构传真</label>
-                          <div class="controls">
-                              <div class="caption"></div>
-                            <input type="text" id="inputFax" name="fax" class="span6" value="{$user.fax}" data-check="phone">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputWeibo">机构微博</label>
-                          <div class="controls">
-                            <select name="weibo_provider" class="input-small" value="{$user.weibo_provider}">
-                              <option value="新浪微博">新浪微博</option>
-                              <option value="腾讯微博">腾讯微博</option>
-                              <option value="搜狐微博">搜狐微博</option>
-                            </select>
-                            @<input type="text" id="inputWeibo" name="weibo" class="" value="{$user.weibo}">
-                          </div>
-                      </div>
-                      <div class="submit-button controls">
-                          <button class="button">保存</button>
-                      </div>
-                      </div> <!-- box-content -->
-
-                      <?php elseif($p==PAGE_MORE_INFO): ?>
-
-                      <div class="box-header">
-                          信息披露 <span class="subtitle">({$user.name})</span>
-                      </div>
-                          <div class="box-content">
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的服务领域是(点击选择，可多选)<span style="color:red"> *</span></div>
-                                      <input type="text" id="inputField" name="work_field" class="input-large pill-select required"
-                                             data-options="{:implode(',', C('ORG_FIELDS'))}" placeholder="妇女儿童"
-                                             value="{$user.work_field}">
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的成立年份是<span style="color:red"> *</span></div>
-                                      <select name="register_year" class="required" value="{$user.register_year}">
-                                          <option value="">请选择年份</option>
-                                          <?php for($i=0;$i<50;$i++): ?>
-                                          <?php $year = date('Y')-$i; ?>
-                                          <option value="{$year}">{$year} 年</option>
-                                          <?php endfor; ?>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的注册时间是</div>
-                                      <select name="documented_year" class="input-medium"
-                                              value="{$user.documented_year}">
-                                          <option value="">请选择年份</option>
-                                          <?php for($i=0;$i<50;$i++): ?>
-                                          <?php $year = date('Y')-$i; ?>
-                                          <option value="{$year}">{$year} 年</option>
-                                          <?php endfor; ?>
-                                      </select>
-                                      <select name="documented_month" class="input-small"
-                                              value="{$user.documented_month}">
-                                          <option value="">月份</option>
-                                          <?php for($i=1;$i<=12;$i++): ?>
-                                          <option value="{$i}">{$i} 月</option>
-                                          <?php endfor; ?>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的注册类型是<span style="color:red"> *</span></div>
-                                      <select name="register_type" class="required" title="注册类型"
-                                              value="{$user.register_type}">
-                                          <option value="">——请选择——</option>
-                                          <option value="民非注册">各级民政部门注册（社会服务机构）</option>
-                                          <option value="工商注册">各级工商部门注册</option>
-                                          <option value="机构挂靠">各级机关事业单位（如学校）内部注册</option>
-                                          <option value="虚拟组织">仅通过网络注册、以虚拟社区等方式存在的组织</option>
-                                          <option value="尚未注册">尚未通过1到4项注册过的组织</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织全职人员的数量<span style="color:red"> *</span></div>
-                                      <select id="selectStaffFulltime" name="staff_fulltime_range" class="required"
-                                              title="全职人员数量" value="{$user.staff_fulltime_range}">
-                                          <option value="">——请选择——</option>
-                                          <option value="20人及以上">20人及以上</option>
-                                          <option value="10~19人">10~19人</option>
-                                          <option value="10人以下">10人以下</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织成员平均在公益领域的工作经验<span style="color:red"> *</span></div>
-                                      <select name="member_experience" class="required" title="平均工作经验"
-                                              value="{$user.member_experience}">
-                                          <option value="">——请选择——</option>
-                                          <option value="3年以下">3年以下</option>
-                                          <option value="3-5年">3-5年</option>
-                                          <option value="5-10年">5-10年</option>
-                                          <option value="10年以上">10年以上</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织领导人从事本领域的工作经验<span style="color:red"> *</span></div>
-                                      <select name="lead_experience" class="required" title="领导人工作经验"
-                                              value="{$user.lead_experience}">
-                                          <option value="">——请选择——</option>
-                                          <option value="3年以下">3年以下</option>
-                                          <option value="3-5年">3-5年</option>
-                                          <option value="5-10年">5-10年</option>
-                                          <option value="10年以上">10年以上</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的兼职人员的数量</div>
-                                      <input type="text" id="inputVolunteer" name="staff_volunteer" class="span6"
-                                             value="{$user.staff_volunteer}">
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的核心志愿者数量</div>
-                                      <input type="text" id="inputParttime" name="staff_parttime" class="span6"
-                                             value="{$user.staff_parttime}" placeholder="">
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="">贵组织的财务/会计人员情况是<span style="color:red"> *</span></div>
-                                      <select name="accountant_status" class="required" title="财务会计人员"
-                                              value="{$user.accountant_status}">
-                                          <option value="">——请选择——</option>
-                                          <option value="全职">有全职的财务/会计人员</option>
-                                          <option value="兼职">有兼职的财务/会计人员</option>
-                                          <option value="没有">没有财务/会计人员</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group has-caption-stub">
-                                  <div class="controls">
-                                      <div class="caption">贵组织拥有的自主信息平台是(点击选择，可多选)<span style="color:red"> *</span></div>
-                                      <input type="text" id="inputInfoPlatform" name="info_platform"
-                                             class="input-large required pill-select" data-options="官方微博,微信公众号,官方网站,暂无"
-                                             placeholder="请选择" value="{$user.info_platform}">
-                                  </div>
-                              </div>
-                              <div class="control-group has-caption-stub">
-                                  <div class="controls">
-                                      <div class="caption">贵组织拥有以下制度中的(点击选择，可多选)<span style="color:red"> *</span></div>
-                                      <input type="text" id="inputOrgRules" name="org_rules"
-                                             class="input-large required pill-select"
-                                             data-options="组织章程,工作手册,程序化报销制度,以上都没有" placeholder="请选择" value="{$user.org_rules}">
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织是否拥有理事会<span style="color:red"> *</span></div>
-                                      <select name="has_board" class="required" title="是否有理事会"
-                                              value="{$user.has_board}">
-                                          <option value="">——请选择——</option>
-                                          <option value="1">有</option>
-                                          <option value="0">无</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织是否有年度规划/计划（如果愿意，请上传）<span style="color:red"> *</span></div>
-                                      <select class="reveal-next required" name="has_plan" title="年度规划"
-                                              value="{$user.has_plan}">
-                                          <option value="">——请选择——</option>
-                                          <option value="1">有</option>
-                                          <option value="0">无</option>
-                                      </select>
-                                      <div class="button-file-group" style="display:none;">
-                                          <button class="button" target="">可上传一个文件(5M以下word或ppt)</button>
-                                          <input type="file" class="upload-doc" accept=".doc,.docx,.ppt,.pptx"/>
-                                          <input type="hidden" name="plan_file"/>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织是否有年度工作报告（如果愿意，请上传）<span style="color:red"> *</span></div>
-                                      <select class="reveal-next required" name="has_report" title="年度规划"
-                                              value="{$user.has_report}">
-                                          <option value="">——请选择——</option>
-                                          <option value="1">有</option>
-                                          <option value="0">无</option>
-                                      </select>
-                                      <div class="button-file-group" style="display:none;">
-                                          <button class="button" target="">可上传一个文件(5M以下word或ppt)</button>
-                                          <input type="file" class="upload-doc" accept=".doc,.docx,.ppt,.pptx"/>
-                                          <input type="hidden" name="report_file"/>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织实施过的项目中，单个项目最高资金规模<span style="color:red"> *</span></div>
-                                      <select name="project_scale" class="required" title="项目最大规模"
-                                              value="{$user.project_scale}">
-                                          <option value="">——请选择——</option>
-                                          <option value="20万以下">20万以下</option>
-                                          <option value="20万-50万">20万-50万</option>
-                                          <option value="50万-100万">50万-100万</option>
-                                          <option value="100万及以上">100万及以上</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">过去一年里，有多少人参加贵组织的活动</div>
-                                      <select name="participant_scale" class="required" title="年度规划"
-                                              value="{$user.participant_scale}">
-                                          <option value="">——请选择——</option>
-                                          <option value="500人以下">500人以下</option>
-                                          <option value="501-2000人">501-2000人</option>
-                                          <option value="2001-5000人">2001-5000人</option>
-                                          <option value="5001-10000人">5001-10000人</option>
-                                          <option value="10000人以上">10000人以上</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">过去一年里，贵组织的线下活动和服务所在区域<span style="color:red"> *</span></div>
-                                      <select name="service_area" class="required" title="年度规划"
-                                              value="{$user.service_area}">
-                                          <option value="">——请选择——</option>
-                                          <option value="组织所在的社区">组织所在的社区</option>
-                                          <option value="组织所在的城市">组织所在的城市</option>
-                                          <option value="组织所在的省份">组织所在的省份</option>
-                                          <option value="涵盖几个省份">涵盖几个省份</option>
-                                          <option value="全国范围都有">全国范围都有</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">过去一年里，贵组织及其活动（不包括招募）被媒体（包括传统媒体和新媒体。微信、微博和论坛不计入其中）报道的数量<span style="color:red"> *</span></div>
-                                      <select name="media_report" class="required" title="媒体报道数量"
-                                              value="{$user.media_report}">
-                                          <option value="">——请选择——</option>
-                                          <option value="100次以上">100次以上</option>
-                                          <option value="51-100">51-100次</option>
-                                          <option value="21-50">21-50次</option>
-                                          <option value="6-20">6-20次</option>
-                                          <option value="1-5">1-5次</option>
-                                          <option value="0">我们的活动还没有被媒体报道过</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group has-caption-stub">
-                                  <div class="controls">
-                                      <div class="caption">过去两年里，贵组织曾经获得以下哪些资助(点击选择，可多选)<span style="color:red"> *</span></div>
-                                      <input type="text" id="inputFundInfo" name="fund_info"
-                                             class="input-large required pill-select"
-                                             data-options="基金会,政府部门,企业,个人,未获得资助" placeholder="请选择" value="{$user.fund_info}">
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">过去两年里，贵组织或组织的项目（活动）是否有获奖情况<span style="color:red"> *</span></div>
-                                      <select class="reveal-next required" name="has_reward" title="年度规划"
-                                              value="{$user.has_reward}">
-                                          <option value="">——请选择——</option>
-                                          <option value="1">有</option>
-                                          <option value="0">暂未获得奖项</option>
-                                      </select>
-                                      <input type="text" name="reward_detail" class="inline-input hidden"
-                                             style="display:none;" placeholder="请列出具体奖项"/>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织在民政评估中的评估级别<span style="color:red"> *</span></div>
-                                      <select name="gov_level" class="required" title="民政评估级别"
-                                              value="{$user.gov_level}">
-                                          <option value="">——请选择——</option>
-                                          <option value="5A">5A</option>
-                                          <option value="4A">4A</option>
-                                          <option value="3A">3A</option>
-                                          <option value="2A">2A</option>
-                                          <option value="A">A</option>
-                                          <option value="0">暂未参与评估</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的核心技术（知识或者产品）是什么</div>
-                                      <textarea id="inputKeyResource" name="key_resource" class="span6 required" maxlength=100
-                                                rows="3" placeholder="贵组织的核心技术（知识或者产品）是什么" >{$user.key_resource}</textarea>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">贵组织的定位、愿景和使命是什么</div>
-                                      <textarea id="inputFocus" name="vision" class="span6 required" rows="3" maxlength=300
-                                                placeholder="贵组织的定位、愿景和使命是什么">{$user.vision}</textarea>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业、NGO、基金会</div>
-                                      <textarea id="inputPartners" name="partner_info" class="span6 required" maxlength=100
-                                                rows="3" placeholder="请列举贵组织三个最重要的合伙伙伴名称，可以是政府、企业或者NGO、基金会">{$user.partner_info}</textarea>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">请列举贵组织三个最重要的资助方名称</div>
-                                      <textarea id="inputFundSources" name="fund_source" class="span6 required" maxlength=100
-                                                rows="3" placeholder="请列举贵组织三个最重要的资助方名称">{$user.fund_source}</textarea>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">请描述组织最成功的一个公益项目</div>
-                                      <textarea id="inputTypicalCase" name="typical_case" class="span6 required" rows="3"  maxlength=500
-                                                placeholder="请描述组织最成功的一个公益项目">{$user.typical_case}</textarea>
-                                  </div>
-                              </div>
-                              <div class="control-group">
-                                  <div class="controls">
-                                      <div class="caption">财务披露链接</div>
-                                      <input type="text" id="inputFinancialLink" name="financial_link" class="span6" data-check="url"
-                                             value="{$user.financial_link}" placeholder="如果可以在网上看到机构的财务披露，请将链接贴在这里">
-                                  </div>
-                              </div>
-                          </div> <!-- other fields -->
-                          <div class="submit-button other-fields" style="display:none;">
-                              <input class="button submit-form-button" type="submit" value="{:L('完成')}"/>
-                          </div>
-                      <div class="submit-button controls">
-                          <button class="button">保存</button>
-                      </div>
-                      </div> <!-- box-content -->
-
-                      <?php elseif($p==PAGE_USER_PASSWORD): ?>
-
-                      <div class="box-header">
-                          修改登录凭据 <span class="subtitle">({$user.name})</span>
-                      </div>
-                      <div class="box-content org-contact-info-section">
-                      <div class="control-group">
-                          <label class="control-label" for="inputEmail">登录电子邮箱</label>
-                          <div class="controls">
-                            <input type="email" id="inputEmail" name="email" class="span6" value="{$user.email}">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputPassword">登录密码</label>
-                          <div class="controls">
-                            <input type="password" id="inputPassword" name="password" class="span6" >
-                          </div>
-                      </div>
-                      <div class="submit-button controls">
-                          <button class="button">保存</button>
-                      </div>
-                      </div> <!-- box-content -->
-                      <?php endif; ?> 
-                </form>
-
-            </div> <!-- box -->
-
+            </div>
         </div>
-    </div>
 
 </block>
 
@@ -561,34 +616,35 @@
     {:js('lightbox')}
 </block>
 <block name="script-after">
-  {:js('user-add')}
-  <script>
-  function setCoverImg(e, url){
-    var user_id = $('#hidden_user_id').val();
-    var dom = e.currentTarget;
-    $.post(app_path+'/User/setCoverPhoto', {user_id: user_id, url: url}, function(result){
-      if(result == 'ok'){
-        $('.cover-image-icon').removeClass('active');
-        $(dom).addClass('active');
-        toastr.success('成功设置封面图片');
-      }
-    });
-    e.stopPropagation();
-    e.preventDefault();
-  }
-  $(function(){
-    dispatcher.subscribe('image.uploaded', function(url){
-      $.post(app_path+'/User/addUserPhoto', {
-        url: url,
-        user_id: $('#hidden_user_id').val()
-      });
-    });
-    dispatcher.subscribe('image.deleted', function(url){
-      $.post(app_path+'/User/deleteUserPhoto', {
-        url: url,
-        user_id: $('#hidden_user_id').val()
-      });
-    });
-  });
-  </script>
+    {:js('user-add')}
+    <script>
+        function setCoverImg(e, url) {
+            var user_id = $('#hidden_user_id').val();
+            var dom = e.currentTarget;
+            $.post(app_path + '/User/setCoverPhoto', {user_id: user_id, url: url}, function (result) {
+                if (result == 'ok') {
+                    $('.cover-image-icon').removeClass('active');
+                    $(dom).addClass('active');
+                    toastr.success('成功设置封面图片');
+                }
+            });
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        $(function () {
+            dispatcher.subscribe('image.uploaded', function (url) {
+                $.post(app_path + '/User/addUserPhoto', {
+                    url: url,
+                    user_id: $('#hidden_user_id').val()
+                });
+            });
+            dispatcher.subscribe('image.deleted', function (url) {
+                $.post(app_path + '/User/deleteUserPhoto', {
+                    url: url,
+                    user_id: $('#hidden_user_id').val()
+                });
+            });
+        });
+    </script>
 </block>

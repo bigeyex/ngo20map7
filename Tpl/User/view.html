@@ -2,317 +2,187 @@
 
 <block name="head">
 {:css('org-home')}
+    <style>
+        body {color: #3d3d3d;}
+        .text-bg {font-size: 1.5em;}
+        #header {position:fixed;width:100%;}
+        img {border:1px solid #ccc;}
+        #org-header { width: 100%; overflow: auto; height: 200px;position: fixed!important;top:68px;background-color: #fff;}
+        #org-header {border-bottom: 1px solid #ccc;width:960px;z-index: 1;}
+        #org-header .ngo-rating-sign { position: absolute; top: 30px; left: 100px;line-height: 1.5em;}
+        .ngo-rating-sign {padding:2px 6px; border-radius: 0.5em;background-color: #00940e;color:#fff;}
+        .ngo-avatar, .ngo-intro, .ngo-rating { float: left;}
+        .ngo-avatar { width: 140px;line-height: 200px; }
+        .ngo-avatar > img, ngo-text-avatar {height: 120px;width: 120px;}
+        .ngo-text-avatar {font-size: 32px;line-height: 120px;width:120px;height:120px;margin-top: 40px;}
+        .ngo-text-avatar {border-radius: 50%; background-color: #ededed;text-align: center;}
+        .ngo-intro { width: 500px; padding: 0 10px;}
+        .ngo-intro > h3 {font-size: 24px;margin-top: 50px;}
+        .ngo-intro-text {height: 4.2em; overflow: hidden;}
+        .ngo-rating { width: 288px;color: #00940e;margin-top: 90px; line-height:2.5em;}
+        .ngo-rating {padding-left: 10px;border-left: 1px solid #ccc;}
+        #ngo-info-nav  {width:140px;position: fixed; top:268px;}
+        #ngo-info-nav .nav > li {font-size:18px;padding: 5px 10px;color:#3d3d3d;margin-top:30px;}
+        #ngo-info-nav .nav > li > a {color:#3d3d3d;display: inline-block;}
+        #ngo-info-nav .nav > li.active > a {border-radius: 1em; border: 2px solid #00940e;padding: 3px 5px;}
+        #ngo-info {float:left; width:500px;padding: 0 10px;margin-left:140px;margin-top:275px;}
+        #ngo-info h4 {color:#00940e;}
+        #ngo-info tr {line-height: 32px;}
+        #ngo-info tr > td:first-child {color: #8d8d8d;min-width: 70px; padding-right:15px;}
+        .info-section {border-bottom: 1px solid #ccc;padding-bottom: 15px;padding-top: 15px;}
+        .right-column {margin-left: 0!important; margin-top: 268px}
+        .block {border: 1px solid #ccc;}
+        .recommended-orgs li {height: 70px;padding: 0 35px 0 12px;line-height: 70px;border-bottom: 1px solid #ccc;position: relative;}
+        .recommended-orgs li {white-space: nowrap;text-overflow:clip;}
+        .recommended-orgs li .ngo-rating-sign {position: absolute;right:2px;top:28px; line-height: 1.2em;}
+        .recommended-orgs img {width: 48px; height: 48px;margin-right: 5px;}
+        .recommended-orgs .name { color: #3d3d3d;}
+        .recommended-orgs h4 {background-color: #ededed; margin: 0; line-height: 45px;font-size: 16px;padding-left: 10px;}
+    </style>
 </block>
 
 
 <block name="body">
-
-<style type="text/css">body{background-color: #cecece;}</style>
-
+    <style>body {background-color: #fff!important;}</style>
 
 <div class="container master-container">
     <div id="org-header">
-        <h1>
-            {$user.name} 
-            <?php if($user['id']==user('user_id')): ?><a class="edit-link" href="{:U('User/edit')}"><i class="fa fa-pencil-square"></i> 编辑机构信息</a><?php endif; ?>
-        </h1>
-        <p class="sub-title">
-            <?php if ($user['type']=='csr'): ?>
-                [企业]
-            <?php endif ?>
-            <?php if (mb_strlen($user['aim'])<20): ?>
-                {$user.aim}
+        <div class="ngo-avatar">
+           <?php if(!isset($user['image']) || $user['image'] == ''): ?>
+                <div class="ngo-text-avatar">
+                    {:mb_substr($user['name'], 0, 2, 'utf-8')}
+                </div>
             <?php else: ?>
-                {$user.aim|mb_substr=###,0,20,'utf-8'}
-                <a href="javascript:$('.aim-more-btn').hide();$('.aim-more').show();" class="aim-more-btn">...更多</a>
-                <span class="aim-more" style="display:none;">{$user.aim|mb_substr=###,20, -1,'utf-8'}</span>
+                <img src="{:upimage($user['image'], '150x150')}">
             <?php endif ?>
-            
-        </p>
-        <ul class="medals">
-            <?php foreach ($medals as $medal): ?>
-                <?php if (in_array($medal['id'], $medal_list)): ?>
-                    <li><a class="user-medal" href="__APP__/Index/list_index?medal={$medal.id}">
-                        <img class="" src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="26" height="26" data-toggle="tooltip" title="{$medal.name}" data-original-title="{$medal.name}"/>
-                    </a></li>
-                <?php endif ?>
-            <?php endforeach ?>
-        </ul>
-        <div class="share-buttons">
-            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+            <?php if(isset($user['rating-score'])): ?>
+                <div class="ngo-rating-sign">
+                    {$user['rating-level']}
+                </div>
+            <?php endif ?>
+        </div>
+        <div class="ngo-intro">
+            <h3>{$user['name']}</h3>
+            <div class="ngo-intro-text">{$user['intro']}</div>
+        </div>
+        <div class="ngo-rating">
+            位居{$count_of_ngo_orgs}家组织中<span class="text-ngo text-bg">{$rank}</span>名
+            <br>
+            位居{$user['province']}{$count_of_ngo_orgs_in_province}家组织中<span class="text-ngo text-bg">{$rank_in_province}</span>名
         </div>
     </div>
-    <div class="left-column">
-        <?php if (!empty($events)): ?>
-        <div class="block connected-carousels">
-            <div class="tabs">
-                <ul>
-                    <li><a href="#tab-map" class="tab-map">活动地图</a></li>
-                    <li><a href="#tab-photos">活动照片</a></li>
-                </ul>
-                <div id="tab-photos">
-                    <div class="carousel carousel-stage">
-                        <ul>
-                            <?php foreach ($events as $event): ?>
-                                <li><a href="{:U('Event/view')}/id/{$event.id}"><img src="{:O('Event')->findAPhoto($event['id'])}" width="628"/></a></li>
-                            <?php endforeach ?>
-                        </ul>
-                    </div>
-                </div>
-                <div id="tab-map">
-                    <div id="map-container"></div>
-                </div>
-            </div>
-            <div id="project-navigation">
-                <a href="javascript:void(0);" class="prev prev-navigation"></a>
-                <a href="javascript:void(0);" class="next next-navigation"></a>
-                <div class="carousel carousel-navigation">
-                    <ul>
-                        <?php foreach ($events as $event): ?>
-                            <li class="event-switch" title="{$event.name|mb_substr=0,12}" event-id="{$event.id}" intro="{$event.intro|strip_tags|mb_substr=0,50}" image="{$event.cover_img}" lngs="{$event.lngs}" lats="{$event.lats}"><img src="{:O('Event')->findAPhoto($event['id'])}" width="74"/></li>
-                        <?php endforeach ?>
-                    </ul>
-                </div>
-            </div>
+    <div id="ngo-info-nav">
+        <ul class="navbar nav">
+            <li><a href="#ngo-basic-info">基本信息</a></li>
+            <li><a href="#ngo-partner-info">人力&伙伴</a></li>
+            <li><a href="#ngo-project-info">项目&影响力</a></li>
+            <li><a href="#ngo-management-info">治理状况</a></li>
+            <li><a href="#ngo-financial-info">财务&资金</a></li>
+        </ul>
+    </div>
+    <div id="ngo-info">
+        <div id="ngo-basic-info" class="info-section">
+            <h4>基本信息</h4>
+            <table>
+                <tbody>
+                    <tr><td>组织简称</td><td>{:assignStringWithDefaultValue($user['name'])}</td></tr>
+                    <tr><td>所在领域</td><td>{:assignStringWithDefaultValue($user['work_field'])}</td></tr>
+                    <tr><td>服务地域</td><td>{:assignStringWithDefaultValue($user['service_area'])}</td></tr>
+                    <tr><td>办动地址</td><td>{:assignStringWithDefaultValue($user['place'])}</td></tr>
+                    <tr><td>注册类型</td><td>{:assignStringWithDefaultValue($user['register_type'])}</td></tr>
+                    <tr><td>注册时间</td><td>{:assignStringWithDefaultValue($user['register_year'])}</td></tr>
+                    <tr><td>成立时间</td><td>{:assignStringWithDefaultValue($user['document_year'])}</td></tr>
+                    <tr><td>联系人</td><td>{:assignStringWithDefaultValue($user['contact_name'])}</td></tr>
+                    <tr><td>联系电话</td><td>{:assignStringWithDefaultValue($user['phone'])}</td></tr>
+                    <tr><td>网站</td><td>{:assignStringWithDefaultValue($user['website'])}</td></tr>
+                    <tr><td>邮箱</td><td>{:assignStringWithDefaultValue($user['public_email'])}</td></tr>
+                    <tr><td>微博</td><td>{:assignStringWithDefaultValue($user['weibo'])}</td></tr>
+                    <tr><td>微信公众号</td><td>{:assignStringWithDefaultValue($user['wechat'])}</td></tr>
+                </tbody>
+            </table>
         </div>
-        <?php endif ?>
-        <div class="block">
-            <div class="tabs">
-                <ul>
-                    <li><a href="#org-intro">机构简介</a></li>
-                    <li><a href="#org-projects">机构活动</a></li>
-                    <li><a href="#org-info">机构资料</a></li>
-                    <li><a href="#org-photos">机构风采</a></li>
-                </ul>
-                <div id="org-intro">
-                    {$user.intro|strip_tags|nl2br}
-                    <?php if($user['id']==user('user_id')): ?>
-                    <div>
-                        <a class="edit-link" href="{:U('User/edit')}">
-                            <i class="fa fa-pencil-square"></i> 编辑机构信息
-                        </a>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <div id="org-projects">
-                    <ul>
-                        <?php foreach ($events as $event): ?>
-                        <li>
-                            <div class="project-list-image">
-                                <a href="{:U('Event/view')}/id/{$event.id}">
-                                    <img src="{:O('Event')->findAPhoto($event['id'])}" width="120"/>
-                                </a>
-                            </div>
-                            <div class="text-content">
-                                <h3><a href="{:U('Event/view')}/id/{$event.id}">{$event.name|mb_substr=0,20}</a></h3>
-                                <p>{$event.intro|strip_tags|mb_substr=0,50}</p>
-                            </div>
-                        </li> 
-                        <?php endforeach ?>
-                    </ul>
-                    <?php if($user['id']==user('user_id')): ?>
-                        <div>
-                            <a class="edit-link" href="{:U('Event/add')}"><i class="fa fa-plus-square"></i> 发布活动</a>
-                            <a class="edit-link" href="{:U('Event/manage')}"><i class="fa fa-pencil-square"></i> 管理活动</a>
-                        </div>
-                    <?php endif; ?>
-                </div> <!-- a tab -->
-                <div id="org-info">
-                        <div class="row">
-                            <div class="span-5">
-                                <h3>办公地址</h3>
-                                <p>{$user.place}</p>
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/1">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="span-5">
-                                <h3>联系方式</h3>
-                                <p>{$user.contact_name} 
-                                    {$user.phone}
-                                </p>	
-                                <p>
-                                    {$user.public_email}      
-                                </p>
-                                <?php if (!empty($user['website'])): ?>
-                                    <p>
-                                        <a href="{$user.website|addhttp}">访问机构网站</a>
-                                    </p>
-                                <?php endif ?>
-                                <?php if (!empty($user['fax'])): ?>
-                                    <p>
-                                        传真：{$user.fax}
-                                    </p>
-                                <?php endif ?>
-                                <?php if (!empty($user['weibo'])): ?>
-                                    <p>
-                                        微博：{$user.weibo}
-                                    </p>
-                                <?php endif ?>
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/3">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span-5">
-                                <h3>服务区域</h3>
-                                <p>{$user.service_area}</p>
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/4">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="span-5">
-                                <h3>关注领域</h3>
-                                <p>{$user.work_field}</p>	
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/1">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span-5">
-                                <h3>机构规模</h3>
-                                <?php if (!empty($user['register_year'])): ?>
-                                    <p>
-                                        <span>成立时间: </span>
-                                        {$user.register_year}年{$user.register_month}月
-                                    </p>
-                                <?php endif ?>
-                                <?php if (!empty($user['staff_fulltime'])): ?>
-                                    <p>
-                                        <span>全职人数: </span>{$user.staff_fulltime} <br/>
-                                        <span>兼职人数: </span>{$user.staff_parttime} <br/>
-                                        <span>志愿者人数: </span>{$user.staff_volunteer} <br/>
-                                    </p>
-                                <?php endif ?>
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/4">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="span-5">
-                                <h3>注册情况</h3>
-                                <?php if (!empty($user['register_type'])): ?>
-                                    <p>
-                                        {$user.register_type}<br/>
-                                        <span>注册时间: </span>{$user.documented_year}年{$user.documented_month}月
-                                    </p>   
-                                <?php endif ?>
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/4">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span-5">
-                                <h3>财务披露情况</h3>
-                                <?php if (!empty($user['financial_link'])): ?>
-                                <p><a href="{$user.financial_link|addhttp}">跳转到财务披露页面</a></p>
-                                <?php endif; ?>
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/4">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="span-5">
-                                <h3>资金来源</h3>
-                                <p>{$user.fund_source}</p>   
-                                <?php if($user['id']==user('user_id')): ?>
-                                <div>
-                                    <a class="edit-link" href="{:U('User/edit')}/p/4">
-                                        <i class="fa fa-pencil-square"></i> 编辑
-                                    </a>
-                                </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                </div> <!-- tab:org-info -->
-                <div id="org-photos">
-                    <?php if($user['id']==user('user_id')): ?>
-                    <div>
-                        <a class="edit-link" href="{:U('User/edit')}/p/2">
-                            <i class="fa fa-cloud-upload"></i> 上传
-                        </a>
-                    </div>
-                    <?php endif; ?>
-                    <?php foreach ($user_photos as $photo): ?>
-                        <a class="photo-container" rel="gallery1" href="__APP__/Public/Uploaded/th628x326_{$photo.url}"><img src="__APP__/Public/Uploaded/th628x326_{$photo.url}" width="628"/></a>
-                    <?php endforeach ?>
-                </div>
-            </div> <!-- tabs -->
-        </div> <!-- block -->
-        <div class="block comments block-text-zone">
-            <h3>{:L('评论')} <?php if($user['id']==user('user_id')): ?><a class="edit-link" href="{:U('User/manage_comments')}"><i class="fa fa-wrench"></i> 管理评论</a><?php endif; ?></h3>
-            <ul class="comment-list">
-                <?php foreach($comments as $comment): ?>
-                <li>
-                    <b>{$comment.sender_name}</b>
-                    <p class="comment-item-text">{$comment.content|nl2br}</p>
-                    <p class="comment-item-reply">回复：{$comment.reply}</p>
-                </li>
-            <?php endforeach; ?>
-            </ul>
-            <form action="form/actions" method="post" id="comment_form">
-                <p>向公益机构提问或发表评论。评论在机构回复后可见。</p>
-                <textarea name="content" id="comment_content"></textarea><br/>
-                <input type="text" name="sender_name" id="comment_sender_name" placeholder="您的姓名"/>
-                <input type="text" name="email" id="comment_email" placeholder="您的电子邮件"/>
-                <input type="hidden" name="user_id" value="{$user.id}"/>
-                <input type="submit" style="display:none;"/>
-            </form>
-            <button class="button submit-btn" id="comment-post-btn">{:L('发表评论')}</button>
+        <div id="ngo-partner-info" class="info-section">
+            <h4>人力&伙伴</h4>
+            <table>
+                <tbody>
+                <tr><td>负责人姓名</td><td>{:assignStringWithDefaultValue($user['lead'])}</td></tr>
+                <tr><td>负责人在本领域工作年限</td><td>{:assignStringWithDefaultValue($user['lead_experience'])}</td></tr>
+                <tr><td>全职人员数量</td><td>{:assignStringWithDefaultValue($user['staff_fulltime_range'])}</td></tr>
+                <tr><td>兼职人员数量</td><td>{:assignStringWithDefaultValue($user['staff_parttime'])}</td></tr>
+                <tr><td>核心志愿者数量</td><td>{:assignStringWithDefaultValue($user['staff_volunteer'])}</td></tr>
+                <tr><td>合作伙伴名称</td><td>{:assignStringWithDefaultValue($user['partner_info'])}</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="ngo-project-info" class="info-section">
+            <h4>项目&影响力</h4>
+            <table>
+                <tbody>
+                <tr><td>核心产品或技术</td><td>{:assignStringWithDefaultValue($user['key_resource'])}</td></tr>
+                <tr><td>品牌项目名称</td><td>{:assignStringWithDefaultValue($user['typical_case'])}</td></tr>
+                <tr><td>最大项目资金规模</td><td>{:assignStringWithDefaultValue($user['project_scale'])}</td></tr>
+                <tr><td>项目服务人数</td><td>{:assignStringWithDefaultValue($user['participant_scale'])}</td></tr>
+                <tr><td>媒体报道数量</td><td>{:assignStringWithDefaultValue($user['media_report'])}</td></tr>
+                <tr><td>民政评估等级</td><td>{:assignStringWithDefaultValue($user['gov_level'])}</td></tr>
+                <tr><td>所获奖项名称</td><td>{:assignStringWithDefaultValue($user['reward_detail'])}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="ngo-management-info" class="info-section">
+            <h4>治理状况</h4>
+            <table>
+                <tbody>
+                <tr><td>理事会</td><td>{:existCh($user['has_board'])}</td></tr>
+                <tr><td>年度规划</td><td>{:existCh($user['has_plan'])}</td></tr>
+                <tr><td>年度报告</td><td>{:existCh($user['has_report'])}</td></tr>
+                <tr><td>拥有制度</td><td>{:existCh($user['org_rules'])}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="ngo-financial-info" class="info-section">
+            <h4>财务&资金</h4>
+            <table>
+                <tbody>
+                <tr><td>资金来源</td><td>{:assignStringWithDefaultValue($user['fund_info'])}</td></tr>
+                <tr><td>财务人员</td><td>{:assignStringWithDefaultValue($user['accountant_status'])}</td></tr>
+                <tr><td>财务报告</td><td>{:existCh($user['financial_link'])}</td></tr>
+                <tr><td>财务公开链接</td><td>{:assignStringWithDefaultValue($user['financial_link'])}</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="right-column">
-        <div class="block" id="org-location">
-            <h2 class="header">机构地址</h2>
-            <img src="http://api.map.baidu.com/staticimage?width=300&height=218&zoom=5&markers={$user.longitude},{$user.latitude}&zoom=10&markerStyles=l,,0x2166c8"/>
-        </div>
-        <div class="block zan-box">
-            <a href="javascript:void(0);" class="user-zan-link">
-                <i class="zan-icon zan-box-icon"></i>
-                <p class="zan-text">点个赞</p>
-                <p class="zan-subtext">已被点赞<span class="like-count">{$user.like_count}</span>次</p>
-            </a>
-        </div>
-        <div class="block similar-orgs">
-            <h2 class="header">相似机构</h2>
+        <div class="block recommended-orgs">
+            <h4 class="header">本省相同领域组织</h4>
             <ul>
-                <?php foreach ($related_users as $r): ?>
+                <?php foreach ($recommend_orgs_by_province as $r): ?>
                     <li>
                         <a href="{:U('User/view')}/id/{$r.id}">
                             <img class="avatar" src="{:upimage($r['image'])}"/>
-                            <p class="name">{$r.name|mb_substr=0,20}</p>
+                            <span class="name">{$r.name}</span>
+                            <?php if (isset($user['rating_level'])): ?>
+                                <span class="ngo-rating-sign">{$user['rating_level']}</span>
+                            <?php endif ?>
                         </a>
                     </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+        <div class="block recommended-orgs">
+            <h4 class="header">本领域评级相近组织</h4>
+            <ul>
+                <?php foreach ($recommend_orgs_by_rating_score as $r): ?>
+                <li>
+                    <a href="{:U('User/view')}/id/{$r.id}">
+                        <img class="avatar" src="{:upimage($r['image'])}"/>
+                        <span class="name">{$r.name}</span>
+                        <?php if (isset($user['rating_level'])): ?>
+                            <span class="ngo-rating-sign">{$user['rating_level']}</span>
+                        <?php endif ?>
+                    </a>
+                    </a>
+                </li>
                 <?php endforeach ?>
             </ul>
         </div>
@@ -335,7 +205,35 @@
 {:js('CurveLine.min')}
 </block>
 <block name="script-after">
-
+    <script>
+        var spyItemTops = [], spyOffset = 270, scollSpy = true;
+        $('#ngo-info h4').each(function(index, elem) {
+            spyItemTops.push($(elem).parent().offset().top);
+        });
+        function activeNavItem(i) {
+            var activeItem = $('#ngo-info-nav li').eq(i);
+            if(activeItem.hasClass('active')) return;
+            $('#ngo-info-nav li.active').removeClass('active');
+            activeItem.addClass('active');
+        }
+        window.onscroll = function () {
+            if (!scollSpy) {scollSpy = true; return;}
+            for(var i = 0; i < spyItemTops.length; ++i) {
+                if ($('body').scrollTop() + spyOffset < spyItemTops[i]) {
+                    activeNavItem(i > 1 ? i-1 : 0);
+                    break;
+                }
+            }
+        }
+        $('#ngo-info-nav').on('click', 'li a', function () {
+            $('#ngo-info-nav li.active').removeClass('active');
+            $(this).parent().addClass('active');
+            var id = $(this).attr('href');
+            scollSpy = false;
+            window.scrollTo(0, $(id).offset().top - spyOffset + 1);
+            return false;
+        })
+    </script>
 </block>
 <block name="footer">
 </block>

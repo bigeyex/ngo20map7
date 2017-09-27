@@ -44,3 +44,11 @@ function extract_field($arr, $field){
     }
     return array_unique($ret);
 }
+
+function assignStringWithDefaultValue($name, $default = '暂无') {
+    return $name ?: $default;
+}
+
+function existCh($b) {
+    return $b ? '有' : '无';
+}
