@@ -107,7 +107,7 @@ input.rating-input:focus {
     width: 100%;
     max-width: 960px;
     margin: 22px auto;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 li.selected {
@@ -123,14 +123,16 @@ li.selected {
     border-bottom: 2px solid #999;
 }
 
+.rating-list-header .btn {background: none; border: none; font-size: 14px;margin-right: 20px;}
+.rating-list-header .btn .caret {margin-top: 0;}
 
 .rating-list-column-name {
-    color: #184e21;
+    float: left;
+    font-size: 28px;
 }
 
 .rating-search-btn {
-    position: absolute;
-    top: 0;
+    float: right;
     cursor: pointer;
 }
 
@@ -140,38 +142,30 @@ li.selected {
 
 .rating-list {
     padding-left: 20px;
+    padding-right: 20px;
 }
 
-.rating-list li {
-    list-style: none;
-    line-height: 30px;
-}
+.rating-list li { list-style: none; padding: 15px 0; border-bottom: 1px solid #ccc;}
+.rating-list li > a { color: #3b3b3b; text-decoration: none;}
+.rating-list-item img, .ngo-text-avatar { float: left; height: 72px; width: 72px; border: 1px solid #ccc;}
+.ngo-text-avatar {border-radius:50%;background-color: #d8d8d8;text-align: center;line-height: 72px;font-size: 20px;}
+.ngo-rating-level { float:right; }
+.rating-list-item-info { margin-left: 80px; margin-right: 60px; }
+.rating-list-item-info .name{ font-size: 20px; margin-bottom: 5px; }
+.info-group{overflow: auto;}
+.info-item {line-height: 1.5em;color:#8b8b8b;}
+.info-group .info-item { float:left; margin-right: 20px;}
+.ngo-rating-level {font-size: 24px;width:48px;height:48px;text-align: center;line-height: 48px; border-radius: 50%;border: 2px solid #00940e;color:#00940e;}
+.ngo-rating-level {margin-top: 15px;}
 
-.rating-list li > a {
-    color: #3b3b3b;
-}
-
-.rating-list-section-header {
-    padding-bottom: 5px;
-}
-
-.rating-list-section-header > span:first-child {
-    font-size: 24px;
-    color: #00940e;
-}
-
-.rating-list-section-header > span:last-child {
-    color: #878787;
-}
-
-@media (max-width: 780px) {
-    .rating-search-btn {
-        right: 30px;
-    }
-}
-
-@media (min-width: 781px) {
-    .rating-search-btn {
-        right: 100px;
-    }
+.partner-info {background-color: #f2f2f2; text-align: center; padding: 20px 0;}
+.partner-info h4 {padding: 15px 0;font-size: 24px;color:#656565;}
+.partner-info h4:after {content:"";display:block;margin-left:50%;transform:translateX(-50%);width:75px;padding-bottom: 10px; border-bottom: 3px solid #00940e;}
+.partner-logo:first-child {padding-left:60px;width: 220px;}
+.partner-logo:last-child {padding-left:30px;width:280px;}
+@media (max-width: 782px) {
+    .rating-list-item img, .ngo-text-avatar {height: 48px;width:48px;margin-top: 15px;}
+    .ngo-text-avatar {line-height: 48px;font-size: 14px;}
+    .ngo-rating-level {width: 32px; height: 32px; font-size:16px;line-height: 32px;}
+    .partner-logo {width: 40%!important;padding-left: 0!important;}
 }

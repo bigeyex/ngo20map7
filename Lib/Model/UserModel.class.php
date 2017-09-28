@@ -75,7 +75,7 @@ class UserModel extends BaseModel{
         if ($province) {
             $rankSql .= " and province='$province'";
         }
-        $rankSql .= " order by rating_score";
+        $rankSql .= " order by rating_score desc";
         $sql = "select rank from ($rankSql) t where id = $id";
         $r = $model->query($sql);
         return empty($r) ? 0 : current(current($r));

@@ -6,7 +6,7 @@
         body {color: #3d3d3d;}
         .text-bg {font-size: 1.5em;}
         #header {position:fixed;width:100%;}
-        img {border:1px solid #ccc;}
+        img {border:1px solid #ccc!important;}
         #org-header { width: 100%; overflow: auto; height: 200px;position: fixed!important;top:68px;background-color: #fff;}
         #org-header {border-bottom: 1px solid #ccc;width:960px;z-index: 1;}
         #org-header .ngo-rating-sign { position: absolute; top: 30px; left: 100px;line-height: 1.5em;}
@@ -55,9 +55,9 @@
             <?php else: ?>
                 <img src="{:upimage($user['image'], '150x150')}">
             <?php endif ?>
-            <?php if(isset($user['rating-score'])): ?>
+            <?php if(isset($user['rating_score'])): ?>
                 <div class="ngo-rating-sign">
-                    {$user['rating-level']}
+                    {$user['rating_level']}
                 </div>
             <?php endif ?>
         </div>
