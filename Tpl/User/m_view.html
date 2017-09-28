@@ -7,8 +7,10 @@
         .text-bg {font-size: 1.5em;}
         #org-header { width: 100%;}
         .ngo-intro-text {height: 3em; overflow: hidden;}
-        .ngo-avatar {float:left;line-height: 100%;padding-left: 5px;margin-top: 15px;}
+        .ngo-avatar {float:left;position: relative;line-height: 100%;padding-left: 5px;margin-top: 15px;}
         .ngo-avatar > img, ngo-text-avatar {height: 60px;width: 60px;}
+        .ngo-rating-sign { position: absolute; top: -10px; left: 40px;line-height: 1.2em;}
+        .ngo-rating-sign {padding:2px 6px; border-radius: 0.5em;background-color: #00940e;color:#fff;}
         .ngo-intro {margin-left: 75px;}
         .ngo-text-avatar {font-size: 22px;background-color: #ededed;}
         .ngo-text-avatar {height: 60px; width: 60px;border-radius: 50%;text-align: center;line-height: 60px;}
@@ -34,9 +36,9 @@
             <?php else: ?>
             <img src="{:upimage($user['image'], '150x150')}">
             <?php endif ?>
-            <?php if(isset($user['rating-score'])): ?>
+            <?php if(isset($user['rating_score'])): ?>
             <div class="ngo-rating-sign">
-                {$user['rating-level']}
+                {$user['rating_level']}
             </div>
             <?php endif ?>
         </div>
