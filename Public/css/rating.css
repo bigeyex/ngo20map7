@@ -106,7 +106,7 @@ input.rating-input:focus {
 .rating-main {
     width: 100%;
     max-width: 960px;
-    margin: 22px auto;
+    margin: 10px auto 22px;
     font-size: 14px;
 }
 
@@ -118,7 +118,7 @@ li.selected {
 .rating-list-header {
     position: relative;
     padding-left: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: 2px solid #999;
 }

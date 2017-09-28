@@ -103,6 +103,7 @@ function attach_autocomplete(id, source){
                 $('#hero-region .slideshow').height(215);
                 $('#hero-region .slideshow img').height(215);
                 $('#hero-region .slideshow').width('auto');
+                $('#hero-region .slideshow li').width(width);
                 $('#hero-region .slideshow img').width('auto');
             }
             else{

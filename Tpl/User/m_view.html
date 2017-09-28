@@ -19,6 +19,8 @@
         #ngo-info h4 {color:#00940e;}
         #ngo-info tr {line-height: 32px;}
         #ngo-info tr > td:first-child {color: #8d8d8d;min-width: 70px; padding-right:15px;}
+        #ngo-partner-info tr > td:first-child {width: 150px;}
+        #ngo-project-info tr > td:first-child {width: 115px;}
         .info-section {margin-top: 15px;padding-top: 10px;border-top: 1px solid #ccc;}
     </style>
 </block>
@@ -58,6 +60,7 @@
             <table>
                 <tbody>
                 <tr><td>组织简称</td><td>{:assignStringWithDefaultValue($user['name'])}</td></tr>
+                <tr><td>组织使命</td><td>{:assignStringWithDefaultValue($user['aim'])}</td></tr>
                 <tr><td>所在领域</td><td>{:assignStringWithDefaultValue($user['work_field'])}</td></tr>
                 <tr><td>服务地域</td><td>{:assignStringWithDefaultValue($user['service_area'])}</td></tr>
                 <tr><td>办动地址</td><td>{:assignStringWithDefaultValue($user['place'])}</td></tr>
@@ -67,7 +70,14 @@
                 <tr><td>联系人</td><td>{:assignStringWithDefaultValue($user['contact_name'])}</td></tr>
                 <tr><td>联系电话</td><td>{:assignStringWithDefaultValue($user['phone'])}</td></tr>
                 <tr><td>网站</td><td>{:assignStringWithDefaultValue($user['website'])}</td></tr>
-                <tr><td>邮箱</td><td>{:assignStringWithDefaultValue($user['public_email'])}</td></tr>
+                <tr><td>邮箱</td><td>
+                    <?php if(isset($user['public_email'])): ?>
+                        <a href="mailto:{$user['public_email']}">{$user['public_email']}</a>
+                    <?php else:?>
+                    暂无
+                    <?php endif ?>
+                    </td>
+                </tr>
                 <tr><td>微博</td><td>{:assignStringWithDefaultValue($user['weibo'])}</td></tr>
                 <tr><td>微信公众号</td><td>{:assignStringWithDefaultValue($user['wechat'])}</td></tr>
                 </tbody>
@@ -78,8 +88,9 @@
             <table>
                 <tbody>
                 <tr><td>负责人姓名</td><td>{:assignStringWithDefaultValue($user['lead_name'])}</td></tr>
-                <tr><td>负责人在本领域工作年限</td><td>{:assignStringWithDefaultValue($user['lead_experience'])}</td></tr>
+                <tr><td>负责人本领域工作经验</td><td>{:assignStringWithDefaultValue($user['lead_experience'])}</td></tr>
                 <tr><td>全职人员数量</td><td>{:assignStringWithDefaultValue($user['staff_fulltime_range'])}</td></tr>
+                <tr><td>全职人员平均工作经验</td><td>{:assignStringWithDefaultValue($user['member_experience'])}</td></tr>
                 <tr><td>兼职人员数量</td><td>{:assignStringWithDefaultValue($user['staff_parttime'])}</td></tr>
                 <tr><td>核心志愿者数量</td><td>{:assignStringWithDefaultValue($user['staff_volunteer'])}</td></tr>
                 <tr><td>合作伙伴名称</td><td>{:assignStringWithDefaultValue($user['partner_info'])}</td></tr>
@@ -108,7 +119,7 @@
                 <tr><td>理事会</td><td>{:existCh($user['has_board'])}</td></tr>
                 <tr><td>年度规划</td><td>{:existCh($user['has_plan'])}</td></tr>
                 <tr><td>年度报告</td><td>{:existCh($user['has_report'])}</td></tr>
-                <tr><td>拥有制度</td><td>{:existCh($user['org_rules'])}</td></tr>
+                <tr><td>拥有制度</td><td>{:assignStringWithDefaultValue($user['org_rules'])}</td></tr>
                 </tbody>
             </table>
         </div>

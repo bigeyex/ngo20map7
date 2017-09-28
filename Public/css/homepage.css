@@ -42,16 +42,9 @@
 }
 
 #hero-slogan{
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    width: 800px;
+    padding-top: 20px;
 }
 
-#hero-slogan-innerwrapper{
-    position: relative;
-    left: -50%;
-}
 
 #hero-search-bar{
     margin-left: auto;
