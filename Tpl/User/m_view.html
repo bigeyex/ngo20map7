@@ -3,179 +3,139 @@
 <block name="head">
 {:css('org-home-m')}
 {:css('swipebox')}
+    <style>
+        .text-bg {font-size: 1.5em;}
+        #org-header { width: 100%;}
+        .ngo-intro-text {height: 3em; overflow: hidden;}
+        .ngo-avatar {float:left;position: relative;line-height: 100%;padding-left: 5px;margin-top: 15px;}
+        .ngo-avatar > img, ngo-text-avatar {height: 60px;width: 60px;}
+        .ngo-rating-sign { position: absolute; top: -10px; left: 40px;line-height: 1.2em;}
+        .ngo-rating-sign {padding:2px 6px; border-radius: 0.5em;background-color: #00940e;color:#fff;}
+        .ngo-intro {margin-left: 75px;}
+        .ngo-text-avatar {font-size: 22px;background-color: #ededed;}
+        .ngo-text-avatar {height: 60px; width: 60px;border-radius: 50%;text-align: center;line-height: 60px;}
+        .ngo-rating {color: #00940e; padding: 5px 10px;line-height: 1.8em;}
+        #ngo-info {padding: 0 10px;margin-bottom: 20px;}
+        #ngo-info h4 {color:#00940e;}
+        #ngo-info tr {line-height: 32px;}
+        #ngo-info tr > td:first-child {color: #8d8d8d;min-width: 70px; padding-right:15px;}
+        #ngo-partner-info tr > td:first-child {width: 150px;}
+        #ngo-project-info tr > td:first-child {width: 115px;}
+        .info-section {margin-top: 15px;padding-top: 10px;border-top: 1px solid #ccc;}
+    </style>
 </block>
 
 
 <block name="body">
 
 <div class="container main-container">
-    <div class="logo-title-region"> <!-- logo -->
-        <div class="org-logo">
-            <img src="{:upimage($user['image'], '150x150')}"/>
+    <div id="org-header" class="clearfix">
+        <div class="ngo-avatar">
+            <?php if(!isset($user['image']) || $user['image'] == ''): ?>
+            <div class="ngo-text-avatar">
+                {:mb_substr($user['name'], 0, 2, 'utf-8')}
+            </div>
+            <?php else: ?>
+            <img src="{:upimage($user['image'], '150x150')}">
+            <?php endif ?>
+            <?php if(isset($user['rating_score'])): ?>
+            <div class="ngo-rating-sign">
+                {$user['rating_level']}
+            </div>
+            <?php endif ?>
         </div>
-        <div class="title-region">
-            <h1>{$user.name}</h1>
-            <p>{$user.aim}</p>
+        <div class="ngo-intro">
+            <h4>{$user['name']}</h4>
+            <div class="ngo-intro-text">{$user['intro']}</div>
         </div>
     </div>
-
-    <!-- 领域、地域、勋章 -->
-    <div class="brief-info">
-        <div class="item">
-            <span class="title">{:L('地址：')}</span>
-            <span class="content">{$user.place}</span>
-        </div>
-        <div class="item">
-            <span class="title">{:L('领域：')}</span>
-            <span class="content">{$user.work_field}</span>
-        </div>
-        <div class="item">
-            <span class="title">{:L('勋章：')}</span>
-            <span class="content">
-                <?php foreach ($medals as $medal): ?>
-                    <?php if (in_array($medal['id'], $medal_list)): ?>
-                        <a class="user-medal" href="__APP__/Index/list_index?medal={$medal.id}">
-                            <img class="" src="__APP__/Public/Uploaded/th32x32_{$medal.image}" width="26" height="26" data-toggle="tooltip" title="{$medal.name}" data-original-title="{$medal.name}"/>
-                        </a>
+    <div class="ngo-rating text-center">
+        位居{$count_of_ngo_orgs}家组织中<span class="text-ngo text-bg">{$rank}</span>名
+        <br>
+        位居{$user['province']}{$count_of_ngo_orgs_in_province}家组织中<span class="text-ngo text-bg">{$rank_in_province}</span>名
+    </div>
+    <div id="ngo-info">
+        <div id="ngo-basic-info" class="info-section">
+            <h4>基本信息</h4>
+            <table>
+                <tbody>
+                <tr><td>组织简称</td><td>{:assignStringWithDefaultValue($user['name'])}</td></tr>
+                <tr><td>组织使命</td><td>{:assignStringWithDefaultValue($user['aim'])}</td></tr>
+                <tr><td>所在领域</td><td>{:assignStringWithDefaultValue($user['work_field'])}</td></tr>
+                <tr><td>服务地域</td><td>{:assignStringWithDefaultValue($user['service_area'])}</td></tr>
+                <tr><td>办动地址</td><td>{:assignStringWithDefaultValue($user['place'])}</td></tr>
+                <tr><td>注册类型</td><td>{:assignStringWithDefaultValue($user['register_type'])}</td></tr>
+                <tr><td>注册时间</td><td>{:assignStringWithDefaultValue($user['register_year'])}</td></tr>
+                <tr><td>成立时间</td><td>{:assignStringWithDefaultValue($user['document_year'])}</td></tr>
+                <tr><td>联系人</td><td>{:assignStringWithDefaultValue($user['contact_name'])}</td></tr>
+                <tr><td>联系电话</td><td>{:assignStringWithDefaultValue($user['phone'])}</td></tr>
+                <tr><td>网站</td><td>{:assignStringWithDefaultValue($user['website'])}</td></tr>
+                <tr><td>邮箱</td><td>
+                    <?php if(isset($user['public_email'])): ?>
+                        <a href="mailto:{$user['public_email']}">{$user['public_email']}</a>
+                    <?php else:?>
+                    暂无
                     <?php endif ?>
-                <?php endforeach ?>
-            </span>
-        </div>
-    </div> 
-
-    <div class="zan-box">
-        <a href="javascript:void(0);" class="user-zan-link">
-            <i class="zan-icon"><img src="__APP__/Public/img/zan-heart.png"/></i>
-            <p class="zan-text">点个赞</p>
-            <p class="zan-subtext">已被点赞<span class="like-count">{$user.like_count}</span>次</p>
-        </a>
-    </div>
-
-    <div class="detail tabs">
-        <ul>
-            <li><a href="#org-intro">{:L('简介')}</a></li>
-            <li><a id="org-address-link" href="#org-address">{:L('地图')}</a></li>
-            <li><a href="#org-events">{:L('活动')}</a></li>
-            <li><a href="#org-detail">{:L('资料')}</a></li>
-            <li><a href="#org-pics">{:L('风采')}</a></li>
-        </ul>
-        <div id="org-intro">
-            {$user.intro|strip_tags|nl2br}
-        </div>
-        <div id="org-address">
-            <div id="map-container" style="height: 300px;"></div>
-        </div>
-        <div id="org-events">
-            <?php foreach ($events as $event): ?>
-            <li class="event-switch" title="{$event.name|mb_substr=0,12}" event-id="{$event.id}" intro="{$event.intro|strip_tags|mb_substr=0,50}" image="{$event.cover_img}" lngs="{$event.lngs}" lats="{$event.lats}">
-                <a href="{:U('Event/view')}/id/{$event.id}">
-                    <div class="project-list-image">
-                        
-                            <img src="{:O('Event')->findAPhoto($event['id'])}"/>
-                        
-                    </div>
-                    <div class="text-content">
-                        <h3>{$event.name|mb_substr=0,20}</h3>
-                        <p>{$event.intro|strip_tags|mb_substr=0,50}</p>
-                    </div>
-                </a>
-            </li> 
-            <?php endforeach ?>
-        </div>
-        <div id="org-detail">
-            <table class="table table-striped">
-                <tr>
-                    <td class="title">联系方式</td>
-                    <td>
-                            {$user.contact_name} 
-                            {$user.phone}
-                        <br/>
-                            {$user.public_email}      
                     </td>
                 </tr>
-                <?php if (!empty($user['website'])): ?>
-                <tr>
-                    <td class="title">网站</td>
-                    <td>      
-                        <a href="{$user.website|addhttp}">访问机构网站</a> 
-                    </td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['fax'])): ?>
-                <tr>
-                    <td class="title">传真</td>
-                    <td>{$user.fax}</td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['weibo'])): ?>
-                <tr>
-                    <td class="title">微博</td>
-                    <td>{$user.weibo}</td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['service_area'])): ?>
-                <tr>
-                    <td class="title">服务区域</td>
-                    <td>{$user.service_area}</td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['work_field'])): ?>
-                <tr>
-                    <td class="title">关注领域</td>
-                    <td>{$user.work_field}</td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['register_year'])): ?>
-                <tr>
-                    <td class="title">成立时间</td>
-                    <td>{$user.register_year}年{$user.register_month}月</td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['staff_fulltime'])): ?>
-                <tr>
-                    <td class="title">机构规模</td>
-                    <td>
-                        <span>全职人数: </span>{$user.staff_fulltime} <br/>
-                        <span>兼职人数: </span>{$user.staff_parttime} <br/>
-                        <span>志愿者人数: </span>{$user.staff_volunteer} <br/>
-                    </td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['register_type'])): ?>
-                <tr>
-                    <td class="title">机构规模</td>
-                    <td>
-                        {$user.register_type}<br/>
-                        <span>注册时间: </span>{$user.documented_year}年{$user.documented_month}月
-                    </td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['financial_link'])): ?>
-                <tr>
-                    <td class="title">财务披露情况</td>
-                    <td>
-                        <p><a href="{$user.financial_link|addhttp}">跳转到财务披露页面</a></p>
-                    </td>
-                </tr>
-                <?php endif ?>
-                <?php if (!empty($user['fund_source'])): ?>
-                <tr>
-                    <td class="title">资金来源</td>
-                    <td>
-                        {$user.fund_source}
-                    </td>
-                </tr>
-                <?php endif ?>
+                <tr><td>微博</td><td>{:assignStringWithDefaultValue($user['weibo'])}</td></tr>
+                <tr><td>微信公众号</td><td>{:assignStringWithDefaultValue($user['wechat'])}</td></tr>
+                </tbody>
             </table>
         </div>
-        <div id="org-pics">
-            <?php foreach ($user_photos as $photo): ?>
-            <a rel="gallery-1" href="__APP__/Public/Uploaded/th628x326_{$photo.url}" class="swipebox">
-                <img src="__APP__/Public/Uploaded/th150x150_{$photo.url}" alt="image">
-            </a>
-            <?php endforeach ?>
+        <div id="ngo-partner-info" class="info-section">
+            <h4>人力&伙伴</h4>
+            <table>
+                <tbody>
+                <tr><td>负责人姓名</td><td>{:assignStringWithDefaultValue($user['lead_name'])}</td></tr>
+                <tr><td>负责人本领域工作经验</td><td>{:assignStringWithDefaultValue($user['lead_experience'])}</td></tr>
+                <tr><td>全职人员数量</td><td>{:assignStringWithDefaultValue($user['staff_fulltime_range'])}</td></tr>
+                <tr><td>全职人员平均工作经验</td><td>{:assignStringWithDefaultValue($user['member_experience'])}</td></tr>
+                <tr><td>兼职人员数量</td><td>{:assignStringWithDefaultValue($user['staff_parttime'])}</td></tr>
+                <tr><td>核心志愿者数量</td><td>{:assignStringWithDefaultValue($user['staff_volunteer'])}</td></tr>
+                <tr><td>合作伙伴名称</td><td>{:assignStringWithDefaultValue($user['partner_info'])}</td></tr>
+                </tbody>
+            </table>
         </div>
-    </div> <!-- detail tabs -->
+
+        <div id="ngo-project-info" class="info-section">
+            <h4>项目&影响力</h4>
+            <table>
+                <tbody>
+                <tr><td>核心产品或技术</td><td>{:assignStringWithDefaultValue($user['key_resource'])}</td></tr>
+                <tr><td>品牌项目名称</td><td>{:assignStringWithDefaultValue($user['typical_case'])}</td></tr>
+                <tr><td>最大项目资金规模</td><td>{:assignStringWithDefaultValue($user['project_scale'])}</td></tr>
+                <tr><td>项目服务人数</td><td>{:assignStringWithDefaultValue($user['participant_scale'])}</td></tr>
+                <tr><td>媒体报道数量</td><td>{:assignStringWithDefaultValue($user['media_report'])}</td></tr>
+                <tr><td>民政评估等级</td><td>{:assignStringWithDefaultValue($user['gov_level'])}</td></tr>
+                <tr><td>所获奖项名称</td><td>{:assignStringWithDefaultValue($user['reward_detail'])}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="ngo-management-info" class="info-section">
+            <h4>治理状况</h4>
+            <table>
+                <tbody>
+                <tr><td>理事会</td><td>{:existCh($user['has_board'])}</td></tr>
+                <tr><td>年度规划</td><td>{:existCh($user['has_plan'])}</td></tr>
+                <tr><td>年度报告</td><td>{:existCh($user['has_report'])}</td></tr>
+                <tr><td>拥有制度</td><td>{:assignStringWithDefaultValue($user['org_rules'])}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="ngo-financial-info" class="info-section">
+            <h4>财务&资金</h4>
+            <table>
+                <tbody>
+                <tr><td>资金来源</td><td>{:assignStringWithDefaultValue($user['fund_info'])}</td></tr>
+                <tr><td>财务人员</td><td>{:assignStringWithDefaultValue($user['accountant_status'])}</td></tr>
+                <tr><td>财务报告</td><td>{:existCh($user['financial_link'])}</td></tr>
+                <tr><td>财务公开链接</td><td>{:assignStringWithDefaultValue($user['financial_link'])}</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 </div>
 

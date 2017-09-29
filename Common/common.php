@@ -44,3 +44,21 @@ function extract_field($arr, $field){
     }
     return array_unique($ret);
 }
+
+function assignStringWithDefaultValue($name, $default = '暂无') {
+    $url_pattern = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
+    if(preg_match($url_pattern, $name) == TRUE) {
+       $restult =  '<a href="';
+       if (substr($name, 0, 4) != 'http') {
+           $restult .= 'http://';
+       }
+       $restult .= $name;
+       $restult .= '" target="_blank">'.$name.'</a>';
+       return $restult;
+    }
+    return $name ?: $default;
+}
+
+function existCh($b) {
+    return $b ? '有' : '无';
+}

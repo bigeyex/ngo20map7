@@ -49,18 +49,40 @@
         </div>
     </div>
     <div class="rating-main">
-            <div class="rating-list-header">
-                <div class="rating-list-column-name">组织综合排名</div>
-                <div class="rating-search-btn"><span>筛选</span><i class="icon-dropdown"></i></div>
+            <div class="rating-list-header clearfix">
+                <button class="rating-search-btn btn">筛选<span class="caret"></span></button>
+                <div class="dropdown" style="float:right;">
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><span>按评分排名</span>
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)">按评分排名</a></li>
+                        <li><a href="javascript:void(0)">按时间顺序</a></li>
+                    </ul>
+                </div>
             </div>
             <ul class="rating-list"></ul>
             <div class="rating-btn list-more">加载更多</div>
+    </div>
+    <div class="partner-info">
+        <div>
+            <h4>合作机构</h4>
+            <div>
+                <a href="http://www.ngo20.org" target="_blank"> <img class="partner-logo" src="__APP__/Public/img/ngo-lg.png"> </a>
+                <a href="http://www.syntao.com" target="_blank"> <img class="partner-logo" src="__APP__/Public/img/shangdao-logo.png"> </a>
+            </div>
+        </div>
+        <div>
+            <h4>支持机构</h4>
+            <div>
+                <img style="max-width: 80%;" src="__APP__/Public/img/partners.png">
+            </div>
+        </div>
     </div>
 </block>
 <block name="script-after">
     <script>
         var work_field = null, place = null, keyword = null, level = 0, offset = 0,
-                levelCounts = null, lastRatingLevel = null, total = 0;
+                total = 0, order=0;
         $('.rating-search-workfield, .rating-search-level').on('click', 'li', function () {
             $(this).toggleClass('selected');
         });
@@ -92,6 +114,15 @@
             getRatings(offset, work_field, place, level);
         });
 
+        $('.dropdown').on('click', 'li > a', function() {
+            var i = $('.dropdown li > a').index(this);
+            if (i == order) return;
+            $('.dropdown .btn span').first().text($(this).text());
+            order = i;
+            offset = 0;
+            getRatings();
+        })
+
         function getRatings() {
             if (offset === undefined) offset = 0;
             query = "offset=" + offset;
@@ -107,6 +138,9 @@
             if (level) {
                 query += "&rating_level=" + encodeURIComponent(level);
             }
+            if (order) {
+                query += "&order=" + encodeURIComponent(order);
+            }
 
             var url = '/Rating/ratings?' + query;
             $.get(url, function (data) {
@@ -117,10 +151,7 @@
                 }
                 if (offset == 0) {
                     $('.list-more').show();
-                    levelCounts = data.counts;
-                    calcTotal();
-                    lastRatingLevel = data.ratings[0].rating_level;
-                    $('.rating-list').append(genSectionHeader(lastRatingLevel));
+                    total = data.total;
                 }
 
                 offset += data.ratings.length;
@@ -131,38 +162,40 @@
             });
         }
 
-        function calcTotal() {
-            total = 0;
-            for (var i = 0, len = levelCounts.length; i < len; ++i) {
-                total += parseInt(levelCounts[i].count);
-            }
-        }
 
         function appendRatingList(ratings) {
             $('.rating-list').append(genRatingsHtml(ratings));
         }
 
-        function getRatingLevelCount(level) {
-            for (var i = 0, len = levelCounts.length; i < len; ++i) {
-                if (levelCounts[i].rating_level == level)
-                    return levelCounts[i].count;
-            }
-            return 0;
-        }
-
-        function genSectionHeader(level) {
-            return '<div class="rating-list-section-header"><span>' + level + '</span><span>（' + getRatingLevelCount(level) + '家机构）</span></div>';
-
+        function stringWithDefault(obj1, obj2) {
+            if (!obj1 || obj1 == 0) return '暂无';
+            var str = obj1.toString();
+            str += !!obj2 ? '.' + obj2 : '';
+            return str;
         }
 
         function genRatingsHtml(ratings) {
             var html = '';
             for (var i = 0, len = ratings.length; i < len; ++i) {
-                if (ratings[i].rating_level != lastRatingLevel) {
-                    lastRatingLevel = ratings[i].rating_level;
-                    html += genSectionHeader(lastRatingLevel);
+                var orgInfo = ratings[i];
+                html += '<li class="rating-list-item clearfix"><a href="/User/view/id/' + orgInfo.id + '">'
+                if (!orgInfo.image) {
+                    html += '<div class="ngo-text-avatar">' + orgInfo.name.substr(0, 2) + '</div>';
+                } else {
+                    html += '<img src="' + '/Public/Uploaded/th150x150_' + orgInfo.image + '">';
                 }
-                html += '<li><a href="/User/view/id/' + ratings[i].id + '">' + ratings[i].name + '</a></li>';
+                html += '<div class="ngo-rating-level">' + orgInfo.rating_level + '</div>';
+                html += '<div class="rating-list-item-info">';
+                html += '<div class="name">' + orgInfo.name + '</div>';
+                html += '<div class="clearfix info-group">';
+                html += '<div class="info-item">注册时间：' + stringWithDefault(orgInfo.register_year, orgInfo.register_month) + '</div>';
+                html += '<div class="info-item">民政评估:' + stringWithDefault(orgInfo.gov_level) + '</div>';
+                html += '<div class="info-item">区域：' + stringWithDefault(orgInfo.province) + '</div>';
+                html += '<div class="info-item">注册类型：' + stringWithDefault(orgInfo.register_type) + '</div>';
+                html += '</div>';
+                html += '<div class="info-item">领域：' + stringWithDefault(orgInfo.work_field) + '</div>';
+                html += '</div>'
+                html += '</a></li>';
             }
             return html;
         }

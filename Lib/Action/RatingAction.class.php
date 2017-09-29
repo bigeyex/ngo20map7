@@ -2,10 +2,10 @@
 class RatingAction extends BaseAction
 {
 
-    public function ratings($work_field = "", $location = "", $keyword = "", $rating_level = null, $offset = 0) {
+    public function ratings($work_field = "", $location = "", $keyword = "", $rating_level = null, $offset = 0, $order=0) {
         $userModel = O("user");
 
-        $data = "type = 'ngo'";
+        $data = "type = 'ngo' and rating_level IS NOT NULL and is_checked=1 and enabled=1";
         if(isset($work_field) && $work_field != "") {
             $data .= "and MULTI_FIND_IN_SET('" . $work_field . "', work_field)";
         }
@@ -20,15 +20,22 @@ class RatingAction extends BaseAction
         }
         $limit = C("LIST_RECORD_PER_PAGE");
 
-        $levelCounts = null;
         if(!isset($offset) || $offset == 0) {
-            $offset = 0;
-            $levelCounts = $userModel->where($data)->group("rating_level")->field('rating_level, count(1) as count')->select();
+            $total = $userModel->where($data)->count();
         }
 
-        $ratings = $userModel->where($data)->order("rating_score desc, id")->limit($offset, $limit)->field('id, account_id, name, rating_level')->select();
+        if($order == 0) {
+            $orderStr = "rating_score desc, id";
+        } else {
+            $orderStr = "id desc";
+        }
 
-        $ret = array('ratings' => $ratings, 'counts' => $levelCounts);
+        $ratings = $userModel->where($data)->order($orderStr)->limit($offset, $limit)
+            ->field('id, account_id, name, image, register_year, register_month, gov_level, 
+                province, register_type, work_field, rating_level')
+            ->select();
+
+        $ret = array('ratings' => $ratings, 'total' => $total);
 
         return $this->ajaxReturn($ret);
     }

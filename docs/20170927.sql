@@ -1,0 +1,1 @@
+ALTER TABLE user ADD lead VARCHAR(50);

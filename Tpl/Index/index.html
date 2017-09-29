@@ -4,12 +4,15 @@
 {:css('jquery.mCustomScrollbar')}
 {:css('owl.carousel')}
 {:css('responsive-homepage')}
+{:css('bootstrap-ext')}
 </block>
 
 
 <block name="body">
 <div id="hero-region">
-    <div class="slideshow-wrapper">
+    <div class="clearfix">
+
+    <div class="slideshow-wrapper col-md-9 col-md-push-3">
           <div class="slideshow">
             <ul>
                 <li><a href="{:U('Index/map')}">
@@ -38,7 +41,17 @@
           <div class="icon-slideshow-left hide-phone"></div>
           <div class="icon-slideshow-right hide-phone"></div>
     </div>
-    
+    <div id="ngo-rating-promotion" class="col-md-3 col-md-pull-9 bg-ngo text-center">
+        <h3 class="pt-8">机构组织哪家强</h3>
+        <p class="text-lg-1">公益组织新增机构评级功能</p>
+        <p class="text-lg-1">看看哪些机构最靠谱</p>
+        <a class="pl-3 pr-3 pt-1 pb-1 mt-5 bg-white round-lg text-ngo text-lg-2 d-inline-block" href="{:U('Rating/view')}">进入评级数据库</a>
+        <div class="pos-absolute pos-b-0 w-100">
+            <img class="w-max-100" src="__APP__/Public/img/ngo-rating-chart.png">
+        </div>
+    </div>
+    </div>
+
     <div id="hero-slogan">
         <div id="hero-slogan-innerwrapper">
             <h2>{:L('HOME_SLOGAN')}</h2>
@@ -79,8 +92,36 @@
     </form>
 </div>
 
+<div class="row">
+    <div class="container rating-section">
+        <h2>评级结果展示</h2>
+        <div class="text-center text-ngo text-line-3">
+            <div class="col-md-4 mt-2 mb-2 mt-rating">
+                <p class="border-ngo-index-rating pl-3 pr-3">
+                    本周新增评级组织
+                    <span class="text-bg" id="weekly-increased">100</span>家
+                    <br>
+                    共<span class="text-bg" id="ngo-rating-total">532</span>家参与评级
+                </p>
+            </div>
+            <div class="col-md-4">
+                <div id="ngo-rating-chart">
+                    <img src="__APP__/Public/img/ngo-rating-pie.png">
+                </div>
+            </div>
+            <div class="col-md-4 mt-2 mb-2 mt-rating">
+                <p class="border-ngo-index-rating pl-6 pr-6">
+                    对接
+                    <span class="text-bg" id="partner-total">&nbsp;</span>家合作商
+                    <br>
+                    对接资金<span class="text-bg" id="fund-total">&nbsp;</span>万元
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="row gray-bg">
+<div class="row">
     <div class="container story-showcase">
         <h2 class="hide-phone">最新公益活动</h2>
         <p class="sub-title hide-phone">看看身边都发生了哪些公益新鲜事</p>
@@ -102,31 +143,7 @@
     </div>
 </div>
 
-<div class="row white-bg">
-    <div class="container brand-icons">
-        <h2>大家一起做公益</h2>
-        <p class="sub-title">每个人都可以找到自己的公益伴侣</p>
-        <div class="sub-container">
-            <div class="column column-ngo">
-                <div class="brand-icon brand-icon-ngo"><img class="mobile-only" src="__APP__/Public/img/icons/brandicon-ngo.png"/></div>
-                <h3>公益机构</h3>
-                <p>看看企业资助方都在关心什么</p>
-            </div>
-            <div class="column column-csr">
-                <div class="brand-icon brand-icon-csr"><img class="mobile-only" src="__APP__/Public/img/icons/brandicon-csr.png"/></div>
-                <h3>企业</h3>
-                <p>寻找值得合作的公益机构</p>
-            </div>
-            <div class="column column-ind">
-                <div class="brand-icon brand-icon-ind"><img class="mobile-only" src="__APP__/Public/img/icons/brandicon-ind.png"/></div>
-                <h3>公益人</h3>
-                <p>了解公益知道去哪里帮忙</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row gray-bg">
+<div class="row">
     <div class="container city-guide">
         <h2>{:L('HOME_FIND_NGOS_IN_CITIES')}</h2>
         <p class="sub-title hide-phone">{:L('HOME_FIND_NGOS_IN_CITIES_DESC')}</p>

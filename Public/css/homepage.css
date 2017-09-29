@@ -42,16 +42,9 @@
 }
 
 #hero-slogan{
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    width: 800px;
+    padding-top: 20px;
 }
 
-#hero-slogan-innerwrapper{
-    position: relative;
-    left: -50%;
-}
 
 #hero-search-bar{
     margin-left: auto;
@@ -74,11 +67,11 @@
     position: relative;
 }
 
-#hero-region .slideshow-wrapper{
-    width: 100%;
+#hero-region .slideshow-wrapper, #ngo-rating-promotion{
     height: 448px;
     overflow: hidden;
 }
+
 
 .slideshow li a{
     display: block;
@@ -134,6 +127,7 @@ have a fixed width and height (but it's not required).
 .slideshow li img{
     position: relative;
     margin-top: -2%;
+    margin-left: -5px;
 }
 
 #hero-slogan h2, #hero-slogan p.sub-title{

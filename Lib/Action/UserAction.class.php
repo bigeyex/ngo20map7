@@ -32,6 +32,13 @@ class UserAction extends BaseAction
             $related_users = O('user')->recommend($user);
         }
 
+        $recommendOrgsByProvince = O('user')->recommendByProvince($user);
+        $recommendOrgsByRatingScore = O('user')->recommendByRatingScore($user);
+        $countOrgs = O('user')->countOrgs();
+        $countOrgsInProvince = O('user')->countOrgs($user['province']);
+        $rank = O('user')->rankOrg($user['id']);
+        $rankInProvince = O('user')->rankOrg($user['id'], $user['province']);
+
         $medals = O('medal')->order('score desc')->select();
         $user_medal = O('medalmap')->with('user_id', $id)->select();
         $medal_arr = array();
@@ -53,6 +60,12 @@ class UserAction extends BaseAction
         $this->assign('user', $user);
         $this->assign('events', $events);
         $this->assign('related_users', $related_users);
+        $this->assign('recommend_orgs_by_province', $recommendOrgsByProvince);
+        $this->assign('recommend_orgs_by_rating_score', $recommendOrgsByRatingScore);
+        $this->assign('count_of_ngo_orgs', $countOrgs);
+        $this->assign('count_of_ngo_orgs_in_province', $countOrgsInProvince);
+        $this->assign('rank', $rank);
+        $this->assign('rank_in_province', $rankInProvince);
         if (isMobile()) {
             $this->display('m_view');
         } else {
