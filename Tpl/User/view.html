@@ -91,23 +91,24 @@
                     <tr><td>组织使命</td><td>{:assignStringWithDefaultValue($user['aim'])}</td></tr>
                     <tr><td>所在领域</td><td>{:assignStringWithDefaultValue($user['work_field'])}</td></tr>
                     <tr><td>服务地域</td><td>{:assignStringWithDefaultValue($user['service_area'])}</td></tr>
-                    <tr><td>办动地址</td><td>{:assignStringWithDefaultValue($user['place'])}</td></tr>
+                    <tr><td>办公地址</td><td>{:assignStringWithDefaultValue($user['place'])}</td></tr>
                     <tr><td>注册类型</td><td>{:assignStringWithDefaultValue($user['register_type'])}</td></tr>
-                    <tr><td>注册时间</td><td>{:assignStringWithDefaultValue($user['register_year'])}</td></tr>
-                    <tr><td>成立时间</td><td>{:assignStringWithDefaultValue($user['document_year'])}</td></tr>
+                    <tr><td>统一社会信用代码</td><td>{:assignStringWithDefaultValue($user['credit_code'])}</td></tr>
+                    <tr><td>登记管理机关</td><td>{:assignStringWithDefaultValue($user['registration_authority'])}</td></tr>
+                    <tr><td>业务管理机关</td><td>{:assignStringWithDefaultValue($user['competent_business_unit'])}</td></tr>
+                    <tr><td>注册时间</td><td>{:assignStringWithDefaultValue($user['documented_year'])}</td></tr>
+                    <tr><td>成立时间</td><td>{:assignStringWithDefaultValue($user['register_year'])}</td></tr>
                     <tr><td>联系人</td><td>{:assignStringWithDefaultValue($user['contact_name'])}</td></tr>
                     <tr><td>联系电话</td><td>{:assignStringWithDefaultValue($user['phone'])}</td></tr>
-                    <tr><td>网站</td><td>{:assignStringWithDefaultValue($user['website'])}</td></tr>
+                    <tr><td>网站</td><td>{:assignStringWithDefaultValue($user['website'], true)}</td></tr>
                     <tr><td>邮箱</td><td>
                         <?php if(isset($user['public_email'])): ?>
                         <a href="mailto:{$user['public_email']}">{$user['public_email']}</a>
-                        <?php else:?>
-                        暂无
                         <?php endif ?>
                     </td>
                     </tr>
-                    <tr><td>微博</td><td>{:assignStringWithDefaultValue($user['weibo'])}</td></tr>
-                    <tr><td>微信公众号</td><td>{:assignStringWithDefaultValue($user['wechat'])}</td></tr>
+                    <tr><td>微博</td><td>{:assignStringWithDefaultValue($user['weibo'], true)}</td></tr>
+                    <tr><td>微信公众号</td><td>{:assignStringWithDefaultValue($user['wechat'], true)}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -155,10 +156,11 @@
             <h4>财务&资金</h4>
             <table>
                 <tbody>
+                <tr><td>注册资金(元/万元）</td><td>{:assignStringWithDefaultValue($user['registered_capital'])}</td></tr>
                 <tr><td>资金来源</td><td>{:assignStringWithDefaultValue($user['fund_info'])}</td></tr>
                 <tr><td>财务人员</td><td>{:assignStringWithDefaultValue($user['accountant_status'])}</td></tr>
-                <tr><td>财务报告</td><td>{:existCh($user['financial_link'])}</td></tr>
-                <tr><td>财务公开链接</td><td>{:assignStringWithDefaultValue($user['financial_link'])}</td></tr>
+                <tr><td>财务报告</td><td>{:existCh($user['financial_link'], true)}</td></tr>
+                <tr><td>财务公开链接</td><td>{:assignStringWithDefaultValue($user['financial_link'], true)}</td></tr>
                 </tbody>
             </table>
         </div>

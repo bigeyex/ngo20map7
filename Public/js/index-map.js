@@ -45,7 +45,7 @@ function MapView(){
     
     this.init = function(){
         var script = document.createElement("script");
-        script.src = "http://api.map.baidu.com/api?v=1.5&ak=1m5xok7fCAjkwvynKoxxEnb1&callback=mapView.onload";
+        script.src = "http://api.map.baidu.com/api?v=2.0&ak=1m5xok7fCAjkwvynKoxxEnb1&callback=mapView.onload";
         document.body.appendChild(script);  
     };
     
@@ -94,14 +94,12 @@ function MapView(){
             lat_list = item.attr('lat').split(',');
             for(var i=0;i<lng_list.length;i++){
                 var marker = self.addMarker(lng_list[i], lat_list[i], item.attr('title'));
-                marker.domElement = this;
                 marker.addEventListener('mouseover', function(){
-                    var elem = $(this.domElement);
                     $('.result-list li').removeClass('active');
-                    elem.addClass('active');
+                    item.addClass('active');
                     this.hoverTimeout = setTimeout(function(){
                         $('.result-panel').animate({
-                            scrollTop: elem.offset().top-$('.result-list li').eq(0).offset().top
+                            scrollTop: item.offset().top-$('.result-list li').eq(0).offset().top
                         }, 500);
                     }, 200);
                 });

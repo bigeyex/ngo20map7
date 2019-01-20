@@ -204,13 +204,15 @@
                                 <div class="control-group">
                                     <label class="control-label" for="inputWeibo">机构微博</label>
                                     <div class="controls">
-                                        <select name="weibo_provider" class="input-small"
-                                                value="{$user.weibo_provider}">
-                                            <option value="新浪微博">新浪微博</option>
-                                            <option value="腾讯微博">腾讯微博</option>
-                                            <option value="搜狐微博">搜狐微博</option>
-                                        </select>
-                                        @<input type="text" id="inputWeibo" name="weibo" class="" value="{$user.weibo}">
+                                        <div class="caption"></div>
+                                        <input type="text" id="inputWeibo" name="weibo" class="span6" value="{$user.weibo}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="inputWeibo">微信公众号</label>
+                                    <div class="controls">
+                                        <div class="caption"></div>
+                                        <input type="text" id="inputWechat" name="wechat" class="span6" value="{$user.weibo}">
                                     </div>
                                 </div>
                                 <div class="submit-button controls">
@@ -306,7 +308,7 @@
                                 </div>
                                 <div class="control-group">
                                     <div class="controls">
-                                        <div class="caption">贵组织的负责人/领导人姓名</div>
+                                        <div class="caption">贵组织的负责人/领导人姓名<span style="color:red"> *</span></div>
                                         <input type="text" id="inputLead" name="lead" class="input-large required"
                                                placeholder="请输入组织的负责人/领导人姓名" value="{$user.lead}">
                                     </div>
@@ -494,8 +496,8 @@
                                             <option value="1">有</option>
                                             <option value="0">暂未获得奖项</option>
                                         </select>
-                                        <input type="text" name="reward_detail" class="inline-input hidden"
-                                               style="display:none;" placeholder="请列出具体奖项"/>
+                                        <input type="text" name="reward_detail" class="inline-input {$user.has_reward? 'hidden' : ''}"
+                                               {$user.has_reward? '': 'style=\"display:none;\"'} placeholder="请列出具体奖项" value="{$user.reward_detail|default=''}"/>
                                     </div>
                                 </div>
                                 <div class="control-group">

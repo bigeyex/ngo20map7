@@ -61,7 +61,7 @@
                 </div>
             </div>
             <ul class="rating-list"></ul>
-            <div class="rating-btn list-more">加载更多</div>
+            <div class="rating-btn list-more">共<span id="total"></span>家，点击加载更多</div>
     </div>
     <div class="partner-info">
         <div>
@@ -147,11 +147,17 @@
                 if (offset == 0) $('.rating-list').html('');
                 if (!data.ratings || data.ratings.length == 0) {
                     $('.list-more').hide();
+                    if (offset == 0) {
+                        $('.rating-list').html('<div style="text-align: center;margin:50px auto;font-size:1.5em;">' +
+                            '暂时没有找到您想要的结果，欢迎邀请更多的组织参与评级。' +
+                            '</div>')
+                    }
                     return;
                 }
                 if (offset == 0) {
                     $('.list-more').show();
                     total = data.total;
+                    $('#total').text(total);
                 }
 
                 offset += data.ratings.length;
@@ -188,7 +194,7 @@
                 html += '<div class="rating-list-item-info">';
                 html += '<div class="name">' + orgInfo.name + '</div>';
                 html += '<div class="clearfix info-group">';
-                html += '<div class="info-item">注册时间：' + stringWithDefault(orgInfo.register_year, orgInfo.register_month) + '</div>';
+                html += '<div class="info-item">成立时间：' + stringWithDefault(orgInfo.register_year, orgInfo.register_month) + '</div>';
                 html += '<div class="info-item">民政评估:' + stringWithDefault(orgInfo.gov_level) + '</div>';
                 html += '<div class="info-item">区域：' + stringWithDefault(orgInfo.province) + '</div>';
                 html += '<div class="info-item">注册类型：' + stringWithDefault(orgInfo.register_type) + '</div>';

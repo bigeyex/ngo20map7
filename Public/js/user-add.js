@@ -7,6 +7,7 @@
          $el.next().show();
        }
        else {
+         $el.next().val('');
          $el.next().hide();
        }
      });
